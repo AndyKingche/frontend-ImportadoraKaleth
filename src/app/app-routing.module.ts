@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 //Roles
 import { RolesFormComponent } from './components/roles-form/roles-form.component';
 import { RolesListComponent } from './components/roles-list/roles-list.component';
+//Estado civil
+import { EstadoCivilFormComponent } from './components/estado-civil-form/estado-civil-form.component';
+import { EstadoCivilListComponent } from './components/estado-civil-list/estado-civil-list.component';
 const routes: Routes = [
   {
     path:' ',
@@ -20,6 +23,17 @@ const routes: Routes = [
   ,{
     path:'rol-edit/:id',
     component:RolesFormComponent
+  },{
+    path:'civil-status',
+    component:EstadoCivilListComponent
+  },
+  {
+    path:'civil-status-add',
+    component:EstadoCivilFormComponent
+  },
+  {
+    path: 'civil-status-edit/:id',
+    component:EstadoCivilFormComponent
   }
 ];
 
