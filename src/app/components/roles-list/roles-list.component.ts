@@ -28,4 +28,14 @@ export class RolesListComponent implements OnInit {
     );
   }
 
+  deleteRol(id: number){
+    this.rolesservices.deleteRoles(id).subscribe(
+      res=>{
+        this.getRoles()
+      },
+      error => console.error(error)
+      
+    );
+  }
+
 }

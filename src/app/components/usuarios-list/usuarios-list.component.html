@@ -1,0 +1,46 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/user-add">Ingresar un Usuario</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Email</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Password</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Estado Civil</th>
+            <th scope="col">Genero</th>
+
+            <th scope="col">Elimnar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let usuario of usuarios">
+            <tr>
+                <td>{{usuario.id_usuarios}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.apellido}}</td>
+                <td>{{usuario.cedula}}</td>
+                <td>{{usuario.direccion}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.estado}}</td>
+                <td>{{usuario.fecha_nacimiento}}</td>
+                <td>{{usuario.password}}</td>
+                <td>{{usuario.telefono}}</td>
+                <td>{{usuario.estadocivil.nombre}}</td>
+                <td>{{usuario.genero.nombre}}</td>
+            
+                <td><button type="button" class="btn btn-danger" (click)="deleteUsuarios(usuario.id_usuarios)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/usuarios-edit/',usuario.id_usuarios]"> Actualizar Usuarios</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+

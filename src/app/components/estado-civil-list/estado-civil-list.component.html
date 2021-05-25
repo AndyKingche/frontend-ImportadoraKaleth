@@ -15,7 +15,7 @@
             <tr>
                 <td>{{state.id_estadocivil}}</td>
                 <td>{{state.nombre}}</td>
-                <td><button type="button" class="btn btn-danger" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteEstado_Civil(id)" >Eliminar</button></td>
                 <td><button type="button" class="btn btn-dark" [routerLink]="['/civil-status-edit/',state.id_estadocivil]"> Actualizar Rol</button></td>
               </tr>
           </tbody>

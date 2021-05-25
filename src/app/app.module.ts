@@ -11,6 +11,10 @@ import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EstadoCivilFormComponent } from './components/estado-civil-form/estado-civil-form.component';
 import { EstadoCivilListComponent } from './components/estado-civil-list/estado-civil-list.component';
+import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
+import { UsuariosListComponent } from './components/usuarios-list/usuarios-list.component';
+import { GeneroFormComponent } from './components/genero-form/genero-form.component';
+import { GeneroListComponent } from './components/genero-list/genero-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,11 @@ import { EstadoCivilListComponent } from './components/estado-civil-list/estado-
     RolesFormComponent,
     RolesListComponent,
     EstadoCivilFormComponent,
-    EstadoCivilListComponent
+    EstadoCivilListComponent,
+    UsuariosFormComponent,
+    UsuariosListComponent,
+    GeneroFormComponent,
+    GeneroListComponent
   ],
   imports: [
     BrowserModule,

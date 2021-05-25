@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Estado_Civl } from '../../models/Estado_Civil';
+import { Estado_Civil } from '../../models/Estado_Civil';
 import { EstadoCivilService } from '../../services/estado-civil.service';
 import { FormGroup } from '@angular/forms';
 
@@ -24,6 +24,17 @@ export class EstadoCivilListComponent implements OnInit {
       },
       err => console.error(err)
     );
+  }
+
+  deleteEstado_Civil(id: number)
+  {
+    this.estadocivilservice.deleteEsatdocivil(id).subscribe(
+      res => {
+        this.getEstado_Civil()
+      },
+      err => console.error(err)
+    );
+
   }
 
 }

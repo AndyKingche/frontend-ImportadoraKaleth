@@ -1,4 +1,4 @@
-export interface Estado_Civl{
+export interface Estado_Civil{
     id_estadocivil?:number;
     nombre?:string;
 }
