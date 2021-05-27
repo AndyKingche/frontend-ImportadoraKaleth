@@ -16,7 +16,7 @@
                  <div class="input-group mb-3">  
                         <label class="input-group-text" for="Roles">Roles</label>      
                         <select   class="js-example-placeholder-single js-states form-control"  id="roles" name="roles"  data-width="75%" required >
-                          <option  [attr.selected]="rolesEscogidos.id" [attr.value]="rolesEscogidos"></option>
+                          <option  [attr.selected]="rolesEscogidos.id_roles" [attr.value]="rolesEscogidos.id_roles"></option>
                           <option   *ngFor="let roles of roles"  name="rol" value="{{roles.id_roles}}" class="placeholder" >{{roles.nombre}}</option>   
                         </select>
                   </div>           

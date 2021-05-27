@@ -4,6 +4,7 @@ import { Roles } from '../../models/Roles';
 import { RolesService } from '../../services/roles.service';
 //Fromsulario
 import { FormGroup } from '@angular/forms';
+import { NotificacionService } from '../../services/notificacion.service';
 
 @Component({
   selector: 'app-roles-list',
@@ -13,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 export class RolesListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   roles : any = [];
-  constructor( private rolesservices : RolesService) { }
+  constructor( private rolesservices : RolesService, private notifiacion: NotificacionService) { }
 
   ngOnInit() {
     this.getRoles();
@@ -31,6 +32,7 @@ export class RolesListComponent implements OnInit {
   deleteRol(id: number){
     this.rolesservices.deleteRoles(id).subscribe(
       res=>{
+        this.notifiacion.showInfo('Se ha eliminado correctamente','Rol eliminado')
         this.getRoles()
       },
       error => console.error(error)

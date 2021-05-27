@@ -9,6 +9,9 @@ import { UsuariosService } from '../../services/usuarios.service';
 //Roles
 import { Roles } from '../../models/Roles';
 import { RolesService } from '../../services/roles.service';
+//
+import { NotificacionService } from '../../services/notificacion.service';
+
 declare let $: any;
 
 
@@ -34,7 +37,8 @@ export class RolesUsuariosFormComponent implements OnInit {
   constructor(private rolesservices: RolesService, 
     private usuariosservices: UsuariosService,
     private rolesusuariosservice: RolesUsuariosService,
-    private activedrouter: ActivatedRoute, private router : Router) { }
+    private activedrouter: ActivatedRoute, private router : Router,
+    private notificacion: NotificacionService) { }
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
@@ -96,31 +100,53 @@ export class RolesUsuariosFormComponent implements OnInit {
   }
 
   saveRolusuario(){
-    let opcionRol = $('#roles').val();
-    let opcionUsuario = $('#usuarios').val();
-    this.roles_usuarios.rol.id_roles=opcionRol;
-    this.roles_usuarios.user.id_usuarios=opcionUsuario;
-    this.rolesusuariosservice.saveRolusuario(this.roles_usuarios).subscribe(
-      res=>{
-        this.roles_usuarios.rol = {id_roles:0};
-        this.roles_usuarios.user = {id_usuarios:0}
-      },error => console.error(error)
-    );
+    if(this.testingreso()){
+      this.rolesusuariosservice.saveRolusuario(this.roles_usuarios).subscribe(
+        res=>{
+          setTimeout(()=>{
+            this.notificacion.showSuccess('El Rol del Usuario se agrego correctamente','Rol usuarios Agregado');
+          },200);
+          this.router.navigate(['/rol-user'])
+          
+        },error => console.error(error)
+      );
+
+    }else{
+      console.log("no se pudo")
+    }
   }
 
   updateRolusuario(){
-    let opcionRol = $('#roles').val();
-    let opcionUsuario = $('#usuarios').val();
-    this.roles_usuarios.rol.id_roles=opcionRol;
-    this.roles_usuarios.user.id_usuarios=opcionUsuario;
-    this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id_rolusuarios,this.roles_usuarios).subscribe(
-      res => {
-        this.roles_usuarios.rol = {id_roles:0};
-        this.roles_usuarios.user = {id_usuarios:0}
-        this.router.navigate(['/rol-user'])
+    
+    if(this.roles_usuarios.rol.id_roles &&
+      this.roles_usuarios.user.id_usuarios){
+        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id_rolusuarios,this.roles_usuarios).subscribe(
+          res => {
+            setTimeout(()=>{
+              this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
+              
+            },200);
+            this.router.navigate(['/rol-user'])
+          },error => {console.error(error)}
+        );
+
+      }else{
+        if(this.testingreso()){
+          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id_rolusuarios,this.roles_usuarios).subscribe(
+            res => {
+              setTimeout(()=>{
+                this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
+                
+              },200);
+              this.router.navigate(['/rol-user'])
+            },error => {console.error(error)}
+          );
+        }else{
+          this.notificacion.showError('Revisar si selecciono un Usuario o un Rol','** Error al Actualizar los Roles de Usuarios')
+        }
+
       }
-    );
-  }
+    }
 
 
 
@@ -139,5 +165,21 @@ export class RolesUsuariosFormComponent implements OnInit {
 
       },error => console.error(error)
     );
+  }
+  testingreso(){
+    let opcionRol = this.quitarespacios('#roles');
+    let opcionUsuario = this.quitarespacios('#usuarios');
+    if(opcionRol.length>0 &&
+      opcionUsuario.length>0){
+        this.roles_usuarios.rol.id_roles = opcionRol;
+        this.roles_usuarios.user.id_usuarios = opcionUsuario;
+        return true;
+      }else{
+        return false;
+      }
+  }
+  quitarespacios(atributoHTML:string){
+    let obtenerletras = $(atributoHTML).val();
+    return obtenerletras.trim();
   }
 }
