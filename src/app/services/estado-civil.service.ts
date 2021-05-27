@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Estado_Civil }from '../models/Estado_Civil';
+import { Estadocivil }from '../models/Estadocivil';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,11 +19,11 @@ export class EstadoCivilService {
 
   }
 
-  saveEstadocivil(estado_civil:Estado_Civil):Observable<Estado_Civil>{
+  saveEstadocivil(estado_civil:Estadocivil):Observable<Estadocivil>{
     return this.http.post(`${this.API_URI}`,estado_civil);
   }
 
-  updateEstadocivil(id:number, estado_civil:Estado_Civil):Observable<Estado_Civil>{
+  updateEstadocivil(id:number, estado_civil:Estadocivil):Observable<Estadocivil>{
     return this.http.put(`${this.API_URI}/${id}`,estado_civil)
   }
 

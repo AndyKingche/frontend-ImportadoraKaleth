@@ -15,6 +15,14 @@ import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.
 import { UsuariosListComponent } from './components/usuarios-list/usuarios-list.component';
 import { GeneroFormComponent } from './components/genero-form/genero-form.component';
 import { GeneroListComponent } from './components/genero-list/genero-list.component';
+import { RolesUsuariosFormComponent } from './components/roles-usuarios-form/roles-usuarios-form.component';
+import { RolesUsuariosListComponent } from './components/roles-usuarios-list/roles-usuarios-list.component';
+
+import { NgSelect2Module } from 'ng-select2';
+import { ToastrModule} from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,14 +34,19 @@ import { GeneroListComponent } from './components/genero-list/genero-list.compon
     UsuariosFormComponent,
     UsuariosListComponent,
     GeneroFormComponent,
-    GeneroListComponent
+    GeneroListComponent,
+    RolesUsuariosFormComponent,
+    RolesUsuariosListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelect2Module,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [RolesFormComponent],
   bootstrap: [AppComponent]

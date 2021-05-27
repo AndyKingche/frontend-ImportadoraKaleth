@@ -38,7 +38,7 @@
                 <td>{{usuario.genero.nombre}}</td>
             
                 <td><button type="button" class="btn btn-danger" (click)="deleteUsuarios(usuario.id_usuarios)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/usuarios-edit/',usuario.id_usuarios]"> Actualizar Usuarios</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/user-edit/',usuario.id_usuarios]"> Actualizar Usuarios</button></td>
               </tr>
           </tbody>
       </table> 

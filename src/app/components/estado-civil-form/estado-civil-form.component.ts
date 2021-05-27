@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Estado_Civil } from '../../models/Estado_Civil';
+import { Estadocivil } from '../../models/Estadocivil';
 import { EstadoCivilService } from '../../services/estado-civil.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EstadoCivilFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
-  state : Estado_Civil = {
+  state : Estadocivil = {
     nombre:''
   }
   edit : boolean = false;

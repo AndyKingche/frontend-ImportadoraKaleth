@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "b779dcf2-2f99-453c-a6fd-afd1c5460a29"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -25,11 +28,15 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/select2/dist/css/select2.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"]
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/select2/dist/js/select2.min.js"
+            ]
           },
           "configurations": {
             "production": {

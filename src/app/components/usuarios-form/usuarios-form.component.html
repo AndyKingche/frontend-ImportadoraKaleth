@@ -1,1 +1,87 @@
-<p>usuarios-form works!</p>
+<div class="content">
+    <div class="container-fluid">
+        <form>
+          <!-- Este div es solo para el nombre -->
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input type="text" class="form-control" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre">
+            </div>
+            <!-- este div es para el apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.apellido" name="apellido" placeholder="Apellido">
+            </div>
+            <!--  -->
+            <div class="form-group">
+                <label for="cedula">Cedula:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.cedula" name="cedula" placeholder="Cedula">
+            </div>
+        <!-- Direccion -->
+            <div class="form-group">
+                <label for="direccion">Direccion:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.direccion" name="direccion" placeholder="Direccion">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email">
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.password" name="password" placeholder="Password">
+            </div>
+            <!-- Telefono -->
+            <div class="form-group">
+                <label for="telefono">Telefono:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono" placeholder="Telefono">
+            </div>
+            <!-- fecha Nacimiento -->
+              <div class="form-group">
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+              </div>
+              <!-- estado -->
+              <div class="form-control">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text"  for="Estado">Estado</label>
+                    </div>
+                    <select   class="js-example-placeholder-single js-states form-control" [(ngModel)]="user.estado" id="estados" name="estados" data-width="auto" required >
+                      
+                      <option   *ngFor="let estados of estados"  name="estado" value="{{estados.id}}" class="placeholder" >{{estados.nombre}}</option>   
+                      
+                    </select>
+                  </div>
+            </div>
+
+          <div class="form-control">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="Estado Civil">Estado Civil</label> 
+                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="estadociviles" name="estadociviles"  data-width="auto" required >
+                    <option  [attr.selected]="estadocivilEscogido.id_estadocivil" [attr.value]="estadocivilEscogido.id_esatdocivil"></option>
+                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.id_estadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
+                  </select>
+                </div>
+          </div>
+
+              <div class="form-control">
+                 <div class="input-group mb-3">  
+                        <label class="input-group-text" for="Genero">Genero</label>      
+                        <select   class="js-example-placeholder-single js-states form-control"  id="generos" name="generos"  data-width="auto" required >
+                          <option  [attr.selected]="generoEscogido.id_genero" [attr.value]="generoEscogido.id_genero"></option>
+                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.id_genero}}" class="placeholder" >{{generos.nombre}}</option>   
+                        </select>
+                  </div>           
+              </div>
+
+           <div class="form-group">
+               <button  class="btn btn-primary" (click)="edit ? updateUsuario() : saveUsuario()">Aceptar</button>
+               <button type="button" class="btn btn-info" routerLink="/user">Regresar</button>
+              
+            </div>
+        </form>
+      </div>
+</div>
+
+
+

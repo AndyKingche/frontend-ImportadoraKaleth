@@ -10,7 +10,7 @@ export interface Usuarios{
     nombre?:string;
     password?:string;
     telefono?:string;
-    estado_civil?:{id:number};
-    genero?:{id:number}
+    estadocivil?:{id_estadocivil:number};
+    genero?:{id_genero:number}
  
 }

@@ -12,7 +12,9 @@ import { GeneroListComponent } from './components/genero-list/genero-list.compon
 //Usuarios
 import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
 import { UsuariosListComponent } from './components/usuarios-list/usuarios-list.component';
-
+//Rol-Usuarios
+import { RolesUsuariosFormComponent } from './components/roles-usuarios-form/roles-usuarios-form.component';
+import { RolesUsuariosListComponent } from './components/roles-usuarios-list/roles-usuarios-list.component';
 const routes: Routes = [
   {
     path:' ',
@@ -62,6 +64,18 @@ const routes: Routes = [
   {
     path: 'user-edit/:id',
     component: UsuariosFormComponent
+  },
+  {
+    path:'rol-user',
+    component: RolesUsuariosListComponent
+  },
+  {
+    path:'rol-user-add',
+    component: RolesUsuariosFormComponent
+  },
+  {
+    path: 'rol-user-edit/:id',
+    component: RolesUsuariosFormComponent
   }
 ];
 

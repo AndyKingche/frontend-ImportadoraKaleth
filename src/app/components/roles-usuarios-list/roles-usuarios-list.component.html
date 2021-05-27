@@ -1,0 +1,25 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/rol-user-add">Ingresar un nuevo Genero</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre Usuario</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let rol_users  of rol_users">
+            <tr>
+                <td>{{rol_users.id_rolusuarios}}</td>
+                <td>{{rol_users.user.nombre}}  {{rol_users.user.apellido}}</td>
+                <td>{{rol_users.rol.rol}} </td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteRolusuarios(rol_users.id_rolusuarios)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-user-edit/',rol_users.id_rolusuarios]"> Actualizar Rol</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
