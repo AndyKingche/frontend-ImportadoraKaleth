@@ -1,0 +1,28 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/product-add">Ingresar un nuevo Producto</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Medida/Talla</th>
+            <th scope="col">Diseños</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let productos  of productos">
+            <tr>
+                <td>{{productos.id_productos}}</td>
+                <td>{{productos.categoria.nombre}}</td>
+                <td>{{productos.tallas.nombre}} </td>
+                <td>{{productos.disenos.nombre}} </td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.id_productos)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.id_productos]"> Actualizar Rol</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+

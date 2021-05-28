@@ -21,6 +21,14 @@ import { RolesUsuariosListComponent } from './components/roles-usuarios-list/rol
 import { NgSelect2Module } from 'ng-select2';
 import { ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
+import { CategoriaListComponent } from './components/categoria-list/categoria-list.component';
+import { MedidaFormComponent } from './components/medida-form/medida-form.component';
+import { MedidaListComponent } from './components/medida-list/medida-list.component';
+import { DisenosFormComponent } from './components/disenos-form/disenos-form.component';
+import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
+import { ProductoListComponent } from './components/producto-list/producto-list.component';
 
 
 @NgModule({
@@ -36,7 +44,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GeneroFormComponent,
     GeneroListComponent,
     RolesUsuariosFormComponent,
-    RolesUsuariosListComponent
+    RolesUsuariosListComponent,
+    CategoriaFormComponent,
+    CategoriaListComponent,
+    MedidaFormComponent,
+    MedidaListComponent,
+    DisenosFormComponent,
+    DisenosListComponent,
+    ProductoFormComponent,
+    ProductoListComponent
   ],
   imports: [
     BrowserModule,

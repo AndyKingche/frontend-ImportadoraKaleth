@@ -1,0 +1,49 @@
+<div class="content">
+    <div class="container-fluid">
+        <form>
+            <!-- Categorias  -->
+          <div class="form-control">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="Categoria">Categoria</label> 
+                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="categorias" name="categorias"  data-width="75%" required >
+                    <option  [attr.selected]="categoriaEscogida.id_categoria" [attr.value]="categoriaEscogida.id_categoria"></option>
+                    <option   *ngFor="let categoria of categoria"  name="categoria" value="{{categoria.id_categoria}}" class="placeholder" >{{categoria.nombre}}</option>   
+                  </select>
+                </div>
+          </div>
+          <!-- Tallas -->
+              <div class="form-control">
+                 <div class="input-group mb-3">  
+                        <label class="input-group-text" for="Tallas">Tallas</label>      
+                        <select   class="js-example-placeholder-single js-states form-control"  id="tallas" name="tallas"  data-width="75%" required >
+                          <option  [attr.selected]="tallasEscogida.id_tallas" [attr.value]="tallasEscogida.id_tallas"></option>
+                          <option   *ngFor="let tallas of tallas"  name="tallas" value="{{tallas.id_tallas}}" class="placeholder" >{{tallas.nombre}}</option>   
+                        </select>
+                  </div>           
+              </div>
+
+              <!-- Disenos -->
+
+              <div class="form-control">
+                <div class="input-group mb-3">  
+                       <label class="input-group-text" for="Disenos">Disenos</label>      
+                       <select   class="js-example-placeholder-single js-states form-control"  id="disenos" name="disenos"  data-width="75%" required >
+                         <option  [attr.selected]="disenosEscogida.id_disenos" [attr.value]="disenosEscogida.id_disenos"></option>
+                         <option   *ngFor="let disenos of disenos"  name="disenos" value="{{disenos.id_disenos}}" class="placeholder" >{{disenos.nombre}}</option>   
+                       </select>
+                 </div>           
+             </div>
+
+           <div class="form-group">
+               <button  class="btn btn-primary" (click)="edit ? updateProductos() : saveProductos()">Aceptar</button>
+               <button type="button" class="btn btn-info" routerLink="/product">Regresar</button>
+              
+            </div>
+        </form>
+      </div>
+</div>
+
+
+
+
+
