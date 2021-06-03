@@ -67,7 +67,7 @@ export class CategoriaFormComponent implements OnInit {
     if(nombre.length > 0){
       this.categorias.nombre = nombre;
       this.categorias.descripcion = descripcion;
-      this.categoriaservice.updateCategoria(this.categorias.id_categoria, this.categorias).subscribe(
+      this.categoriaservice.updateCategoria(this.categorias.id, this.categorias).subscribe(
         res => {
           this.categorias.nombre = '';
           this.categorias.descripcion = '';

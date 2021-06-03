@@ -29,8 +29,8 @@ export class RolesUsuariosFormComponent implements OnInit {
   rolesEscogidos: any =[];
 
   roles_usuarios: Rolusuarios ={
-    rol:{id_roles:0},
-    user:{id_usuarios:0}
+    rol:{id_roles:""},
+    user:{id_usuarios:""}
   }
   roles_usuariosEscogidos: any [];
   edit: boolean = false;
@@ -120,7 +120,7 @@ export class RolesUsuariosFormComponent implements OnInit {
     
     if(this.roles_usuarios.rol.id_roles &&
       this.roles_usuarios.user.id_usuarios){
-        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id_rolusuarios,this.roles_usuarios).subscribe(
+        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuarios).subscribe(
           res => {
             setTimeout(()=>{
               this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
@@ -132,7 +132,7 @@ export class RolesUsuariosFormComponent implements OnInit {
 
       }else{
         if(this.testingreso()){
-          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id_rolusuarios,this.roles_usuarios).subscribe(
+          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuarios).subscribe(
             res => {
               setTimeout(()=>{
                 this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');

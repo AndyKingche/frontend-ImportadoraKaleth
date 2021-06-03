@@ -17,8 +17,8 @@
             <tr>
                 <td>{{productos.id_productos}}</td>
                 <td>{{productos.categoria.nombre}}</td>
-                <td>{{productos.tallas.nombre}} </td>
-                <td>{{productos.disenos.nombre}} </td>
+                <td>{{productos.medida.nombre}} </td>
+                <td>{{productos.diseno.nombre}} </td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.id_productos)" >Eliminar</button></td>
                 <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.id_productos]"> Actualizar Rol</button></td>
               </tr>

@@ -28,7 +28,7 @@ export class ProductoListComponent implements OnInit {
     );
   }
 
-  deleteProductos(id:number){
+  deleteProductos(id:string){
     this.productoservices.deleteProducto(id).subscribe(
       res=>{
         setTimeout(()=>{

@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Tallas } from '../../models/Tallas';
+import { Tallas } from '../../models/Medida';
 import { MedidaService } from '../../services/medida.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -69,7 +69,7 @@ export class MedidaFormComponent implements OnInit {
     if(nombre.length > 0){
       this.tallas.nombre = nombre;
       this.tallas.descripcion = descripcion;
-      this.tallasservice.updateTalla(this.tallas.id_tallas ,this.tallas).subscribe(
+      this.tallasservice.updateTalla(this.tallas.id ,this.tallas).subscribe(
         res => {
           this.tallas.nombre = '';
           this.tallas.descripcion = '';

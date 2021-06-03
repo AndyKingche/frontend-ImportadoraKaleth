@@ -29,7 +29,7 @@ export class RolesListComponent implements OnInit {
     );
   }
 
-  deleteRol(id: number){
+  deleteRol(id: string){
     this.rolesservices.deleteRoles(id).subscribe(
       res=>{
         this.notifiacion.showInfo('Se ha eliminado correctamente','Rol eliminado')

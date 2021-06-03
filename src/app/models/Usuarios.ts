@@ -1,6 +1,6 @@
 
 export interface Usuarios{
-    id_usuarios?:number;
+    id?:string;
     apellido?:string;
     cedula?:string;
     direccion?:string;
@@ -10,7 +10,7 @@ export interface Usuarios{
     nombre?:string;
     password?:string;
     telefono?:string;
-    estadocivil?:{id_estadocivil:number};
-    genero?:{id_genero:number}
+    estadocivil?:string;
+    genero?:string
  
 }

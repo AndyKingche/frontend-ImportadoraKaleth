@@ -2,10 +2,7 @@ import { Component, HostBinding, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Usuarios } from "../../models/Usuarios";
 import { UsuariosService } from "../../services/usuarios.service";
-import { EstadoCivilService } from "../../services/estado-civil.service";
-import { Estadocivil } from "../../models/Estadocivil";
-import { Genero } from "../../models/Genero";
-import { GeneroService } from "../../services/genero.service";
+
 import { NotificacionService } from "../../services/notificacion.service";
 
 declare let $: any;
@@ -17,10 +14,6 @@ declare let $: any;
 })
 export class UsuariosFormComponent implements OnInit {
   @HostBinding("class") classes = "row";
-  estadocivil: Estadocivil;
-  estadocivilEscogido: any = [];
-  genero: Genero;
-  generoEscogido: any = [];
   user: Usuarios = {
     apellido: "",
     cedula: "",
@@ -31,19 +24,24 @@ export class UsuariosFormComponent implements OnInit {
     nombre: "",
     password: "",
     telefono: "",
-    estadocivil: { id_estadocivil: 0 },
-    genero: { id_genero: 0 },
+    estadocivil: "",
+    genero: "",
   };
   edit: boolean = false;
+  //Estados
   estados: any = [];
   estadosEscogidos: any = {
     id: true,
     nombre: " ",
   };
+  //generos
+  generos: any = [];
+  generoEscogido: any =[];
+  //estadoscivil
+  estadosciviles: any = [];
+  estadocivilEscogido: any = [];
   constructor(
     private usuariosservice: UsuariosService,
-    private generoservice: GeneroService,
-    private estadocivilservice: EstadoCivilService,
     private activedrouter: ActivatedRoute,
     private router: Router,
     private notificacion: NotificacionService
@@ -73,32 +71,16 @@ export class UsuariosFormComponent implements OnInit {
                 allowClear: true,
               });
             }
+            $('#estadociviles').select2({
+              placeholder:this.user.estadocivil,
+              allowClear:true
+            });
+            $('#generos').select2({
+              placeholder: this.user.genero,
+              allowClear: true
+            })
 
-            this.estadocivilservice
-              .getEstadocivil(this.user.genero.id_genero)
-              .subscribe(
-                (resul) => {
-                  this.estadocivilEscogido = resul;
 
-                  $("#estadociviles").select2({
-                    placeholder: this.estadocivilEscogido.nombre,
-                    allowClear: true,
-                  });
-                },
-                (err) => console.error(err)
-              );
-
-            this.generoservice.getGenero(this.user.genero.id_genero).subscribe(
-              (result) => {
-                this.generoEscogido = result;
-
-                $("#generos").select2({
-                  placeholder: this.generoEscogido.nombre,
-                  allowClear: true,
-                });
-              },
-              (err) => console.error(err)
-            );
             this.edit = true;
           } else {
             this.router.navigate(["/user"]);
@@ -135,17 +117,17 @@ export class UsuariosFormComponent implements OnInit {
         console.log(this.user);
         this.usuariosservice.saveUsuario(this.user).subscribe(
           (res) => {
-            (this.user.apellido = " "),
-              (this.user.cedula = " "),
-              (this.user.direccion = " "),
-              (this.user.email = " "),
-              (this.user.estado = " "),
-              (this.user.fecha_nacimiento = " "),
-              (this.user.nombre = " "),
-              (this.user.password = " "),
-              (this.user.telefono = " "),
-              (this.user.estadocivil = { id_estadocivil: 0 }),
-              (this.user.genero = { id_genero: 0 });
+            (this.user.apellido = ""),
+              (this.user.cedula = ""),
+              (this.user.direccion = ""),
+              (this.user.email = ""),
+              (this.user.estado = ""),
+              (this.user.fecha_nacimiento = ""),
+              (this.user.nombre = ""),
+              (this.user.password = ""),
+              (this.user.telefono = ""),
+              (this.user.estadocivil =""),
+              (this.user.genero = "");
             setTimeout(() => {
               this.notificacion.showSuccess(
                 "El Usuario se ha agregado correctamente",
@@ -178,10 +160,10 @@ export class UsuariosFormComponent implements OnInit {
         this.user.telefono &&
         this.user.fecha_nacimiento &&
         this.user.estado &&
-        this.user.estadocivil.id_estadocivil &&
-        this.user.genero.id_genero){
+        this.user.estadocivil &&
+        this.user.genero){
           this.usuariosservice
-          .updateUsuario(this.user.id_usuarios, this.user)
+          .updateUsuario(this.user.id, this.user)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -198,7 +180,7 @@ export class UsuariosFormComponent implements OnInit {
         console.log("si entre")
         if(this.testingresar()){
           this.usuariosservice
-          .updateUsuario(this.user.id_usuarios, this.user)
+          .updateUsuario(this.user.id, this.user)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -223,21 +205,34 @@ export class UsuariosFormComponent implements OnInit {
   }
 
   getEstadocivil() {
-    this.estadocivilservice.getEstadociviles().subscribe(
-      (res) => {
-        this.estadocivil = res;
-      },
-      (error) => console.error(error)
-    );
+    this.estadosciviles = [
+      {
+        id:0,
+        estadocivil:"Soltero/Soltera"
+    },{
+      id:1,
+      estadocivil:"Casado/Casada"
+    },{
+      id:2,
+      estadocivil:"Divorciado/Divorciada"
+    },{
+      id:3,
+      estadocivil:"Union Libre"
+    }];
   }
 
   getGenero() {
-    this.generoservice.getGeneros().subscribe(
-      (res) => {
-        this.genero = res;
-      },
-      (error) => console.error(error)
-    );
+    this.generos = [
+      {
+        id:0,
+        genero:"Hombre"
+    },{
+      id:1,
+      genero:"Mujer"
+    },{
+      id:2,
+      genero:"Otros"
+    }];
   }
 
   getEstado() {
@@ -262,8 +257,8 @@ export class UsuariosFormComponent implements OnInit {
   testingresar() {
     //select
     let opcionEstado = $("#estados").val(); //este no por que me devuelve un null
-    let opcionEstadocivil = this.quitarespacios('#estadociviles');
-    let opcionGenero = this.quitarespacios("#generos");
+    let opcionEstadocivil = $('#estadociviles').val();
+    let opcionGenero = $("#generos").val();
 
     //input
     let obtenerNombre = this.quitarespacios("#nombre");
@@ -296,8 +291,8 @@ export class UsuariosFormComponent implements OnInit {
       this.user.telefono = obtenerTelefono;
       this.user.fecha_nacimiento = obtenerFechaNacimiento;
       this.user.estado = opcionEstado;
-      this.user.estadocivil.id_estadocivil = opcionEstadocivil;
-      this.user.genero.id_genero = opcionGenero;
+      this.user.estadocivil = opcionEstadocivil;
+      this.user.genero = opcionGenero;
 
       return true;
     } else {

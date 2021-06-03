@@ -1,5 +1,5 @@
 export interface Tallas{
-    id_tallas?:number;
+    id?:string;
     nombre?:string;
     descripcion?:string;
 }

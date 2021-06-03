@@ -13,7 +13,7 @@ export class CategoriaService {
     return this.http.get(`${this.API_URI}`);
   }
   
-  getCategoria(id:number){
+  getCategoria(id:string){
     return this.http.get(`${this.API_URI}/${id}`);
 
   }
@@ -24,11 +24,11 @@ export class CategoriaService {
     return this.http.post(`${this.API_URI}`,categoria);
   }
 
-  updateCategoria(id:number, categoria:Categorias):Observable<Categorias>{
+  updateCategoria(id:string, categoria:Categorias):Observable<Categorias>{
     return this.http.put(`${this.API_URI}/${id}`,categoria)
   }
 
-  deleteCategoria(id:number){
+  deleteCategoria(id:string){
     return this.http.delete(`${this.API_URI}/${id}`)
   }
 }

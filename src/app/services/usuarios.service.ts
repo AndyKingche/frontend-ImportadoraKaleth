@@ -16,7 +16,7 @@ export class UsuariosService {
     return this.http.get(`${this.API_URI}`);
   }
 
-  getUsuario(id: number){
+  getUsuario(id: string){
     return this.http.get(`${this.API_URI}/${id}`);
 
   }
@@ -26,11 +26,11 @@ export class UsuariosService {
     return this.http.post(`${this.API_URI}`,usuarios);
   }
 
-  updateUsuario(id:number, usuarios: Usuarios):Observable<Usuarios>{
+  updateUsuario(id:string, usuarios: Usuarios):Observable<Usuarios>{
     return this.http.put(`${this.API_URI}/${id}`,usuarios);
   }
 
-  deleteUsuario(id:number){
+  deleteUsuario(id:string){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 

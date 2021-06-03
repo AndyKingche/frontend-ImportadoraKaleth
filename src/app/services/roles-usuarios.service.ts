@@ -14,7 +14,7 @@ export class RolesUsuariosService {
     return this.http.get(`${this.API_URI}`)
   }
 
-  getRolusuario(id: number){
+  getRolusuario(id: string){
     return this.http.get(`${this.API_URI}/${id}`);
   }
 
@@ -22,11 +22,11 @@ export class RolesUsuariosService {
     return this.http.post(`${this.API_URI}`,rolusuario);
 
   }
-  updateRolusaurio(id:number, rolusuario: Rolusuarios):Observable<Rolusuarios>{
+  updateRolusaurio(id:string, rolusuario: Rolusuarios):Observable<Rolusuarios>{
     return this.http.put(`${this.API_URI}/${id}`,rolusuario);
   }
 
-  deleteRolusuario(id:number){
+  deleteRolusuario(id:string){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 }

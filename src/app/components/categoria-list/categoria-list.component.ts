@@ -29,7 +29,7 @@ export class CategoriaListComponent implements OnInit {
     );
   }
 
-  deleteCategoria(id: number)
+  deleteCategoria(id: string)
   {
     this.categoriaservice.deleteCategoria(id).subscribe(
       res => {

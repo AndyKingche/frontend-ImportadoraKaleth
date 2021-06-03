@@ -53,23 +53,23 @@
                     </select>
                   </div>
             </div>
-
+<!-- Estados civiles -->
           <div class="form-control">
               <div class="input-group mb-3">
                 <label class="input-group-text" for="Estado Civil">Estado Civil</label> 
-                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="estadociviles" name="estadociviles"  data-width="auto" required >
-                    <option  [attr.selected]="estadocivilEscogido.id_estadocivil" [attr.value]="estadocivilEscogido.id_esatdocivil"></option>
-                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.id_estadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
+                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" [(ngModel)]="user.estadocivil" id="estadociviles" name="estadociviles"  data-width="auto" required >
+                    
+                    <option   *ngFor="let estadosciviles of estadosciviles"  name="estadocivil" value="{{estadosciviles.estadocivil}}" class="placeholder" >{{estadosciviles.estadocivil}}</option>   
                   </select>
                 </div>
           </div>
-
+          <!-- Genero -->
               <div class="form-control">
                  <div class="input-group mb-3">  
                         <label class="input-group-text" for="Genero">Genero</label>      
-                        <select   class="js-example-placeholder-single js-states form-control"  id="generos" name="generos"  data-width="auto" required >
-                          <option  [attr.selected]="generoEscogido.id_genero" [attr.value]="generoEscogido.id_genero"></option>
-                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.id_genero}}" class="placeholder" >{{generos.nombre}}</option>   
+                        <select   class="js-example-placeholder-single js-states form-control"  [(ngModel)]="user.genero" id="generos" name="generos"  data-width="auto" required >
+                          
+                          <option   *ngFor="let generos of generos"  name="genero" value="{{generos.genero}}" class="placeholder" >{{generos.genero}}</option>   
                         </select>
                   </div>           
               </div>

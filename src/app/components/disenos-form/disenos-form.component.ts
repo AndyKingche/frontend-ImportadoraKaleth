@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Disenos } from '../../models/Disenos';
+import { Disenos } from '../../models/Diseno';
 import { DisenosService } from '../../services/disenos.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -64,7 +64,7 @@ export class DisenosFormComponent implements OnInit {
     if(nombre.length > 0){
       this.disenos.nombre = nombre;
       
-      this.disenoservice.updateDiseno(this.disenos.id_disenos, this.disenos).subscribe(
+      this.disenoservice.updateDiseno(this.disenos.id, this.disenos).subscribe(
         res => {
           this.disenos.nombre = '';
          

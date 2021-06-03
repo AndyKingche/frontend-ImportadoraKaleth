@@ -13,7 +13,7 @@ export class ProductoService {
     return this.http.get(`${this.API_URI}`)
   }
 
-  getProducto(id: number){
+  getProducto(id: string){
     return this.http.get(`${this.API_URI}/${id}`);
   }
 
@@ -21,11 +21,11 @@ export class ProductoService {
     return this.http.post(`${this.API_URI}`,producto);
 
   }
-  updateProducto(id:number, producto: Productos):Observable<Productos>{
+  updateProducto(id:string, producto: Productos):Observable<Productos>{
     return this.http.put(`${this.API_URI}/${id}`,producto);
   }
 
-  deleteProducto(id:number){
+  deleteProducto(id:string){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 }

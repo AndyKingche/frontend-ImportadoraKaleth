@@ -4,10 +4,10 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { Productos } from '../../models/Productos';
 import { ProductoService } from '../../services/producto.service'; 
 //Tallas
-import { Tallas } from '../../models/Tallas';
+import { Tallas } from '../../models/Medida';
 import { MedidaService } from '../../services/medida.service';
 //Disenos
-import { Disenos } from '../../models/Disenos';
+import { Disenos } from '../../models/Diseno';
 import { DisenosService } from '../../services/disenos.service';
 // categoria 
 import { Categorias } from '../../models/Categorias';
@@ -35,9 +35,9 @@ disenosEscogida: any = [];
  tallasEscogida: any = [];
 
   productos: Productos ={
-    categoria:{id_categoria:0},
-    tallas:{id_tallas:0},
-    disenos:{id_disenos:0}
+    categoria:{id_categoria:""},
+    medida:{id_tallas:""},
+    diseno:{id_disenos:""}
   }
   productosEscogidos: any [];
   edit: boolean = false;
@@ -57,7 +57,7 @@ disenosEscogida: any = [];
           if(res!= null){
             console.log(res);
             this.productos = res;
-            this.medidaservice.getTalla(this.productos.tallas.id_tallas).subscribe(
+            this.medidaservice.getTalla(this.productos.medida.id_tallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
                 $('#tallas').select2(
@@ -80,7 +80,7 @@ disenosEscogida: any = [];
               error => console.error(error)
               );
 
-              this.diesnosservice.getDiseno(this.productos.disenos.id_disenos).subscribe(
+              this.diesnosservice.getDiseno(this.productos.diseno.id_disenos).subscribe(
                 res=>{
                   this.disenosEscogida = res;
                   $('#disenos').select2({
@@ -149,9 +149,9 @@ disenosEscogida: any = [];
   updateProductos(){
     
     if(this.productos.categoria.id_categoria &&
-      this.productos.disenos.id_disenos &&
-      this.productos.tallas.id_tallas ){
-        this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+      this.productos.diseno.id_disenos &&
+      this.productos.medida.id_tallas ){
+        this.productoservices.updateProducto(this.productos.id,this.productos).subscribe(
           res => {
             setTimeout(()=>{
               this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
@@ -163,7 +163,7 @@ disenosEscogida: any = [];
 
       }else{
         if(this.testingreso()){
-          this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+          this.productoservices.updateProducto(this.productos.id,this.productos).subscribe(
             res => {
               setTimeout(()=>{
                 this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
@@ -214,9 +214,9 @@ disenosEscogida: any = [];
     if(opcionTallas.length>0 &&
       opcionCategoria.length>0 &&
       opcionDisenos.length>0 ){
-        this.productos.tallas.id_tallas = opcionTallas;
+        this.productos.medida.id_tallas = opcionTallas;
         this.productos.categoria.id_categoria = opcionCategoria;
-        this.productos.disenos.id_disenos = opcionDisenos;
+        this.productos.diseno.id_disenos = opcionDisenos;
         console.log(this.productos)
         return true;
       }else{
