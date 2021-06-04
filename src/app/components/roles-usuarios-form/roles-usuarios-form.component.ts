@@ -54,6 +54,8 @@ export class RolesUsuariosFormComponent implements OnInit {
           if(res!= null){
             console.log(res);
             this.roles_usuarios = res;
+            this.roles_usuariosnew.usuarios = this.roles_usuarios.usuarios.id;
+            this.roles_usuariosnew.rol = this.roles_usuarios.rol.id;
             this.usuariosservices.getUsuario(this.roles_usuarios.usuarios.id).subscribe(
               res=>{
                 this.usuariosEscogidos = res;
@@ -122,36 +124,26 @@ export class RolesUsuariosFormComponent implements OnInit {
   }
 
   updateRolusuario(){
-    
-    if(this.roles_usuarios.rol.id &&
-      this.roles_usuarios.usuarios.id){
-        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuariosnew).subscribe(
-          res => {
-            setTimeout(()=>{
-              this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
-              
-            },200);
-            this.router.navigate(['/rol-user'])
-          },error => {console.error(error)}
-        );
-
-      }else{
-        if(this.testingreso()){
-          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuariosnew).subscribe(
-            res => {
-              setTimeout(()=>{
-                this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
-                
-              },200);
-              this.router.navigate(['/rol-user'])
-            },error => {console.error(error)}
-          );
-        }else{
-          this.notificacion.showError('Revisar si selecciono un Usuario o un Rol','** Error al Actualizar los Roles de Usuarios')
-        }
-
+    try {
+      if(this.roles_usuarios.rol.id &&
+        this.roles_usuarios.usuarios.id){
+          if(this.testingreso()){
+            this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuariosnew).subscribe(
+              res => {
+                setTimeout(()=>{
+                  this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
+                  
+                },200);
+                this.router.navigate(['/rol-user'])
+              },error => {console.error(error)}
+            );
+          }
       }
+    } catch (error) {
+      this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
     }
+    
+  }
 
 
 
@@ -172,8 +164,8 @@ export class RolesUsuariosFormComponent implements OnInit {
     );
   }
   testingreso(){
-    let opcionRol = this.quitarespacios('#roles');
-    let opcionUsuario = this.quitarespacios('#usuarios');
+    let opcionRol = $('#roles').val();
+    let opcionUsuario = $('#usuarios').val();
     if(opcionRol.length>0 &&
       opcionUsuario.length>0){
         this.roles_usuariosnew.rol = opcionRol;

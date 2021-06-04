@@ -162,44 +162,27 @@ export class UsuariosFormComponent implements OnInit {
         this.user.estado &&
         this.user.estadocivil &&
         this.user.genero){
-          this.usuariosservice
-          .updateUsuario(this.user.id, this.user)
-          .subscribe(
-            (res) => {
-              setTimeout(() => {
-                this.notificacion.showSuccess(
-                  "El usuario se edito correctamente",
-                  "Usuario Editado"
-                );
-              }, 100);
-              this.router.navigate(["/user"]);
-            },
-            (error) => console.error(error)
-          );
-      }else{
-        console.log("si entre")
-        if(this.testingresar()){
-          this.usuariosservice
-          .updateUsuario(this.user.id, this.user)
-          .subscribe(
-            (res) => {
-              setTimeout(() => {
-                this.notificacion.showSuccess(
-                  "El usuario se edito correctamente",
-                  "Usuario Editado"
-                );
-              }, 100);
-              this.router.navigate(["/user"]);
-            },
-            (error) => console.error(error)
-          );
-        }else{
-          this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
-        }
+          if(this.testingresar()){
+            this.usuariosservice
+            .updateUsuario(this.user.id, this.user)
+            .subscribe(
+              (res) => {
+                setTimeout(() => {
+                  this.notificacion.showSuccess(
+                    "El usuario se edito correctamente",
+                    "Usuario Editado"
+                  );
+                }, 100);
+                this.router.navigate(["/user"]);
+              },
+              (error) => console.error(error)
+            );
+          }else{
+            this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
+          }
       }
-       
     } catch (error) {
-      console.log(error);
+      this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
     }
     
   }
