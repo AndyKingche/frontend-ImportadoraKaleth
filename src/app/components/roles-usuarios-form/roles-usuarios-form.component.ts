@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 //Roles usuarios
 import { Rolusuarios } from '../../models/Rolusuarios';
+import { Rolusuariosnew } from '../../models/Rolusuariosnew';
 import { RolesUsuariosService } from '../../services/roles-usuarios.service'; 
 //Usuarios
 import { Usuarios } from '../../models/Usuarios';
@@ -29,9 +30,13 @@ export class RolesUsuariosFormComponent implements OnInit {
   rolesEscogidos: any =[];
 
   roles_usuarios: Rolusuarios ={
-    rol:{id_roles:""},
-    user:{id_usuarios:""}
+    rol:{id:""},
+    usuarios:{id:""}
   }
+  roles_usuariosnew: Rolusuariosnew={
+    rol:"",
+    usuarios:""
+  };
   roles_usuariosEscogidos: any [];
   edit: boolean = false;
   constructor(private rolesservices: RolesService, 
@@ -49,7 +54,7 @@ export class RolesUsuariosFormComponent implements OnInit {
           if(res!= null){
             console.log(res);
             this.roles_usuarios = res;
-            this.usuariosservices.getUsuario(this.roles_usuarios.user.id_usuarios).subscribe(
+            this.usuariosservices.getUsuario(this.roles_usuarios.usuarios.id).subscribe(
               res=>{
                 this.usuariosEscogidos = res;
                 $('#usuarios').select2(
@@ -61,7 +66,7 @@ export class RolesUsuariosFormComponent implements OnInit {
                 );
               },error => console.error(error)
             );
-            this.rolesservices.getRol(this.roles_usuarios.rol.id_roles).subscribe(
+            this.rolesservices.getRol(this.roles_usuarios.rol.id).subscribe(
               res=>{
                 this.rolesEscogidos = res;
                 $('#roles').select2({
@@ -101,7 +106,7 @@ export class RolesUsuariosFormComponent implements OnInit {
 
   saveRolusuario(){
     if(this.testingreso()){
-      this.rolesusuariosservice.saveRolusuario(this.roles_usuarios).subscribe(
+      this.rolesusuariosservice.saveRolusuario(this.roles_usuariosnew).subscribe(
         res=>{
           setTimeout(()=>{
             this.notificacion.showSuccess('El Rol del Usuario se agrego correctamente','Rol usuarios Agregado');
@@ -118,9 +123,9 @@ export class RolesUsuariosFormComponent implements OnInit {
 
   updateRolusuario(){
     
-    if(this.roles_usuarios.rol.id_roles &&
-      this.roles_usuarios.user.id_usuarios){
-        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuarios).subscribe(
+    if(this.roles_usuarios.rol.id &&
+      this.roles_usuarios.usuarios.id){
+        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuariosnew).subscribe(
           res => {
             setTimeout(()=>{
               this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
@@ -132,7 +137,7 @@ export class RolesUsuariosFormComponent implements OnInit {
 
       }else{
         if(this.testingreso()){
-          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuarios).subscribe(
+          this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id,this.roles_usuariosnew).subscribe(
             res => {
               setTimeout(()=>{
                 this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
@@ -171,8 +176,8 @@ export class RolesUsuariosFormComponent implements OnInit {
     let opcionUsuario = this.quitarespacios('#usuarios');
     if(opcionRol.length>0 &&
       opcionUsuario.length>0){
-        this.roles_usuarios.rol.id_roles = opcionRol;
-        this.roles_usuarios.user.id_usuarios = opcionUsuario;
+        this.roles_usuariosnew.rol = opcionRol;
+        this.roles_usuariosnew.usuarios = opcionUsuario;
         return true;
       }else{
         return false;

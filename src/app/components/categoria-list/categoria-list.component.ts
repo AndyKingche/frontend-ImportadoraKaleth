@@ -24,6 +24,7 @@ export class CategoriaListComponent implements OnInit {
     this.categoriaservice.getCategorias().subscribe(
       res => {
         this.categorias = res
+       
       },
       err => console.error(err)
     );

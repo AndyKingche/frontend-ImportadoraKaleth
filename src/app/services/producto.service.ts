@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Productos } from '../models/Productos';
+import { Productosnew } from '../models/Productosnew';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class ProductoService {
     return this.http.get(`${this.API_URI}/${id}`);
   }
 
-  saveProducto(producto: Productos): Observable<Productos>{
+  saveProducto(producto: Productosnew): Observable<Productosnew>{
     return this.http.post(`${this.API_URI}`,producto);
 
   }
-  updateProducto(id:string, producto: Productos):Observable<Productos>{
+  updateProducto(id:string, producto: Productosnew):Observable<Productosnew>{
     return this.http.put(`${this.API_URI}/${id}`,producto);
   }
 

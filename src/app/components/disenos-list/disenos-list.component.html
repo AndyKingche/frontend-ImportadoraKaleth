@@ -17,8 +17,8 @@
                 <td>{{disenos.id_categoria}}</td>
                 <td>{{disenos.nombre}}</td>
                 
-                <td><button type="button" class="btn btn-danger" (click)="deleteDisenos(disenos.id_disenos)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/design-edit/',disenos.id_disenos]"> Actualizar Categoria</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteDisenos(disenos.id)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/design-edit/',disenos.id]"> Actualizar Categoria</button></td>
               </tr>
           </tbody>
       </table> 

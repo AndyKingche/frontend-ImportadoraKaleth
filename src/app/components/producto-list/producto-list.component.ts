@@ -21,7 +21,7 @@ export class ProductoListComponent implements OnInit {
   getProductos(){
     this.productoservices.getProductos().subscribe(
       res =>{
-        console.log(res)
+        //console.log(res)
         this.productos = res;
       },err => console.error(err)
       
