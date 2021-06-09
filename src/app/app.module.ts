@@ -26,7 +26,12 @@ import { DisenosListComponent } from './components/disenos-list/disenos-list.com
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/producto-list/producto-list.component';
 
-
+//firebase
+import { AngularFireModule } from '@angular/fire';
+import {  AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+import { LoginComponent } from './components/login/login.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +49,9 @@ import { ProductoListComponent } from './components/producto-list/producto-list.
     DisenosFormComponent,
     DisenosListComponent,
     ProductoFormComponent,
-    ProductoListComponent
+    ProductoListComponent,
+    LoginComponent,
+    LoginRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,9 @@ import { ProductoListComponent } from './components/producto-list/producto-list.
     ReactiveFormsModule,
     NgSelect2Module,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [RolesFormComponent],
   bootstrap: [AppComponent]

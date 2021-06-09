@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angularautentificacionexample": {
+      "hosting": {
+        "importkaleth": [
+          "angularautentificacionexample"
+        ]
+      }
+    }
+  }
+}

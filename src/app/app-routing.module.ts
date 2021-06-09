@@ -20,7 +20,10 @@ import { DisenosFormComponent } from './components/disenos-form/disenos-form.com
 import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
 //producto
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
-import { ProductoListComponent } from './components/producto-list/producto-list.component'
+import { ProductoListComponent } from './components/producto-list/producto-list.component';
+//login
+import { LoginComponent } from './components/login/login.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 
 const routes: Routes = [
   {
@@ -112,6 +115,14 @@ const routes: Routes = [
   {
     path: 'product-edit/:id',
     component: ProductoFormComponent
+  },
+  {
+    path:'login-kaleth',
+    component: LoginComponent
+  },
+  {
+    path:'login-register',
+    component: LoginRegisterComponent
   }
 ];
 
