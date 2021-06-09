@@ -1,6 +1,6 @@
 
 export interface Rolusuarios{
-    id?:string;
-    rol?: {id:string};
-    usuarios?: {id:string};
+    id_rolusuarios?:number;
+    rol?: {id_roles:number};
+    user?: {id_usuarios:number};
 }

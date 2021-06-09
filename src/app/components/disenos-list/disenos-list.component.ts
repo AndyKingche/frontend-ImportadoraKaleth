@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Disenos } from '../../models/Diseno';
+import { Disenos } from '../../models/Disenos';
 import { DisenosService } from '../../services/disenos.service';
 import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../services/notificacion.service';
@@ -29,7 +29,7 @@ export class DisenosListComponent implements OnInit {
     );
   }
 
-  deleteDisenos(id: string)
+  deleteDisenos(id: number)
   {
     this.disenoservice.deleteDiseno(id).subscribe(
       res => {

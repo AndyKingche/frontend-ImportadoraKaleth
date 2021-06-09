@@ -5,7 +5,7 @@
     <table class="table table-hover">
         <thead>
           <tr>
-           
+            <th scope="col">#</th>
             <th scope="col">Talla</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Elimnar</th>
@@ -14,11 +14,11 @@
         </thead>
         <tbody *ngFor="let medida of medidas">
             <tr>
-               
+                <td>{{medida.id_tallas}}</td>
                 <td>{{medida.nombre}}</td>
                 <td>{{medida.descripcion}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteTallas(medida.id)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/size-edit/',medida.id]"> Actualizar Medida</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteTallas(medida.id_tallas)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/size-edit/',medida.id_tallas]"> Actualizar Medida</button></td>
               </tr>
           </tbody>
       </table> 

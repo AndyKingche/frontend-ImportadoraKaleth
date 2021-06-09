@@ -15,7 +15,7 @@ export class RolesService {
     return this.http.get(`${this.API_URI}`);
   }
 
-  getRol(id:string){
+  getRol(id:number){
     return this.http.get(`${this.API_URI}/${id}`)
   }
 
@@ -23,11 +23,11 @@ export class RolesService {
     return this.http.post(`${this.API_URI}`,roles);
   }
 
-  updateRoles(id:string,roles:Roles):Observable<Roles>{
+  updateRoles(id:number,roles:Roles):Observable<Roles>{
     return this.http.put(`${this.API_URI}/${id}`,roles);
   }
 
-  deleteRoles(id:string){
+  deleteRoles(id:number){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 

@@ -28,7 +28,7 @@ export class RolesUsuariosListComponent implements OnInit {
     );
   }
 
-  deleteRolusuarios(id:string){
+  deleteRolusuarios(id:number){
     this.rolesusuarioservices.deleteRolusuario(id).subscribe(
       res=>{
         setTimeout(()=>{

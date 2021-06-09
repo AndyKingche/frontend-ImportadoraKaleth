@@ -24,13 +24,12 @@ export class CategoriaListComponent implements OnInit {
     this.categoriaservice.getCategorias().subscribe(
       res => {
         this.categorias = res
-       
       },
       err => console.error(err)
     );
   }
 
-  deleteCategoria(id: string)
+  deleteCategoria(id: number)
   {
     this.categoriaservice.deleteCategoria(id).subscribe(
       res => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 
-import { Tallas } from '../models/Medida';
+import { Tallas } from '../models/Tallas';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class MedidaService {
     return this.http.get(`${this.API_URI}`);
   }
 
-  getTalla(id: string){
+  getTalla(id: number){
     return this.http.get(`${this.API_URI}/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class MedidaService {
     return this.http.post(`${this.API_URI}`,talla)
   }
 
-  updateTalla(id: string, talla: Tallas):Observable<Tallas>{
+  updateTalla(id: number, talla: Tallas):Observable<Tallas>{
     return this.http.put(`${this.API_URI}/${id}`, talla);
   }
 
-  deleteTalla(id: string){
+  deleteTalla(id: number){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 }

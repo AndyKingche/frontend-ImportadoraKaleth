@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+          <label for="nombre">Nombre del Estado Civil</label>
+          <input type="text" class="form-control" [(ngModel)]="state.nombre" id="nombre" name="nombre" placeholder="Nombre del Estado Civil">
+        </div>
+       <div class="form-group">
+           <button  class="btn btn-primary" (click)="edit ? updateEstado_Civil() : saveEstado_Civil()">Agregar Estado Civil</button>
+           <button type="button" class="btn btn-info" routerLink="/civil-status">Regresar</button>
+       </div>
+     
+    </form>
+  </div>

@@ -1,6 +1,6 @@
 export interface Productos{
-    id?:string;
-    categoria?:{id:string},
-    disenos?:{id:string},
-    medida?:{id:string}
+    id_productos?:number;
+    categoria?:{id_categoria:0},
+    disenos?:{id_disenos:0},
+    tallas?:{id_tallas:0}
 }

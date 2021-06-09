@@ -85,7 +85,7 @@ export class RolesFormComponent implements OnInit {
       this.rol.rol = obtenerRol;
       this.rol.descripcion = obtenerDescripcion;
 
-      this.rolesService.updateRoles(this.rol.id, this.rol).subscribe(
+      this.rolesService.updateRoles(this.rol.id_roles, this.rol).subscribe(
         res=>{
           this.rol.nombre =' ';
           this.rol.descripcion = '' ;

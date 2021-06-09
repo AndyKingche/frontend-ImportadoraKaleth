@@ -27,7 +27,7 @@ export class MedidaListComponent implements OnInit {
     );
   }
 
-  deleteTallas(id: string)
+  deleteTallas(id: number)
   {
     this.medidaservice.deleteTalla(id).subscribe(
       res => {

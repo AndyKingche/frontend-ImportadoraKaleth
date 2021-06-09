@@ -28,7 +28,7 @@ export class UsuariosListComponent implements OnInit {
     );
   }
 
-  deleteUsuarios(id:string){
+  deleteUsuarios(id:number){
     try {
       
       this.usuariosservices.deleteUsuario(id).subscribe(

@@ -2,13 +2,12 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 //Productos
 import { Productos } from '../../models/Productos';
-import { Productosnew } from '../../models/Productosnew';
 import { ProductoService } from '../../services/producto.service'; 
 //Tallas
-import { Tallas } from '../../models/Medida';
+import { Tallas } from '../../models/Tallas';
 import { MedidaService } from '../../services/medida.service';
 //Disenos
-import { Disenos } from '../../models/Diseno';
+import { Disenos } from '../../models/Disenos';
 import { DisenosService } from '../../services/disenos.service';
 // categoria 
 import { Categorias } from '../../models/Categorias';
@@ -36,14 +35,9 @@ disenosEscogida: any = [];
  tallasEscogida: any = [];
 
   productos: Productos ={
-    categoria:{id:""},
-    medida:{id:""},
-    disenos:{id:""}
-  }
-  productos_new:Productosnew={
-    categoria:"",
-    medida:"",
-    disenos:""
+    categoria:{id_categoria:0},
+    tallas:{id_tallas:0},
+    disenos:{id_disenos:0}
   }
   productosEscogidos: any [];
   edit: boolean = false;
@@ -61,12 +55,9 @@ disenosEscogida: any = [];
       this.productoservices.getProducto(params.id).subscribe(
         res=>{
           if(res!= null){
-            //console.log(res);
+            console.log(res);
             this.productos = res;
-            this.productos_new.categoria = this.productos.categoria.id;
-            this.productos_new.disenos = this.productos.disenos.id;
-            this.productos_new.medida = this.productos.medida.id;
-            this.medidaservice.getTalla(this.productos.medida.id).subscribe(
+            this.medidaservice.getTalla(this.productos.tallas.id_tallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
                 $('#tallas').select2(
@@ -78,7 +69,7 @@ disenosEscogida: any = [];
                 );
               },error => console.error(error)
             );
-            this.categoriaservices.getCategoria(this.productos.categoria.id).subscribe(
+            this.categoriaservices.getCategoria(this.productos.categoria.id_categoria).subscribe(
               res=>{
                 this.categoriaEscogida = res;
                 $('#categorias').select2({
@@ -89,7 +80,7 @@ disenosEscogida: any = [];
               error => console.error(error)
               );
 
-              this.diesnosservice.getDiseno(this.productos.disenos.id).subscribe(
+              this.diesnosservice.getDiseno(this.productos.disenos.id_disenos).subscribe(
                 res=>{
                   this.disenosEscogida = res;
                   $('#disenos').select2({
@@ -138,9 +129,9 @@ disenosEscogida: any = [];
   }
 
   saveProductos(){
-    
     if(this.testingreso()){
-      this.productoservices.saveProducto(this.productos_new).subscribe(
+      console.log("los productos son",this.productos)
+      this.productoservices.saveProducto(this.productos).subscribe(
         res=>{
           setTimeout(()=>{
             this.notificacion.showSuccess('El Producto se agrego correctamente','Producto agregado');
@@ -156,32 +147,36 @@ disenosEscogida: any = [];
   }
 
   updateProductos(){
-    try {
-      if(this.productos.categoria.id &&
-        this.productos.disenos.id &&
-        this.productos.medida.id  ){
-         
-          if(this.testingreso()){
-            this.productoservices.updateProducto(this.productos.id,this.productos_new).subscribe(
-              res => {
-                setTimeout(()=>{
-                  this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
-                  
-                },200);
-                this.router.navigate(['/product'])
-              },error => {
-                console.error("Error")
-            }
-            );
-          }
-  
-       }
-      
-    } catch (error) {
-      this.notificacion.showError('Revisar si seleccionaron los campos Categoria, Diseños, Medida','** Error al Actualizar los productos')
-      
-    }
     
+    if(this.productos.categoria.id_categoria &&
+      this.productos.disenos.id_disenos &&
+      this.productos.tallas.id_tallas ){
+        this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+          res => {
+            setTimeout(()=>{
+              this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
+              
+            },200);
+            this.router.navigate(['/product'])
+          },error => {console.error(error)}
+        );
+
+      }else{
+        if(this.testingreso()){
+          this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+            res => {
+              setTimeout(()=>{
+                this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
+                
+              },200);
+              this.router.navigate(['/product'])
+            },error => {console.error(error)}
+          );
+        }else{
+          this.notificacion.showError('Revisar si selecciono un Usuario o un Rol','** Error al Actualizar los Roles de Usuarios')
+        }
+
+      }
     }
 
 
@@ -213,29 +208,23 @@ disenosEscogida: any = [];
   }
 
   testingreso(){
-    let opcionTallas = $('#tallas').val();
-    let opcionCategoria = $('#categorias').val();
-    let opcionDisenos = $('#disenos').val();
-    opcionTallas =  opcionTallas ? opcionTallas : null;
-    opcionDisenos = opcionDisenos ? opcionDisenos : null ;
-    opcionCategoria = opcionCategoria ? opcionCategoria : null;
-
-        if(opcionTallas.length>0 &&
+    let opcionTallas = this.quitarespacios('#tallas');
+    let opcionCategoria = this.quitarespacios('#categorias');
+    let opcionDisenos = this.quitarespacios('#disenos');
+    if(opcionTallas.length>0 &&
       opcionCategoria.length>0 &&
       opcionDisenos.length>0 ){
-        this.productos_new.medida = opcionTallas;
-        this.productos_new.categoria = opcionCategoria;
-        this.productos_new.disenos = opcionDisenos;
-        
+        this.productos.tallas.id_tallas = opcionTallas;
+        this.productos.categoria.id_categoria = opcionCategoria;
+        this.productos.disenos.id_disenos = opcionDisenos;
+        console.log(this.productos)
         return true;
       }else{
-        
         return false;
       }
   }
   quitarespacios(atributoHTML:string){
     let obtenerletras = $(atributoHTML).val();
-
     return obtenerletras.trim();
   }
 }
