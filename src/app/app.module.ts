@@ -29,6 +29,10 @@ import { DisenosFormComponent } from './components/disenos-form/disenos-form.com
 import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/producto-list/producto-list.component';
+import { PuntosVentasFormComponent } from './components/puntos-ventas-form/puntos-ventas-form.component';
+import { PuntosVentasListComponent } from './components/puntos-ventas-list/puntos-ventas-list.component';
+import { CatStockFormComponent } from './components/cat-stock-form/cat-stock-form.component';
+import { CatStockListComponent } from './components/cat-stock-list/cat-stock-list.component';
 
 
 @NgModule({
@@ -52,7 +56,11 @@ import { ProductoListComponent } from './components/producto-list/producto-list.
     DisenosFormComponent,
     DisenosListComponent,
     ProductoFormComponent,
-    ProductoListComponent
+    ProductoListComponent,
+    PuntosVentasFormComponent,
+    PuntosVentasListComponent,
+    CatStockFormComponent,
+    CatStockListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+            <label for="nombreLocal">Nombre del Local</label>
+            <input type="text" class="form-control" [(ngModel)]="puntosventas.nombrelocal" id="nombrelocal" name="nombrelocal"
+                placeholder="Nombre del Local">
+
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" [(ngModel)]="puntosventas.direccion" id="direccion" name="direccion"
+                placeholder="Ingrese la dirección del local">
+
+        </div>
+        <div class="form-group">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" class="form-control" [(ngModel)]="puntosventas.ciudad" id="ciudad" name="ciudad"
+                placeholder="Ingrese Ciudad">
+
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="number" class="form-control" [(ngModel)]="puntosventas.telefono" id="telefono" name="telefono"
+                placeholder="Digite el número de teléfono del local">
+
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" (click)="edit ? updatePuntosVentas() : savePuntosVentas()">Agregar
+                Puntos de venta</button>
+            <button type="button" class="btn btn-info" routerLink="/sales-points">Regresar</button>
+        </div>
+
+    </form>
+</div>

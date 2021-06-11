@@ -27,6 +27,9 @@ import { DisenosListComponent } from './components/disenos-list/disenos-list.com
 //producto
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/producto-list/producto-list.component'
+//puntos ventas
+import {PuntosVentasFormComponent} from './components/puntos-ventas-form/puntos-ventas-form.component' 
+import {PuntosVentasListComponent} from './components/puntos-ventas-list/puntos-ventas-list.component'
 
 const routes: Routes = [
   {
@@ -139,6 +142,21 @@ const routes: Routes = [
     path: 'product-edit/:id',
     component: ProductoFormComponent
   }
+
+  ,
+  {
+    path:'sales-points',
+    component: PuntosVentasListComponent
+  },
+  {
+    path:'sales-points-add',
+    component: PuntosVentasFormComponent
+  },
+  {
+    path: 'sales-points-edit/:id',
+    component: PuntosVentasFormComponent
+  }
+
 ];
 
 @NgModule({

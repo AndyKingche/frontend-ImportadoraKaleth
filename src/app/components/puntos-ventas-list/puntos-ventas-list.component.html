@@ -1,0 +1,32 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/sales-points-add">Ingresar un nuevo Punto de Venta</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre Local</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let puntosventa  of puntosVentas">
+            <tr>
+                <td>{{puntosventa.id_puntosventa}}</td>
+                <td>{{puntosventa.nombrelocal}}</td>
+                <td>{{puntosventa.direccion}}</td>
+                <td>{{puntosventa.ciudad}}</td>
+                <td>{{puntosventa.telefono}}</td>
+                
+                
+                <td><button type="button" class="btn btn-danger" (click)="deletePuntosVentas(puntosventa.id_puntosventa)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/sales-points-edit/',puntosventa.id_puntosventa]"> Actualizar Punto de Venta</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+
