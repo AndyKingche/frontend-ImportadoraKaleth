@@ -27,6 +27,11 @@ import { DisenosListComponent } from './components/disenos-list/disenos-list.com
 //producto
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/producto-list/producto-list.component'
+//cliente
+
+import { ClientsFormComponent } from './components/clients-form/clients-form.component';
+import { ClientsListComponent } from './components/clients-list/clients-list.component'
+
 
 const routes: Routes = [
   {
@@ -138,6 +143,18 @@ const routes: Routes = [
   {
     path: 'product-edit/:id',
     component: ProductoFormComponent
+  },
+  {
+    path:'client',
+    component: ClientsListComponent
+  },
+  {
+    path:'client-add',
+    component: ClientsFormComponent
+  },
+  {
+    path:'client-edit/:id',
+    component: ClientsFormComponent
   }
 ];
 

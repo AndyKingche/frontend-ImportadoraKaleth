@@ -29,6 +29,10 @@ import { DisenosFormComponent } from './components/disenos-form/disenos-form.com
 import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/producto-list/producto-list.component';
+import { ClientsFormComponent } from './components/clients-form/clients-form.component';
+import { ClientsListComponent } from './components/clients-list/clients-list.component';
+import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
+import { NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
 
 
 @NgModule({
@@ -52,7 +56,11 @@ import { ProductoListComponent } from './components/producto-list/producto-list.
     DisenosFormComponent,
     DisenosListComponent,
     ProductoFormComponent,
-    ProductoListComponent
+    ProductoListComponent,
+    ClientsFormComponent,
+    ClientsListComponent,
+    NavigationCustomerComponent,
+    NavigationCashierComponent
   ],
   imports: [
     BrowserModule,
