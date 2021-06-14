@@ -5,34 +5,34 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { RolesFormComponent } from './components/roles-form/roles-form.component';
-import { RolesListComponent } from './components/roles-list/roles-list.component';
+import { RolesFormComponent } from './components/moduloUsuarios/roles-form/roles-form.component';
+import { RolesListComponent } from './components/moduloUsuarios/roles-list/roles-list.component';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EstadoCivilFormComponent } from './components/estado-civil-form/estado-civil-form.component';
-import { EstadoCivilListComponent } from './components/estado-civil-list/estado-civil-list.component';
-import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
-import { UsuariosListComponent } from './components/usuarios-list/usuarios-list.component';
-import { GeneroFormComponent } from './components/genero-form/genero-form.component';
-import { GeneroListComponent } from './components/genero-list/genero-list.component';
-import { RolesUsuariosFormComponent } from './components/roles-usuarios-form/roles-usuarios-form.component';
-import { RolesUsuariosListComponent } from './components/roles-usuarios-list/roles-usuarios-list.component';
+import { EstadoCivilFormComponent } from './components/moduloUsuarios/estado-civil-form/estado-civil-form.component';
+import { EstadoCivilListComponent } from './components/moduloUsuarios/estado-civil-list/estado-civil-list.component';
+import { UsuariosFormComponent } from './components/moduloUsuarios/usuarios-form/usuarios-form.component';
+import { UsuariosListComponent } from './components/moduloUsuarios/usuarios-list/usuarios-list.component';
+import { GeneroFormComponent } from './components/moduloUsuarios/genero-form/genero-form.component';
+import { GeneroListComponent } from './components/moduloUsuarios/genero-list/genero-list.component';
+import { RolesUsuariosFormComponent } from './components/moduloUsuarios/roles-usuarios-form/roles-usuarios-form.component';
+import { RolesUsuariosListComponent } from './components/moduloUsuarios/roles-usuarios-list/roles-usuarios-list.component';
 
 import { NgSelect2Module } from 'ng-select2';
 import { ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
-import { CategoriaListComponent } from './components/categoria-list/categoria-list.component';
-import { MedidaFormComponent } from './components/medida-form/medida-form.component';
-import { MedidaListComponent } from './components/medida-list/medida-list.component';
-import { DisenosFormComponent } from './components/disenos-form/disenos-form.component';
-import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
-import { ProductoFormComponent } from './components/producto-form/producto-form.component';
-import { ProductoListComponent } from './components/producto-list/producto-list.component';
-import { ClientsFormComponent } from './components/clients-form/clients-form.component';
-import { ClientsListComponent } from './components/clients-list/clients-list.component';
-import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
-import { NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
+import { CategoriaFormComponent } from './components/moduloProducto/categoria-form/categoria-form.component';
+import { CategoriaListComponent } from './components/moduloProducto/categoria-list/categoria-list.component';
+import { MedidaFormComponent } from './components/moduloProducto/medida-form/medida-form.component';
+import { MedidaListComponent } from './components/moduloProducto/medida-list/medida-list.component';
+import { DisenosFormComponent } from './components/moduloProducto/disenos-form/disenos-form.component';
+import { DisenosListComponent } from './components/moduloProducto/disenos-list/disenos-list.component';
+import { ProductoFormComponent } from './components/moduloProducto/producto-form/producto-form.component';
+import { ProductoListComponent } from './components/moduloProducto/producto-list/producto-list.component';
+import { PuntosVentasFormComponent } from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component';
+import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component';
+
+
 
 
 @NgModule({
@@ -57,10 +57,8 @@ import { NavigationCashierComponent } from './components/navigation-cashier/navi
     DisenosListComponent,
     ProductoFormComponent,
     ProductoListComponent,
-    ClientsFormComponent,
-    ClientsListComponent,
-    NavigationCustomerComponent,
-    NavigationCashierComponent
+    PuntosVentasFormComponent,
+    PuntosVentasListComponent
   ],
   imports: [
     BrowserModule,

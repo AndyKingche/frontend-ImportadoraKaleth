@@ -1,0 +1,27 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/design-add">Ingresar un nuevo Diseño</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+
+            <th scope="col">Elimnar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let disenos of disenos">
+            <tr>
+                <td>{{disenos.idDisenos}}</td>
+                <td>{{disenos.nombre}}</td>
+                
+                <td><button type="button" class="btn btn-danger" (click)="deleteDisenos(disenos.idDisenos)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/design-edit/',disenos.idDisenos]"> Actualizar Categoria</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+
+
