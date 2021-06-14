@@ -1,35 +1,35 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //Roles
-import { RolesFormComponent } from './components/roles-form/roles-form.component';
-import { RolesListComponent } from './components/roles-list/roles-list.component';
+import { RolesFormComponent } from './components/moduloUsuarios/roles-form/roles-form.component';
+import { RolesListComponent } from './components/moduloUsuarios/roles-list/roles-list.component';
 //Estado civil
-import { EstadoCivilFormComponent } from './components/estado-civil-form/estado-civil-form.component';
-import { EstadoCivilListComponent } from './components/estado-civil-list/estado-civil-list.component';
+import { EstadoCivilFormComponent } from './components/moduloUsuarios/estado-civil-form/estado-civil-form.component';
+import { EstadoCivilListComponent } from './components/moduloUsuarios/estado-civil-list/estado-civil-list.component';
 //Genero
-import { GeneroFormComponent } from './components/genero-form/genero-form.component';
-import { GeneroListComponent } from './components/genero-list/genero-list.component';
+import { GeneroFormComponent } from './components/moduloUsuarios/genero-form/genero-form.component';
+import { GeneroListComponent } from './components/moduloUsuarios/genero-list/genero-list.component';
 //Usuarios
-import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
-import { UsuariosListComponent } from './components/usuarios-list/usuarios-list.component';
+import { UsuariosFormComponent } from './components/moduloUsuarios/usuarios-form/usuarios-form.component';
+import { UsuariosListComponent } from './components/moduloUsuarios/usuarios-list/usuarios-list.component';
 //Rol-Usuarios
-import { RolesUsuariosFormComponent } from './components/roles-usuarios-form/roles-usuarios-form.component';
-import { RolesUsuariosListComponent } from './components/roles-usuarios-list/roles-usuarios-list.component';
+import { RolesUsuariosFormComponent } from './components/moduloUsuarios/roles-usuarios-form/roles-usuarios-form.component';
+import { RolesUsuariosListComponent } from './components/moduloUsuarios/roles-usuarios-list/roles-usuarios-list.component';
 //categoria
-import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
-import { CategoriaListComponent } from './components/categoria-list/categoria-list.component';
+import { CategoriaFormComponent } from './components/moduloProducto/categoria-form/categoria-form.component';
+import { CategoriaListComponent } from '././components/moduloProducto/categoria-list/categoria-list.component';
 //Tallas
-import { MedidaFormComponent } from './components/medida-form/medida-form.component';
-import { MedidaListComponent } from './components/medida-list/medida-list.component';
+import { MedidaFormComponent } from '././components/moduloProducto/medida-form/medida-form.component';
+import { MedidaListComponent } from '././components/moduloProducto/medida-list/medida-list.component';
 //Disenos
-import { DisenosFormComponent } from './components/disenos-form/disenos-form.component';
-import { DisenosListComponent } from './components/disenos-list/disenos-list.component';
+import { DisenosFormComponent } from './components/moduloProducto/disenos-form/disenos-form.component';
+import { DisenosListComponent } from './components/moduloProducto/disenos-list/disenos-list.component';
 //producto
-import { ProductoFormComponent } from './components/producto-form/producto-form.component';
-import { ProductoListComponent } from './components/producto-list/producto-list.component'
+import { ProductoFormComponent } from './components/moduloProducto/producto-form/producto-form.component';
+import { ProductoListComponent } from './components/moduloProducto/producto-list/producto-list.component'
 //puntos ventas
-import {PuntosVentasFormComponent} from './components/puntos-ventas-form/puntos-ventas-form.component' 
-import {PuntosVentasListComponent} from './components/puntos-ventas-list/puntos-ventas-list.component'
+import {PuntosVentasFormComponent} from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component' 
+import {PuntosVentasListComponent} from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component'
 
 const routes: Routes = [
   {

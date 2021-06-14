@@ -1,4 +1,4 @@
 export interface Disenos{
-    id_disenos?:number;
+    idDisenos?:number;
     nombre?:string;
 }
