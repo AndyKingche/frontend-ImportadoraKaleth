@@ -24,21 +24,21 @@
         </thead>
         <tbody *ngFor="let usuario of usuarios">
             <tr>
-                <td>{{usuario.id_usuarios}}</td>
+                <td>{{usuario.idUsuario}}</td>
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellido}}</td>
                 <td>{{usuario.cedula}}</td>
                 <td>{{usuario.direccion}}</td>
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.estado}}</td>
-                <td>{{usuario.fecha_nacimiento}}</td>
+                <td>{{usuario.fechanacimiento}}</td>
                 <td>{{usuario.password}}</td>
                 <td>{{usuario.telefono}}</td>
                 <td>{{usuario.estadocivil.nombre}}</td>
                 <td>{{usuario.genero.nombre}}</td>
             
-                <td><button type="button" class="btn btn-danger" (click)="deleteUsuarios(usuario.id_usuarios)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/user-edit/',usuario.id_usuarios]"> Actualizar Usuarios</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteUsuarios(usuario.idUsuario)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/user-edit/',usuario.idUsuario]"> Actualizar Usuarios</button></td>
               </tr>
           </tbody>
       </table> 

@@ -1,3 +1,4 @@
+
 <div class="content">
     <a type="button" class="btn btn-success" routerLink="/civil-status-add">Ingresar un nuevo Genero</a>
 </div>
@@ -13,10 +14,10 @@
         </thead>
         <tbody *ngFor="let state of status">
             <tr>
-                <td>{{state.id_estadocivil}}</td>
+                <td>{{state.idEstadocivil}}</td>
                 <td>{{state.nombre}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteEstado_Civil(state.id_estadocivil)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/civil-status-edit/',state.id_estadocivil]"> Actualizar Rol</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteEstado_Civil(state.idEstadocivil)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/civil-status-edit/',state.idEstadocivil]"> Actualizar Rol</button></td>
               </tr>
           </tbody>
       </table> 

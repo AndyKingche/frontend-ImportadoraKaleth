@@ -27,12 +27,12 @@ export class UsuariosFormComponent implements OnInit {
     direccion: "",
     email: "",
     estado: "",
-    fecha_nacimiento: "",
+    fechanacimiento: "",
     nombre: "",
     password: "",
     telefono: "",
-    estadocivil: { id_estadocivil: 0 },
-    genero: { id_genero: 0 },
+    estadocivil: { idEstadocivil: 0 },
+    genero: { idGenero: 0 },
   };
   edit: boolean = false;
   estados: any = [];
@@ -75,7 +75,7 @@ export class UsuariosFormComponent implements OnInit {
             }
 
             this.estadocivilservice
-              .getEstadocivil(this.user.genero.id_genero)
+              .getEstadocivil(this.user.estadocivil.idEstadocivil)
               .subscribe(
                 (resul) => {
                   this.estadocivilEscogido = resul;
@@ -88,7 +88,7 @@ export class UsuariosFormComponent implements OnInit {
                 (err) => console.error(err)
               );
 
-            this.generoservice.getGenero(this.user.genero.id_genero).subscribe(
+            this.generoservice.getGenero(this.user.genero.idGenero).subscribe(
               (result) => {
                 this.generoEscogido = result;
 
@@ -140,12 +140,12 @@ export class UsuariosFormComponent implements OnInit {
               (this.user.direccion = " "),
               (this.user.email = " "),
               (this.user.estado = " "),
-              (this.user.fecha_nacimiento = " "),
+              (this.user.fechanacimiento = " "),
               (this.user.nombre = " "),
               (this.user.password = " "),
               (this.user.telefono = " "),
-              (this.user.estadocivil = { id_estadocivil: 0 }),
-              (this.user.genero = { id_genero: 0 });
+              (this.user.estadocivil = { idEstadocivil: 0 }),
+              (this.user.genero = { idGenero: 0 });
             setTimeout(() => {
               this.notificacion.showSuccess(
                 "El Usuario se ha agregado correctamente",
@@ -176,12 +176,12 @@ export class UsuariosFormComponent implements OnInit {
         this.user.email &&
         this.user.password &&
         this.user.telefono &&
-        this.user.fecha_nacimiento &&
+        this.user.fechanacimiento &&
         this.user.estado &&
-        this.user.estadocivil.id_estadocivil &&
-        this.user.genero.id_genero){
+        this.user.estadocivil.idEstadocivil &&
+        this.user.genero.idGenero){
           this.usuariosservice
-          .updateUsuario(this.user.id_usuarios, this.user)
+          .updateUsuario(this.user.idUsuario, this.user)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -198,7 +198,7 @@ export class UsuariosFormComponent implements OnInit {
         console.log("si entre")
         if(this.testingresar()){
           this.usuariosservice
-          .updateUsuario(this.user.id_usuarios, this.user)
+          .updateUsuario(this.user.idUsuario, this.user)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -264,7 +264,7 @@ export class UsuariosFormComponent implements OnInit {
     let opcionEstado = $("#estados").val(); //este no por que me devuelve un null
     let opcionEstadocivil = this.quitarespacios('#estadociviles');
     let opcionGenero = this.quitarespacios("#generos");
-
+    
     //input
     let obtenerNombre = this.quitarespacios("#nombre");
     let obtenerApellido = this.quitarespacios("#apellido");
@@ -294,10 +294,10 @@ export class UsuariosFormComponent implements OnInit {
       this.user.email = obtenerEmail;
       this.user.password = obtenerPassword;
       this.user.telefono = obtenerTelefono;
-      this.user.fecha_nacimiento = obtenerFechaNacimiento;
+      this.user.fechanacimiento = obtenerFechaNacimiento;
       this.user.estado = opcionEstado;
-      this.user.estadocivil.id_estadocivil = opcionEstadocivil;
-      this.user.genero.id_genero = opcionGenero;
+      this.user.estadocivil.idEstadocivil = opcionEstadocivil;
+      this.user.genero.idGenero = opcionGenero;
 
       return true;
     } else {

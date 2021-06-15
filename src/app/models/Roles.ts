@@ -1,5 +1,5 @@
 export interface Roles{
-    id_roles?:number;
+    idRoles?:number;
     rol?:string;
     descripcion?:string;
     nombre?:string;

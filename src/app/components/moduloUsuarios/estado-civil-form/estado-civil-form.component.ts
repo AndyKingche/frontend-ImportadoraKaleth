@@ -16,6 +16,7 @@ export class EstadoCivilFormComponent implements OnInit {
     nombre:''
   }
   edit : boolean = false;
+  actualizar: string = 'Ingresar';
   constructor(private estadocivilservice: EstadoCivilService, 
               private router: Router,
               private activedrouter: ActivatedRoute,
@@ -24,12 +25,13 @@ export class EstadoCivilFormComponent implements OnInit {
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
     if(params.id){
+      this.actualizar = 'Actualizar'
       this.estadocivilservice.getEstadocivil(params.id).subscribe(
         res=>{
           if(res!= null){
             this.state = res; 
             this.edit = true;
-
+            
           }else{
             this.router.navigate(['/civil-status']);
           }
@@ -37,6 +39,8 @@ export class EstadoCivilFormComponent implements OnInit {
         },
         err => console.log("hay error "+ err)
       )
+    }else{
+      this.actualizar='Ingresar';
     }
   }
 
@@ -62,7 +66,7 @@ export class EstadoCivilFormComponent implements OnInit {
     let nombre = this.quitarespacios('#nombre');
     if(nombre.length > 0){
       this.state.nombre = nombre;
-      this.estadocivilservice.updateEstadocivil(this.state.id_estadocivil ,this.state).subscribe(
+      this.estadocivilservice.updateEstadocivil(this.state.idEstadocivil ,this.state).subscribe(
         res => {
           this.state.nombre = ' ';
           setTimeout(()=>{

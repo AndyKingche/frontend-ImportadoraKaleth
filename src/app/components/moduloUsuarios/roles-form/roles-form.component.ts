@@ -18,6 +18,7 @@ export class RolesFormComponent implements OnInit {
     rol:''
   };
   edit: boolean = false;
+  actualizar: string = 'Ingresar';
   constructor(private rolesService: RolesService, 
     private router: Router, private activedrouter: ActivatedRoute,
     private notificacion: NotificacionService) { }
@@ -26,6 +27,7 @@ export class RolesFormComponent implements OnInit {
     const params = this.activedrouter.snapshot.params;
     console.log(params);
     if(params.id){
+      this.actualizar = 'Actualizar';
       this.rolesService.getRol(params.id).subscribe(
         res=>{
           if(res!= null){
@@ -40,6 +42,8 @@ export class RolesFormComponent implements OnInit {
         },
         err => console.log("hay error "+ err)
       )
+    }else{
+      this.actualizar = 'Ingresar';
     }
   }
 
@@ -85,7 +89,7 @@ export class RolesFormComponent implements OnInit {
       this.rol.rol = obtenerRol;
       this.rol.descripcion = obtenerDescripcion;
 
-      this.rolesService.updateRoles(this.rol.id_roles, this.rol).subscribe(
+      this.rolesService.updateRoles(this.rol.idRoles, this.rol).subscribe(
         res=>{
           this.rol.nombre =' ';
           this.rol.descripcion = '' ;

@@ -37,8 +37,8 @@
             </div>
             <!-- fecha Nacimiento -->
               <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="text" class="form-control" [(ngModel)]="user.fecha_nacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                <label for="fecha_nacimiento">Fecha de Nacimiento: (aaaa-dd-mm)</label>
+                <input type="text" class="form-control" [(ngModel)]="user.fechanacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
               </div>
               <!-- estado -->
               <div class="form-control">
@@ -58,8 +58,8 @@
               <div class="input-group mb-3">
                 <label class="input-group-text" for="Estado Civil">Estado Civil</label> 
                   <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="estadociviles" name="estadociviles"  data-width="auto" required >
-                    <option  [attr.selected]="estadocivilEscogido.id_estadocivil" [attr.value]="estadocivilEscogido.id_esatdocivil"></option>
-                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.id_estadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
+                    <option  [attr.selected]="estadocivilEscogido.idEstadocivil" [attr.value]="estadocivilEscogido.idEsatdocivil"></option>
+                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.idEstadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
                   </select>
                 </div>
           </div>
@@ -68,8 +68,8 @@
                  <div class="input-group mb-3">  
                         <label class="input-group-text" for="Genero">Genero</label>      
                         <select   class="js-example-placeholder-single js-states form-control"  id="generos" name="generos"  data-width="auto" required >
-                          <option  [attr.selected]="generoEscogido.id_genero" [attr.value]="generoEscogido.id_genero"></option>
-                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.id_genero}}" class="placeholder" >{{generos.nombre}}</option>   
+                          <option  [attr.selected]="generoEscogido.idGenero" [attr.value]="generoEscogido.idGenero"></option>
+                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.idGenero}}" class="placeholder" >{{generos.nombre}}</option>   
                         </select>
                   </div>           
               </div>

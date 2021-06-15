@@ -1,3 +1,4 @@
+<h1>{{actualizar}} Estado Civil</h1>
 <div class="container-fluid">
     <form>
         <div class="form-group">
@@ -5,7 +6,7 @@
           <input type="text" class="form-control" [(ngModel)]="state.nombre" id="nombre" name="nombre" placeholder="Nombre del Estado Civil">
         </div>
        <div class="form-group">
-           <button  class="btn btn-primary" (click)="edit ? updateEstado_Civil() : saveEstado_Civil()">Agregar Estado Civil</button>
+           <button  class="btn btn-primary" (click)="edit ? updateEstado_Civil() : saveEstado_Civil()">Aceptar</button>
            <button type="button" class="btn btn-info" routerLink="/civil-status">Regresar</button>
        </div>
      

@@ -1,4 +1,5 @@
 export interface Genero{
-    id_genero?:number;
+    idGenero?:number;
+    genero?:string;
     nombre?:string;
 }
