@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+            <label id="lblcodigo" for="codigo">Código</label>
+            <input type="number" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" name="codigo" placeholder="Codigo">
+
+        </div>
+        <!--Diseños -->
+        <div class="form-group">
+            <label id="lblDiseno" for="diseno">Diseño</label>
+            <select id="diseno" name="diseno" class="js-example-placeholder-single js-states form-control disenos" required>
+                <option  [attr.selected]="disenosEscogida.idDisenos" [attr.value]="disenosEscogida.idDisenos"></option>
+                <option   *ngFor="let disenos of disenos"  name="disenos" value="{{disenos.idDisenos}}" class="placeholder" >{{disenos.nombre}}</option>   
+              </select>
+        </div>
+
+        <!--Categoría -->
+        <div class="form-group">
+
+            <label id="lblCategoria" for="categoria">Categoría</label>
+            <select class="js-example-placeholder-single js-states form-control" id="categoria" name="categorias" data-width="75%" required>
+                <option  [attr.selected]="categoriaEscogida.idCategoria" [attr.value]="categoriaEscogida.idCategoria"></option>
+                <option   *ngFor="let categoria of categoria"  name="categoria" value="{{categoria.idCategoria}}" class="placeholder" >{{categoria.nombreCategoria}}</option>   
+              </select>
+
+        </div>
+        <!--Talla -->
+        <div class="form-group">
+            <label id="lblTalla" for="talla">Talla</label>
+            <select class="js-example-placeholder-single js-states form-control" id="talla" name="talla" required>
+                <option  [attr.selected]="tallasEscogida.idTallas" [attr.value]="tallasEscogida.idTallas"></option>
+                <option   *ngFor="let tallas of tallas"  name="tallas" value="{{tallas.idTallas}}" class="placeholder" >{{tallas.medida}}</option>   
+              </select>
+        </div>
+
+
+        <div class="form-group">
+            <label id="lblCantidad" for="cantidad">Cantidad</label>
+            <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
+
+        </div>
+
+        <div class="form-group">
+            <label id="lblStockMax" for="stockMax">Stock Max</label>
+            <input type="text" class="form-control" id="stockMax" name="stockMax" placeholder="Max" value="100">
+
+        </div>
+        <div class="form-group">
+            <label id="lblStockMin" for="stockMin">Stock Min</label>
+            <input type="text" class="form-control" id="stockMin" name="stockMin" placeholder="Min" value="100">
+
+        </div>
+
+        <div class="form-group">
+            <label id="lblPrecioUnit" for="PrecioUnit">P. Unit</label>
+            <input type="text" class="form-control" id="PrecioUnit" name="2" placeholder="P. U" value="100">
+
+        </div>
+        <div class="form-group">
+            <label id="lblPrecioMay" for="PrecioMay">P. May</label>
+            <input type="text" class="form-control" id="PrecioMay" name="PrecioMay" placeholder="P. May" value="100">
+
+        </div>
+        <div class="form-group">
+            <label id="lblPrecioDis" for="PrecioDis">P. Dis</label>
+            <input type="text" class="form-control" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
+
+        </div>
+
+        <div class="form-group">
+            <label id="lblTotal" for="lblTotal">$Total</label>
+
+
+        </div>
+        <div class="form-group">
+            <!-- <button id="insertarStock" class="btn btn-primary" (click)="edit ? updateStocks() : saveStocks()">Insertar</button> -->
+            <button id="insertarStock" class="btn btn-primary" (click)="consultar()">Insertar</button>
+        </div>
+        <div class="content">
+            <table class="table table-hover" id="tablaRegistroStock">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Código</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Diseño</th>
+                        <th scope="col">Talla</th>
+                        <th scope="col">Cant</th>
+                        <th scope="col">P. Unit</th>
+                        <th scope="col">P. May</th>
+                        <th scope="col">P. Dis</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let stockAuxiliarLista  of stockAuxiliarLista">
+                    <tr>
+
+
+                        <td>{{stockAuxiliarLista.catProducto.idProductos}}</td>
+
+                        <td>{{stockAuxiliarLista.catProducto.catCategoria.nombreCategoria}}</td>
+                        <td>{{stockAuxiliarLista.catProducto.catDiseno.nombre}}</td>
+                        <td>{{stockAuxiliarLista.catProducto.catTalla.medida}}</td>
+                        <td>{{stockAuxiliarLista.cantidad}}</td>
+                        <td>{{stockAuxiliarLista.precioUnit}}</td>
+                        <td>{{stockAuxiliarLista.precioMayor}}</td>
+                        <td>{{stockAuxiliarLista.precioDistribuidor}}</td>
+
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>

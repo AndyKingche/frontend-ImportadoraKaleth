@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Productos } from '../../../models/Productos';
+import { Productos } from '../../../models/catProducto';
 import { ProductoService } from '../../../services/producto.service';
 import { NotificacionService } from '../../../services/notificacion.service';
 

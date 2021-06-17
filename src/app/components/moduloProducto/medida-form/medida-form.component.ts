@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Tallas } from '../../../models/Tallas';
+import { Tallas } from '../../../models/catTalla';
 import { MedidaService } from '../../../services/medida.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,8 +14,9 @@ declare let $ : any ;
 export class MedidaFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   tallas : Tallas = {
-    nombre:'',
-    descripcion:''
+    medida:'',
+    descripcion:'',
+    tipo:''
   }
   edit : boolean = false;
   constructor(private tallasservice: MedidaService, 
@@ -43,15 +44,18 @@ export class MedidaFormComponent implements OnInit {
   }
 
   saveTallas(){
-    let nombre = this.quitarespacios('#nombre');
+    let medida = this.quitarespacios('#medida');
     let descripcion = this.quitarespacios('#descripcion');
-    if(nombre.length>0){
-      this.tallas.nombre = nombre;
+    let tipo=this.quitarespacios('#tipo')
+    if(medida.length>0){
+      this.tallas.medida = medida;
       this.tallas.descripcion = descripcion;
+      this.tallas.tipo =tipo;
       this.tallasservice.saveTalla(this.tallas).subscribe(
         res=>{
-          this.tallas.nombre='';
+          this.tallas.medida='';
           this.tallas.descripcion ='';
+          this.tallas.tipo ='';
           setTimeout(()=>{
             this.notificacion.showSuccess('La talla/medida se ha agregado correctamente','Medida agregada');
           },200)
@@ -64,15 +68,18 @@ export class MedidaFormComponent implements OnInit {
   }
 
   updateTallas(){
-    let nombre = this.quitarespacios('#nombre');
+    let medida = this.quitarespacios('#medida');
     let descripcion = this.quitarespacios('#descripcion');
-    if(nombre.length > 0){
-      this.tallas.nombre = nombre;
+    let tipo=this.quitarespacios('#tipo')
+    if(medida.length > 0){
+      this.tallas.medida = medida;
       this.tallas.descripcion = descripcion;
-      this.tallasservice.updateTalla(this.tallas.id_tallas ,this.tallas).subscribe(
+      this.tallas.tipo = tipo;
+      this.tallasservice.updateTalla(this.tallas.idTallas ,this.tallas).subscribe(
         res => {
-          this.tallas.nombre = '';
+          this.tallas.medida = '';
           this.tallas.descripcion = '';
+          this.tallas.tipo = '';
           setTimeout(()=>{
             this.notificacion.showSuccess('La medida/talla se ha actualizado correctamente','Medida/Talla actualizado');
           },200)

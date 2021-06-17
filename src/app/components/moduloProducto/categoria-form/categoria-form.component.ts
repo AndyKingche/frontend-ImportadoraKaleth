@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Categorias } from '../../../models/Categorias';
+import { Categorias } from '../../../models/catCategoria';
 import { CategoriaService } from '../../../services/categoria.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ declare let $ : any;
 export class CategoriaFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   categorias : Categorias = {
-    nombre:'',
+    nombreCategoria:'',
     descripcion:''
   }
   edit : boolean = false;
@@ -45,7 +45,7 @@ export class CategoriaFormComponent implements OnInit {
     let nombre = this.quitarespacios('#nombre');
     let descripcion = this.quitarespacios('#descripcion')
     if(nombre.length>0){
-      this.categorias.nombre = nombre;
+      this.categorias.nombreCategoria = nombre;
       this.categorias.descripcion = descripcion;
       this.categoriaservice.saveCategoria(this.categorias).subscribe(
         res=>{
@@ -65,11 +65,11 @@ export class CategoriaFormComponent implements OnInit {
     let nombre = this.quitarespacios('#nombre');
     let descripcion = this.quitarespacios('#descripcion');
     if(nombre.length > 0){
-      this.categorias.nombre = nombre;
+      this.categorias.nombreCategoria = nombre;
       this.categorias.descripcion = descripcion;
-      this.categoriaservice.updateCategoria(this.categorias.id_categoria, this.categorias).subscribe(
+      this.categoriaservice.updateCategoria(this.categorias.idCategoria, this.categorias).subscribe(
         res => {
-          this.categorias.nombre = '';
+          this.categorias.nombreCategoria = '';
           this.categorias.descripcion = '';
           setTimeout(()=>{
             this.notificacion.showSuccess('La categoria se ha actualizado correctamente','Categoria actualizada');

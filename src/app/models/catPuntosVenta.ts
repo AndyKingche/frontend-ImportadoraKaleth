@@ -1,6 +1,6 @@
 export interface PuntosVentas{
-    id_puntosventa?:number;
-    nombrelocal?:string;
+    idPuntosVenta?:number;
+    nombreLocal?:string;
     direccion?:string;
     ciudad?:string;
     telefono?:number

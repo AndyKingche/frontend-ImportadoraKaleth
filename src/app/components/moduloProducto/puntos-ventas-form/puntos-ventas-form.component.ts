@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { PuntosVentas } from '../../../models/PuntosVentas';
+import { PuntosVentas } from '../../../models/catPuntosVenta';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificacionService } from '../../../services/notificacion.service';
@@ -15,7 +15,7 @@ declare let $: any;
 export class PuntosVentasFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   puntosventas: PuntosVentas = {
-    nombrelocal: '',
+    nombreLocal: '',
     direccion: '',
     ciudad: '',
     telefono: 0
@@ -54,7 +54,7 @@ export class PuntosVentasFormComponent implements OnInit {
         console.log(this.puntosventas);
         this.puntosventasservice.savePuntosVentas(this.puntosventas).subscribe(
           (res) => {
-            (this.puntosventas.nombrelocal = " "),
+            (this.puntosventas.nombreLocal = " "),
               (this.puntosventas.direccion = " "),
               (this.puntosventas.ciudad = " "),
               (this.puntosventas.telefono = 0);
@@ -88,12 +88,12 @@ export class PuntosVentasFormComponent implements OnInit {
 
   updatePuntosVentas() {
     try {
-      if (this.puntosventas.nombrelocal &&
+      if (this.puntosventas.nombreLocal &&
         this.puntosventas.direccion &&
         this.puntosventas.ciudad &&
         this.puntosventas.telefono) {
         this.puntosventasservice
-          .updatePuntosVentas(this.puntosventas.id_puntosventa, this.puntosventas)
+          .updatePuntosVentas(this.puntosventas.idPuntosVenta, this.puntosventas)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -110,7 +110,7 @@ export class PuntosVentasFormComponent implements OnInit {
         console.log("si entre")
         if (this.testingresar()) {
           this.puntosventasservice
-            .updatePuntosVentas(this.puntosventas.id_puntosventa, this.puntosventas)
+            .updatePuntosVentas(this.puntosventas.idPuntosVenta, this.puntosventas)
             .subscribe(
               (res) => {
                 setTimeout(() => {
@@ -150,7 +150,7 @@ export class PuntosVentasFormComponent implements OnInit {
       obtenerTelefono.length > 0
 
     ) {
-      this.puntosventas.nombrelocal = obtenerNombreLocal;
+      this.puntosventas.nombreLocal = obtenerNombreLocal;
       this.puntosventas.direccion = obtenerDireccion;
       this.puntosventas.ciudad = obtenerCiudad;
       this.puntosventas.telefono = obtenerTelefono;

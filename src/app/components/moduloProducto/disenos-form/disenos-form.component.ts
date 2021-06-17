@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Disenos } from '../../../models/Disenos';
+import { Disenos } from '../../../models/catDiseno';
 import { DisenosService } from '../../../services/disenos.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';

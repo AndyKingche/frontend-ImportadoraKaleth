@@ -1,5 +1,4 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Categorias } from '../../../models/Categorias';
 import { CategoriaService } from '../../../services/categoria.service';
 import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../../services/notificacion.service';

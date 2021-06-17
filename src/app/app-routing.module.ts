@@ -26,11 +26,13 @@ import { DisenosFormComponent } from './components/moduloProducto/disenos-form/d
 import { DisenosListComponent } from './components/moduloProducto/disenos-list/disenos-list.component';
 //producto
 import { ProductoFormComponent } from './components/moduloProducto/producto-form/producto-form.component';
-import { ProductoListComponent } from './components/moduloProducto/producto-list/producto-list.component'
+import { ProductoListComponent } from './components/moduloProducto/producto-list/producto-list.component';
 //puntos ventas
-import {PuntosVentasFormComponent} from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component' 
-import {PuntosVentasListComponent} from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component'
-
+import {PuntosVentasFormComponent} from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component' ;
+import {PuntosVentasListComponent} from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component';
+//stock
+import {StockFormComponent} from './components/moduloProducto/stock-form/stock-form.component'; 
+import {StockListComponent} from './components/moduloProducto/stock-list/stock-list.component';
 const routes: Routes = [
   {
     path:' ',
@@ -155,6 +157,19 @@ const routes: Routes = [
   {
     path: 'sales-points-edit/:id',
     component: PuntosVentasFormComponent
+  }
+,
+  {
+    path:'stock',
+    component: StockListComponent
+  },
+  {
+    path:'stock-add',
+    component: StockFormComponent
+  },
+  {
+    path: 'stock-edit/:id',
+    component: StockFormComponent
   }
 
 ];

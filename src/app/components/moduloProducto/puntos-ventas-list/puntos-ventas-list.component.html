@@ -16,15 +16,15 @@
         </thead>
         <tbody *ngFor="let puntosventa  of puntosVentas">
             <tr>
-                <td>{{puntosventa.id_puntosventa}}</td>
-                <td>{{puntosventa.nombrelocal}}</td>
+                <td>{{puntosventa.idPuntosVenta}}</td>
+                <td>{{puntosventa.nombreLocal}}</td>
                 <td>{{puntosventa.direccion}}</td>
                 <td>{{puntosventa.ciudad}}</td>
                 <td>{{puntosventa.telefono}}</td>
                 
                 
-                <td><button type="button" class="btn btn-danger" (click)="deletePuntosVentas(puntosventa.id_puntosventa)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/sales-points-edit/',puntosventa.id_puntosventa]"> Actualizar Punto de Venta</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deletePuntosVentas(puntosventa.idPuntosVenta)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/sales-points-edit/',puntosventa.idPuntosVenta]"> Actualizar Punto de Venta</button></td>
               </tr>
           </tbody>
       </table> 

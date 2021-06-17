@@ -1,16 +1,16 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 //Productos
-import { Productos } from '../../../models/Productos';
+import { Productos } from '../../../models/catProducto';
 import { ProductoService } from '../../../services/producto.service'; 
 //Tallas
-import { Tallas } from '../../../models/Tallas';
+import { Tallas } from '../../../models/catTalla';
 import { MedidaService } from '../../../services/medida.service';
 //Disenos
-import { Disenos } from '../../../models/Disenos';
+import { Disenos } from '../../../models/catDiseno';
 import { DisenosService } from '../../../services/disenos.service';
 // categoria 
-import { Categorias } from '../../../models/Categorias';
+import { Categorias } from '../../../models/catCategoria';
 import { CategoriaService } from '../../../services/categoria.service';
 
 import { NotificacionService } from '../../../services/notificacion.service';
@@ -35,9 +35,10 @@ disenosEscogida: any = [];
  tallasEscogida: any = [];
 
   productos: Productos ={
-    categoria:{id_categoria:0},
-    tallas:{id_tallas:0},
-    disenos:{id_disenos:0}
+
+    catCategoria:{idCategoria:0},
+    catTalla:{idTallas:0},
+    catDiseno:{idDisenos:0}
   }
   productosEscogidos: any [];
   edit: boolean = false;
@@ -57,30 +58,30 @@ disenosEscogida: any = [];
           if(res!= null){
             console.log(res);
             this.productos = res;
-            this.medidaservice.getTalla(this.productos.tallas.id_tallas).subscribe(
+            this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
                 $('#tallas').select2(
                   {
-                    placeholder:this.tallasEscogida.nombre,
+                    placeholder:this.tallasEscogida.medida,
                     allowClear: true
     
                   }
                 );
               },error => console.error(error)
             );
-            this.categoriaservices.getCategoria(this.productos.categoria.id_categoria).subscribe(
+            this.categoriaservices.getCategoria(this.productos.catCategoria.idCategoria).subscribe(
               res=>{
                 this.categoriaEscogida = res;
                 $('#categorias').select2({
-                  placeholder:this.categoriaEscogida.nombre,
+                  placeholder:this.categoriaEscogida.nombreCategoria,
                   allowClear:true
                 });
               },
               error => console.error(error)
               );
 
-              this.diesnosservice.getDiseno(this.productos.disenos.id_disenos).subscribe(
+              this.diesnosservice.getDiseno(this.productos.catDiseno.idDisenos).subscribe(
                 res=>{
                   this.disenosEscogida = res;
                   $('#disenos').select2({
@@ -148,10 +149,10 @@ disenosEscogida: any = [];
 
   updateProductos(){
     
-    if(this.productos.categoria.id_categoria &&
-      this.productos.disenos.id_disenos &&
-      this.productos.tallas.id_tallas ){
-        this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+    if(this.productos.catCategoria.idCategoria &&
+      this.productos.catDiseno.idDisenos &&
+      this.productos.catTalla.idTallas ){
+        this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
           res => {
             setTimeout(()=>{
               this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
@@ -163,7 +164,7 @@ disenosEscogida: any = [];
 
       }else{
         if(this.testingreso()){
-          this.productoservices.updateProducto(this.productos.id_productos,this.productos).subscribe(
+          this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
             res => {
               setTimeout(()=>{
                 this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
@@ -214,9 +215,9 @@ disenosEscogida: any = [];
     if(opcionTallas.length>0 &&
       opcionCategoria.length>0 &&
       opcionDisenos.length>0 ){
-        this.productos.tallas.id_tallas = opcionTallas;
-        this.productos.categoria.id_categoria = opcionCategoria;
-        this.productos.disenos.id_disenos = opcionDisenos;
+        this.productos.catTalla.idTallas = opcionTallas;
+        this.productos.catCategoria.idCategoria = opcionCategoria;
+        this.productos.catDiseno.idDisenos = opcionDisenos;
         console.log(this.productos)
         return true;
       }else{

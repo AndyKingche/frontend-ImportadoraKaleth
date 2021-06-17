@@ -15,11 +15,11 @@
         </thead>
         <tbody *ngFor="let categorias of categorias">
             <tr>
-                <td>{{categorias.id_categoria}}</td>
-                <td>{{categorias.nombre}}</td>
+                <td>{{categorias.idCategoria}}</td>
+                <td>{{categorias.nombreCategoria}}</td>
                 <td>{{categorias.descripcion}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteCategoria(categorias.id_categoria)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/category-edit/',categorias.id_categoria]"> Actualizar Categoria</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteCategoria(categorias.idCategoria)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/category-edit/',categorias.idCategoria]"> Actualizar Categoria</button></td>
               </tr>
           </tbody>
       </table> 

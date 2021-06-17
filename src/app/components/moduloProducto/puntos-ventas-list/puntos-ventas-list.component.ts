@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 
-import {PuntosVentas} from '../../../models/PuntosVentas'
+import {PuntosVentas} from '../../../models/catPuntosVenta'
 import {PuntosVentasService} from '../../../services/puntos-ventas.service'
 import { NotificacionService } from '../../../services/notificacion.service';
 

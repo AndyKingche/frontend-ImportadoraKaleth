@@ -1,0 +1,168 @@
+#codigo {
+    position: absolute;
+    width: 416px;
+    left: 139px;
+    top: 62px;
+}
+
+#lblcodigo {
+    position: absolute;
+    width: 44px;
+    height: 14px;
+    left: 46px;
+    top: 75px;
+}
+
+#cantidad {
+    position: absolute;
+    width: 104px;
+    left: 695px;
+    top: 62px;
+}
+
+#lblCantidad {
+    position: absolute;
+    width: 58px;
+    height: 14px;
+    left: 601px;
+    top: 75px;
+}
+
+#PrecioUnit {
+    position: absolute;
+    width: 104px;
+    left: 919px;
+    top: 62px;
+}
+
+#lblPrecioUnit {
+    position: absolute;
+    width: 71px;
+    left: 823px;
+    top: 72px;
+}
+
+#categoria {
+    position: absolute;
+    width: 416px;
+    left: 139px;
+    top: 120px;
+}
+
+#lblCategoria {
+    position: absolute;
+    width: 64px;
+    height: 14px;
+    left: 46px;
+    top: 120px;
+}
+
+#stockMin {
+    position: absolute;
+    width: 105px;
+    left: 694px;
+    top: 120px;
+}
+
+#lblStockMin {
+    position: absolute;
+    width: 63px;
+    left: 602px;
+    top: 120px;
+}
+
+#PrecioMay {
+    position: absolute;
+    width: 104px;
+    left: 919px;
+    top: 120px;
+}
+
+#lblPrecioMay {
+    position: absolute;
+    width: 104px;
+    left: 823px;
+    top: 120px;
+}
+
+#diseno {
+    position: absolute;
+    width: 416px;
+    left: 139px;
+    top: 178px;
+}
+
+#lblDiseno {
+    position: absolute;
+    width: 42px;
+    height: 14px;
+    left: 46px;
+    top: 178px;
+}
+
+#stockMax {
+    position: absolute;
+    width: 104px;
+    left: 695px;
+    top: 178px;
+}
+
+#lblStockMax {
+    position: absolute;
+    width: 67px;
+    height: 14px;
+    left: 602px;
+    top: 178px;
+}
+
+#PrecioDis {
+    position: absolute;
+    width: 104px;
+    left: 919px;
+    top: 181px;
+}
+
+#lblPrecioDis {
+    position: absolute;
+    width: 123px;
+    left: 823px;
+    top: 181px;
+}
+
+#talla {
+    position: absolute;
+    width: 104px;
+    left: 139px;
+    top: 237px;
+}
+
+#lblTalla {
+    position: absolute;
+    width: 36px;
+    left: 46px;
+    top: 242px;
+}
+
+#tablaRegistroStock {
+    position: absolute;
+    width: 1200px;
+    left: 56px;
+    top: 357px;
+}
+
+#insertarStock {
+    position: absolute;
+    width: 138px;
+    left: 46px;
+    top: 300px;
+}
+
+#lblTotal {
+    position: absolute;
+    width: 217px;
+    height: 84px;
+    left: 1050px;
+    top: 71px;
+    font-size: 72px;
+    line-height: 84px;
+}

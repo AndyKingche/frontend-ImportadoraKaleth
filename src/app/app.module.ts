@@ -31,6 +31,8 @@ import { ProductoFormComponent } from './components/moduloProducto/producto-form
 import { ProductoListComponent } from './components/moduloProducto/producto-list/producto-list.component';
 import { PuntosVentasFormComponent } from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component';
 import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component';
+import { StockFormComponent } from './components/moduloProducto/stock-form/stock-form.component';
+import { StockListComponent } from './components/moduloProducto/stock-list/stock-list.component';
 
 
 
@@ -58,7 +60,9 @@ import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ve
     ProductoFormComponent,
     ProductoListComponent,
     PuntosVentasFormComponent,
-    PuntosVentasListComponent
+    PuntosVentasListComponent,
+    StockFormComponent,
+    StockListComponent
   ],
   imports: [
     BrowserModule,
