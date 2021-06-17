@@ -7,25 +7,33 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CatStockService {
-  API_URI='api/stock'
+  API_URI = 'api/stock'
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getStocks(){
+  getStocks() {
     return this.http.get(`${this.API_URI}`)
   }
 
-  getStock(id: number){
+  getStock(id: number) {
     return this.http.get(`${this.API_URI}/${id}`);
   }
 
-  saveStock(stock: cat_stock): Observable<cat_stock>{
-    return this.http.post(`${this.API_URI}`,stock);
+  saveStock(stock: cat_stock): Observable<cat_stock> {
+    return this.http.post(`${this.API_URI}`, stock);
 
   }
-  updateStock(id:number, stock: cat_stock):Observable<cat_stock>{
-    return this.http.put(`${this.API_URI}/${id}`,stock);
+  updateStock(id: number, stock: cat_stock): Observable<cat_stock> {
+    return this.http.put(`${this.API_URI}/${id}`, stock);
   }
 
-  
+  getEncontrarStock(idProducto: number, idPuntosVenta: number) {
+    return this.http.get(`${this.API_URI}/number/${idProducto}/${idPuntosVenta}`)
+
+  }
+
+  updateStockCantidad(cantidad: number, idProducto: number, idPuntosVenta: number) {
+    return this.http.get(`${this.API_URI}/update/${idProducto}/${idPuntosVenta}/${cantidad}`);
+  }
+
 }

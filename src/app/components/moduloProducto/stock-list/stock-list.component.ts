@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { cat_stock } from '../../../models/cat_stock';
 import { CatStockService } from '../../../services/cat-stock.service';
 import { NotificacionService } from '../../../services/notificacion.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-list',
@@ -11,21 +11,25 @@ import { NotificacionService } from '../../../services/notificacion.service';
 })
 export class StockListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
-  stock :any=[];
-  constructor(private stockService : CatStockService,
-    private notificacion: NotificacionService) { }
+  stock: any = [];
+  constructor(private stockService: CatStockService,
+    private notificacion: NotificacionService, private route: ActivatedRoute) {
+    route.params.subscribe(val => {
+      this.getStocks()
+    })
+  }
 
   ngOnInit() {
     this.getStocks();
   }
-  getStocks(){
+  getStocks() {
     this.stockService.getStocks().subscribe(
-      res =>{
+      res => {
         console.log(res)
         this.stock = res;
-      },err => console.error(err)
-      
+      }, err => console.error(err)
+
     );
   }
- 
+
 }

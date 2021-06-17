@@ -54,9 +54,12 @@ export class StockFormComponent implements OnInit {
     catTalla: { idTallas: 0 },
     catDiseno: { idDisenos: 0 }
   }
-  //stockAuxiliarLiosta
+  //Variables del index
+  
   idProductoPrueba: number = 0;
   idPuntoVentaPrueba: number;
+  nombreCategoria:string="";
+  
 
   stockAuxiliar: cat_stockAuxiliar = {
     cantidad: 0,
@@ -196,9 +199,10 @@ export class StockFormComponent implements OnInit {
       }
     );
   }
-  //
 
+  //variables ingreso stock
   encuentraArray = false;
+  cantidadConsulta = 0;
   async consultar() {
 
     if (this.testingreso()) {
@@ -221,6 +225,8 @@ export class StockFormComponent implements OnInit {
 
       await PROMESAPRODUCTO.then(res => this.stockAuxiliar.catProducto = res)
       await PROMESASPUNTOVENTA.then(res => this.stockAuxiliar.catPuntosVenta = res)
+
+
 
       if (this.stockAuxiliarLista.length === 0) {
 
@@ -290,13 +296,71 @@ export class StockFormComponent implements OnInit {
 
     }
   }
-  listallenar() {
-    if (this.testingreso()) {
 
-      console.log("SI estoy adentro");
-      // console.log(this.stockList)
+  async ingresar() {
+
+    for (let i = 0; i < this.stockAuxiliarLista.length; i++) {
+      await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
+        this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
+          if (res >= 0) {
+
+            this.cantidadConsulta = Number(res);
+            this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
+            await this.stockService.updateStockCantidad(this.cantidadConsulta,
+              this.stockAuxiliarLista[i].catProducto.idProductos,
+              this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
+                console.log("si se actualizo")
+              }, err => console.log(err))
+            this.cantidadConsulta = 0;
+
+            console.log(res)
+            console.log("si hay")
+
+          } else {
+
+            this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
+            this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
+            this.stocks.cantidad = this.stockAuxiliarLista[i].cantidad;
+            this.stocks.stockMin = this.stockAuxiliarLista[i].stockMin;
+            this.stocks.stockMax = this.stockAuxiliarLista[i].stockMax;
+            this.stocks.precioMayor = this.stockAuxiliarLista[i].precioMayor;
+            this.stocks.precioUnit = this.stockAuxiliarLista[i].precioUnit;
+            this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
+            this.stocks.existe = 'S';
+
+
+
+            await this.stockService.saveStock(this.stocks).subscribe(res => {
+              console.log("si se ingreso nuevo stock")
+
+              this.stocks = {
+                id: {
+                  idProductos: 0,
+                  //cambiar este punto de venta automatico depues
+                  idPuntosVenta: 14,
+                },
+                stockMax: 0,
+                stockMin: 0,
+                precioDistribuidor: 0,
+                precioMayor: 0,
+                precioUnit: 0,
+                existe: '',
+
+              }
+
+
+            }, err => console.log(err))
+
+            console.log("no hay")
+          }
+        }, err => console.log("salio error"))
     }
+
+    this.router.navigate(['/stock']);
+
+    
   }
+
 
 
 
@@ -330,24 +394,6 @@ export class StockFormComponent implements OnInit {
   }
 
 
-  // saveStocks() {
-  //   if (this.testingreso()) {
-  //     console.log("El stock es", this.productos)
-
-  //     this.stockService.saveStock(this.stocks).subscribe(
-  //       res => {
-  //         setTimeout(() => {
-  //           this.notificacion.showSuccess('El Stock se agrego correctamente', 'Producto agregado');
-  //         }, 200);
-  //         this.router.navigate(['/stock'])
-
-  //       }, error => console.error(error)
-  //     );
-
-  //   } else {
-  //     console.log("no se pudo")
-  //   }
-  // }
   async testingreso() {
 
     // let idProducto = this.quitarespacios('#codigo');

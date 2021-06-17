@@ -157,6 +157,13 @@
     top: 300px;
 }
 
+#ingresarStockBDD {
+    position: absolute;
+    width: 138px;
+    left: 200px;
+    top: 300px;
+}
+
 #lblTotal {
     position: absolute;
     width: 217px;
