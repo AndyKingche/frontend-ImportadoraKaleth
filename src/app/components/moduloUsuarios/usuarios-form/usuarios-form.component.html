@@ -3,8 +3,10 @@
         <form>
           <!-- Este div es solo para el nombre -->
             <div class="form-group">
-              <label for="nombre">Nombre:</label>
-              <input type="text" class="form-control" [(ngModel)]="user.nombre" id="nombre"  name="nombre" placeholder="Nombre">
+              <span class="p-float-label">
+                <input type="text" class="form-control" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
+                <label for="float-input">Nombre:</label>
+              </span>
             </div>
             <!-- este div es para el apellido -->
             <div class="form-group">
@@ -36,10 +38,17 @@
                 <input type="text" class="form-control" [(ngModel)]="user.telefono" id='telefono' name="telefono" placeholder="Telefono">
             </div>
             <!-- fecha Nacimiento -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="fecha_nacimiento">Fecha de Nacimiento: (aaaa-dd-mm)</label>
                 <input type="text" class="form-control" [(ngModel)]="user.fechanacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+              </div> -->
+              <div class="form-group">
+                <div class="p-field p-col-12 p-md-4">
+                  <label for="navigators">Fecha de nacimiento</label>
+                   <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="user.fechanacimiento" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar>
+                </div>
               </div>
+
               <!-- estado -->
               <div class="form-control">
                 <div class="input-group mb-3">

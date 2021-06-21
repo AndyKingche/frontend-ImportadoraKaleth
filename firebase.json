@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "importkaleth",
+      "public": "dist/importkaleth",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

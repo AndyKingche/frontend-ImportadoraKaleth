@@ -4,6 +4,8 @@ import { EstadoCivilService } from '../../../services/estado-civil.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificacionService } from '../../../services/notificacion.service';
+
+
 declare let $ : any;
 @Component({
   selector: 'app-estado-civil-form',
@@ -15,14 +17,20 @@ export class EstadoCivilFormComponent implements OnInit {
   state : Estadocivil = {
     nombre:''
   }
+  display: boolean = false;
+
   edit : boolean = false;
   actualizar: string = 'Ingresar';
   constructor(private estadocivilservice: EstadoCivilService, 
               private router: Router,
               private activedrouter: ActivatedRoute,
               private notificacion: NotificacionService) { }
-
+showDialog() {
+        this.display = true;
+    }
   ngOnInit() {
+  
+
     const params = this.activedrouter.snapshot.params;
     if(params.id){
       this.actualizar = 'Actualizar'

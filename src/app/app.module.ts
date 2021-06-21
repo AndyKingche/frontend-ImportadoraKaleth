@@ -32,9 +32,20 @@ import { ProductoListComponent } from './components/moduloProducto/producto-list
 import { PuntosVentasFormComponent } from './components/moduloProducto/puntos-ventas-form/puntos-ventas-form.component';
 import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component';
 
-
-
-
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
+import { FilterService } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
+import {InputTextModule} from 'primeng/inputtext';
+import {TableModule} from 'primeng/table';
+import {CardModule} from 'primeng/card';
+import {DividerModule} from 'primeng/divider';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {DropdownModule} from 'primeng/dropdown';
+import {SliderModule} from 'primeng/slider';
+import {ProgressBarModule} from 'primeng/progressbar';
+//
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,9 +79,23 @@ import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ve
     ReactiveFormsModule,
     NgSelect2Module,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserModule,
+    BrowserAnimationsModule,
+    DialogModule,
+    ButtonModule,
+    CalendarModule,
+    InputTextModule,
+    TableModule,
+    CardModule,
+    DividerModule,
+    MultiSelectModule,
+    DropdownModule,
+    SliderModule,
+    ProgressBarModule
+    
   ],
-  providers: [RolesFormComponent],
+  providers: [RolesFormComponent,PrimeNGConfig,FilterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -272,20 +272,21 @@ export class UsuariosFormComponent implements OnInit {
     let obtenerDireccion = this.quitarespacios("#direccion");
     let obtenerPassword = this.quitarespacios("#password");
     let obtenerTelefono = this.quitarespacios("#telefono");
-    let obtenerFechaNacimiento = this.quitarespacios("#fecha_nacimiento");
+    let obtenerFechaNacimiento = this.user.fechanacimiento
     let obtenerEmail = this.quitarespacios("#email");
 
     if (
-      obtenerNombre.length > 0 &&
-      obtenerApellido.length > 0 &&
-      obtenerCedula.length > 0 &&
-      obtenerPassword.length > 0 &&
-      obtenerTelefono.length > 0 &&
-      obtenerFechaNacimiento.length > 0 &&
-      obtenerEmail.length > 0 &&
-      opcionEstadocivil.length > 0 &&
-      opcionGenero.length > 0 &&
-      opcionEstado != null
+      // obtenerNombre.length > 0 &&
+      // obtenerApellido.length > 0 &&
+      // obtenerCedula.length > 0 &&
+      // obtenerPassword.length > 0 &&
+      // obtenerTelefono.length > 0 &&
+      // obtenerFechaNacimiento.length > 0 &&
+      // obtenerEmail.length > 0 &&
+      // opcionEstadocivil.length > 0 &&
+      // opcionGenero.length > 0 &&
+      // opcionEstado != null
+      true
     ) {
       this.user.nombre = obtenerNombre;
       this.user.apellido = obtenerApellido;
@@ -294,7 +295,7 @@ export class UsuariosFormComponent implements OnInit {
       this.user.email = obtenerEmail;
       this.user.password = obtenerPassword;
       this.user.telefono = obtenerTelefono;
-      this.user.fechanacimiento = obtenerFechaNacimiento;
+      this.user.fechanacimiento = this.user.fechanacimiento;
       this.user.estado = opcionEstado;
       this.user.estadocivil.idEstadocivil = opcionEstadocivil;
       this.user.genero.idGenero = opcionGenero;
