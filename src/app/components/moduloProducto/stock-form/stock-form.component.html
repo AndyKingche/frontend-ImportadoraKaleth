@@ -9,10 +9,15 @@
         <div class="form-group">
 
             <label id="lblCategoria" for="categoria">Categoría</label>
-            <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch.nombreCategoria" id="categoria" name="categoria" required>
+            <!-- <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch.nombreCategoria" id="categoria" name="categoria" required>
                 <option  [attr.selected]="categoriaSelectSearch.idCategoria" [attr.value]="categoriaSelectSearch.idCategoria"></option>
-                <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" value="{{categoria.nombreCategoria}}" class="placeholder" >{{categoria.nombreCategoria}}</option>   
+                <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" [ngValue]="categoria" class="placeholder" >{{categoria.nombreCategoria}}</option>   
+            </select> -->
+            <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch" id="categoria" name="categoria" required>
+                <option  [attr.selected]="categoriaSelectSearch.idCategoria" [attr.value]="categoriaSelectSearch.idCategoria"></option>
+                <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" [ngValue]="categoria" class="placeholder" >{{categoria.nombreCategoria}}</option>   
             </select>
+
             <button id="insertarCategoriaLista" class="btn btn-primary" (click)="showDialogCategoria()">+</button>
 
             <p-dialog position="top" [(visible)]="displayCategoria">
@@ -28,9 +33,9 @@
         <!--Diseños -->
         <div class="form-group">
             <label id="lblDiseno" for="diseno">Diseño</label>
-            <select class="form-control" (change)="changedDiseno($event.target.value)" [(ngModel)]="disenosSelectSearch.nombre" id="diseno" name="diseno" required>
+            <select class="form-control" (change)="changedDiseno($event.target.value)" [(ngModel)]="disenosSelectSearch" id="diseno" name="diseno" required>
                 <option  [attr.selected]="disenosSelectSearch.idDisenos" [attr.value]="disenosSelectSearch.idDisenos"></option>
-                <option   *ngFor="let diseno of disenosEscogida"  name="diseno" value="{{diseno.nombre}}" class="placeholder" >{{diseno.nombre}}</option>   
+                <option   *ngFor="let diseno of disenosEscogida"  name="diseno" [ngValue]="diseno" class="placeholder" >{{diseno.nombre}}</option>   
             </select>
             <button id="insertarDiseñoLista" class="btn btn-primary" (click)="showDialogDiseno()">+</button>
         </div>
@@ -47,7 +52,7 @@
             <label id="lblTalla" for="talla">Talla</label>
             <select class="form-control" (change)="changedTalla($event.target.value)" [(ngModel)]="tallasSelectSearch.medida" id="talla" name="talla" required>
                 <option  [attr.selected]="tallasSelectSearch.idTallas" [attr.value]="tallasSelectSearch.idTallas"></option>
-                <option   *ngFor="let talla of tallasEscogida"  name="talla" value="{{talla.medida}}" class="placeholder" >{{talla.medida}}</option>   
+                <option   *ngFor="let talla of tallasEscogida"  name="talla" [ngValue]="talla" class="placeholder" >{{talla.medida}}</option>   
             </select><button id="insertarTallaLista" class="btn btn-primary" (click)="showDialogTalla()">+</button>
         </div>
         <p-dialog position="top" [(visible)]="displayTalla">

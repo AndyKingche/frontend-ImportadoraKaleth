@@ -176,6 +176,9 @@ export class StockFormComponent implements OnInit {
   ingresoDiseno: string = "";
   ingresoTalla: String = "";
 
+  //varaibake ara obtener el objecto del select
+
+  toStr: any = JSON.stringify;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -201,6 +204,7 @@ export class StockFormComponent implements OnInit {
 
   ngOnInit() {
     this.stockAuxiliarLista = [];
+
     const params = this.activedrouter.snapshot.params;
     this.idPuntoVentaPrueba = 14;
     this.totalIngresoVista = "0";
@@ -288,8 +292,11 @@ export class StockFormComponent implements OnInit {
 
   //variables de ingreso cuando no existe un producto 
   idCategoriaIngreso = 0;
+  idCategoriaEscogida = 0;
   idDisenoIngreso = 0;
+  idDiseñoEscogido = 0;
   idTallaIngreso = 0;
+  idTallaEscogido = 0;
   idProductoIngreso = 0;
   iddatosingresados: any = {
     idCategoriaIngreso: 0,
@@ -333,19 +340,28 @@ export class StockFormComponent implements OnInit {
     },
     codProducto: 0
   }
+
+
   /////////tomar el nombre de la lista de diseños
-  changedCategoria(value) {
-    this.nombreCategoria = value;
-    console.log(this.nombreCategoria);
+  changedCategoria(event: any) {
+    console.log(this.categoriaSelectSearch);
+    this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
+
+
   }
 
   changedDiseno(value) {
-    this.nombreDiseno = value;
+
     console.log(this.nombreDiseno);
+    this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
+
   }
   changedTalla(value) {
     this.nombreTalla = value;
     console.log(this.nombreTalla);
+
+
+    this.idTallaEscogido = this.tallasSelectSearch.idTallas;
   }
   ////// METODOS PARA AGREGAR NUEVAS CATEGORIAS, DISEÑOS, TALLAS AL ARRAY
   ingresarCategoria(categories: string) {
@@ -415,71 +431,115 @@ export class StockFormComponent implements OnInit {
     await IDPRODUCTOINPUT.then(async (res) => {
       console.log("Entre=>1")
       if (Number(res) == -1) {
-        console.log("Entre=>2")
-        //ingreso de categorias solo se ingresa el nombre
-        this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
+        /////
+        //if si escoge una categoria con el codigo existente solo ingresar ese de lo contrario crear 
 
-        console.log("categoria", this.categoriasIngreso)
-        const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
-          await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
-            res => {
-              resolve(res.idCategoria);
-              console.log("categoria ingre", res)
-              setTimeout(() => {
-                this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
-              }, 100)
+        if (this.idCategoriaEscogida != 0) {
+          this.idCategoriaIngreso = this.idCategoriaEscogida;// guarda el mismo valor 
+        } else {
 
-            }, error => console.error(error)
-          );
-        })
 
-        //ingreso de diseño solo se ingresa el nombre del diseño 
-        this.disenosIngreso.nombre = this.nombreDiseno;
-        console.log("diseños", this.disenosIngreso)
-        const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
-          await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
-            res => {
+          // de lo contrario si el codigo de la categoria es 0 crear categoria 
+          /////
 
-              resolve(res.idDisenos);
-              console.log("diseno ingre", res)
-              setTimeout(() => {
-                this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
-              }, 100)
+          console.log("Entre=>2")
+          //ingreso de categorias solo se ingresa el nombre
+          this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
 
-            }, error => console.error(error)
-          );
-        })
-        //ingreso talla, solo se ingresa la medida
-        this.tallasIngreso.medida = this.nombreTalla;
-        console.log("tallas ", this.tallasIngreso)
-        const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
+          console.log("categoria", this.categoriasIngreso)
+          const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
+            await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
+              res => {
+                resolve(res.idCategoria);
+                console.log("categoria ingre", res)
+                setTimeout(() => {
+                  this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
+                }, 100)
 
-          await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
-            res => {
-              resolve(res.idTallas);
-              console.log("talla ingre", res)
-              setTimeout(() => {
-                this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
-              }, 200)
+              }, error => console.error(error)
+            );
+          })
 
-            }, error => console.error(error)
-          );
-        })
+          await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+            this.idCategoriaIngreso = Number(res)
+            console.log("id Categoria", this.idCategoriaIngreso)
+          });
 
+
+        }
+        ///validación si el diseño ya existe 
+        if (this.idDiseñoEscogido != 0) {
+          this.idDisenoIngreso = this.idDiseñoEscogido;// guarda el mismo valor 
+        } else {
+
+          //ingreso de diseño solo se ingresa el nombre del diseño 
+          this.disenosIngreso.nombre = this.nombreDiseno;
+          console.log("diseños", this.disenosIngreso)
+          const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
+            await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
+              res => {
+
+                resolve(res.idDisenos);
+                console.log("diseno ingre", res)
+                setTimeout(() => {
+                  this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
+                }, 100)
+
+              }, error => console.error(error)
+            );
+          })
+
+
+          await Promise.resolve(DISENOIDNUEVO).then(res => {
+            this.idDisenoIngreso = Number(res)
+            console.log("id Diseño", this.idDisenoIngreso)
+          });
+        }
+
+
+        ///validación si la talla ya existe 
+        if (this.idTallaEscogido != 0) {
+          this.idTallaIngreso = this.idTallaEscogido;// guarda el mismo valor 
+        } else {
+          //ingreso talla, solo se ingresa la medida
+          this.tallasIngreso.medida = this.nombreTalla;
+          console.log("tallas ", this.tallasIngreso)
+          const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
+
+            await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
+              res => {
+                resolve(res.idTallas);
+                console.log("talla ingre", res)
+                setTimeout(() => {
+                  this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
+                }, 200)
+
+              }, error => console.error(error)
+            );
+          })
+
+
+
+          await Promise.resolve(TALLAIDNUEVO).then(res => {
+            this.idTallaIngreso = Number(res)
+            console.log("id Talla", this.idTallaIngreso)
+          });
+
+        }
         //////////vamos a obtener los valores de cadaa uno de los ids de los ultimos ingresados
 
-        await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
-          this.idCategoriaIngreso = Number(res)
-          console.log("id Categoria", this.idCategoriaIngreso)
-        });
-        await Promise.resolve(DISENOIDNUEVO).then(res => {
-          this.idDisenoIngreso = Number(res)
-          console.log("id Diseño", this.idDisenoIngreso)
-        });
-        await Promise.resolve(TALLAIDNUEVO).then(res => {
-          this.idTallaIngreso = Number(res)
-          console.log("id Talla", this.idTallaIngreso)
-        });
+        // await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+        //   this.idCategoriaIngreso = Number(res)
+        //   console.log("id Categoria", this.idCategoriaIngreso)
+        // });
+        // await Promise.resolve(DISENOIDNUEVO).then(res => {
+        //   this.idDisenoIngreso = Number(res)
+        //   console.log("id Diseño", this.idDisenoIngreso)
+        // });
+        // await Promise.resolve(TALLAIDNUEVO).then(res => {
+        //   this.idTallaIngreso = Number(res)
+        //   console.log("id Talla", this.idTallaIngreso)
+        // });
 
 
         //lenamos el prodcuto (codigoProducto,idCategoria,idDiseño,idTalla),
@@ -768,10 +828,10 @@ export class StockFormComponent implements OnInit {
       //cosuotar producto por id para llenar lista de los select 
       ////////////////
       if (this.idProductoencontrado > 0) {
-         this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
+        this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
 
           let objetonuevo = Object.assign(result);
-         console.log("obketo nuevo => ",objetonuevo)
+          console.log("obketo nuevo => ", objetonuevo)
           //talla
           this.tallasSelectSearch = objetonuevo.catTalla;
           // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;
@@ -782,7 +842,7 @@ export class StockFormComponent implements OnInit {
           this.disenosSelectSearch = objetonuevo.catDiseno;
 
         })
-      
+
 
         this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
           //////////////
