@@ -32,4 +32,7 @@ export class ProductoService {
   findproductobycodigo(codigoproducto:number){
     return this.http.get(`${this.API_URI}/find/${codigoproducto}`);
   }
+  findbyId(id:number){
+    return this.http.get(`${this.API_URI}/findid/${id}`)
+  }
 }

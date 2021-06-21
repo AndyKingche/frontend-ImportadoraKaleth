@@ -768,19 +768,21 @@ export class StockFormComponent implements OnInit {
       //cosuotar producto por id para llenar lista de los select 
       ////////////////
       if (this.idProductoencontrado > 0) {
-        this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
+         this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
 
-          // this.nombreTalla = result[0].catProducto.catTalla.medida;
+          let objetonuevo = Object.assign(result);
+         console.log("obketo nuevo => ",objetonuevo)
           //talla
-          this.tallasSelectSearch = result.catTalla;
+          this.tallasSelectSearch = objetonuevo.catTalla;
           // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;
           //categora
-          this.categoriaSelectSearch = result.catCategoria;
+          this.categoriaSelectSearch = objetonuevo.catCategoria;
           // this.nombreDiseno = result[0].catProducto.catDiseno.nombre;
           //diseno
-          this.disenosSelectSearch = result.catDiseno;
+          this.disenosSelectSearch = objetonuevo.catDiseno;
 
         })
+      
 
         this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
           //////////////
