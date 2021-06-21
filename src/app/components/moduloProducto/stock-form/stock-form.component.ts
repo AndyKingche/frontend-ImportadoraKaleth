@@ -1,5 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+
+
 //Stock
 import { cat_stock } from '../../../models/cat_stock';
 import { CatStockService } from '../../../services/cat-stock.service';
@@ -21,6 +24,8 @@ import { CategoriaService } from '../../../services/categoria.service';
 //stockAuxiliar
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
 import { NotificacionService } from '../../../services/notificacion.service';
+import { resolve } from 'url';
+import { ConsoleReporter } from 'jasmine';
 
 declare let $: any;
 
@@ -30,6 +35,8 @@ declare let $: any;
   templateUrl: './stock-form.component.html',
   styleUrls: ['./stock-form.component.css']
 })
+
+
 export class StockFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   //productos
@@ -41,12 +48,27 @@ export class StockFormComponent implements OnInit {
   //categorias
   categoria: Categorias;
   categoriaEscogida: any = [];
+  categoriaSelectSearch: Categorias = {
+    idCategoria: 0,
+    descripcion: '',
+    nombreCategoria: ''
+  }
   //diesnos
   disenos: Disenos;
   disenosEscogida: any = [];
+  disenosSelectSearch: Disenos = {
+    idDisenos: 0,
+    nombre: ''
+  };
   //tallas
   tallas: Tallas;
   tallasEscogida: any = [];
+  tallasSelectSearch: Tallas = {
+    idTallas: 0,
+    medida: '',
+    descripcion: '',
+    tipo: ''
+  };
   //productos
   productos: Productos = {
 
@@ -55,12 +77,33 @@ export class StockFormComponent implements OnInit {
     catDiseno: { idDisenos: 0 }
   }
   //Variables del index
-  
+
   idProductoPrueba: number = 0;
   idPuntoVentaPrueba: number;
-  nombreCategoria:string="";
-  
+  nombreCategoria: string = "";
+  nombreDiseno: string = "";
+  nombreTalla: string = "";
 
+  cantidad: number = 0;
+  stockMin: number = 0;
+  stockMax: number = 0;
+  precioUnit: number = 0;
+  precioMay: number = 0;
+  precioDis: number = 0;
+  totalIngresoVista: string = "0";
+  totalValorIngreso = 0;
+  idProductoencontrado: number = 0;
+
+  //////////////////////////////////////////
+  productonuevo: any = {
+
+    catCategoria: { idCategoria: 0 },
+    catTalla: { idTallas: 0 },
+    catDiseno: { idDisenos: 0 },
+    codProducto: 0
+  }
+
+  ////////////////////////////////////////
   stockAuxiliar: cat_stockAuxiliar = {
     cantidad: 0,
     catProducto: {
@@ -79,7 +122,8 @@ export class StockFormComponent implements OnInit {
         medida: '',
         descripcion: '',
         tipo: '',
-      }
+      },
+      codProducto: 0
     },
     catPuntosVenta: { idPuntosVenta: 0 },
     existe: '',
@@ -108,6 +152,14 @@ export class StockFormComponent implements OnInit {
   stocksEscogidos: any[];
   edit: boolean = false;
 
+  displayCategoria: boolean = false;
+  displayDiseno: boolean = false;
+  displayTalla: boolean = false;
+
+  /////Variables de las ventana modal
+  ingresoCategoria: string = '';
+  ingresoDiseno: string = "";
+  ingresoTalla: String = "";
 
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
@@ -116,12 +168,27 @@ export class StockFormComponent implements OnInit {
     private diesnosservice: DisenosService,
     private medidaservice: MedidaService,
     private activedrouter: ActivatedRoute, private router: Router,
-    private notificacion: NotificacionService) { }
+    private notificacion: NotificacionService
+
+  ) { }
+
+
+  showDialogCategoria() {
+    this.displayCategoria = true;
+  }
+  showDialogDiseno() {
+    this.displayDiseno = true;
+  }
+  showDialogTalla() {
+    this.displayTalla = true;
+  }
+
 
   ngOnInit() {
     this.stockAuxiliarLista = [];
     const params = this.activedrouter.snapshot.params;
     this.idPuntoVentaPrueba = 14;
+    this.totalIngresoVista = "0";
 
     if (params.id) {
       this.stockService.getStock(params.id).subscribe(
@@ -182,13 +249,13 @@ export class StockFormComponent implements OnInit {
       }
     );
     this.getCategorias();
-    $('#categorias').select2(
-      {
-        placeholder: 'Categorias...',
-        allowClear: true
+    // $('#categorias').select2(
+    //   {
+    //     placeholder: 'Categorias...',
+    //     allowClear: true
 
-      }
-    );
+    //   }
+    // );
 
     this.getDisenos();
     $('#disenos').select2(
@@ -203,54 +270,287 @@ export class StockFormComponent implements OnInit {
   //variables ingreso stock
   encuentraArray = false;
   cantidadConsulta = 0;
+
+  //variables de ingreso cuando no existe un producto 
+  idCategoriaIngreso = 0;
+  idDisenoIngreso = 0;
+  idTallaIngreso = 0;
+  idProductoIngreso = 0;
+  iddatosingresados: any = {
+    idCategoriaIngreso: 0,
+    idDisenoIngreso: 0,
+    idTallaIngreso: 0
+  }
+
+  categoriasIngreso: Categorias = {
+    idCategoria: 0,
+    descripcion: "",
+    nombreCategoria: ""
+  }
+
+
+  disenosIngreso: Disenos = {
+    idDisenos: 0,
+    nombre: ""
+  }
+  tallasIngreso: Tallas = {
+    idTallas: 0,
+    medida: "",
+    descripcion: "",
+    tipo: ""
+  }
+  productosIngreso: Productos = {
+    idProductos: 0,
+    catCategoria: {
+      idCategoria: 0,
+      descripcion: "",
+      nombreCategoria: ""
+    },
+    catDiseno: {
+      idDisenos: 0,
+      nombre: ""
+    },
+    catTalla: {
+      idTallas: 0,
+      medida: "",
+      descripcion: "",
+      tipo: ""
+    },
+    codProducto: 0
+  }
+  /////////tomar el nombre de la lista de diseños
+  changedCategoria(value) {
+    this.nombreCategoria = value;
+    console.log(this.nombreCategoria);
+  }
+
+  changedDiseno(value) {
+    this.nombreDiseno = value;
+    console.log(this.nombreDiseno);
+  }
+  changedTalla(value) {
+    this.nombreTalla = value;
+    console.log(this.nombreTalla);
+  }
+  ////// METODOS PARA AGREGAR NUEVAS CATEGORIAS, DISEÑOS, TALLAS AL ARRAY
+  ingresarCategoria(categories: string) {
+    this.ingresoCategoria = categories;
+
+  }
+  ingresarpushCategoria() {
+
+    let categoriaAuxiliar = {
+      idCategoria: 0,
+      nombreCategoria: this.ingresoCategoria,
+      descripcion: ""
+    }
+    this.categoriaEscogida.push(categoriaAuxiliar);
+
+    console.log("ingrese categoria lista=>", this.categoriaEscogida)
+    this.displayCategoria = false;
+
+  }
+  ingresarDiseno(diseno: string) {
+    this.ingresoDiseno = diseno;
+
+  }
+  ingresarpushDiseno() {
+    let disenoAuxiliar = {
+      idDisenos: 0,
+      nombre: this.ingresoDiseno
+    }
+    this.disenosEscogida.push(disenoAuxiliar);
+
+    console.log("ingrese Diseño lista=>", this.disenosEscogida)
+    this.displayDiseno = false;
+
+
+  }
+  ingresarTalla(talla: string) {
+    this.ingresoTalla = talla;
+
+  }
+  ingresarpushTalla() {
+    let tallaAuxiliar = {
+      idTallas: 0,
+      descripcion: "",
+      medida: this.ingresoTalla,
+      tipo: ""
+    }
+    this.tallasEscogida.push(tallaAuxiliar);
+
+    console.log("ingrese talla lista=>", this.tallasEscogida)
+    this.displayTalla = false;
+
+  }
+
+
   async consultar() {
+    //   ////  this.codigoProducto(no hay)
+
+    const IDPRODUCTOINPUT = new Promise(async (resolve, reject) => {
+      await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
+        resolve(res)
+        console.log("idProductos consulta", res)
+
+      }, err => console.log(err))
+    });
+
+
+    await IDPRODUCTOINPUT.then(async (res) => {
+      console.log("Entre=>1")
+      if (Number(res) == -1) {
+        console.log("Entre=>2")
+        //ingreso de categorias solo se ingresa el nombre
+        this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
+
+        console.log("categoria", this.categoriasIngreso)
+        const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
+          await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
+            res => {
+              resolve(res.idCategoria);
+              console.log("categoria ingre", res)
+              setTimeout(() => {
+                this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
+              }, 100)
+
+            }, error => console.error(error)
+          );
+        })
+
+        //ingreso de diseño solo se ingresa el nombre del diseño 
+        this.disenosIngreso.nombre = this.nombreDiseno;
+        console.log("diseños", this.disenosIngreso)
+        const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
+          await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
+            res => {
+
+              resolve(res.idDisenos);
+              console.log("diseno ingre", res)
+              setTimeout(() => {
+                this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
+              }, 100)
+
+            }, error => console.error(error)
+          );
+        })
+        //ingreso talla, solo se ingresa la medida
+        this.tallasIngreso.medida = this.nombreTalla;
+        console.log("tallas ", this.tallasIngreso)
+        const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
+
+          await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
+            res => {
+              resolve(res.idTallas);
+              console.log("talla ingre", res)
+              setTimeout(() => {
+                this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
+              }, 200)
+
+            }, error => console.error(error)
+          );
+        })
+
+        //////////vamos a obtener los valores de cadaa uno de los ids de los ultimos ingresados
+
+        await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+          this.idCategoriaIngreso = Number(res)
+          console.log("id Categoria", this.idCategoriaIngreso)
+        });
+        await Promise.resolve(DISENOIDNUEVO).then(res => {
+          this.idDisenoIngreso = Number(res)
+          console.log("id Diseño", this.idDisenoIngreso)
+        });
+        await Promise.resolve(TALLAIDNUEVO).then(res => {
+          this.idTallaIngreso = Number(res)
+          console.log("id Talla", this.idTallaIngreso)
+        });
+
+
+        //lenamos el prodcuto (codigoProducto,idCategoria,idDiseño,idTalla),
+
+        console.log("cat x->")
+        console.log(" cat", this.idCategoriaIngreso, "dise", this.idDisenoIngreso, "talla", this.idTallaIngreso)
+
+
+        this.productonuevo = {
+
+          catCategoria: { idCategoria: this.idCategoriaIngreso },
+          catTalla: { idTallas: this.idTallaIngreso },
+          catDiseno: { idDisenos: this.idDisenoIngreso },
+          codProducto: this.idProductoPrueba
+        }
+        const PRODUCTOIDNUEVO = new Promise(async (resolve, reject) => {
+          await this.productServices.saveProducto(this.productonuevo).subscribe(res => {
+            console.log(res.idProductos)
+            resolve(res.idProductos)
+          }, err => console.log(err))
+        })
+
+        await PRODUCTOIDNUEVO.then(res => this.idProductoIngreso = Number(res));
+
+        console.log("id producto nuevo ingresado", this.idProductoIngreso)
+        this.idProductoencontrado = this.idProductoIngreso;
+      }
+      console.log("Entre=>3")
+
+    }).catch(err => console.log(err))
+
+    //////////////si hay el producot///////////////
+
 
     if (this.testingreso()) {
 
+      //consultamos el producto
       const PROMESAPRODUCTO = new Promise(async (resolve, rej) => {
-        await this.productServices.getProducto(this.idProductoPrueba).subscribe(
+        await this.productServices.getProducto(this.idProductoencontrado).subscribe(
           res => {
             resolve(res)
           }, err => console.error(err
           )
         )
       })
-
-
+      // console.log("entre")
+      //Consultamos el putno de venta 
       const PROMESASPUNTOVENTA = new Promise(async (resolve, reject) => {
         await this.puntosVentaServices.getPuntosVenta(this.idPuntoVentaPrueba).subscribe(res => {
+          console.log(res)
           resolve(res);
         }, err => console.log(err))
       })
-
+      //Ingresamos el producto consultado al StockAuxiliar
       await PROMESAPRODUCTO.then(res => this.stockAuxiliar.catProducto = res)
+      //Ingresamos el Punto de Venta consultado al StockAuxiliar
       await PROMESASPUNTOVENTA.then(res => this.stockAuxiliar.catPuntosVenta = res)
 
-
-
+      //realizamos la validación si la lista esta vacia 
       if (this.stockAuxiliarLista.length === 0) {
-
+        //añadimos el primer elemento a la lista
         this.stockAuxiliarLista.push(this.stockAuxiliar);
+        //enviamos una variable falsa si existe el productodespues de ingresar
         this.encuentraArray = false;
 
       } else {
         /// recorrido for para verirficar si el producto ecxiste dentro del array
         for (var x in this.stockAuxiliarLista) {
+          //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
           if (this.stockAuxiliarLista[x].catProducto.idProductos == this.stockAuxiliar.catProducto.idProductos
             && this.stockAuxiliarLista[x].catPuntosVenta.idPuntosVenta == this.stockAuxiliar.catPuntosVenta.idPuntosVenta
           ) {
             // sumatoria de la cantidad de un elemento encontrado
             this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
             console.log(this.stockAuxiliarLista[x].cantidad)
+            //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
             this.encuentraArray = true;
           }
 
         }
-        // reiniciar valores para la nueva busqueda del elemento en el array
+        //  se realiza la valicaión si existe el procuto en el array
         if (this.encuentraArray) {
-
+          // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
           this.encuentraArray = false;
         } else {
+          //si no existe el producto ingresa un nuevo elemento en el array 
           //metodo push para apilar elemnto en el array
           this.stockAuxiliarLista.push(this.stockAuxiliar);
           this.encuentraArray = false;
@@ -258,10 +558,8 @@ export class StockFormComponent implements OnInit {
 
       }
 
-
-
-
       console.log(this.stockAuxiliarLista);
+      //Vaciamos el stockAuxiliar para evitar conflictos
       this.stockAuxiliar = {
         cantidad: 0,
         catProducto: {
@@ -280,7 +578,8 @@ export class StockFormComponent implements OnInit {
             medida: '',
             descripcion: '',
             tipo: '',
-          }
+          },
+          codProducto: 0
         },
         catPuntosVenta: { idPuntosVenta: 0 },
         existe: '',
@@ -295,28 +594,49 @@ export class StockFormComponent implements OnInit {
       console.log("se limpia")
 
     }
+
+
+    ///hhhhhhhh
+    this.totalValorIngreso=0;
+
+    this.stockAuxiliarLista.forEach(element => {
+      element = element.cantidad * element.precioUnit;
+      this.totalValorIngreso += element;
+      console.log(element);
+    });
+
+    this.totalIngresoVista = "" + ( this.totalValorIngreso);
+
   }
-
+  //METODO PARA INGRESAR A LA BDD EN LA TABLA STOCK 
   async ingresar() {
-
+    //Se realiza un recorrido a la lista auxiliar 
     for (let i = 0; i < this.stockAuxiliarLista.length; i++) {
+      //se reaqliza una consulta en donde verificamos si existe el el porduco por id punto venta en el stock 
+      //nos devuelve el valor la cantidad que tiene en stock del registro 
       await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
         this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
+          //si la cantidad es mayor o igual a cero quiere decir que el elemento si existe 
           if (res >= 0) {
-
+            //creamos una variable y guardamos el resultado de la busqueda("cantidad")
             this.cantidadConsulta = Number(res);
+            //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
             this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
+            //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
             await this.stockService.updateStockCantidad(this.cantidadConsulta,
               this.stockAuxiliarLista[i].catProducto.idProductos,
               this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
                 console.log("si se actualizo")
               }, err => console.log(err))
+            //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
             this.cantidadConsulta = 0;
 
             console.log(res)
             console.log("si hay")
 
           } else {
+
+            //ingresamos los datos de la posición de la lista en un objeto tipo stock para porceder a ingresar a la BDD
 
             this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
             this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
@@ -328,11 +648,11 @@ export class StockFormComponent implements OnInit {
             this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
             this.stocks.existe = 'S';
 
-
+            //se ingresa a la BDD como un nuevo registro en la tabla Stock
 
             await this.stockService.saveStock(this.stocks).subscribe(res => {
               console.log("si se ingreso nuevo stock")
-
+              //reiniciamos los valores del objeto stock para un unevo resgitro 
               this.stocks = {
                 id: {
                   idProductos: 0,
@@ -358,41 +678,141 @@ export class StockFormComponent implements OnInit {
 
     this.router.navigate(['/stock']);
 
-    
+
   }
 
 
 
 
-  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////METODO PARA OBTENER LAS TALLAS////////////////////////////////////////////////
   getTallas() {
     this.medidaservice.getTallas().subscribe(
       res => {
         this.tallas = res;
+        this.tallasEscogida = res;
       }, error => console.error(error)
     );
   }
-
+  ////////////////////////////////////METODO PARA OBTENER LAS CATEGORIAS////////////////////////////////////////////////
   getCategorias() {
     this.categoriaservices.getCategorias().subscribe(
       res => {
         this.categoria = res;
+        this.categoriaEscogida = res;
 
       }, error => console.error(error)
     );
   }
-
+  ////////////////////////////////////METODO PARA OBTENER LOS DISEÑOS////////////////////////////////////////////////
   getDisenos() {
     console.log("si entrte")
     this.diesnosservice.getDisenos().subscribe(
       res => {
-        console.log(res)
+        // console.log(res)
         this.disenos = res;
+        this.disenosEscogida = res;
 
       }, error => console.error(error)
     );
   }
 
+
+
+  eliminarstockList(id: number) {
+    console.log("el ide escogido es=>", id)
+    this.stockAuxiliarLista = this.stockAuxiliarLista.filter(element => {
+      
+      return element.catProducto.idProductos != id;
+    })
+    this.totalValorIngreso=0;
+    this.stockAuxiliarLista.forEach(element => {
+      element = element.cantidad * element.precioUnit;
+      this.totalValorIngreso += element;
+      console.log(element);
+    });
+
+    this.totalIngresoVista = "" + ( this.totalValorIngreso);
+    console.log(this.stockAuxiliarLista);
+  }
+  ////////////////////////////////////METODO PARA BUSCAR EL PORDUCTO MIENTRAS SE TIPEA EN EN IMPUT////////////////////////////////////////////////
+  ////////////////////////////////////PARA LLENAR AUTOMATICAMENTE LOS VALORES EN LOS CAMPOS////////////////////////////////////////////////
+  async buscarStockProducto() {
+
+    const IDPRODUCTO = new Promise(async (resolve, reject) => {
+      await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
+        resolve(res)
+        console.log("idProductos consulta", res)
+
+      }, err => console.log(err))
+    });
+
+    await IDPRODUCTO.then(res => {
+      this.idProductoencontrado = Number(res);
+      console.log(this.idProductoencontrado)
+      if (this.idProductoencontrado > 0) {
+        this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
+
+
+
+          // this.nombreTalla = result[0].catProducto.catTalla.medida;
+          //talla
+          this.tallasSelectSearch = result[0].catProducto.catTalla;
+          // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;
+          //categora
+          this.categoriaSelectSearch = result[0].catProducto.catCategoria;
+          // this.nombreDiseno = result[0].catProducto.catDiseno.nombre;
+          //diseno
+          this.disenosSelectSearch = result[0].catProducto.catDiseno;
+          this.cantidad = 0;
+          this.precioDis = result[0].precioDistribuidor;
+          this.precioMay = result[0].precioMayor;
+          this.precioUnit = result[0].precioUnit;
+          this.stockMax = result[0].stockMax;
+          this.stockMin = result[0].stockMin;
+
+          console.log(result)
+
+
+        }, err => console.log(err))
+      } else {
+
+        this.nombreTalla = "";
+        this.nombreCategoria = "";
+        this.nombreDiseno = "";
+        this.cantidad = 0;
+        this.precioDis = 0;
+        this.precioMay = 0;
+        this.precioUnit = 0;
+        this.stockMax = 0;
+        this.stockMin = 0;
+
+
+      }
+
+
+    })
+
+
+
+
+
+  }
+
+  OnInitVacio(encontrar: string): void {
+    if (encontrar.length == 0) {
+
+    } else {
+      this.buscarStockProducto();
+    }
+    console.log(encontrar)
+
+  }
+
+  ngAfterViewInit() {
+    $(".js-example-tags").select2({
+      tags: true
+    });
+  }
 
   async testingreso() {
 
@@ -406,13 +826,14 @@ export class StockFormComponent implements OnInit {
     let stockMax = this.quitarespacios('#stockMax');
     let stockMin = this.quitarespacios('#stockMin');
 
-    let opcionTallas = this.quitarespacios('#talla');
-    let opcionCategoria = this.quitarespacios('#categoria');
-    let opcionDisenos = this.quitarespacios('#diseno');
+    // let opcionTallas = this.quitarespacios(this.nombreTalla);
+    // //let opcionCategoria = this.quitarespacios('#categoria');
+    // let opcionDisenos = this.quitarespacios(this.nombreDiseno);
 
-    if (opcionTallas.length > 0 &&
-      opcionCategoria.length > 0 &&
-      opcionDisenos.length > 0) {
+    if (//opcionTallas.length > 0 &&
+      //opcionCategoria.length > 0 &&
+      //opcionDisenos.length > 0) 
+      true) {
 
 
       this.stockAuxiliar.cantidad = cantidad;
@@ -422,35 +843,13 @@ export class StockFormComponent implements OnInit {
       this.stockAuxiliar.precioUnit = precioUnit;
       this.stockAuxiliar.stockMax = stockMax;
       this.stockAuxiliar.stockMin = stockMin;
-
-
-      //catProducto
-
-
-      //  await this.productServices.getProducto(this.idProductoPrueba).subscribe(res => {
-      //   this.stockAuxiliar.catProducto = res;
-      //   console.log("producto"); 
-      //   ///promesas ts  
-      // },
-      //   err => console.log(err))
-      // //catPuntos venta
-
-
-      // await this.puntosVentaServices.getPuntosVenta(this.idPuntoVentaPrueba
-      // ).subscribe(res => {
-      //   this.stockAuxiliar.catPuntosVenta = res;
-      //   console.log("puntunto venta");
-      // }, error => console.log(error))
-
-
       return true;
     } else {
       return false;
     }
   }
 
-  updateStocks() { }
-
+  //METODO VALIDAR LOS ESPACIOS DEPUES DE LA ULTIMA LETRA O NUMERO
   quitarespacios(atributoHTML: string) {
     let obtenerletras = $(atributoHTML).val();
     return obtenerletras.trim();

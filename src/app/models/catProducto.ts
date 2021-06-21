@@ -6,5 +6,6 @@ export interface Productos{
     idProductos?:number;
     catCategoria?:Categorias,
     catDiseno?:Disenos,
-    catTalla?:Tallas
+    catTalla?:Tallas,
+    codProducto?:number
 }

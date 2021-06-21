@@ -44,8 +44,15 @@
 
 #categoria {
     position: absolute;
-    width: 416px;
+    width: 300px;
     left: 139px;
+    top: 120px;
+}
+
+#insertarCategoriaLista {
+    position: absolute;
+    width: 40px;
+    left: 480px;
     top: 120px;
 }
 
@@ -87,7 +94,7 @@
 
 #diseno {
     position: absolute;
-    width: 416px;
+    width: 300px;
     left: 139px;
     top: 178px;
 }
@@ -97,6 +104,13 @@
     width: 42px;
     height: 14px;
     left: 46px;
+    top: 178px;
+}
+
+#insertarDiseñoLista {
+    position: absolute;
+    width: 40px;
+    left: 480px;
     top: 178px;
 }
 
@@ -133,6 +147,13 @@
     position: absolute;
     width: 104px;
     left: 139px;
+    top: 237px;
+}
+
+#insertarTallaLista {
+    position: absolute;
+    width: 40px;
+    left: 280px;
     top: 237px;
 }
 

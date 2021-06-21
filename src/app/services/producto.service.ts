@@ -28,4 +28,8 @@ export class ProductoService {
   deleteProducto(id:number){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
+
+  findproductobycodigo(codigoproducto:number){
+    return this.http.get(`${this.API_URI}/find/${codigoproducto}`);
+  }
 }

@@ -34,9 +34,11 @@ import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ve
 import { StockFormComponent } from './components/moduloProducto/stock-form/stock-form.component';
 import { StockListComponent } from './components/moduloProducto/stock-list/stock-list.component';
 
+import {DialogModule} from 'primeng/dialog';
 
-
-
+import {InputTextModule} from 'primeng/inputtext';
+import {TooltipModule} from 'primeng/tooltip';
+import {ButtonModule} from 'primeng/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,14 @@ import { StockListComponent } from './components/moduloProducto/stock-list/stock
     ReactiveFormsModule,
     NgSelect2Module,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserModule,
+    BrowserAnimationsModule,
+    DialogModule,
+    InputTextModule,
+    TooltipModule,
+    ButtonModule
+        
   ],
   providers: [RolesFormComponent],
   bootstrap: [AppComponent]

@@ -36,4 +36,9 @@ export class CatStockService {
     return this.http.get(`${this.API_URI}/update/${idProducto}/${idPuntosVenta}/${cantidad}`);
   }
 
+  findbyIdproductoIdpuntosVenta(id_producto:number, id_puntosventa:number){
+    return this.http.get(`${this.API_URI}/find/${id_producto}/${id_puntosventa}`);
+
+  }
+
 }
