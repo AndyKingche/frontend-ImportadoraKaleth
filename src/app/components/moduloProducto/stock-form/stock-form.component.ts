@@ -25,7 +25,7 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
 import { NotificacionService } from '../../../services/notificacion.service';
 import { resolve } from 'url';
-import { ConsoleReporter } from 'jasmine';
+
 
 declare let $: any;
 
@@ -52,6 +52,11 @@ export class StockFormComponent implements OnInit {
     idCategoria: 0,
     descripcion: '',
     nombreCategoria: ''
+  };
+  categoriaAux: Categorias = {
+    idCategoria: 0,
+    descripcion: '',
+    nombreCategoria: ''
   }
   //diesnos
   disenos: Disenos;
@@ -60,6 +65,10 @@ export class StockFormComponent implements OnInit {
     idDisenos: 0,
     nombre: ''
   };
+  disenosAux: Disenos = {
+    idDisenos: 0,
+    nombre: ''
+  }
   //tallas
   tallas: Tallas;
   tallasEscogida: any = [];
@@ -69,6 +78,12 @@ export class StockFormComponent implements OnInit {
     descripcion: '',
     tipo: ''
   };
+  tallasAux: Tallas = {
+    idTallas: 0,
+    medida: '',
+    descripcion: '',
+    tipo: ''
+  }
   //productos
   productos: Productos = {
 
@@ -597,7 +612,7 @@ export class StockFormComponent implements OnInit {
 
 
     ///hhhhhhhh
-    this.totalValorIngreso=0;
+    this.totalValorIngreso = 0;
 
     this.stockAuxiliarLista.forEach(element => {
       element = element.cantidad * element.precioUnit;
@@ -605,7 +620,7 @@ export class StockFormComponent implements OnInit {
       console.log(element);
     });
 
-    this.totalIngresoVista = "" + ( this.totalValorIngreso);
+    this.totalIngresoVista = "" + (this.totalValorIngreso);
 
   }
   //METODO PARA INGRESAR A LA BDD EN LA TABLA STOCK 
@@ -721,17 +736,17 @@ export class StockFormComponent implements OnInit {
   eliminarstockList(id: number) {
     console.log("el ide escogido es=>", id)
     this.stockAuxiliarLista = this.stockAuxiliarLista.filter(element => {
-      
+
       return element.catProducto.idProductos != id;
     })
-    this.totalValorIngreso=0;
+    this.totalValorIngreso = 0;
     this.stockAuxiliarLista.forEach(element => {
       element = element.cantidad * element.precioUnit;
       this.totalValorIngreso += element;
       console.log(element);
     });
 
-    this.totalIngresoVista = "" + ( this.totalValorIngreso);
+    this.totalIngresoVista = "" + (this.totalValorIngreso);
     console.log(this.stockAuxiliarLista);
   }
   ////////////////////////////////////METODO PARA BUSCAR EL PORDUCTO MIENTRAS SE TIPEA EN EN IMPUT////////////////////////////////////////////////
@@ -746,39 +761,59 @@ export class StockFormComponent implements OnInit {
       }, err => console.log(err))
     });
 
+
     await IDPRODUCTO.then(res => {
       this.idProductoencontrado = Number(res);
       console.log(this.idProductoencontrado)
+      //cosuotar producto por id para llenar lista de los select 
+      ////////////////
       if (this.idProductoencontrado > 0) {
-        this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
-
-
+        this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
 
           // this.nombreTalla = result[0].catProducto.catTalla.medida;
           //talla
-          this.tallasSelectSearch = result[0].catProducto.catTalla;
+          this.tallasSelectSearch = result.catTalla;
           // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;
           //categora
-          this.categoriaSelectSearch = result[0].catProducto.catCategoria;
+          this.categoriaSelectSearch = result.catCategoria;
           // this.nombreDiseno = result[0].catProducto.catDiseno.nombre;
           //diseno
-          this.disenosSelectSearch = result[0].catProducto.catDiseno;
-          this.cantidad = 0;
-          this.precioDis = result[0].precioDistribuidor;
-          this.precioMay = result[0].precioMayor;
-          this.precioUnit = result[0].precioUnit;
-          this.stockMax = result[0].stockMax;
-          this.stockMin = result[0].stockMin;
+          this.disenosSelectSearch = result.catDiseno;
+
+        })
+
+        this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
+          //////////////
+          console.log("envia =>", result, "que tipo es", typeof (result));
+          if (Object.keys(result).length === 0) {
+
+            this.cantidad = 0;
+            this.precioDis = 0;
+            this.precioMay = 0;
+            this.precioUnit = 0;
+            this.stockMax = 0;
+            this.stockMin = 0;
+
+          } else {
+
+            this.cantidad = 0;
+            this.precioDis = result[0].precioDistribuidor;
+            this.precioMay = result[0].precioMayor;
+            this.precioUnit = result[0].precioUnit;
+            this.stockMax = result[0].stockMax;
+            this.stockMin = result[0].stockMin;
+          }
+
 
           console.log(result)
 
 
         }, err => console.log(err))
       } else {
+        this.tallasSelectSearch = this.tallasAux;
+        this.categoriaSelectSearch = this.categoriaAux;
+        this.disenosSelectSearch = this.disenosAux;
 
-        this.nombreTalla = "";
-        this.nombreCategoria = "";
-        this.nombreDiseno = "";
         this.cantidad = 0;
         this.precioDis = 0;
         this.precioMay = 0;
