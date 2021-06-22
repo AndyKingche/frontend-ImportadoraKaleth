@@ -33,6 +33,7 @@ import {PuntosVentasListComponent} from './components/moduloProducto/puntos-vent
 //stock
 import {StockFormComponent} from './components/moduloProducto/stock-form/stock-form.component'; 
 import {StockListComponent} from './components/moduloProducto/stock-list/stock-list.component';
+import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 const routes: Routes = [
   {
     path:' ',
@@ -156,6 +157,9 @@ const routes: Routes = [
   {
     path: 'sales-points-edit/:id',
     component: PuntosVentasFormComponent
+  },{
+    path:'bill',
+    component: FacturacionFormComponent
   }
 ,
   {

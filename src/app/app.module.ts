@@ -49,6 +49,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
 import {SliderModule} from 'primeng/slider';
 import {ProgressBarModule} from 'primeng/progressbar';
+import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
+
 //
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     PuntosVentasFormComponent,
     PuntosVentasListComponent,
     StockFormComponent,
-    StockListComponent
+    StockListComponent,
+    FacturacionFormComponent
   ],
   imports: [
     BrowserModule,

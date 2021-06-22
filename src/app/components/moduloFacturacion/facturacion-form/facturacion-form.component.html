@@ -1,0 +1,120 @@
+<div class="p-grid">
+    <div class="p-col-12 header" id="header">
+        <div class="p-col-6">
+
+            <div class="form-group">
+                <label id="lblCedula" for="cedula">Cedula</label>
+                <input type="text" pTooltip="Ingrese la Cedula del cliente" tooltipPosition="top" class="form-control" [(ngModel)]="this.cedula" id="cedula" (input)="encontrarCliente($event.target.value)" (keyup.enter)="buscarClienteByCedula()" name="Cedula" placeholder="Cedula">
+
+            </div>
+
+            <div class="form-group">
+                <label id="lblNombre" for="nombre">Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="this.nombreCliente" id="nombre" name="nombre" placeholder="Nombre">
+            </div>
+            <div class="form-group">
+                <label id="lblApellido" for="apellido">Apellido</label>
+                <input type="text" class="form-control" [(ngModel)]="this.apellidoCliente" id="apellido" name="apellido" placeholder="Apellido">
+            </div>
+            <div class="form-group">
+                <label id="lblTelefono" for="teleofno">Telefono</label>
+                <input type="text" class="form-control" [(ngModel)]="this.telefono" id="telefono" name="telefono" placeholder="Telefono">
+            </div>
+            <div class="form-group">
+                <label id="lblCorreo" for="email">Email</label>
+                <input type="text" class="form-control" [(ngModel)]="this.email" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label id="lblDireccion" for="direccion">Dirección</label>
+                <input type="text" class="form-control" [(ngModel)]="this.direccion" id="direccion" name="direccion" placeholder="Direccion">
+            </div>
+            <div class="form-group">
+                <label id="lblCodidoPro" for="codigo">Código</label>
+                <input type="number" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" (input)="encontrarProducto($event.target.value)" class="form-control" [(ngModel)]="this.codigoProducto" id="codigo" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
+
+            </div>
+
+            <div class="form-group">
+                <label id="lblDetalle" for="detalle">Detalle</label>
+                <input type="text" class="form-control" [(ngModel)]="this.detalle" id="detalle" name="detalle" placeholder="Detalle">
+            </div>
+
+        </div>
+        <div class="p-col-6">
+            <div class="form-group">
+                <label id="lblCantidad" for="cantidad">Cant</label>
+                <input type="text" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
+
+            </div>
+            <div class="form-group">
+                <label id="lblPrecioUnit" for="PrecioUnit">P. Unit</label>
+                <input type="text" class="form-control" [(ngModel)]="this.precioUnit" id="PrecioUnit" name="2" placeholder="P. U" value="100">
+
+            </div>
+            <div class="form-group">
+                <label id="lblPrecioMay" for="PrecioMay">P. May</label>
+                <input type="text" class="form-control" [(ngModel)]="this.precioMay" id="PrecioMay" name="PrecioMay" placeholder="P. May" value="100">
+
+            </div>
+            <div class="form-group">
+                <label id="lblPrecioDis" for="PrecioDis">P. Dis</label>
+                <input type="text" class="form-control" [(ngModel)]="this.precioDis" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
+
+            </div>
+
+            <div class="form-group">
+                <label id="lblTotal" for="lblTotal">${{totalIngresoVista}}</label>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <button id="botonInsertarListaVenta" class="btn btn-primary" (click)="Agregar()">Agregar</button>
+            <button id="botonVender" class="btn btn-primary" (click)="Vender()">Vender</button>
+        </div>
+
+        <div class="form-group">
+            <label id="lblTotalVenta" for="PrecioDis">TOTAL</label>
+            <input type="text" class="form-control" [(ngModel)]="this.precioDis" id="totalVenta" name="totalVenta" placeholder="Total">
+
+        </div>
+
+
+    </div>
+    <div class="p-col-12" id="foot">
+        <div class="content">
+            <table class="table table-hover" id="tablaFactura">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Item</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Medida</th>
+                        <th scope="col">Local</th>
+                        <th scope="col">Cant</th>
+                        <th scope="col">P. Unidad</th>
+                        <th scope="col">P. Total</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <!-- <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="eliminarstockList(stockAuxiliarLista.catProducto.idProductos)"></button></td> -->
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
