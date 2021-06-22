@@ -14,10 +14,12 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class RolesListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   roles : any = [];
+  selectedRoles : Roles;
   constructor( private rolesservices : RolesService, private notifiacion: NotificacionService) { }
 
   ngOnInit() {
     this.getRoles();
+
   }
 
   getRoles(){

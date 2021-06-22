@@ -51,6 +51,10 @@ import {SliderModule} from 'primeng/slider';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 
+
+import {MenubarModule} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+import { HomeComponent } from './components/home/home.component';
 //
 @NgModule({
   declarations: [
@@ -78,7 +82,8 @@ import { FacturacionFormComponent } from './components/moduloFacturacion/factura
     PuntosVentasListComponent,
     StockFormComponent,
     StockListComponent,
-    FacturacionFormComponent
+    FacturacionFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +108,9 @@ import { FacturacionFormComponent } from './components/moduloFacturacion/factura
     MultiSelectModule,
     DropdownModule,
     SliderModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MenubarModule,
+    
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],
