@@ -23,6 +23,5 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "skipLibCheck":true
-
   }
 }

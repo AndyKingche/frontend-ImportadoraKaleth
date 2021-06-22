@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.2.14",
+    "@angular/cdk": "^12.0.5",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
     "@angular/core": "~8.2.14",
@@ -21,6 +22,7 @@
     "@angular/router": "~8.2.14",
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
+    "firebase": "^7.24.0",
     "jquery": "^3.6.0",
     "ng-select2": "^1.2.5",
     "ngx-toastr": "^11.3.3",
@@ -50,6 +52,11 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@angular-devkit/architect": "<0.900 || ^0.900.0-0 || ^9.0.0-0",
+    "firebase-tools": "^7.12.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   }
 }

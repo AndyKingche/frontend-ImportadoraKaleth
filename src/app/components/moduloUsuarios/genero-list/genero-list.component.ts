@@ -20,7 +20,6 @@ export class GeneroListComponent implements OnInit {
     this.generoservice.getGeneros().subscribe(
       res=>{
         this.generos = res;
-
       },error => console.error(error)
     );
   }

@@ -15,12 +15,12 @@
         </thead>
         <tbody *ngFor="let rol of roles">
             <tr>
-                <td>{{rol.id_roles}}</td>
+                <td>{{rol.idRoles}}</td>
                 <td>{{rol.nombre}}</td>
                 <td>{{rol.rol}}</td>
                 <td>{{rol.descripcion}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteRol(rol.id_roles)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-edit/',rol.id_roles]"> Actualizar Rol</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="deleteRol(rol.idRoles)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-edit/',rol.idRoles]"> Actualizar Rol</button></td>
               </tr>
           </tbody>
       </table> 

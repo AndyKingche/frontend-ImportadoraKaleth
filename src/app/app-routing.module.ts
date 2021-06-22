@@ -144,7 +144,6 @@ const routes: Routes = [
     path: 'product-edit/:id',
     component: ProductoFormComponent
   }
-
   ,
   {
     path:'sales-points',

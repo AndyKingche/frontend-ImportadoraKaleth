@@ -39,6 +39,17 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {TooltipModule} from 'primeng/tooltip';
 import {ButtonModule} from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
+import { FilterService } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
+import {TableModule} from 'primeng/table';
+import {CardModule} from 'primeng/card';
+import {DividerModule} from 'primeng/divider';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {DropdownModule} from 'primeng/dropdown';
+import {SliderModule} from 'primeng/slider';
+import {ProgressBarModule} from 'primeng/progressbar';
+//
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,10 +91,19 @@ import {ButtonModule} from 'primeng/button';
     DialogModule,
     InputTextModule,
     TooltipModule,
-    ButtonModule
-        
+    ButtonModule,
+    CalendarModule,
+    InputTextModule,
+    TableModule,
+    CardModule,
+    DividerModule,
+    MultiSelectModule,
+    DropdownModule,
+    SliderModule,
+    ProgressBarModule
+    
   ],
-  providers: [RolesFormComponent],
+  providers: [RolesFormComponent,PrimeNGConfig,FilterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

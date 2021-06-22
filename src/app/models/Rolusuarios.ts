@@ -1,6 +1,9 @@
+import { Roles } from './Roles';
+import { Usuarios } from './Usuarios';
+
 
 export interface Rolusuarios{
-    id_rolusuarios?:number;
-    rol?: {id_roles:number};
-    user?: {id_usuarios:number};
+    id?:{
+        idUsuario?:number,
+    idRoles?:number};
 }

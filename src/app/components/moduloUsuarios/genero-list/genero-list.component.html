@@ -7,17 +7,18 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
-            <!-- <th scope="col">Eliminar</th>
-            <th scope="col">Actualizar</th> -->
+            
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
           </tr>
         </thead>
         <tbody *ngFor="let genero  of generos">
             <tr>
-                <td>{{genero.id_genero}}</td>
+                <td>{{genero.idGenero}}</td>
                 <td>{{genero.nombre}}</td>
-                <!-- <td><button type="button" class="btn btn-danger" (click)="deleteGenero(id)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/gender-edit/',genero.id_genero]"> Actualizar Genero</button></td>
-               -->
+                <td><button type="button" class="btn btn-danger" (click)="deleteGenero(genero.idGenero)" >Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/gender-edit/',genero.idGenero]"> Actualizar Genero</button></td>
+              
               </tr>
           </tbody>
       </table> 

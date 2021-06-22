@@ -6,8 +6,8 @@
               <div class="input-group mb-3">
                 <label class="input-group-text" for="Usuario">Usuarios</label> 
                   <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="usuarios" name="usuarios"  data-width="75%" required >
-                    <option  [attr.selected]="usuariosEscogidos.id_usuarios" [attr.value]="usuariosEscogidos.id_usuarios"></option>
-                    <option   *ngFor="let usuarios of usuarios"  name="user" value="{{usuarios.id_usuarios}}" class="placeholder" >{{usuarios.nombre}} {{usuarios.apellido}}</option>   
+                    <option  [attr.selected]="usuariosEscogidos.idUsuario" [attr.value]="usuariosEscogidos.idUsuario"></option>
+                    <option   *ngFor="let usuarios of usuarios"  name="user" value="{{usuarios.idUsuario}}" class="placeholder" >{{usuarios.nombre}} {{usuarios.apellido}}</option>   
                   </select>
                 </div>
           </div>
@@ -16,8 +16,8 @@
                  <div class="input-group mb-3">  
                         <label class="input-group-text" for="Roles">Roles</label>      
                         <select   class="js-example-placeholder-single js-states form-control"  id="roles" name="roles"  data-width="75%" required >
-                          <option  [attr.selected]="rolesEscogidos.id_roles" [attr.value]="rolesEscogidos.id_roles"></option>
-                          <option   *ngFor="let roles of roles"  name="rol" value="{{roles.id_roles}}" class="placeholder" >{{roles.nombre}}</option>   
+                          <option  [attr.selected]="rolesEscogidos.idRoles" [attr.value]="rolesEscogidos.idRoles"></option>
+                          <option   *ngFor="let roles of roles"  name="rol" value="{{roles.idRoles}}" class="placeholder" >{{roles.nombre}}</option>   
                         </select>
                   </div>           
               </div>

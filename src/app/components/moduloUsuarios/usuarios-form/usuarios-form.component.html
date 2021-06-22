@@ -3,8 +3,10 @@
         <form>
           <!-- Este div es solo para el nombre -->
             <div class="form-group">
-              <label for="nombre">Nombre:</label>
-              <input type="text" class="form-control" [(ngModel)]="user.nombre" id="nombre"  name="nombre" placeholder="Nombre">
+              <span class="p-float-label">
+                <input type="text" class="form-control" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
+                <label for="float-input">Nombre:</label>
+              </span>
             </div>
             <!-- este div es para el apellido -->
             <div class="form-group">
@@ -36,10 +38,17 @@
                 <input type="text" class="form-control" [(ngModel)]="user.telefono" id='telefono' name="telefono" placeholder="Telefono">
             </div>
             <!-- fecha Nacimiento -->
+              <!-- <div class="form-group">
+                <label for="fecha_nacimiento">Fecha de Nacimiento: (aaaa-dd-mm)</label>
+                <input type="text" class="form-control" [(ngModel)]="user.fechanacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+              </div> -->
               <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="text" class="form-control" [(ngModel)]="user.fecha_nacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                <div class="p-field p-col-12 p-md-4">
+                  <label for="navigators">Fecha de nacimiento</label>
+                   <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="user.fechanacimiento" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar>
+                </div>
               </div>
+
               <!-- estado -->
               <div class="form-control">
                 <div class="input-group mb-3">
@@ -58,8 +67,8 @@
               <div class="input-group mb-3">
                 <label class="input-group-text" for="Estado Civil">Estado Civil</label> 
                   <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="estadociviles" name="estadociviles"  data-width="auto" required >
-                    <option  [attr.selected]="estadocivilEscogido.id_estadocivil" [attr.value]="estadocivilEscogido.id_esatdocivil"></option>
-                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.id_estadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
+                    <option  [attr.selected]="estadocivilEscogido.idEstadocivil" [attr.value]="estadocivilEscogido.idEsatdocivil"></option>
+                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.idEstadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
                   </select>
                 </div>
           </div>
@@ -68,8 +77,8 @@
                  <div class="input-group mb-3">  
                         <label class="input-group-text" for="Genero">Genero</label>      
                         <select   class="js-example-placeholder-single js-states form-control"  id="generos" name="generos"  data-width="auto" required >
-                          <option  [attr.selected]="generoEscogido.id_genero" [attr.value]="generoEscogido.id_genero"></option>
-                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.id_genero}}" class="placeholder" >{{generos.nombre}}</option>   
+                          <option  [attr.selected]="generoEscogido.idGenero" [attr.value]="generoEscogido.idGenero"></option>
+                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.idGenero}}" class="placeholder" >{{generos.nombre}}</option>   
                         </select>
                   </div>           
               </div>
