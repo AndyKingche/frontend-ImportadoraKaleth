@@ -49,6 +49,10 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
 import {SliderModule} from 'primeng/slider';
 import {ProgressBarModule} from 'primeng/progressbar';
+
+import {MenubarModule} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+import { HomeComponent } from './components/home/home.component';
 //
 @NgModule({
   declarations: [
@@ -75,7 +79,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     PuntosVentasFormComponent,
     PuntosVentasListComponent,
     StockFormComponent,
-    StockListComponent
+    StockListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +105,9 @@ import {ProgressBarModule} from 'primeng/progressbar';
     MultiSelectModule,
     DropdownModule,
     SliderModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MenubarModule,
+    
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],

@@ -40,6 +40,7 @@ export class UsuariosFormComponent implements OnInit {
     id: true,
     nombre: " ",
   };
+  creacion:string='Crear';
   constructor(
     private usuariosservice: UsuariosService,
     private generoservice: GeneroService,
@@ -52,12 +53,13 @@ export class UsuariosFormComponent implements OnInit {
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
     console.log(params);
-
+    this.creacion = 'Crear';
     if (params.id) {
       this.usuariosservice.getUsuario(params.id).subscribe(
         (res) => {
           if (res != null) {
             this.user = res;
+            this.creacion = 'Actualizar';
             if (this.user.estado) {
               this.estadosEscogidos.id = "true";
               this.estadosEscogidos.nombre = "Activo";
@@ -217,6 +219,8 @@ export class UsuariosFormComponent implements OnInit {
       }
        
     } catch (error) {
+      this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
+
       console.log(error);
     }
     
@@ -276,17 +280,17 @@ export class UsuariosFormComponent implements OnInit {
     let obtenerEmail = this.quitarespacios("#email");
 
     if (
-      // obtenerNombre.length > 0 &&
-      // obtenerApellido.length > 0 &&
-      // obtenerCedula.length > 0 &&
-      // obtenerPassword.length > 0 &&
-      // obtenerTelefono.length > 0 &&
-      // obtenerFechaNacimiento.length > 0 &&
-      // obtenerEmail.length > 0 &&
-      // opcionEstadocivil.length > 0 &&
-      // opcionGenero.length > 0 &&
-      // opcionEstado != null
-      true
+      obtenerNombre.length > 0 &&
+      obtenerApellido.length > 0 &&
+      obtenerCedula.length > 0 &&
+      obtenerPassword.length > 0 &&
+      obtenerTelefono.length > 0 &&
+      obtenerFechaNacimiento.length > 0 &&
+      obtenerEmail.length > 0 &&
+      opcionEstadocivil.length > 0 &&
+      opcionGenero.length > 0 &&
+      opcionEstado != null
+     
     ) {
       this.user.nombre = obtenerNombre;
       this.user.apellido = obtenerApellido;

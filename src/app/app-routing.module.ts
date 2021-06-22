@@ -33,11 +33,18 @@ import {PuntosVentasListComponent} from './components/moduloProducto/puntos-vent
 //stock
 import {StockFormComponent} from './components/moduloProducto/stock-form/stock-form.component'; 
 import {StockListComponent} from './components/moduloProducto/stock-list/stock-list.component';
+//
+import{ HomeComponent }from './components/home/home.component'
+
 const routes: Routes = [
   {
     path:' ',
-    redirectTo:'/rol',
+    redirectTo:'home',
     pathMatch: 'full'
+  },
+  {
+    path:'home',
+    component:HomeComponent,
   },
   {
     path:'rol',
