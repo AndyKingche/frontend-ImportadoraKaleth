@@ -4,6 +4,7 @@ import { CatStockService } from '../../../services/cat-stock.service';
 import { NotificacionService } from '../../../services/notificacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
@@ -15,7 +16,7 @@ export class StockListComponent implements OnInit {
   constructor(private stockService: CatStockService,
     private notificacion: NotificacionService, private route: ActivatedRoute) {
     route.params.subscribe(val => {
-      this.getStocks()
+      this.ngOnInit();
     })
   }
 

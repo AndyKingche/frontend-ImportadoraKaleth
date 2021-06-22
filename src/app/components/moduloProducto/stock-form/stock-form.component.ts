@@ -163,6 +163,19 @@ export class StockFormComponent implements OnInit {
     existe: '',
 
   }
+  stocksAux: cat_stock = {
+    id: {
+      idProductos: 0,
+      idPuntosVenta: 14
+    },
+    stockMax: 0,
+    stockMin: 0,
+    precioDistribuidor: 0,
+    precioMayor: 0,
+    precioUnit: 0,
+    existe: '',
+  }
+
 
   stocksEscogidos: any[];
   edit: boolean = false;
@@ -179,6 +192,13 @@ export class StockFormComponent implements OnInit {
   //varaibake ara obtener el objecto del select
 
   toStr: any = JSON.stringify;
+
+  //Boolean para el nombre repesido
+  nombreCategoriaexiste:boolean=false;
+  medidaexiste:boolean=false;
+  nombredisenoexiste:boolean=false;
+
+
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -343,25 +363,74 @@ export class StockFormComponent implements OnInit {
 
 
   /////////tomar el nombre de la lista de diseños
-  changedCategoria(event: any) {
-    console.log(this.categoriaSelectSearch);
-    this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
+  async changedCategoria(event: any) {
+    const IDCAT = new Promise(async (resolve,reject)=>{
+      await this.categoriaservices.findbynombre(this.categoriaSelectSearch.nombreCategoria)
+      .subscribe(res=>{
+        resolve(res);
+      })
+    });
 
+    await IDCAT.then(res=>
+      {
+        this.categoriaSelectSearch.idCategoria = Number(res)
+      }).catch(err=>console.error(err));
 
+    if(this.categoriaSelectSearch.idCategoria>0){
+      this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
+      this.nombreCategoriaexiste = true;
+    }else{
+      this.nombreCategoria = this.categoriaSelectSearch.nombreCategoria;
+      this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
+      this.nombreCategoriaexiste = false;
+    }
   }
 
-  changedDiseno(value) {
+  async changedDiseno(value) {
 
-    console.log(this.nombreDiseno);
-    this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
+    const IDDIS = new Promise(async (resolve,reject)=>{
+     await  this.diesnosservice.
+      findbynombre(this.disenosSelectSearch.nombre)
+      .subscribe(res=>{
+        resolve(res);
+      })
+    });
+
+    await IDDIS.then(res=>{this.disenosSelectSearch.idDisenos = Number(res)});
+    
+    if(this.disenosSelectSearch.idDisenos>0){
+      this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
+      this.nombredisenoexiste = true;
+    }else{
+      this.nombreDiseno = this.disenosSelectSearch.nombre;
+      this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
+      this.nombredisenoexiste = false;
+    }
 
   }
-  changedTalla(value) {
-    this.nombreTalla = value;
-    console.log(this.nombreTalla);
+  async changedTalla(value:any) {
+   
+  console.log("=====",this.tallasSelectSearch.medida)
 
+    const IDTALLA = new Promise(async (resolve,reject)=>{
 
-    this.idTallaEscogido = this.tallasSelectSearch.idTallas;
+      await this.medidaservice.findbynombre(this.tallasSelectSearch.medida)
+      .subscribe(res=>{
+       
+        resolve(res)
+      }
+        ,err=>console.log(err));
+    }) 
+    await IDTALLA.then(res=> {this.tallasSelectSearch.idTallas=Number(res)})
+    .catch(err=>console.log(err))
+    if(this.tallasSelectSearch.idTallas>0){
+      this.idTallaEscogido = this.tallasSelectSearch.idTallas;
+      this.medidaexiste = true;
+    }else{
+      this.idTallaEscogido = this.tallasSelectSearch.idTallas;
+      this.nombreTalla = this.tallasSelectSearch.medida;
+      this.medidaexiste = false;
+    }
   }
   ////// METODOS PARA AGREGAR NUEVAS CATEGORIAS, DISEÑOS, TALLAS AL ARRAY
   ingresarCategoria(categories: string) {
@@ -369,16 +438,19 @@ export class StockFormComponent implements OnInit {
 
   }
   ingresarpushCategoria() {
-
-    let categoriaAuxiliar = {
-      idCategoria: 0,
-      nombreCategoria: this.ingresoCategoria,
-      descripcion: ""
+    if(this.ingresoCategoria.length!=0){
+      let categoriaAuxiliar = {
+        idCategoria: 0,
+        nombreCategoria: this.ingresoCategoria,
+        descripcion: ""
+      }
+      this.categoriaEscogida.push(categoriaAuxiliar);
+  
+      console.log("ingrese categoria lista=>", this.categoriaEscogida)
+      this.displayCategoria = false;
+    }else{
+      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla');
     }
-    this.categoriaEscogida.push(categoriaAuxiliar);
-
-    console.log("ingrese categoria lista=>", this.categoriaEscogida)
-    this.displayCategoria = false;
 
   }
   ingresarDiseno(diseno: string) {
@@ -386,15 +458,20 @@ export class StockFormComponent implements OnInit {
 
   }
   ingresarpushDiseno() {
-    let disenoAuxiliar = {
-      idDisenos: 0,
-      nombre: this.ingresoDiseno
+    
+
+    if(this.ingresoDiseno.length!=0){
+      let disenoAuxiliar = {
+        idDisenos: 0,
+        nombre: this.ingresoDiseno
+      }
+      this.disenosEscogida.push(disenoAuxiliar);
+  
+      console.log("ingrese Diseño lista=>", this.disenosEscogida)
+      this.displayDiseno = false;
+    }else{
+      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla');
     }
-    this.disenosEscogida.push(disenoAuxiliar);
-
-    console.log("ingrese Diseño lista=>", this.disenosEscogida)
-    this.displayDiseno = false;
-
 
   }
   ingresarTalla(talla: string) {
@@ -402,16 +479,22 @@ export class StockFormComponent implements OnInit {
 
   }
   ingresarpushTalla() {
-    let tallaAuxiliar = {
-      idTallas: 0,
-      descripcion: "",
-      medida: this.ingresoTalla,
-      tipo: ""
-    }
-    this.tallasEscogida.push(tallaAuxiliar);
+    // console.log("este es el ingreso",this.ingresoTalla)
+    if(this.ingresoTalla.length!=0){
+      let tallaAuxiliar = {
+        idTallas: 0,
+        descripcion: "",
+        medida: this.ingresoTalla,
+        tipo: ""
+      }
+      this.tallasEscogida.push(tallaAuxiliar);
+  
+      console.log("ingrese talla lista=>", this.tallasEscogida)
+      this.displayTalla = false;
 
-    console.log("ingrese talla lista=>", this.tallasEscogida)
-    this.displayTalla = false;
+    }else{
+      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla')
+    }
 
   }
 
@@ -441,9 +524,11 @@ export class StockFormComponent implements OnInit {
 
           // de lo contrario si el codigo de la categoria es 0 crear categoria 
           /////
-
-          console.log("Entre=>2")
-          //ingreso de categorias solo se ingresa el nombre
+          if(this.nombreCategoriaexiste){
+            console.log("SI EXISTE NO SE PUEDE CREAR")
+          }else{
+            console.log("NO existe si SE PUEDE CREAR")
+             //ingreso de categorias solo se ingresa el nombre
           this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
 
           console.log("categoria", this.categoriasIngreso)
@@ -464,6 +549,11 @@ export class StockFormComponent implements OnInit {
             this.idCategoriaIngreso = Number(res)
             console.log("id Categoria", this.idCategoriaIngreso)
           });
+
+          }
+
+          console.log("Entre=>2")
+         
 
 
         }
@@ -698,13 +788,30 @@ export class StockFormComponent implements OnInit {
             //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
             this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
             //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
-            await this.stockService.updateStockCantidad(this.cantidadConsulta,
+            // await this.stockService.updateStockCantidad(this.cantidadConsulta,
+            //   this.stockAuxiliarLista[i].catProducto.idProductos,
+            //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
+            //     console.log("si se actualizo")
+            //   }, err => console.log(err))
+
+//cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
+            await this.stockService.updateStocks(
+              this.cantidadConsulta,
+              this.stockAuxiliarLista[i].precioUnit,
+              this.stockAuxiliarLista[i].precioMayor,
+              this.stockAuxiliarLista[i].precioDistribuidor,
+              this.stockAuxiliarLista[i].stockMax,
               this.stockAuxiliarLista[i].catProducto.idProductos,
-              this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
+              this.stockAuxiliarLista[i].stockMin,
+              this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
+              ).subscribe(res => {
                 console.log("si se actualizo")
               }, err => console.log(err))
+
+
             //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
             this.cantidadConsulta = 0;
+
 
             console.log(res)
             console.log("si hay")
@@ -831,7 +938,7 @@ export class StockFormComponent implements OnInit {
         this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
 
           let objetonuevo = Object.assign(result);
-          console.log("obketo nuevo => ", objetonuevo)
+          console.log("objeto nuevo => ", objetonuevo)
           //talla
           this.tallasSelectSearch = objetonuevo.catTalla;
           // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;

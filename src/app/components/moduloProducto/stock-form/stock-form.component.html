@@ -1,6 +1,7 @@
-<div class="container-fluid">
-    <form>
-        <div class="form-group">
+<div class="p-grid">
+    <div class="p-col-12 header" id="header">
+        <div class="p-col-6">
+       <div class="form-group">
             <label id="lblcodigo" for="codigo">Código</label>
             <input type="number" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
 
@@ -13,9 +14,9 @@
                 <option  [attr.selected]="categoriaSelectSearch.idCategoria" [attr.value]="categoriaSelectSearch.idCategoria"></option>
                 <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" [ngValue]="categoria" class="placeholder" >{{categoria.nombreCategoria}}</option>   
             </select> -->
-            <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch" id="categoria" name="categoria" required>
+            <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch.nombreCategoria" id="categoria" name="categoria" required>
                 <option  [attr.selected]="categoriaSelectSearch.idCategoria" [attr.value]="categoriaSelectSearch.idCategoria"></option>
-                <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" [ngValue]="categoria" class="placeholder" >{{categoria.nombreCategoria}}</option>   
+                <option   *ngFor="let categoria of categoriaEscogida"  name="categoria" [ngValue]="categoria.nombreCategoria" class="placeholder" >{{categoria.nombreCategoria}}</option>   
             </select>
 
             <button id="insertarCategoriaLista" class="btn btn-primary" (click)="showDialogCategoria()">+</button>
@@ -26,16 +27,18 @@
                     <i class="pi pi-spin pi-spinner"></i>
                     <input type="text" pInputText  (input)="ingresarCategoria($event.target.value)" >        
                 </span>
-                <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushCategoria()">Ingresar</p-button>
+                <!-- <p-button pButton type="button" label="Ingresar" class="p-button-outlined" ></p-button> -->
+                <p-button label="Aceptar" icon="pi pi-check" iconPos="left" (click)="ingresarpushCategoria()"></p-button>
             </p-dialog>
         </div>
+
 
         <!--Diseños -->
         <div class="form-group">
             <label id="lblDiseno" for="diseno">Diseño</label>
-            <select class="form-control" (change)="changedDiseno($event.target.value)" [(ngModel)]="disenosSelectSearch" id="diseno" name="diseno" required>
+            <select class="form-control" (change)="changedDiseno($event.target.value)" [(ngModel)]="disenosSelectSearch.nombre" id="diseno" name="diseno" required>
                 <option  [attr.selected]="disenosSelectSearch.idDisenos" [attr.value]="disenosSelectSearch.idDisenos"></option>
-                <option   *ngFor="let diseno of disenosEscogida"  name="diseno" [ngValue]="diseno" class="placeholder" >{{diseno.nombre}}</option>   
+                <option   *ngFor="let diseno of disenosEscogida"  name="diseno" [ngValue]="diseno.nombre" class="placeholder" >{{diseno.nombre}}</option>   
             </select>
             <button id="insertarDiseñoLista" class="btn btn-primary" (click)="showDialogDiseno()">+</button>
         </div>
@@ -45,15 +48,20 @@
                 <i class="pi pi-spin pi-spinner"></i>
                 <input type="text" pInputText (input)="ingresarDiseno($event.target.value)">        
             </span>
-            <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushDiseno()">Ingresar</p-button>
+            <!-- <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushDiseno()">Ingresar</p-button> -->
+            <p-button label="Aceptar" icon="pi pi-check" iconPos="left" (click)="ingresarpushDiseno()" ></p-button>
+        
         </p-dialog>
+
         <!--Talla -->
         <div class="form-group">
             <label id="lblTalla" for="talla">Talla</label>
             <select class="form-control" (change)="changedTalla($event.target.value)" [(ngModel)]="tallasSelectSearch.medida" id="talla" name="talla" required>
                 <option  [attr.selected]="tallasSelectSearch.idTallas" [attr.value]="tallasSelectSearch.idTallas"></option>
-                <option   *ngFor="let talla of tallasEscogida"  name="talla" [ngValue]="talla" class="placeholder" >{{talla.medida}}</option>   
-            </select><button id="insertarTallaLista" class="btn btn-primary" (click)="showDialogTalla()">+</button>
+                <option   *ngFor="let talla of tallasEscogida"  name="talla" [ngValue]="talla.medida" class="placeholder" >{{talla.medida}}</option>   
+            </select>
+            <button id="insertarTallaLista" class="btn btn-primary" (click)="showDialogTalla()">+</button>
+            <!-- <p-button label="Aceptar" icon="pi pi-check" iconPos="left" (click)="showDialogTalla()"></p-button> -->
         </div>
         <p-dialog position="top" [(visible)]="displayTalla">
             <h5>Ingresar Nueva Talla</h5>
@@ -61,9 +69,13 @@
                 <i class="pi pi-spin pi-spinner"></i>
                 <input type="text" pInputText (input)="ingresarTalla($event.target.value)"  >        
             </span>
-            <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushTalla()">Ingresar</p-button>
+            <!-- <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushTalla()">Ingresar</p-button> -->
+            <p-button label="Aceptar" icon="pi pi-check" iconPos="left" (click)="ingresarpushTalla()"></p-button>
+        
         </p-dialog>
 
+    </div>
+    <div class="p-col-6">
         <div class="form-group">
             <label id="lblCantidad" for="cantidad">Cantidad</label>
             <input type="text" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
@@ -96,22 +108,22 @@
             <input type="text" class="form-control" [(ngModel)]="this.precioDis" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
 
         </div>
-
+    
         <div class="form-group">
             <label id="lblTotal" for="lblTotal">${{totalIngresoVista}}</label>
-
-
         </div>
 
-    </form>
+</div>
 
     <div class="form-group">
         <button id="insertarStock" class="btn btn-primary" (click)="consultar()">Insertar</button>
         <button id="ingresarStockBDD" class="btn btn-primary" (click)="ingresar()">Ingresar</button>
     </div>
 
+</div>
+<div class="p-col-12" id="foot">
     <div class="content">
-        <table class="table table-hover" id="tablaRegistroStock">
+        <table class="table table-hover" >
             <thead>
                 <tr>
 
@@ -146,3 +158,7 @@
             </tbody>
         </table>
     </div>
+</div>
+
+</div>
+

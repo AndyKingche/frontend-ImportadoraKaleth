@@ -30,4 +30,7 @@ export class DisenosService {
   deleteDiseno(id: number){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
+  findbynombre(nombre:string){
+    return this.http.get(`${this.API_URI}/find/${nombre}`);
+  }
 }
