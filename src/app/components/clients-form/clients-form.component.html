@@ -1,10 +1,10 @@
 <div class="content">
     <div class="container-fluid">
         <form>
-          <!-- Este div es solo para el nombre -->
+            <!-- Este div es solo para el nombre -->
             <div class="form-group">
-              <label for="nombre">Nombre:</label>
-              <input type="text" class="form-control" [(ngModel)]="client.nombrecliente" id="nombrecliente"  name="nombrecliente" placeholder="Nombre">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" [(ngModel)]="client.nombrecliente" id="nombrecliente" name="nombrecliente" placeholder="Nombre">
             </div>
             <!-- este div es para el apellido -->
             <div class="form-group">
@@ -14,9 +14,9 @@
             <!--  -->
             <div class="form-group">
                 <label for="cedula">Cedula:</label>
-                <input type="text" class="form-control" [(ngModel)]="client.cedulacliente"  id="cedulacliente" name="cedulacliente" placeholder="Cedula">
+                <input type="text" class="form-control" [(ngModel)]="client.cedulacliente" id="cedulacliente" name="cedulacliente" placeholder="Cedula">
             </div>
-        <!-- Direccion -->
+            <!-- Direccion -->
             <div class="form-group">
                 <label for="direccion">Direccion:</label>
                 <input type="text" class="form-control" [(ngModel)]="client.direccioncliente" id="direccioncliente" name="direccioncliente" placeholder="Direccion">
@@ -32,11 +32,10 @@
             </div>
 
             <div class="form-group">
-                <button  class="btn btn-primary" (click)="edit ? updateCliente() : saveCliente()">Aceptar</button>
+                <button class="btn btn-primary" (click)="edit ? updateCliente() : saveCliente()">Aceptar</button>
                 <button type="button" class="btn btn-info" routerLink="/client">Regresar</button>
-               
-             </div>
-        </form>
-      </div>
-</div>
 
+            </div>
+        </form>
+    </div>
+</div>

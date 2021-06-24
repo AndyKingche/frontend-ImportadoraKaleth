@@ -97,17 +97,17 @@
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngFor="let detalle of listaDetalleFactura; let i = index">
                     <tr>
 
 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{i+1}}</td>
+                        <td>{{detalle.descripcion}}</td>
+                        <td>0</td>
+                        <td>{{detalle.catStock.id.idPuntosVenta}}</td>
+                        <td>{{detalle.cantidadFact}}</td>
+                        <td>{{detalle.valorUnit}}</td>
+                        <td>{{detalle.valorTotal}}</td>
                         <!-- <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="eliminarstockList(stockAuxiliarLista.catProducto.idProductos)"></button></td> -->
 
 
