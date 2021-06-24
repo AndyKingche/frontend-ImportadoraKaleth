@@ -15,7 +15,7 @@ export class FacturacionService {
 
   API_URI = 'api/bill'; 
 
-  saveFactura(factura: any): Observable<any> {
+  saveFactura(factura: VenCabezaFactura): Observable<VenCabezaFactura> {
     return this.http.post(`${this.API_URI}`, factura);
   }
 

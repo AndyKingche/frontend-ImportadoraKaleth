@@ -86,32 +86,60 @@ export class FacturacionFormComponent implements OnInit {
 
   };
   //objeto cabeza ingreso auxiliar
+  // auxiliarFacturaIngreso: VenCabezaFactura = {
+  //   idCabezaFac: 0,
+  //   estado: '',
+  //   iva: 0,
+  //   fechaFactu: '',
+  //   total: 0,
+  //   usUser: {
+  //     idUsuario: 0,
+  //   },
+  //   detallefact: [{
+  //     idDetalleFact: 0,
+  //     cantidadFact: 0,
+  //     descripcion: '',
+  //     valorTotal: 0,
+  //     valorUnit: 0,
+  //     catStock: {
+  //       id: {
+  //         idPuntosVenta: 0,
+  //         idProductos: 0
+  //       }
+  //     }
+  //   }
+  //   ],
+  //   venCliente: {
+  //     idCliente: 0
+  //   },
+
+  // }
   auxiliarFacturaIngreso: VenCabezaFactura = {
-    idCabezaFac: 0,
     estado: "",
     iva: 0,
     fechaFactu: "",
     total: 0,
     usUser: {
-      idUsuario: 0,
+      idUsuario: 1
     },
     detallefact: [{
-      idDetalleFact: 0,
       cantidadFact: 0,
       descripcion: "",
       valorTotal: 0,
       valorUnit: 0,
-      catStock: {
+      catStock:
+      {
         id: {
-          idPuntosVenta: 0,
-          idProductos: 0
+          idProductos: 0,
+          idPuntosVenta: 0
         }
       }
     }
+
     ],
     venCliente: {
       idCliente: 0
-    },
+    }
 
   }
   // venCabezaFactura:VenCabezaFactura={
@@ -141,7 +169,7 @@ export class FacturacionFormComponent implements OnInit {
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    this.idPuntosVenta = 14;
+    this.idPuntosVenta = 1;
     this.totalIngresoVista = "0";
     this.listafacturaIngreso = [{
       idCabezaFac: 0,
@@ -180,20 +208,22 @@ export class FacturacionFormComponent implements OnInit {
   async Agregar() {
     const IDCLIENTE = new Promise(async (resolve, reject) => {
       await this.clienteService.getClienteByCedula(this.cedula).subscribe((res) => {
-
         if (Object.keys(res).length === 0) {
 
           resolve(0)
         } else {
-          resolve(res[0].id_cliente);
+          resolve(res[0].idCliente);
         }
 
       }, err => console.log(err))
     });
 
     await IDCLIENTE.then(res => {
+      console.log("el cliente existe", res)
       this.idClienteIngreso = Number(res);
     })
+
+
     //creamos un nuevo cliente sis que no existe
     if (this.idClienteIngreso == 0) {
       this.nuevoClienteIngreso.nombreCli = this.nombreCliente;
@@ -215,20 +245,11 @@ export class FacturacionFormComponent implements OnInit {
       })
 
       console.log("id CLiente ingresado=>  ", this.idClienteIngreso)
-
-
-
-
-
-
+    } else {
+      console.log("el cliente existe", this.idClienteIngreso)
     }
 
     ///INGRESAR DATOS SI EXISTE EL CLIENTE
-
-
-
-
-
 
     this.venDetalleFactura.cantidadFact = this.cantidad;
     this.venDetalleFactura.descripcion = this.detalle;
@@ -296,49 +317,79 @@ export class FacturacionFormComponent implements OnInit {
     this.auxiliarFacturaIngreso.estado = "A";
     this.auxiliarFacturaIngreso.iva = 0;
     this.auxiliarFacturaIngreso.total = 0;
-    this.auxiliarFacturaIngreso.usUser.idUsuario = 1;
-    this.auxiliarFacturaIngreso.venCliente.idCliente = 1;
+    this.auxiliarFacturaIngreso.usUser.idUsuario = 1;//Usuario logeaado 
+    this.auxiliarFacturaIngreso.venCliente.idCliente = this.idClienteIngreso;
     //   this.auxiliarFacturaIngreso.detallefact = this.listaDetalleFactura;
 
+    // let pruebaingreso ={
+    //   idCbezaFac:0, 
+    //  estado: "A",
+    //  iva: 0,
+    //  fechaFactu: "2021-06-24",
+    //  total: 0,
+    //  usUser: {
+    //      idUsuario:1
+    //  },
+    //  detallefact: [{
+    //      cantidadFact:0,
+    //      descripcion:"Goku", 
+    //      valorTotal:0,
+    //      valorUnit:12,
+    //      catStock:
+    //      {
+    //          id:{
+    //              idProductos:1,
+    //              idPuntosVenta:1
+    //          }
+    //      }
+    //  }
+
+    //  ],
+    //  venCliente: {
+    //      idCliente:1
+    //  }
+
+    //  }
     let pruebaingreso = {
-      idCabezaFac: 0,
-      estado: "",
+
+      estado: "A",
       iva: 0,
-      fechaFactu: "",
+      fechaFactu: "2021-06-24",
       total: 0,
       usUser: {
-        idUsuario: 1,
+        idUsuario: 1
       },
       detallefact: [{
         cantidadFact: 0,
-        descripcion: "GOKU",
+        descripcion: "Goku",
         valorTotal: 0,
-        valorUnit: 1,
-        catStock: {
+        valorUnit: 12,
+        catStock:
+        {
           id: {
-            idPuntosVenta: 14,
-            idProductos: 1
+            idProductos: 1,
+            idPuntosVenta: 1
           }
         }
-
       }
+
       ],
       venCliente: {
         idCliente: 1
-      },
+      }
 
     }
     for (let i = 0; i < this.listaDetalleFactura.length; i++) {
       this.auxiliarFacturaIngreso.detallefact[i] = {
 
-        cantidadFact: this.listaDetalleFactura[i].cantidadFact,
+        cantidadFact: Number(this.listaDetalleFactura[i].cantidadFact),
         descripcion: this.listaDetalleFactura[i].descripcion,
-        valorTotal: this.listaDetalleFactura[i].valorTotal,
-        valorUnit: this.listaDetalleFactura[i].valorUnit,
+        valorTotal: Number(this.listaDetalleFactura[i].valorTotal),
+        valorUnit: Number(this.listaDetalleFactura[i].valorUnit),
         catStock: {
           id: {
-            idPuntosVenta: this.listaDetalleFactura[i].catStock.id.idPuntosVenta,
-            idProductos: this.listaDetalleFactura[i].catStock.id.idProductos
+            idPuntosVenta: Number(this.listaDetalleFactura[i].catStock.id.idPuntosVenta),
+            idProductos: Number(this.listaDetalleFactura[i].catStock.id.idProductos)
           }
         }
 
@@ -349,7 +400,7 @@ export class FacturacionFormComponent implements OnInit {
 
 
     console.log(this.auxiliarFacturaIngreso)
-    await this.facturaService.saveFactura(pruebaingreso).subscribe(res => {
+    await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
       console.log(res)
     }, err => console.log(err))
 
