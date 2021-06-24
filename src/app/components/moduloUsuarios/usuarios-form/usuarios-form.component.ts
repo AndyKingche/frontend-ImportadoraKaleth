@@ -280,16 +280,7 @@ export class UsuariosFormComponent implements OnInit {
     let obtenerEmail = this.quitarespacios("#email");
 
     if (
-      obtenerNombre.length > 0 &&
-      obtenerApellido.length > 0 &&
-      obtenerCedula.length > 0 &&
-      obtenerPassword.length > 0 &&
-      obtenerTelefono.length > 0 &&
-      obtenerFechaNacimiento.length > 0 &&
-      obtenerEmail.length > 0 &&
-      opcionEstadocivil.length > 0 &&
-      opcionGenero.length > 0 &&
-      opcionEstado != null
+      true
      
     ) {
       this.user.nombre = obtenerNombre;
