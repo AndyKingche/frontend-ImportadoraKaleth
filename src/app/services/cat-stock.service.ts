@@ -32,8 +32,8 @@ export class CatStockService {
 
   }
 
-  updateStockCantidad(cantidad: number, idProducto: number, idPuntosVenta: number) {
-    return this.http.get(`${this.API_URI}/update/${idProducto}/${idPuntosVenta}/${cantidad}`);
+  updateStockCantidadRest(cantidad: number, idProducto: number, idPuntosVenta: number) {
+    return this.http.get(`${this.API_URI}/updateRest/${idProducto}/${idPuntosVenta}/${cantidad}`);
   }
 
   findbyIdproductoIdpuntosVenta(id_producto: number, id_puntosventa: number) {

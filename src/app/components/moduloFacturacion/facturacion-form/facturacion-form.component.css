@@ -140,6 +140,15 @@
     top: 233px;
 }
 
+#lblCantidadDisponible {
+    position: absolute;
+    height: 14px;
+    left: 705px;
+    top: 260px;
+    font-size: 40px;
+    color: #000000;
+}
+
 #cantidad {
     position: absolute;
     width: 61px;
