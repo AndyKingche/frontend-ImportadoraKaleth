@@ -36,6 +36,8 @@ import {StockListComponent} from './components/moduloProducto/stock-list/stock-l
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 //
 import{ HomeComponent }from './components/home/home.component'
+//pedidos
+import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
 
 const routes: Routes = [
   {
@@ -48,6 +50,7 @@ const routes: Routes = [
     path:'home',
     component:HomeComponent,
   },
+  
   {
     path:'rol',
     component: RolesListComponent // esta es la principal, la lista
@@ -181,8 +184,11 @@ const routes: Routes = [
   {
     path: 'stock-edit/:id',
     component: StockFormComponent
+  },
+  {
+    path: 'checkout',
+    component: CarritoComponent
   }
-
 ];
 
 @NgModule({

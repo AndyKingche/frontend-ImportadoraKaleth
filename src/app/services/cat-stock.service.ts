@@ -46,4 +46,13 @@ export class CatStockService {
   getStockProductbyCodProductoExite(codigoProducto: number, idPuntosVenta: number) {
     return this.http.get(`${this.API_URI}/product/${codigoProducto}/${idPuntosVenta}`);
   }
+
+  getAllStockExistents(inicio: number, numeroFilas: number) {
+    return this.http.get(`${this.API_URI}/exist/${inicio}/${numeroFilas}`);
+  }
+  getCantExistents() {
+    return this.http.get(`${this.API_URI}/cant`);
+  }
+
+
 }
