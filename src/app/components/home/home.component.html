@@ -49,7 +49,7 @@
                             <p class="log"><a data-scroll-nav="0" href="account.html">Login</a>
                                 <span>or</span><a href="account.html">Signup</a></p>
                             <div class="cart box_1">
-                                <a routerLink="/checkout">
+                                <a (click)="showCarrito()" ng-hide="mostrarCarrito">
                                     <h3>
                                         <div class="total">
                                             <span class="simpleCart_total"></span></div>
@@ -204,7 +204,7 @@
                             <h3><a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}}t</a></h3>
                             <div class="price">
                                 <h5 class="item_price">${{stocks.precioUnit}}</h5>
-                                <a href="#productos" class="item_add">Agregar Carrito</a>
+                                <a href="#productos" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
                                 <div class="clearfix"> </div>
                             </div>
 
@@ -548,3 +548,7 @@
 <!--====== BACK TO TOP PART START ======-->
 
 <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+
+<div ng-show="mostrarCarrito">
+    <app-carrito></app-carrito>
+</div>
