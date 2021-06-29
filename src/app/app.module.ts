@@ -33,7 +33,7 @@ import { PuntosVentasFormComponent } from './components/moduloProducto/puntos-ve
 import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ventas-list/puntos-ventas-list.component';
 import { StockFormComponent } from './components/moduloProducto/stock-form/stock-form.component';
 import { StockListComponent } from './components/moduloProducto/stock-list/stock-list.component';
-
+import { HomeComponent } from './components/home/home.component';
 import {DialogModule} from 'primeng/dialog';
 
 import {InputTextModule} from 'primeng/inputtext';
@@ -54,7 +54,7 @@ import { FacturacionFormComponent } from './components/moduloFacturacion/factura
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import { HomeComponent } from './components/home/home.component';
+import { HomenuevoModule } from './components/homenuevo/homenuevo.module'
 //
 @NgModule({
   declarations: [
@@ -110,8 +110,8 @@ import { HomeComponent } from './components/home/home.component';
     SliderModule,
     ProgressBarModule,
     MenubarModule,
-    
-    
+    HomenuevoModule
+  
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],
   bootstrap: [AppComponent]

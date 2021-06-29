@@ -36,7 +36,7 @@ import {StockListComponent} from './components/moduloProducto/stock-list/stock-l
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 //
 import{ HomeComponent }from './components/home/home.component'
-
+import { HomenuevoComponent } from './components/homenuevo/homenuevo.component'; 
 const routes: Routes = [
   {
     path:'',
