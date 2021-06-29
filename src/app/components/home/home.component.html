@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/index.html">
                         <img src="../../../assets/img/Logo.png" width="35px" alt="Logo">
                     </a>
                     <!-- Logo -->
@@ -49,7 +49,7 @@
                             <p class="log"><a data-scroll-nav="0" href="account.html">Login</a>
                                 <span>or</span><a href="account.html">Signup</a></p>
                             <div class="cart box_1">
-                                <a routerLink="/checkout">
+                                <a (click)="ShowCarrito()">
                                     <h3>
                                         <div class="total">
                                             <span class="simpleCart_total"></span></div>
@@ -79,7 +79,7 @@
 <!--====== HEADER PART ENDS ======-->
 
 <!--====== SLIDER PART START ======-->
-
+<div *ngIf="mostrarInicio">
 <section id="home" class="slider-area pt-100">
     <div class="container-fluid position-relative">
         <div class="slider-active">
@@ -195,20 +195,23 @@
                 <h1>PRODUCTOS DISPONIBLES</h1>
                 <div class="content-top1">
                     <p-paginator [first]="first" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-                    <div class="col-md-3 col-md2" *ngFor="let stocks of stock">
+                    <div class="col-md-3 col-md2" *ngFor="let stocks of stock; let i= index">
 
                         <div class="col-md1 simpleCart_shelfItem">
                             <a href="single.html">
                                 <img class="img-responsive" src="../../../assets/images/sonic.jpg" alt="" />
                             </a>
-                            <h3><a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}}t</a></h3>
+                            <h3>
+                                <a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}}t</a></h3>
                             <div class="price">
-                                <h5 class="item_price">${{stocks.precioUnit}}</h5>
-                                <a href="#productos" class="item_add">Agregar Carrito</a>
+                                <h5 class="item_price" >${{stocks.precioUnit}}</h5>
+                                <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->  
+                                <a href="#productos" class="item_add" (click)="Agregar(stocks)" >Agregar Carrito</a>
                                 <div class="clearfix"> </div>
                             </div>
 
                         </div>
+
                     </div>
 
                     <div class="clearfix"> </div>
@@ -548,3 +551,60 @@
 <!--====== BACK TO TOP PART START ======-->
 
 <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+</div>
+
+
+<!-- <div *ngIf="mostrarCarrito">
+    <div class="container">
+        <div class="check-out">
+            <h1>Carrito</h1>
+            <a (click)="ShowInicio()" class="to-buy">Seguir Comprando</a>
+            <app-carrito [dataentrante]="listaDetallePedido"></app-carrito>
+        </div>
+    </div>
+
+</div> -->
+<div *ngIf="mostrarCarrito">
+    <div class="container">
+        <div class="check-out">
+            <h1>Carrito Kaleth</h1>
+            <a (click)="ShowInicio()" class="to-buy">Seguir Comprando</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Producto</th>
+                        <th>Prices</th>
+                        <th>Delery Detials</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let listacarrito of listaCheckout">
+                    <tr>
+                        <td class="ring-in">
+                            <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                            <div class="sed">
+                                <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
+                                <p>{{listacarrito.descripcion}} </p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </td>
+                        <td class="check"><input type="number" value="{{listacarrito.cantidadPe}}" (change)="obtenerCantidad($event.target.value, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></td>
+                        <td>{{listacarrito.valorUnit}}</td>
+                        <td>Envio Acordar con el administrador</td>
+                        <td>{{listacarrito.valorTotal}}</td>
+                        <td><button pButton pRipple icon="pi pi-trash" 
+                            class="p-button-rounded p-button-warning"             
+                             (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" ></button>
+                             <br></td>
+                    </tr>
+    
+                </tbody>
+            </table>
+            <a href="#" class="to-buy" (click)="generarPedido()">GENERAR PEDIDO</a>
+        <div class="clearfix"> </div>
+        </div>
+    </div>
+
+</div>

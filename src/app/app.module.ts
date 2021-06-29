@@ -59,7 +59,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import { HomeComponent } from './components/home/home.component';
 import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.component';
-
+import {InputNumberModule} from 'primeng/inputnumber';
 //
 @NgModule({
   declarations: [
@@ -116,8 +116,8 @@ import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.com
     SliderModule,
     ProgressBarModule,
     MenubarModule,
-    PaginatorModule
-    
+    PaginatorModule,
+    InputNumberModule
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],

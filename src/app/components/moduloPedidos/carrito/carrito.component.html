@@ -1,80 +1,36 @@
-<header class="header-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="../../../assets/img/Logo.png" width="35px" alt="Logo">
-                    </a>
-                    <!-- Logo -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="bar-icon"></span>
-                        <span class="bar-icon"></span>
-                        <span class="bar-icon"></span>
-                    </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul id="nav" class="navbar-nav ml-auto">
-
-                            <li class="nav-item">
-                                <a data-scroll-nav="0" href="#product">Products</a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a data-scroll-nav="0" href="#team">Team</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-scroll-nav="0" href="#contact">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-scroll-nav="0" href="#about">About</a>
-                            </li>
-                        </ul>
-
-
-
-                        <div class="col-sm-4">
-                            <p class="log"><a data-scroll-nav="0" href="account.html">Login</a>
-                                <span>or</span><a href="account.html">Signup</a></p>
-                            <div class="cart box_1">
-                                <a href="carrito.componet.html">
-                                    <h3>
-                                        <div class="total">
-                                            <span class="simpleCart_total"></span></div>
-                                        <img src="../../../../assets/images/cart.png" alt="" /></h3>
-                                </a>
-                                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
-                            </div>
-                            <div class="clearfix"> </div>
+<!-- <div class="container">
+    <div class="check-out">
+        <h1>Carrito</h1>
+        <a href="#" class="to-buy">Seguir Comprando</a> -->
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Prices</th>
+                    <th>Delery Detials</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="ring-in">
+                        <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                        <div class="sed">
+                            <h5>Sed ut perspiciatis unde</h5>
+                            <p>(At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium) </p>
+    
                         </div>
                         <div class="clearfix"> </div>
+                    </td>
+                    <td class="check"><input type="text" value="1" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"></td>
+                    <td>$100.00</td>
+                    <td>FREE SHIPPING</td>
+                    <td>$100.00</td>
+                </tr>
 
-
-
-                        <!-- navbar nav -->
-                    </div>
-                </nav>
-                <!-- navbar -->
-            </div>
-
-        </div>
-        <!-- row -->
-    </div>
-    <!-- container -->
-</header>
-<div class="container">
-    <div class="check-out">
-        <h1>Checkout</h1>
-        <table>
-            <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Prices</th>
-                <th>Delery Detials</th>
-                <th>Subtotal</th>
-            </tr>
+            </tbody>
             <tr>
                 <td class="ring-in">
                     <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
@@ -119,7 +75,50 @@
                 <td>$150.00</td>
             </tr>
         </table>
-        <a href="#" class=" to-buy">PROCEED TO BUY</a>
+        <a href="#" class="to-buy">PROCEED TO BUY</a>
+        <div class="clearfix"> </div> -->
+    <!-- </div>
+</div> -->
+
+
+<!-- <div class="container">
+    <div class="check-out">
+        <h1>Carrito</h1>
+        <a href="#" class="to-buy">Seguir Comprando</a> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Producto</th>
+                    <th>Prices</th>
+                    <th>Delery Detials</th>
+                    <th>Subtotal</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let listacarrito of listaCheckout">
+                <tr>
+                    <td class="ring-in">
+                        <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                        <div class="sed">
+                            <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
+                            <p>{{listacarrito.descripcion}} </p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </td>
+                    <td class="check"><input type="text" value="1" (input)="obtenerCantidad($event.target.value, listacarrito)"></td>
+                    <td>{{listacarrito.valorUnit}}</td>
+                    <td>Envio Acordar con el administrador</td>
+                    <td>{{this.cantidadInput}}</td>
+                    <td><button pButton pRipple icon="pi pi-trash" 
+                        class="p-button-rounded p-button-warning"             
+                         (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" ></button>
+                         <br></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <a href="#" class="to-buy">GENERAR PEDIDO</a>
         <div class="clearfix"> </div>
-    </div>
-</div>
+    <!-- </div>
+</div> -->
