@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { cat_stock } from '../../../models/cat_stock';
 import { CatStockService } from '../../../services/cat-stock.service';
+import { PuntosVentasService } from '../../../services/puntos-ventas.service';
 import { NotificacionService } from '../../../services/notificacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,7 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StockListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   stock: any = [];
+  puntoVenta: any = [];
+  displayPuntoVenta: boolean = false;
   constructor(private stockService: CatStockService,
+    private puntoventaservice: PuntosVentasService,
     private notificacion: NotificacionService, private route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.ngOnInit();
@@ -22,6 +26,7 @@ export class StockListComponent implements OnInit {
 
   ngOnInit() {
     this.getStocks();
+    this.getPuntosVenta();
   }
   getStocks() {
     this.stockService.getStocks().subscribe(
@@ -31,6 +36,17 @@ export class StockListComponent implements OnInit {
       }, err => console.error(err)
 
     );
+  }
+
+  getPuntosVenta(){
+    this.puntoventaservice.getPuntosVentas()
+    .subscribe(res=>{
+      this.puntoVenta = res;
+    });
+  }
+
+  showDialogPuntoVenta(){
+    this.displayPuntoVenta = true
   }
 
 }

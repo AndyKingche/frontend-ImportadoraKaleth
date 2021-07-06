@@ -15,8 +15,10 @@
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="/index.html">
-                        <img src="../../../assets/img/Logo.png" width="35px" alt="Logo">
+                        <img class="logo--logo"src="../../../assets/img/KALETH.png" width="200px" alt="Logo"> 
                     </a>
+                    
+                    
                     <!-- Logo -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="bar-icon"></span>
@@ -28,26 +30,27 @@
                         <ul id="nav" class="navbar-nav ml-auto">
 
                             <li class="nav-item">
-                                <a data-scroll-nav="0" href="#product">Products</a>
+                                <a data-scroll-nav="0" href="#product">Productos</a>
                             </li>
 
 
                             <li class="nav-item">
-                                <a data-scroll-nav="0" href="#team">Team</a>
+                                <a data-scroll-nav="0" href="#team">Puntos de Venta</a>
+                            </li>
+                           
+                            <li class="nav-item">
+                                <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
                             </li>
                             <li class="nav-item">
-                                <a data-scroll-nav="0" href="#contact">Contact</a>
+                                <a href="account.html">Entrar</a>
                             </li>
                             <li class="nav-item">
-                                <a data-scroll-nav="0" href="#about">About</a>
+                                <a href="account.html">Registrarse</a>
                             </li>
+                            
                         </ul>
 
-
-
-                        <div class="col-sm-4">
-                            <p class="log"><a data-scroll-nav="0" href="account.html">Login</a>
-                                <span>or</span><a href="account.html">Signup</a></p>
+                         
                             <div class="cart box_1">
                                 <a (click)="ShowCarrito()">
                                     <h3>
@@ -58,8 +61,7 @@
                                 <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 
                             </div>
-                            <div class="clearfix"> </div>
-                        </div>
+                      
                         <div class="clearfix"> </div>
 
 
@@ -80,6 +82,8 @@
 
 <!--====== SLIDER PART START ======-->
 <div *ngIf="mostrarInicio">
+    <!-- <link rel="stylesheet" href="../../../assets/js/slick.min.js" type="text/javascript"> -->
+    
 <section id="home" class="slider-area pt-100">
     <div class="container-fluid position-relative">
         <div class="slider-active">
@@ -88,18 +92,16 @@
                     <div class="row no-gutters align-items-center ">
                         <div class="col-lg-4 col-md-5">
                             <div class="slider-product-image d-none d-md-block">
-                                <img src="../../../assets/images/slider/1.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>-50% <br> OFF</p>
-                                </div>
+                                <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpantuflas.jpg?alt=media&token=6e774b73-3349-43e3-bd60-4e272824fc95" alt="Slider"> 
+                               
                             </div>
                             <!-- slider product image -->
                         </div>
                         <div class="col-lg-8 col-md-7">
                             <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Importadora</span> Kaleth</h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">One day however a small line of blind text by the name of Lorem Ipsum <br> decided to leave for the far World of Grammar.</p>
-                                <a class="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
+                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
+                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
+                                <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
                             </div>
                             <!-- slider product content -->
                         </div>
@@ -115,18 +117,16 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col-lg-4 col-md-5">
                             <div class="slider-product-image d-none d-md-block">
-                                <img src="../../../assets/images/slider/3.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>-20% <br> OFF</p>
-                                </div>
+                                <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijama%20dos%20piezas.jpg?alt=media&token=20994c32-ceba-4def-9910-84e38f31dbf6" alt="Slider">
+                               
                             </div>
                             <!-- slider product image -->
                         </div>
                         <div class="col-lg-8 col-md-7">
                             <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Winter</span> Sale! is <span>Here</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">One day however a small line of blind text by the name of Lorem Ipsum <br> decided to leave for the far World of Grammar.</p>
-                                <a class="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
+                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
+                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
+                                <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
                             </div>
                             <!-- slider product content -->
                         </div>
@@ -142,18 +142,16 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col-lg-4 col-md-5">
                             <div class="slider-product-image d-none d-md-block">
-                                <img src="../../../assets/images/slider/2.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>FREE<br> QUOTE</p>
-                                </div>
+                                <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijamaunapieza.jpg?alt=media&token=a646bcdf-a315-4bde-a473-79d65a31380c" alt="Slider" height="500">
+                                
                             </div>
                             <!-- slider product image -->
                         </div>
                         <div class="col-lg-8 col-md-7">
                             <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Get</span> a Free <span>Quote</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">One day however a small line of blind text by the name of Lorem Ipsum <br> decided to leave for the far World of Grammar.</p>
-                                <a class="main-btn" href="#contact" data-animation="fadeInUp" data-delay="1.5s">Contact Us <i class="lni-chevron-right"></i></a>
+                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
+                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
+                                <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
                             </div>
                             <!-- slider product content -->
                         </div>
@@ -169,7 +167,7 @@
             <div class="row justify-content-end">
                 <div class="col-lg-7 col-md-6">
                     <ul class="social text-right">
-                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                        <li><a href="#"><i  class="lni-facebook-filled"></i></a></li>
                         <li><a href="#"><i class="lni-twitter-original"></i></a></li>
                         <li><a href="#"><i class="lni-instagram"></i></a></li>
                     </ul>
@@ -180,43 +178,52 @@
     <!-- container fluid -->
 </section>
 
-<!--====== SLIDER PART ENDS ======-->
 
-<!--====== DISCOUNT PRODUCT PART START ======-->
-
-
-<!--====== DISCOUNT PRODUCT PART ENDS ======-->
-
-<!--====== PRODUCT PART START ======-->
-<section id="product" class="team-area pt-125 pb-130">
+<section id="product" class="team-area pt-100">
     <div class="content">
         <div class="container">
             <div class="content-top">
-                <h1>PRODUCTOS DISPONIBLES</h1>
-                <div class="content-top1">
-                    <p-paginator [first]="first" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-                    <div class="col-md-3 col-md2" *ngFor="let stocks of stock; let i= index">
+                <h1>Productos disponibles</h1>
+                <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+                <div class="content-top1" *ngFor="let stocks of stock; let i=index" >
+                    <div class="col-md-3 col-md2" >
 
-                        <div class="col-md1 simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img class="img-responsive" src="../../../assets/images/sonic.jpg" alt="" />
-                            </a>
-                            <h3>
-                                <a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}}t</a></h3>
-                            <div class="price">
-                                <h5 class="item_price" >${{stocks.precioUnit}}</h5>
-                                <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->  
-                                <a href="#productos" class="item_add" (click)="Agregar(stocks)" >Agregar Carrito</a>
-                                <div class="clearfix"> </div>
+                            <div class="col-md1 simpleCart_shelfItem">
+                                <a href="single.html">
+                                    <img class="img-responsive" src="{{stocks.catProducto.urlFoto}}" alt="" />
+                                </a>
+                                <h3>
+                                    <a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}} {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}} </a></h3>
+                                <div class="price">
+                                    <h5 class="item_price" >${{stocks.precioUnit}}</h5>
+                                    <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->  
+                                    <a href="#productos" class="item_add" (click)="Agregar(stocks)" >Agregar Carrito</a>
+                                    <div class="clearfix"> </div>
+                                </div>
                             </div>
 
-                        </div>
+                    <div *ngIf="i==3||i==7||i==11"> 
+                   
+                        <div class="content-top1">
+                            <div class="col-md-3 col-md2">
+                                <h1></h1>
+                            </div>
 
+        
+                            <div class="clearfix"> </div>
+        
+                        </div>
+                    </div>
+                       
+                           
                     </div>
 
-                    <div class="clearfix"> </div>
-
                 </div>
+                
+         
+           
+               
+                
 
 
 
@@ -224,42 +231,31 @@
         </div>
     </div>
 </section>
-<!--====== PRODUCT PART ENDS ======-->
-
-<!--====== SERVICES PART START ======-->
 
 
-<!--====== SERVICES PART ENDS ======-->
-
-<!--====== SHOWCASE PART START ======-->
-
-
-
-<!--====== SHOWCASE PART ENDS ======-->
-
-<!--====== TEAM PART START ======-->
-
-<section id="team" class="team-area pt-125 pb-130">
+<section id="team" class="team-area pt-100">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="section-title text-center pb-25">
-                    <h3 class="title mb-15">Our Expert Team</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm od tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="section-title text-center pb-25 content-top">
+                   <h1>Locales Físicos</h1>
+                    <p>Visita nuestros locales en direfentes puntos.</p>
                 </div>
                 <!-- section title -->
             </div>
         </div>
         <!-- row -->
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-md-6 col-sm-8">
+            
+           
+            <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="single-temp text-center mt-30">
                     <div class="team-image">
-
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                     <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Celina Gomez</a></h4>
-                        <span>FOUNDER</span>
+                        <h4 class="title mb-10"><a href="#">Local Principal</a></h4>
+                        <span>Otavalo</span>
                         <ul class="social mt-15">
                             <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                             <li><a href="#"><i class="lni-twitter-original"></i></a></li>
@@ -269,48 +265,14 @@
                 </div>
                 <!-- single temp -->
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
+            <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="single-temp text-center mt-30">
                     <div class="team-image">
-
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                     <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Patric Green</a></h4>
-                        <span>Consultant</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- single temp -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Mark Parker</a></h4>
-                        <span>Business Manager</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- single temp -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Daryl Dixon</a></h4>
-                        <span>Marketing Manager</span>
+                        <h4 class="title mb-10"><a href="#">Local Secundrio</a></h4>
+                        <span>Quito</span>
                         <ul class="social mt-15">
                             <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                             <li><a href="#"><i class="lni-twitter-original"></i></a></li>
@@ -325,123 +287,6 @@
     </div>
     <!-- container -->
 </section>
-
-<!--====== TEAM PART ENDS ======-->
-
-<!--====== TESTIMONIAL PART START ======-->
-
-
-<!--====== TESTIMONIAL PART ENDS ======-->
-
-<!--======  BLOG PART START ======-->
-
-
-
-<!--======  BLOG PART ENDS ======-->
-
-<!--====== CONTACT PART START ======-->
-
-<section id="contact" class="contact-area pt-115">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="contact-title text-center">
-                    <h2 class="title">Get In Touch</h2>
-                </div>
-                <!-- contact title -->
-            </div>
-        </div>
-        <!-- row -->
-        <div class="contact-box mt-70">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="contact-info pt-25">
-                        <h4 class="info-title">Contact Info</h4>
-                        <ul>
-                            <li>
-                                <div class="single-info mt-30">
-                                    <div class="info-icon">
-                                        <i class="lni-phone-handset"></i>
-                                    </div>
-                                    <div class="info-content">
-                                        <p>+88 1234 56789</p>
-                                    </div>
-                                </div>
-                                <!-- single info -->
-                            </li>
-                            <li>
-                                <div class="single-info mt-30">
-                                    <div class="info-icon">
-                                        <i class="lni-envelope"></i>
-                                    </div>
-                                    <div class="info-content">
-                                        <p>contact@yourmail.com</p>
-                                    </div>
-                                </div>
-                                <!-- single info -->
-                            </li>
-                            <li>
-                                <div class="single-info mt-30">
-                                    <div class="info-icon">
-                                        <i class="lni-home"></i>
-                                    </div>
-                                    <div class="info-content">
-                                        <p>203, Envato Labs, Behind Alis Steet,Australia</p>
-                                    </div>
-                                </div>
-                                <!-- single info -->
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- contact info -->
-                </div>
-                <div class="col-lg-8">
-                    <div class="contact-form">
-                        <form id="contact-form" action="assets/contact.php" method="post" data-toggle="validator">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="single-form form-group">
-                                        <input type="text" name="name" placeholder="Enter Your Name" data-error="Name is required." required="required">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <!-- single form -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="single-form form-group">
-                                        <input type="email" name="email" placeholder="Enter Your Email" data-error="Valid email is required." required="required">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <!-- single form -->
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="single-form form-group">
-                                        <textarea name="message" placeholder="Enter Your Message" data-error="Please,leave us a message." required="required"></textarea>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <!-- single form -->
-                                </div>
-                                <p class="form-message"></p>
-                                <div class="col-lg-12">
-                                    <div class="single-form form-group">
-                                        <button class="main-btn" type="submit">CONTACT NOW</button>
-                                    </div>
-                                    <!-- single form -->
-                                </div>
-                            </div>
-                            <!-- row -->
-                        </form>
-                    </div>
-                    <!-- row -->
-                </div>
-            </div>
-            <!-- row -->
-        </div>
-        <!-- contact box -->
-    </div>
-    <!-- container -->
-</section>
-
-<!--====== CONTACT PART ENDS ======-->
 
 <!--====== FOOTER PART START ======-->
 
@@ -452,9 +297,9 @@
                 <div class="col-lg-3 col-md-5 col-sm-7">
                     <div class="footer-logo mt-40">
                         <a href="#">
-                            <img src="../../../assets/images/logo.png" alt="Logo">
+                            <img src="../../../assets/img/KALETH.png" alt="Logo" width="200px">
                         </a>
-                        <p class="mt-10">Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh id elit.</p>
+                        <p class="mt-10">Importadora Kaleth es una empresa dedicada a la confecci&oacute;n de pijamas cheveres</p>
                         <ul class="footer-social mt-25">
                             <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                             <li><a href="#"><i class="lni-twitter-original"></i></a></li>
@@ -465,59 +310,61 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-5">
                     <div class="footer-link mt-50">
-                        <h5 class="f-title">Services</h5>
+                        <h5 class="f-title">Servicios</h5>
                         <ul>
-                            <li><a href="#">Architechture Design</a></li>
-                            <li><a href="#">Interior Design</a></li>
-                            <li><a href="#">Autocad Services</a></li>
-                            <li><a href="#">Lighting Design</a></li>
-                            <li><a href="#">Poster Design</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                           
                         </ul>
                     </div>
                     <!-- footer link -->
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-5">
                     <div class="footer-link mt-50">
-                        <h5 class="f-title">Help</h5>
+                        <h5 class="f-title">Ayuda</h5>
                         <ul>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                            <li><a href="#">Pendiente</a></li>
+                           
                         </ul>
                     </div>
                     <!-- footer link -->
                 </div>
                 <div class="col-lg-4 col-md-5 col-sm-7">
                     <div class="footer-info mt-50">
-                        <h5 class="f-title">Contact Info</h5>
+                        <h5 class="f-title">Información de Contactos</h5>
                         <ul>
                             <li>
                                 <div class="single-footer-info mt-20">
-                                    <span>Phone :</span>
+                                    <span>Teléfono :</span>
                                     <div class="footer-info-content">
-                                        <p>+88123 4567 890</p>
-                                        <p>+88123 4567 890</p>
+                                        <p>+062 Pendiente</p>
+                                        <p>+593 pendiente</p>
                                     </div>
                                 </div>
                                 <!-- single footer info -->
                             </li>
                             <li>
                                 <div class="single-footer-info mt-20">
-                                    <span>Email :</span>
+                                    <span>Correo :</span>
                                     <div class="footer-info-content">
-                                        <p>contact@yourmail.com</p>
-                                        <p>support@yourmail.com</p>
+                                        <p>kaleth@yourmail.com</p>
+                                        <p>kaleth@yourmail.com</p>
                                     </div>
                                 </div>
                                 <!-- single footer info -->
                             </li>
                             <li>
                                 <div class="single-footer-info mt-20">
-                                    <span>Address :</span>
+                                    <span>Dirección:</span>
                                     <div class="footer-info-content">
-                                        <p>5078 Jensen Key, Port Kaya, WV 73505</p>
+                                        <p>Otavalo - Imbabura - Ecuador</p>
                                     </div>
                                 </div>
                                 <!-- single footer info -->
@@ -534,7 +381,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="copyright text-center">
-                        <p>Crafted by <a href="https://uideck.com" rel="nofollow">UIdeck</a></p>
+                        <p></p>
                     </div>
                     <!-- copyright -->
                 </div>
@@ -551,9 +398,9 @@
 <!--====== BACK TO TOP PART START ======-->
 
 <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
-</div>
-
-
+  <!-- </div> -->
+<!-- este div es el nuevo para cerrar desde el header -->
+</div> 
 <!-- <div *ngIf="mostrarCarrito">
     <div class="container">
         <div class="check-out">
@@ -564,17 +411,24 @@
     </div>
 
 </div> -->
+
+
+
+
+
 <div *ngIf="mostrarCarrito">
+ 
+ 
     <div class="container">
-        <div class="check-out">
+        <div class="check-out content-top">
             <h1>Carrito Kaleth</h1>
-            <a (click)="ShowInicio()" class="to-buy">Seguir Comprando</a>
+            <a (click)="ShowInicio()" class="main-btn">Seguir Comprando</a>
             <table>
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Producto</th>
-                        <th>Prices</th>
+                        <th>Productos</th>
+                        <th>Precios</th>
                         <th>Delery Detials</th>
                         <th>Subtotal</th>
                         <th>Eliminar</th>
@@ -583,10 +437,10 @@
                 <tbody *ngFor="let listacarrito of listaCheckout">
                     <tr>
                         <td class="ring-in">
-                            <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                            <a href="single.html" class="at-in"><img src="{{listacarrito.catProducto.urlFoto}}" width="100px" height="120px"></a>
                             <div class="sed">
                                 <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
-                                <p>{{listacarrito.descripcion}} </p>
+                                <p> {{listacarrito.descripcion}} </p>
                             </div>
                             <div class="clearfix"> </div>
                         </td>
@@ -602,7 +456,7 @@
     
                 </tbody>
             </table>
-            <a href="#" class="to-buy" (click)="generarPedido()">GENERAR PEDIDO</a>
+            <a href="#" class="main-btn" (click)="generarPedido()">GENERAR PEDIDO</a>
         <div class="clearfix"> </div>
         </div>
     </div>

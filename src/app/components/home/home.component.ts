@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   numeroFilas: number = 12;
   cantidadExistente: number = 0;
   listaDetallePedido: peDetallePedido[];
+
   encuentraArray: boolean = false;
   encuentraArrayCarrito:boolean = false;
   cantidadPedido:number = 0;
@@ -80,6 +81,7 @@ export class HomeComponent implements OnInit {
   }
 ///llenar lista
 listaCheckout:peDetallePedidoAux[];
+selectedlistaCheckout:peDetallePedidoAux;
 auxPedidoDetalle: peDetallePedidoAux={
   idDetallePe: 0,
     descripcion: "",
@@ -113,8 +115,10 @@ cantidadInput:number=0;
     this.getStocksExistents();
     this.getCantExistent();
     this.listaDetallePedido = [];
-   this.listaCheckout = [];
- 
+    this.listaCheckout = [];
+    
+    
+   
   }
   ShowCarrito(){
     console.log("si aplastaste")
@@ -126,6 +130,7 @@ cantidadInput:number=0;
   ShowInicio(){
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
+  this.router.navigate(["/index.html"])
   }
   enviarLista(){
     console.log("Hola")
@@ -158,6 +163,9 @@ cantidadInput:number=0;
       }, err => console.error(err)
 
     );
+  }
+  imprimirProductos(){
+    
   }
   getCantExistent() {
     this.stockService.getCantExistents().subscribe(
@@ -434,9 +442,6 @@ cantidadInput:number=0;
     this.router.navigate(["/home"]);
   }
   
-
-
-
   }
 
 

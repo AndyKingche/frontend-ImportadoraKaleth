@@ -118,16 +118,16 @@ p.log{
 	float:left;
 	font-size: 1em;
 	width: 50%;
-	margin-top: 4%;
+	margin-top: 2%;
 }
 p.log a{
-	color:#52d0c4;
+	color:#005077;
 	text-decoration:none;
-	margin: 0 5%;
 	display: inline-block;
+  font-weight: 800;
 }
 p.log a:hover{
-	color:#000;
+	color:#98151A;
 }
 .search {
   text-align: right;
@@ -259,8 +259,9 @@ ul.callbacks_tabs.callbacks1_tabs {
 }
 /*--content--*/
 .content-top h1{
-	color:#000;
+	color:#059DBF;
 	font-size: 3em;
+  
 	font-family: 'OleoScript-Regular';
 	text-align: center;
 	margin: 0 0 1em;
@@ -269,9 +270,9 @@ ul.callbacks_tabs.callbacks1_tabs {
 	margin: 0 auto;
 }
 .col-md1 h3 {
-  	font-size: 1.2em;
+  	font-size: 1em;
   	line-height: 1.1em;
-  	font-family: 'OleoScript-Regular';
+  	font-family: 'Roboto-Regular';
   	text-align: center;
   	margin: 0 0 0.7em;
   	color: #000;
@@ -291,25 +292,27 @@ ul.callbacks_tabs.callbacks1_tabs {
   font-size: 0.9em;
   display: block;
   float: right;
-  background-color: #52D0C4;
+  background-color: #048BA8;
   padding: 0.3em 0.6em;
   border-radius: 3px;
   text-decoration: none;
 }
 .content-top {
-  padding: 4em 0;
+  padding: 0em 0;
 }
 .content-top1 {
-  padding: 2em 0;
+  padding: 0em 0;
 }
 .col-md1 {
-  border: 1px solid #CACACA;
+  border: 1px solid #048BA8;
   padding: 1em;
-  border-bottom:5px solid #52D0C4;
+  border-bottom:5px solid #048BA8;
 }
 .col-md1:hover {
-  border: 1px solid #000;
-  border-bottom: 5px solid #000;
+  border: 1px solid  #06AED5;
+  border-bottom: 5px solid #06AED5;
+  -webkit-transform:scale(1.0);transform:scale(1.05);
+  filter: saturate(180%);
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -o-transition: 0.5s all;
@@ -317,7 +320,10 @@ ul.callbacks_tabs.callbacks1_tabs {
   -ms-transition: 0.5s all;
 }
 .col-md1:hover .price a {
-  background-color: #000;
+  border:1px solid #048BA8;
+  background-color: #fff;
+  color: #06AED5;
+  border-color: #06AED5;
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -o-transition: 0.5s all;
@@ -789,7 +795,7 @@ span.price-in1 {
   font-size: 1.3em;
   padding: 0.3em 0 0;
   display: block;
-  color:#52D0C4;
+  color:#048BA8;
 }
 .product-go {
   padding: 1em 0;

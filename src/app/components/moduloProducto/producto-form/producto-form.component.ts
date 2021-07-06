@@ -14,6 +14,9 @@ import { Categorias } from '../../../models/catCategoria';
 import { CategoriaService } from '../../../services/categoria.service';
 
 import { NotificacionService } from '../../../services/notificacion.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
 
 declare let $: any;
 
@@ -27,9 +30,13 @@ export class ProductoFormComponent implements OnInit {
   //categorias
   categoria: Categorias;
   categoriaEscogida: any = [];
+  uploadedFiles: any[] = [];
 //diesnos
 disenos: Disenos;
+imagenObtenidaMostrar:any;
+imagenObtenidaIngresar:any;
 disenosEscogida: any = [];
+
  //tallas
  tallas: Tallas;
  tallasEscogida: any = [];
@@ -47,7 +54,7 @@ disenosEscogida: any = [];
     private diesnosservice: DisenosService,
     private medidaservice: MedidaService,
     private activedrouter: ActivatedRoute, private router : Router,
-    private notificacion: NotificacionService) { }
+    private notificacion: NotificacionService,private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
@@ -58,6 +65,7 @@ disenosEscogida: any = [];
           if(res!= null){
             console.log(res);
             this.productos = res;
+            this.imagenObtenidaMostrar = this.productos.urlFoto;
             this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
@@ -129,9 +137,25 @@ disenosEscogida: any = [];
     );
   }
 
-  saveProductos(){
+  async saveProductos(){
+    
     if(this.testingreso()){
-      console.log("los productos son",this.productos)
+      let x = Math.floor(Math.random() * (1000-1)) + 1;
+      if(!this.imagenObtenidaIngresar){
+        console.log("si entre")
+        
+
+      }else{
+        const urlNueva=new Promise(async (resolve,reject)=>{
+          await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
+              resolve(res);
+              
+            },err=>console.log("hola pe"))
+          });
+    
+          await urlNueva.then(res=>this.productos.urlFoto = String(res));
+      }
+     
       this.productoservices.saveProducto(this.productos).subscribe(
         res=>{
           setTimeout(()=>{
@@ -147,22 +171,26 @@ disenosEscogida: any = [];
     }
   }
 
-  updateProductos(){
+  async updateProductos(){
     
-    if(this.productos.catCategoria.idCategoria &&
-      this.productos.catDiseno.idDisenos &&
-      this.productos.catTalla.idTallas ){
-        this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
-          res => {
-            setTimeout(()=>{
-              this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
-              
-            },200);
-            this.router.navigate(['/product'])
-          },error => {console.error(error)}
-        );
-
-      }else{
+    
+        console.log("esntre al else")
+        let x = Math.floor(Math.random() * (1000-1)) + 1;
+        if(!this.imagenObtenidaIngresar){
+          console.log("si entre")
+          
+  
+        }else{
+          const urlNueva=new Promise(async (resolve,reject)=>{
+            await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
+                resolve(res);
+                
+              },err=>console.log("hola pe"))
+            });
+      
+            await urlNueva.then(res=>this.productos.urlFoto = String(res));
+        }
+       
         if(this.testingreso()){
           this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
             res => {
@@ -177,7 +205,7 @@ disenosEscogida: any = [];
           this.notificacion.showError('Revisar si selecciono un Usuario o un Rol','** Error al Actualizar los Roles de Usuarios')
         }
 
-      }
+      
     }
 
 
@@ -208,24 +236,62 @@ disenosEscogida: any = [];
     );
   }
 
-  testingreso(){
-    let opcionTallas = this.quitarespacios('#tallas');
-    let opcionCategoria = this.quitarespacios('#categorias');
-    let opcionDisenos = this.quitarespacios('#disenos');
-    if(opcionTallas.length>0 &&
-      opcionCategoria.length>0 &&
-      opcionDisenos.length>0 ){
-        this.productos.catTalla.idTallas = opcionTallas;
-        this.productos.catCategoria.idCategoria = opcionCategoria;
-        this.productos.catDiseno.idDisenos = opcionDisenos;
-        console.log(this.productos)
+  async testingreso(){
+    
+    
+    
+    if(this.tallasEscogida.length!=0 &&
+      this.disenosEscogida.length !=0 &&
+      this.categoriaEscogida.length !=0){
+
+        this.productos.catTalla.idTallas = this.tallasEscogida.idTallas;
+        this.productos.catCategoria.idCategoria = this.categoriaEscogida.idCategoria;
+        this.productos.catDiseno.idDisenos = this.disenosEscogida.idDisenos;
+        //this.productos.urlFoto = this.imagenObtenidaIngresar;
+       
         return true;
       }else{
+        
         return false;
       }
   }
-  quitarespacios(atributoHTML:string){
-    let obtenerletras = $(atributoHTML).val();
-    return obtenerletras.trim();
+ 
+  onBasicUpload(file:any){
+     
+    //  this.productoservices.uploadImage(file.target.files[0],x.toString())
+    // .then(res=>{this.imagenObtenida=res})
+    this.blobFile(file.target.files[0]).then((res: any) => {
+      this.imagenObtenidaMostrar = res.base;
+    })
+
+    this.imagenObtenidaIngresar = file.target.files[0];
+  console.log(this.imagenObtenidaIngresar)
   }
+
+  blobFile = async ($event: any) => new Promise((resolve, reject) => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          blob: $event,
+          image,
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          blob: $event,
+          image,
+          base: null
+        });
+      };
+
+    } catch (e) {
+      return null;
+    }
+  })
+
 }

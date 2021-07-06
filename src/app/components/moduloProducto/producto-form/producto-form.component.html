@@ -1,49 +1,20 @@
-<div class="content">
-    <div class="container-fluid">
-        <form>
-            <!-- Categorias  -->
-          <div class="form-control">
-              <div class="input-group mb-3">
-                <label class="input-group-text" for="categorias">Categoria</label> 
-                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="categorias" name="categorias"  data-width="75%" required >
-                    <option  [attr.selected]="categoriaEscogida.idCategoria" [attr.value]="categoriaEscogida.idCategoria"></option>
-                    <option   *ngFor="let categoria of categoria"  name="categoria" value="{{categoria.idCategoria}}" class="placeholder" >{{categoria.nombreCategoria}}</option>   
-                  </select>
-                </div>
-          </div>
-          <!-- Tallas -->
-              <div class="form-control">
-                 <div class="input-group mb-3">  
-                        <label class="input-group-text" for="Tallas">Tallas</label>      
-                        <select   class="js-example-placeholder-single js-states form-control"  id="tallas" name="tallas"  data-width="75%" required >
-                          <option  [attr.selected]="tallasEscogida.idTallas" [attr.value]="tallasEscogida.idTallas"></option>
-                          <option   *ngFor="let tallas of tallas"  name="tallas" value="{{tallas.idTallas}}" class="placeholder" >{{tallas.medida}}</option>   
-                        </select>
-                  </div>           
-              </div>
 
-              <!-- Disenos -->
-
-              <div class="form-control">
-                <div class="input-group mb-3">  
-                       <label class="input-group-text" for="Disenos">Disenos</label>      
-                       <select   class="js-example-placeholder-single js-states form-control"  id="disenos" name="disenos"  data-width="75%" required >
-                         <option  [attr.selected]="disenosEscogida.idDisenos" [attr.value]="disenosEscogida.idDisenos"></option>
-                         <option   *ngFor="let disenos of disenos"  name="disenos" value="{{disenos.idDisenos}}" class="placeholder" >{{disenos.nombre}}</option>   
-                       </select>
-                 </div>           
-             </div>
-
-           <div class="form-group">
-               <button  class="btn btn-primary" (click)="edit ? updateProductos() : saveProductos()">Aceptar</button>
-               <button type="button" class="btn btn-info" routerLink="/product">Regresar</button>
-              
-            </div>
-        </form>
+    <div class="container p-4">
+      <div class="p-grid">
+        <div class="p-col-4"><h2>INGRESE UN PRODUCTO</h2></div>
+        <div class="p-col"> <h4>Ingresar Categoria:</h4>  <p-dropdown [options]="categoria" [(ngModel)]="categoriaEscogida" placeholder="Seleccionar una Categoria" optionLabel="nombreCategoria" [showClear]="true"></p-dropdown></div>
+        <div class="p-col"><h4>Ingresar Diseño:</h4>  <p-dropdown [options]="disenos" [(ngModel)]="disenosEscogida" placeholder="Seleccionar una  Diseño" optionLabel="nombre" [showClear]="true"></p-dropdown> </div>
+        <div class="p-col"><h4>Ingresar Talla:</h4>  <p-dropdown [options]="tallas" [(ngModel)]="tallasEscogida" placeholder="Seleccionar una  Talla" optionLabel="medida" [showClear]="true"></p-dropdown>  </div>
+        <div class="p-col">Ingrese imagen 
+           <input type="file" (change)="onBasicUpload($event)">
+       </div>
+       
       </div>
-</div>
+      <img src="{{imagenObtenidaMostrar}}" alt="Imagen nueva" width="200px">
+      <div class="form-group">
+       <button  class="btn btn-primary" (click)="edit ? updateProductos() : saveProductos()">Aceptar</button>
+       <button type="button" class="btn btn-info" routerLink="/product">Regresar</button>
+    </div>
 
-
-
-
-
+    </div>
+  
