@@ -5,7 +5,7 @@ export interface peDetallePedido{
     descripcion?: string;
     valorTotal?: number;
     valorUnit?: number;
-    canidadPe?:number;
+    cantidadPe?:number;
     catStock?: {
         id: {
             idPuntosVenta?: number;
