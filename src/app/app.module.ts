@@ -60,6 +60,11 @@ import {MenuItem} from 'primeng/api';
 import { HomeComponent } from './components/home/home.component';
 import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.component';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {FileUploadModule} from 'primeng/fileupload';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from '../environments/environment';
+
 //
 @NgModule({
   declarations: [
@@ -117,7 +122,10 @@ import {InputNumberModule} from 'primeng/inputnumber';
     ProgressBarModule,
     MenubarModule,
     PaginatorModule,
-    InputNumberModule
+    InputNumberModule,
+    FileUploadModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],

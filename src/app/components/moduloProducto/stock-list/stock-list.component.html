@@ -1,6 +1,18 @@
-<div class="content">
+<!-- <div class="content">
     <a type="button" class="btn btn-success" routerLink="/stock-add">Ingresar productos a stock</a>
-</div>
+</div> -->
+<button id="insertarTallaLista" class="btn btn-primary" (click)="showDialogPuntoVenta()">+</button>
+<p-dialog position="top" [(visible)]="displayPuntoVenta">
+    <h5>Ingresar Punto Venta</h5>
+ <ul *ngFor="let puntoVenta of puntoVenta ">
+     <li>{{puntoVenta.nombreLocal}}
+    <p-button label="Aceptar" icon="pi pi-check" iconPos="left" [routerLink]="['/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
+
+     </li>
+ </ul>
+    <!-- <p-button pButton type="button" label="Primary" class="p-button-outlined" (click)="ingresarpushTalla()">Ingresar</p-button> -->
+
+</p-dialog>
 <div class="content">
     <table class="table table-hover">
         <thead>
@@ -23,7 +35,7 @@
         </thead>
         <tbody *ngFor="let stocks  of stock">
             <tr>
-                <td>{{stocks.catProducto.idProductos}}</td>
+                <td>{{stocks.catProducto.codProducto}}</td>
                 <td>{{stocks.catPuntosVenta.nombreLocal}}</td>
 
 

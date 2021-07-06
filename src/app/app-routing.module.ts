@@ -178,7 +178,7 @@ const routes: Routes = [
     component: StockListComponent
   },
   {
-    path:'stock-add',
+    path:'stock-add/:id',
     component: StockFormComponent
   },
   {

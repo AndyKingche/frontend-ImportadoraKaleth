@@ -226,58 +226,66 @@ export class StockFormComponent implements OnInit {
     this.stockAuxiliarLista = [];
 
     const params = this.activedrouter.snapshot.params;
-    this.idPuntoVentaPrueba = 14;
+    this.idPuntoVentaPrueba = 0;
     this.totalIngresoVista = "0";
 
     if (params.id) {
-      this.stockService.getStock(params.id).subscribe(
-        res => {
-          if (res != null) {
-            console.log(res);
-            //this.productos = res;
-            this.medidaservice.getTalla(this.producto.catTalla.idTallas).subscribe(
-              res => {
-                this.tallasEscogida = res;
-                $('#tallas').select2(
-                  {
-                    placeholder: this.tallasEscogida.medida,
-                    allowClear: true
 
-                  }
-                );
-              }, error => console.error(error)
-            );
-            this.categoriaservices.getCategoria(this.producto.catCategoria.idCategoria).subscribe(
-              res => {
-                this.categoriaEscogida = res;
-                $('#categorias').select2({
-                  placeholder: this.categoriaEscogida.nombreCategoria,
-                  allowClear: true
-                });
-              },
-              error => console.error(error)
-            );
+      this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
+        (res:any)=>{
+          console.log(res)
+          this.idPuntoVentaPrueba = res.idPuntosVenta
+        }
 
-            this.diesnosservice.getDiseno(this.producto.catDiseno.idDisenos).subscribe(
-              res => {
-                this.disenosEscogida = res;
-                $('#disenos').select2({
-                  placeholder: this.disenosEscogida.nombre,
-                  allowClear: true
-                });
-              },
-              error => console.error(error)
-            );
+      );
+      // this.stockService.getStock(params.id).subscribe(
+      //   res => {
+      //     if (res != null) {
+      //       console.log(res);
+      //       //this.productos = res;
+      //       // this.medidaservice.getTalla(this.producto.catTalla.idTallas).subscribe(
+      //       //   res => {
+      //       //     this.tallasEscogida = res;
+      //       //     $('#tallas').select2(
+      //       //       {
+      //       //         placeholder: this.tallasEscogida.medida,
+      //       //         allowClear: true
 
-            this.edit = true;
+      //       //       }
+      //       //     );
+      //       //   }, error => console.error(error)
+      //       // );
+      //       // this.categoriaservices.getCategoria(this.producto.catCategoria.idCategoria).subscribe(
+      //       //   res => {
+      //       //     this.categoriaEscogida = res;
+      //       //     $('#categorias').select2({
+      //       //       placeholder: this.categoriaEscogida.nombreCategoria,
+      //       //       allowClear: true
+      //       //     });
+      //       //   },
+      //       //   error => console.error(error)
+      //       // );
 
-          } else {
-            this.router.navigate(['/stock']);
-          }
+      //       // this.diesnosservice.getDiseno(this.producto.catDiseno.idDisenos).subscribe(
+      //       //   res => {
+      //       //     this.disenosEscogida = res;
+      //       //     $('#disenos').select2({
+      //       //       placeholder: this.disenosEscogida.nombre,
+      //       //       allowClear: true
+      //       //     });
+      //       //   },
+      //       //   error => console.error(error)
+      //       // );
 
-        },
-        err => console.log("hay error " + err)
-      )
+      //       this.edit = true;
+
+      //     } else {
+      //       this.router.navigate(['/stock']);
+      //     }
+
+      //   },
+      //   err => console.log("hay error " + err)
+      // )
     }
     this.getTallas();
     $('#tallas').select2(

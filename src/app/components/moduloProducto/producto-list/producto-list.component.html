@@ -9,8 +9,10 @@
             <th scope="col">Categoria</th>
             <th scope="col">Medida/Talla</th>
             <th scope="col">Diseños</th>
+            <th>Foto</th>
             <th scope="col">Eliminar</th>
             <th scope="col">Actualizar</th>
+
           </tr>
         </thead>
         <tbody *ngFor="let productos  of productos">
@@ -18,9 +20,10 @@
                 <td>{{productos.idProductos}}</td>
                 <td>{{productos.catCategoria.nombreCategoria}}</td>
                 <td>{{productos.catTalla.medida}} </td>
-                <td>{{productos.catDiseno.nombre }} </td>
+                <td>{{productos.catDiseno.nombre}} </td>
+                <td><img src="{{productos.urlFoto}}" alt="" width="100px" height="120px"></td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.idProductos)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.idProductos]"> Actualizar Rol</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.idProductos]"> Actualizar Producto</button></td>
               </tr>
           </tbody>
       </table> 

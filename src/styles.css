@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'Keshya';
+    src: url('assets/fonts/Keshya.ttf');
+}
+.titulo--principal{
+    font-family: 'Keshya';
+    font-weight: 450;
+    font-size: x-large;
+    color: #059DBF;
+text-shadow: 3px 0px 0px #f86b77;
+}
+.logo--logo{
+    bottom: 25px;
+    position: relative;
+}
