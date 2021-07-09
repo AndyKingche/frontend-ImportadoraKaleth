@@ -38,6 +38,8 @@ import { FacturacionFormComponent } from './components/moduloFacturacion/factura
 import{ HomeComponent }from './components/home/home.component'
 //pedidos
 import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
+//cliente
+import { ClientsListComponent } from './components/clients-list/clients-list.component';
 
 const routes: Routes = [
   {
@@ -188,6 +190,9 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CarritoComponent
+  },{
+    path:'client',
+    component: ClientsListComponent
   }
 ];
 

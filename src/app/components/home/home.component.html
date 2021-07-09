@@ -421,11 +421,11 @@
 <div *ngIf="mostrarCarrito">
 
 
-    <div class="container">
+    <div class="container" id="carritoImprimir">
         <div class="check-out content-top">
             <h1>Carrito Kaleth</h1>
             <a (click)="ShowInicio()" class="main-btn">Seguir Comprando</a>
-            <table>
+            <table id="TablaCarrito">
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -457,6 +457,7 @@
                 </tbody>
             </table>
             <a href="#" class="main-btn" (click)="generarPedido()">GENERAR PEDIDO</a>
+            <a href="#" class="main-btn" (click)="imprimir()"> PEDIDO</a>
             <div class="clearfix"> </div>
         </div>
     </div>

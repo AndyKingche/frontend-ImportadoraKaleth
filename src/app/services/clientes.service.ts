@@ -33,5 +33,12 @@ export class ClientesService {
   getClienteByCedula(cedulaClient: string) {
     return this.http.get(`${this.API_URI}/findcedula/${cedulaClient}`);
   }
+  generatePDFCliente(){
+
+    return this.http.get(`${this.API_URI}/pdfCliente`)
+  }
+  verPDF(){
+    return this.http.get(`${this.API_URI}/viewPDF`);
+  }
 
 }

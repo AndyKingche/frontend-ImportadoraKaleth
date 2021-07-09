@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CatStockService } from '../../services/cat-stock.service';
 import { peDetallePedido } from '../../models/peDetallePedido';
 import { peDetallePedidoAux } from 'src/app/models/peDetallePedidoAux';
-
+import * as html2pdf from 'html2pdf.js';
 //Productos
 import { Productos } from '../../models/catProducto';
 import { ProductoService } from '../../services/producto.service';
@@ -27,6 +27,7 @@ import { NotificacionService } from '../../services/notificacion.service';
 //Pedido
 import { peCabezaPedido } from '../../models/peCabezaPedido';
 import { PedidosService } from '../../services/pedidos.service';
+import jsPDF from 'jspdf';
 declare let $: any;
 @Component({
   selector: 'app-home',
@@ -79,11 +80,11 @@ export class HomeComponent implements OnInit {
     }],
     venCliente: { idCliente: 0 }
   }
-///llenar lista
-listaCheckout:peDetallePedidoAux[];
-selectedlistaCheckout:peDetallePedidoAux;
-auxPedidoDetalle: peDetallePedidoAux={
-  idDetallePe: 0,
+  ///llenar lista
+  listaCheckout: peDetallePedidoAux[];
+  selectedlistaCheckout: peDetallePedidoAux;
+  auxPedidoDetalle: peDetallePedidoAux = {
+    idDetallePe: 0,
     descripcion: "",
     valorTotal: 0,
     valorUnit: 0,
@@ -116,9 +117,9 @@ auxPedidoDetalle: peDetallePedidoAux={
     this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
-    
-    
-   
+
+
+
   }
   ShowCarrito() {
     console.log("si aplastaste")
@@ -130,7 +131,7 @@ auxPedidoDetalle: peDetallePedidoAux={
   ShowInicio() {
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
-  this.router.navigate(["/index.html"])
+    this.router.navigate(["/index.html"])
   }
   enviarLista() {
     console.log("Hola")
@@ -164,8 +165,8 @@ auxPedidoDetalle: peDetallePedidoAux={
 
     );
   }
-  imprimirProductos(){
-    
+  imprimirProductos() {
+
   }
   getCantExistent() {
     this.stockService.getCantExistents().subscribe(
@@ -443,7 +444,22 @@ auxPedidoDetalle: peDetallePedidoAux={
     }, 200);
     this.router.navigate(["/home"]);
   }
-  
+  imprimir() {
+
+   const options={
+     filename: 'Our_aweson.pdf',
+     image: {type: 'jepg'},
+     html2canva:{},
+     jsPDF:{orientation:'landascape'}
+   }
+
+   const content: Element= document.getElementById('TablaCarrito');
+   html2pdf()
+   .from(content)
+   .set(options)
+   .save();
+   console.log("Si ingrese")
   }
+}
 
 
