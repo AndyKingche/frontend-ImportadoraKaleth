@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { cat_stock } from '../models/cat_stock';
 import { Observable } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,22 @@ export class CatStockService {
   getCantExistents() {
     return this.http.get(`${this.API_URI}/cant`);
   }
-
-
+  findStockInventario(){
+    return this.http.get(`${this.API_URI}/findInventario`);
+  }
+  findStockInventarioPuntoVenta(id:number){
+    return this.http.get(`${this.API_URI}/findInventario/${id}`);
+  }
+  findStockbyMin(){
+    return this.http.get(`${this.API_URI}/findMin`);
+  }
+  findStockbyMinPuntoVenta(id:number){
+    return this.http.get(`${this.API_URI}/findMin/${id}`)
+  }
+  findStockbyParameters(parametros:string){
+    return this.http.get(`${this.API_URI}/findparameteros/${parametros}`)
+  }
+  findStockbyParametersPuntoVenta(id:number,parametros:string){
+    return this.http.get(`${this.API_URI}/findparameteros/${id}/${parametros}`)
+  }
 }

@@ -66,6 +66,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 import {ClientsListComponent} from '../app/components/clients-list/clients-list.component';
+import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 //
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import {ClientsListComponent} from '../app/components/clients-list/clients-list.
     FacturacionFormComponent,
     HomeComponent,
     CarritoComponent,
-    ClientsListComponent
+    ClientsListComponent,
+    ReportProductoComponent
   ],
   imports: [
     BrowserModule,

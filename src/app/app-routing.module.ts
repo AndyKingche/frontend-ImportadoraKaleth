@@ -40,7 +40,8 @@ import{ HomeComponent }from './components/home/home.component'
 import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
 //cliente
 import { ClientsListComponent } from './components/clients-list/clients-list.component';
-
+// product consultas
+import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 const routes: Routes = [
   {
     path:'',
@@ -193,6 +194,9 @@ const routes: Routes = [
   },{
     path:'client',
     component: ClientsListComponent
+  },{
+    path:'report-product',
+    component: ReportProductoComponent
   }
 ];
 
