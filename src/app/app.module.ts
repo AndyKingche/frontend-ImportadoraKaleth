@@ -54,7 +54,6 @@ import {PaginatorModule} from 'primeng/paginator';
 
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 
-
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import { HomeComponent } from './components/home/home.component';
@@ -69,6 +68,7 @@ import {ClientsListComponent} from '../app/components/clients-list/clients-list.
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 import {SidebarModule} from 'primeng/sidebar';
 import {SlideMenuModule} from 'primeng/slidemenu';
+import {NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
 //
 @NgModule({
   declarations: [
@@ -100,7 +100,9 @@ import {SlideMenuModule} from 'primeng/slidemenu';
     HomeComponent,
     CarritoComponent,
     ClientsListComponent,
-    ReportProductoComponent
+    ReportProductoComponent,
+    NavigationCashierComponent
+
   ],
   imports: [
     BrowserModule,
@@ -133,7 +135,9 @@ import {SlideMenuModule} from 'primeng/slidemenu';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     SidebarModule,
-    SlideMenuModule
+    SlideMenuModule,
+  
+ 
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],

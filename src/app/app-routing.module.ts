@@ -42,6 +42,9 @@ import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.compo
 import { ClientsListComponent } from './components/clients-list/clients-list.component';
 // product consultas
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
+
+import { NavigationComponent } from './components/navigation/navigation.component';
+
 const routes: Routes = [
   {
     path:'',

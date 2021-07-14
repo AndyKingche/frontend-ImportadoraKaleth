@@ -14,6 +14,7 @@ export class NavigationComponent implements OnInit {
     this.items = [
       {
           label: 'Usuarios',
+
           icon: 'pi pi-fw pi-user',
           items:[
             {label: 'Usuarios', icon: 'pi pi-fw pi-users',routerLink: ['/user']},
