@@ -3,7 +3,7 @@
         <div class="p-col-6">
             <div class="form-group">
                 <label id="lblcodigo" for="codigo">Código</label>
-                <input type="number" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
+                <input type="text" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
 
             </div>
             <!--Categoría -->

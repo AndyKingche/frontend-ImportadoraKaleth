@@ -121,7 +121,8 @@ p {
   white-space: nowrap;
   vertical-align: middle;
   @inlude user-select(none);
-  border: 1px solid #048BA8;
+  /* border: 1px solid #048BA8; */
+  border: 1px solid #A12A2F;
   padding: 0 35px;
   font-size: 16px;
   line-height: 48px;
@@ -133,7 +134,8 @@ p {
   -ms-transition: all 0.4s ease-out 0s;
   -o-transition: all 0.4s ease-out 0s;
   transition: all 0.4s ease-out 0s;
-  background-color: #048BA8; }
+  /* background-color: #048BA8; } */
+  background-color: #A12A2F;}
   @media (max-width: 767px) {
     .main-btn {
       font-size: 14px;
@@ -144,8 +146,11 @@ p {
     margin-left: 5px; }
   .main-btn:hover {
     background-color: #fff;
-    color: #06AED5;
-    border-color: #06AED5; }
+    /* color: #06AED5; */
+    color: #A12A2F;
+    /* border-color: #06AED5; */
+    border-color: #A12A2F;
+   }
   .main-btn.main-btn-2 {
     background-color: #fff;
     color: #fe7865;
@@ -401,13 +406,13 @@ p {
       height: 10px;
       font-size: 0;
       border: 0;
-      background-color: #fbb0a5;
+      background-color: #98151A;
       border-radius: 50%;
       cursor: pointer; }
   .slider-active .slick-dots li.slick-active button {
     width: 15px;
     height: 15px;
-    background-color: #fe7865; }
+    background-color: #98151A; }
 
 .single-slider {
   position: relative; }
@@ -1328,9 +1333,9 @@ p.form-message.error {
   -o-transition: all 0.4s ease-out 0s;
   transition: all 0.4s ease-out 0s;
   color: #fff;
-  background-color: #fe7865; }
+  background-color: #A12A2F; }
   .back-to-top:hover {
-    color: #fe7865;
+    color: #db252e;
     background-color: #fff; }
 
 /*===========================

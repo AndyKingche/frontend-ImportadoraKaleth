@@ -2,14 +2,18 @@
     <form>
         <div class="form-group">
           <label for="nombre">Nombre del Diseño</label>
-          <input type="text" class="form-control" [(ngModel)]="disenos.nombre" id="nombre" name="nombre" placeholder="Nombre del Diseño">
-          
+          <input type="text" class="form-control" [(ngModel)]="this.disenos.nombre" id="nombre" name="nombre" placeholder="Nombre del Diseño">
+          <div class="p-col">Ingrese imagen 
+            <input type="file" (change)="onBasicUpload($event)">
+          </div>
+          <img src="{{imagenObtenidaMostrar}}" alt="Imagen nueva" width="200px">
         </div>
        <div class="form-group">
            <button  class="btn btn-primary" (click)="edit ? updateDisenos() : saveDisenos()">Agregar Diseno</button>
            <button type="button" class="btn btn-info" routerLink="/design">Regresar</button>
        </div>
-     
+       
+    
     </form>
   </div>
 

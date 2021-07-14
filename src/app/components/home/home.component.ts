@@ -113,7 +113,8 @@ export class HomeComponent implements OnInit {
   precioUnit: number = 0;
   cantidad: number = 1;
   ngOnInit() {
-    this.getStocksExistents();
+    //this.getStocksExistents();
+    this.getStocksExistentsPuntoVenta();
     this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
@@ -153,7 +154,18 @@ export class HomeComponent implements OnInit {
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
     console.log(this.inicio, this.numeroFilas)
-    this.getStocksExistents()
+    //this.getStocksExistents();
+    this.getStocksExistentsPuntoVenta();
+  }
+
+  getStocksExistentsPuntoVenta() {
+    this.stockService.getStockAllExistPuntoVenta(1,this.inicio, this.numeroFilas).subscribe(
+      res => {
+        console.log(res)
+        this.stock = res;
+      }, err => console.error(err)
+
+    );
   }
 
   getStocksExistents() {
@@ -165,6 +177,7 @@ export class HomeComponent implements OnInit {
 
     );
   }
+  
   imprimirProductos() {
 
   }

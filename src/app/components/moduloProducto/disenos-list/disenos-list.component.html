@@ -7,7 +7,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
-
+            <th scope="col">Foto</th>
             <th scope="col">Elimnar</th>
             <th scope="col">Actualizar</th>
           </tr>
@@ -16,7 +16,7 @@
             <tr>
                 <td>{{disenos.idDisenos}}</td>
                 <td>{{disenos.nombre}}</td>
-                
+                <td><img src="{{disenos.urlFoto}}" alt="{{disenos.nombre}}" width="100px" height="120px"></td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteDisenos(disenos.idDisenos)" >Eliminar</button></td>
                 <td><button type="button" class="btn btn-dark" [routerLink]="['/design-edit/',disenos.idDisenos]"> Actualizar Diseño</button></td>
               </tr>

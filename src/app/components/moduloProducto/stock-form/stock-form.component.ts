@@ -93,7 +93,7 @@ export class StockFormComponent implements OnInit {
   }
   //Variables del index
 
-  idProductoPrueba: number = 0;
+  idProductoPrueba: string = '';
   idPuntoVentaPrueba: number;
   nombreCategoria: string = "";
   nombreDiseno: string = "";
@@ -115,7 +115,7 @@ export class StockFormComponent implements OnInit {
     catCategoria: { idCategoria: 0 },
     catTalla: { idTallas: 0 },
     catDiseno: { idDisenos: 0 },
-    codProducto: 0
+    codProducto: ''
   }
 
   ////////////////////////////////////////
@@ -138,7 +138,7 @@ export class StockFormComponent implements OnInit {
         descripcion: '',
         tipo: '',
       },
-      codProducto: 0
+      codProducto: ''
     },
     catPuntosVenta: { idPuntosVenta: 0 },
     existe: '',
@@ -366,7 +366,7 @@ export class StockFormComponent implements OnInit {
       descripcion: "",
       tipo: ""
     },
-    codProducto: 0
+    codProducto: ''
   }
 
 
@@ -751,7 +751,7 @@ export class StockFormComponent implements OnInit {
             descripcion: '',
             tipo: '',
           },
-          codProducto: 0
+          codProducto: ''
         },
         catPuntosVenta: { idPuntosVenta: 0 },
         existe: '',

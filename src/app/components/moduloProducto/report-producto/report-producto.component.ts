@@ -31,6 +31,11 @@ export class ReportProductoComponent implements OnInit {
       this.stock = res;
     },err=>console.log(err))
   }
+  getFindMinPuntoVenta(){
+    this.stockService.findStockbyMinPuntoVenta(14).subscribe(res=>{
+      this.stock = res;
+    },err=>console.log(err))
+  }
   findStockbyParameters(parametros:string){
     this.stockService.findStockbyParameters(parametros).subscribe(res=>{
       this.stock = res
@@ -38,9 +43,27 @@ export class ReportProductoComponent implements OnInit {
   }
   findParametros(event:any){
     this.parametros = event;
-    this.stockService.findStockbyParameters(this.parametros).subscribe(res=>{
-      this.stock = res;
-    },err=>console.log(err))
+    console.log(this.parametros);
+    if(this.parametros.length!=0){
+      this.stockService.findStockbyParameters(this.parametros).subscribe(res=>{
+        this.stock=res;
+      },err=>console.log(err))
+    }else{
+      this.stock=[];
+    }
+   
+  }
+
+  findParametrosPuntoVenta(event:any){
+    this.parametros = event;
+    console.log(this.parametros);
+    if(this.parametros.length!=0){
+      this.stockService.findStockbyParametersPuntoVenta(14,this.parametros).subscribe(res=>{
+        this.stock=res;
+      },err=>console.log(err))
+    }else{
+      this.stock=[];
+    }
   }
 
 }

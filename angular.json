@@ -44,6 +44,7 @@
                             "src/assets/css/responsive.css",
                             "src/assets/css/slick.css",
                             "src/assets/css/style.css",
+                            
 
 
                             "src/assets/css/bootstrap.css",
@@ -62,7 +63,9 @@
                             "src/assets/js/jquery.nice-number.min.js",
                             "src/assets/js/main.js",
                             "src/assets/js/slick.min.js",
-                            "src/assets/js/simpleCart.min.js"
+                            "src/assets/js/simpleCart.min.js",
+                            "src/assets/js/memenu.js"
+                           
 
 
                         ]

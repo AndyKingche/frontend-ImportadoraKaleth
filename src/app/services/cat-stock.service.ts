@@ -44,12 +44,15 @@ export class CatStockService {
   updateStocks(cantidad: number, precioUnit: number, precioMayor: number, precioDist: number, stockMax: number, id_producto: number, stockMin: number, id_puntosventa: number) {
     return this.http.get(`${this.API_URI}/updates/${id_producto}/${id_puntosventa}/${cantidad}/${precioUnit}/${precioMayor}/${precioDist}/${stockMax}/${stockMin}`);
   }
-  getStockProductbyCodProductoExite(codigoProducto: number, idPuntosVenta: number) {
+  getStockProductbyCodProductoExite(codigoProducto: string, idPuntosVenta: number) {
     return this.http.get(`${this.API_URI}/product/${codigoProducto}/${idPuntosVenta}`);
   }
 
   getAllStockExistents(inicio: number, numeroFilas: number) {
     return this.http.get(`${this.API_URI}/exist/${inicio}/${numeroFilas}`);
+  }
+  getStockAllExistPuntoVenta(id:number,inicio: number, numeroFilas: number){
+    return this.http.get(`${this.API_URI}/exist/${id}/${inicio}/${numeroFilas}`);
   }
   getCantExistents() {
     return this.http.get(`${this.API_URI}/cant`);
@@ -70,6 +73,6 @@ export class CatStockService {
     return this.http.get(`${this.API_URI}/findparameteros/${parametros}`)
   }
   findStockbyParametersPuntoVenta(id:number,parametros:string){
-    return this.http.get(`${this.API_URI}/findparameteros/${id}/${parametros}`)
+    return this.http.get(`${this.API_URI}/findparameterospuntosventa/${parametros}/${id}`)
   }
 }

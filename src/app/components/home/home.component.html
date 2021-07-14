@@ -38,6 +38,7 @@
                                 <a data-scroll-nav="0" href="#team">Puntos de Venta</a>
                             </li>
 
+                            
                             <li class="nav-item">
                                 <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
                             </li>
@@ -190,10 +191,10 @@
 
                             <div class="col-md1 simpleCart_shelfItem">
                                 <a href="single.html">
-                                    <img class="img-responsive" src="{{stocks.catProducto.urlFoto}}" alt="" />
+                                    <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
                                 </a>
                                 <h3>
-                                    <a href="single.html">{{stocks.catProducto.catCategoria.nombreCategoria}} {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}} </a></h3>
+                                    <a style="display:block;width:221px; height: 50.4px;" href="#">{{stocks.catProducto.catCategoria.nombreCategoria}} {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}} </a></h3>
                                 <div class="price">
                                     <h5 class="item_price">${{stocks.precioUnit}}</h5>
                                     <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->

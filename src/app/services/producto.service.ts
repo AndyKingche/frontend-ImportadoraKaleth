@@ -38,33 +38,38 @@ export class ProductoService {
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 
-  findproductobycodigo(codigoproducto:number){
+  findproductobycodigo(codigoproducto:string){
     return this.http.get(`${this.API_URI}/find/${codigoproducto}`);
   }
   findbyId(id:number){
     return this.http.get(`${this.API_URI}/findid/${id}`)
   }
 
-   async uploadImage(image: any,random:string) {
-    let nombre = image.name.split('.');
-    let nuevoNombre = nombre[0]+random+"."+nombre[1];
-    console.log(nuevoNombre);
-    this.filePath = `images/${nuevoNombre}`;
-    const fileRef = this.storage.ref(this.filePath);
-    const task =  this.storage.upload(this.filePath, image);
-    
-    const urlImagen =  new Promise(async(resolve,reject)=>{
-    await task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(urlImage => {
-         this.downloadURL = urlImage;
-         resolve(urlImage);
-        });
-      })
-    ).subscribe();
-  });
+  //  async uploadImage(image: any,random:string) {
+  //   let nombre = image.name.split('.');
+  //   let nuevoNombre = nombre[0]+random+"."+nombre[1];
+  //   console.log(nuevoNombre);
+  //   this.filePath = `images/${nuevoNombre}`;
+  //   const fileRef = this.storage.ref(this.filePath);
+  //   const task =  this.storage.upload(this.filePath, image);
+   
+  //   const urlImagen =  new Promise(async(resolve,reject)=>{
+  //   await task.snapshotChanges().pipe(
+  //     finalize(() => {
+  //       fileRef.getDownloadURL().subscribe(urlImage => {
+  //        this.downloadURL = urlImage;
+  //        resolve(urlImage);
+  //       });
+  //     })
+  //   ).subscribe();
+  // });
 
-  return Promise.resolve(urlImagen);
-  }
+  // return Promise.resolve(urlImagen);
+  // }
+
+  // async borrarImagen(url:string){
+
+  //    this.storage.refFromURL(url).delete();
+  // }
 }
 

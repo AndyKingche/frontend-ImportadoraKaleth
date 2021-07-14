@@ -1,6 +1,7 @@
 <div class="content">
     <a type="button" class="btn btn-success" routerLink="/product-add">Ingresar un nuevo Producto</a>
 </div>
+
 <div class="content" >
     <table class="table table-hover">
         <thead>
@@ -9,7 +10,7 @@
             <th scope="col">Categoria</th>
             <th scope="col">Medida/Talla</th>
             <th scope="col">Diseños</th>
-            <th>Foto</th>
+            <!-- <th>Foto</th> -->
             <th scope="col">Eliminar</th>
             <th scope="col">Actualizar</th>
 
@@ -21,7 +22,7 @@
                 <td>{{productos.catCategoria.nombreCategoria}}</td>
                 <td>{{productos.catTalla.medida}} </td>
                 <td>{{productos.catDiseno.nombre}} </td>
-                <td><img src="{{productos.urlFoto}}" alt="" width="100px" height="120px"></td>
+                <!-- <td><img src="{{productos.urlFoto}}" alt="" width="100px" height="120px"></td> -->
                 <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.idProductos)" >Eliminar</button></td>
                 <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.idProductos]"> Actualizar Producto</button></td>
               </tr>

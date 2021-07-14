@@ -39,7 +39,7 @@ export class FacturacionFormComponent implements OnInit {
         descripcion: '',
         tipo: '',
       },
-      codProducto: 0
+      codProducto: ''
     },
     catPuntosVenta: { idPuntosVenta: 0 },
     existe: '',

@@ -27,6 +27,9 @@ export class ProductoListComponent implements OnInit {
       
     );
   }
+  // borrarImagen(){
+  //   this.productoservices.borrarImagen().then(res=>console.log(res));
+  // }
 
   deleteProductos(id:number){
     this.productoservices.deleteProducto(id).subscribe(

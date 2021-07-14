@@ -7,6 +7,6 @@ export interface Productos{
     catCategoria?:Categorias,
     catDiseno?:Disenos,
     catTalla?:Tallas,
-    codProducto?:number,
-    urlFoto?:string
+    //codProducto?:number,
+    codProducto?:string
 }

@@ -67,6 +67,8 @@ import { environment } from '../environments/environment';
 
 import {ClientsListComponent} from '../app/components/clients-list/clients-list.component';
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
+import {SidebarModule} from 'primeng/sidebar';
+import {SlideMenuModule} from 'primeng/slidemenu';
 //
 @NgModule({
   declarations: [
@@ -129,7 +131,9 @@ import { ReportProductoComponent } from './components/moduloProducto/report-prod
     InputNumberModule,
     FileUploadModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    SidebarModule,
+    SlideMenuModule
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,FilterService],

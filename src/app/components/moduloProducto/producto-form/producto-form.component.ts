@@ -34,6 +34,7 @@ export class ProductoFormComponent implements OnInit {
 //diesnos
 disenos: Disenos;
 imagenObtenidaMostrar:any;
+imagenObtenidaAnteriorUrl:any;
 imagenObtenidaIngresar:any;
 disenosEscogida: any = [];
 
@@ -65,7 +66,8 @@ disenosEscogida: any = [];
           if(res!= null){
             console.log(res);
             this.productos = res;
-            this.imagenObtenidaMostrar = this.productos.urlFoto;
+            //this.imagenObtenidaMostrar = this.productos.urlFoto;
+           // this.imagenObtenidaAnteriorUrl = this.productos.urlFoto;
             this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
@@ -146,14 +148,14 @@ disenosEscogida: any = [];
         
 
       }else{
-        const urlNueva=new Promise(async (resolve,reject)=>{
-          await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
-              resolve(res);
+        // const urlNueva=new Promise(async (resolve,reject)=>{
+        //   await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
+        //       resolve(res);
               
-            },err=>console.log("hola pe"))
-          });
+        //     },err=>console.log("hola pe"))
+        //   });
     
-          await urlNueva.then(res=>this.productos.urlFoto = String(res));
+          //await urlNueva.then(res=>this.productos.urlFoto = String(res));
       }
      
       this.productoservices.saveProducto(this.productos).subscribe(
@@ -176,22 +178,26 @@ disenosEscogida: any = [];
     
         console.log("esntre al else")
         let x = Math.floor(Math.random() * (1000-1)) + 1;
-        if(!this.imagenObtenidaIngresar){
-          console.log("si entre")
+//cuando en el ingreso la imagen no tiene crgado no me muetsra nada, 
+//por el contrario me toca subir una imagen
+        // if(!this.imagenObtenidaIngresar){
           
   
-        }else{
-          const urlNueva=new Promise(async (resolve,reject)=>{
-            await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
-                resolve(res);
+        // }else{
+        //   const urlNueva=new Promise(async (resolve,reject)=>{
+        //     await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
+        //         resolve(res);
                 
-              },err=>console.log("hola pe"))
-            });
+        //       },err=>console.log("hola pe"))
+        //     });
       
-            await urlNueva.then(res=>this.productos.urlFoto = String(res));
-        }
+        //     //await urlNueva.then(res=>this.productos.urlFoto = String(res));
+        // }
        
         if(this.testingreso()){
+          //console.log("",this.imagenObtenidaAnteriorUrl)
+          
+          //this.productoservices.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res=>console.log(res));
           this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
             res => {
               setTimeout(()=>{
