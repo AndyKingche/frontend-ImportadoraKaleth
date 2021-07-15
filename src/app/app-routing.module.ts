@@ -57,18 +57,20 @@ const routes: Routes = [
     component:HomeComponent,
   },
   
+  // {
+  //   path:'rol',
+  //   component: RolesListComponent
+  // },
+  // {
+  //   path:'rol-add',
+  //   component:RolesFormComponent
+  // }
+  // ,{
+  //   path:'rol-edit/:id',
+  //   component:RolesFormComponent
+  // },
+  
   {
-    path:'rol',
-    component: RolesListComponent // esta es la principal, la lista
-  },
-  {
-    path:'rol-add',
-    component:RolesFormComponent
-  }
-  ,{
-    path:'rol-edit/:id',
-    component:RolesFormComponent
-  },{
     path:'civil-status',
     component:EstadoCivilListComponent
   },
@@ -88,109 +90,85 @@ const routes: Routes = [
   },{
     path: 'gender-edit/:id',
     component: GeneroFormComponent
-  },
-  {
-    path:'user',
-    component:UsuariosListComponent
-  },
-  {
-    path: 'user-add',
-    component: UsuariosFormComponent
-  },
-  {
-    path: 'user-edit/:id',
-    component: UsuariosFormComponent
-  },
-  {
-    path:'rol-user',
-    component: RolesUsuariosListComponent
-  },
-  {
-    path:'rol-user-add',
-    component: RolesUsuariosFormComponent
-  },
-  {
-    path: 'rol-user-edit/:id',
-    component: RolesUsuariosFormComponent
   }
+  // {
+  //   path:'category',
+  //   component: CategoriaListComponent
+  // },
+  // {
+  //   path:'category-add',
+  //   component: CategoriaFormComponent
+  // },
+  // {
+  //   path: 'category-edit/:id',
+  //   component: CategoriaFormComponent
+  // },
+  // {
+  //   path:'size',
+  //   component: MedidaListComponent
+  // },
+  // {
+  //   path:'size-add',
+  //   component: MedidaFormComponent
+  // },
+  // {
+  //   path: 'size-edit/:id',
+  //   component: MedidaFormComponent
+  // },
+  // {
+  //   path:'design',
+  //   component: DisenosListComponent
+  // },
+  // {
+  //   path:'design-add',
+  //   component: DisenosFormComponent
+  // },
+  // {
+  //   path: 'design-edit/:id',
+  //   component: DisenosFormComponent
+  // },
+  // {
+  //   path:'product',
+  //   component: ProductoListComponent
+  // },
+  // {
+  //   path:'product-add',
+  //   component: ProductoFormComponent
+  // },
+  // {
+  //   path: 'product-edit/:id',
+  //   component: ProductoFormComponent
+  // }
+//   ,
+//   {
+//     path:'sales-points',
+//     component: PuntosVentasListComponent
+//   },
+//   {
+//     path:'sales-points-add',
+//     component: PuntosVentasFormComponent
+//   },
+//   {
+//     path: 'sales-points-edit/:id',
+//     component: PuntosVentasFormComponent
+//   },{
+//     path:'bill',
+//     component: FacturacionFormComponent
+//   }
+// ,
+//   {
+//     path:'stock',
+//     component: StockListComponent
+//   },
+//   {
+//     path:'stock-add/:id',
+//     component: StockFormComponent
+//   },
+//   {
+//     path: 'stock-edit/:id',
+//     component: StockFormComponent
+//   }
   ,
-  {
-    path:'category',
-    component: CategoriaListComponent
-  },
-  {
-    path:'category-add',
-    component: CategoriaFormComponent
-  },
-  {
-    path: 'category-edit/:id',
-    component: CategoriaFormComponent
-  },
-  {
-    path:'size',
-    component: MedidaListComponent
-  },
-  {
-    path:'size-add',
-    component: MedidaFormComponent
-  },
-  {
-    path: 'size-edit/:id',
-    component: MedidaFormComponent
-  },
-  {
-    path:'design',
-    component: DisenosListComponent
-  },
-  {
-    path:'design-add',
-    component: DisenosFormComponent
-  },
-  {
-    path: 'design-edit/:id',
-    component: DisenosFormComponent
-  },
-  {
-    path:'product',
-    component: ProductoListComponent
-  },
-  {
-    path:'product-add',
-    component: ProductoFormComponent
-  },
-  {
-    path: 'product-edit/:id',
-    component: ProductoFormComponent
-  }
-  ,
-  {
-    path:'sales-points',
-    component: PuntosVentasListComponent
-  },
-  {
-    path:'sales-points-add',
-    component: PuntosVentasFormComponent
-  },
-  {
-    path: 'sales-points-edit/:id',
-    component: PuntosVentasFormComponent
-  },{
-    path:'bill',
-    component: FacturacionFormComponent
-  }
-,
-  {
-    path:'stock',
-    component: StockListComponent
-  },
-  {
-    path:'stock-add/:id',
-    component: StockFormComponent
-  },
-  {
-    path: 'stock-edit/:id',
-    component: StockFormComponent
-  },
   {
     path: 'checkout',
     component: CarritoComponent
@@ -200,6 +178,122 @@ const routes: Routes = [
   },{
     path:'report-product',
     component: ReportProductoComponent
+  },
+  {
+    path:'admin',
+    component: NavigationComponent,
+    children:[
+      //USUARIO
+      {
+        path:'user',
+        component:UsuariosListComponent
+      },
+      {
+        path: 'user-add',
+        component: UsuariosFormComponent
+      },
+      {
+        path: 'user-edit/:id',
+        component: UsuariosFormComponent
+      },
+      {
+        path:'rol-user',
+        component: RolesUsuariosListComponent
+      },
+      {
+        path:'rol-user-add',
+        component: RolesUsuariosFormComponent
+      },
+      {
+        path: 'rol-user-edit/:id',
+        component: RolesUsuariosFormComponent
+      },  {
+        path:'rol',
+        component: RolesListComponent
+      },
+      {
+        path:'rol-add',
+        component:RolesFormComponent
+      }
+      ,{
+        path:'rol-edit/:id',
+        component:RolesFormComponent
+      },
+      //PRODUCTO
+      {
+        path:'category',
+        component: CategoriaListComponent
+      },
+      {
+        path:'category-add',
+        component: CategoriaFormComponent
+      },
+      {
+        path: 'category-edit/:id',
+        component: CategoriaFormComponent
+      },
+      {
+        path:'size',
+        component: MedidaListComponent
+      },
+      {
+        path:'size-add',
+        component: MedidaFormComponent
+      },
+      {
+        path: 'size-edit/:id',
+        component: MedidaFormComponent
+      },
+      {
+        path:'design',
+        component: DisenosListComponent
+      },
+      {
+        path:'design-add',
+        component: DisenosFormComponent
+      },
+      {
+        path: 'design-edit/:id',
+        component: DisenosFormComponent
+      },
+      {
+        path:'product',
+        component: ProductoListComponent
+      },
+      {
+        path:'product-add',
+        component: ProductoFormComponent
+      },
+      {
+        path: 'product-edit/:id',
+        component: ProductoFormComponent
+      },
+      //pUNTO DE VENTA
+      {
+        path:'sales-points',
+        component: PuntosVentasListComponent
+      },
+      {
+        path:'sales-points-add',
+        component: PuntosVentasFormComponent
+      },
+      {
+        path: 'sales-points-edit/:id',
+        component: PuntosVentasFormComponent
+      },{
+        path:'bill',
+        component: FacturacionFormComponent
+      }
+    ,
+      {
+        path:'stock',
+        component: StockListComponent
+      },
+      {
+        path:'stock-add/:id',
+        component: StockFormComponent
+      }
+    ]
   }
 ];
 

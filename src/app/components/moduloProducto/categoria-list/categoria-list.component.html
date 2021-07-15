@@ -1,5 +1,5 @@
 <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/category-add">Ingresar un nueva Categoria</a>
+    <a type="button" class="btn btn-success" routerLink="/admin/category-add">Ingresar un nueva Categoria</a>
 </div>
 <div class="content" >
     <table class="table table-hover">
@@ -19,7 +19,7 @@
                 <td>{{categorias.nombreCategoria}}</td>
                 <td>{{categorias.descripcion}}</td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteCategoria(categorias.idCategoria)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/category-edit/',categorias.idCategoria]"> Actualizar Categoria</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/category-edit/',categorias.idCategoria]"> Actualizar Categoria</button></td>
               </tr>
           </tbody>
       </table> 

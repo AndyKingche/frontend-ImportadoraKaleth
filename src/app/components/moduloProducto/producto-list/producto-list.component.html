@@ -1,5 +1,5 @@
 <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/product-add">Ingresar un nuevo Producto</a>
+    <a type="button" class="btn btn-success" routerLink="/admin/product-add">Ingresar un nuevo Producto</a>
 </div>
 
 <div class="content" >
@@ -24,7 +24,7 @@
                 <td>{{productos.catDiseno.nombre}} </td>
                 <!-- <td><img src="{{productos.urlFoto}}" alt="" width="100px" height="120px"></td> -->
                 <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.idProductos)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/product-edit/',productos.idProductos]"> Actualizar Producto</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/product-edit/',productos.idProductos]"> Actualizar Producto</button></td>
               </tr>
           </tbody>
       </table> 

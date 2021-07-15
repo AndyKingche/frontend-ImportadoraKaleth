@@ -6,7 +6,7 @@
     <h5>Ingresar Punto Venta</h5>
  <ul *ngFor="let puntoVenta of puntoVenta ">
      <li>{{puntoVenta.nombreLocal}}
-    <p-button label="Aceptar" icon="pi pi-check" iconPos="left" [routerLink]="['/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
+    <p-button label="Aceptar" icon="pi pi-check" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
 
      </li>
  </ul>

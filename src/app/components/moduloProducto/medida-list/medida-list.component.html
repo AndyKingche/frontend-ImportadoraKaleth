@@ -1,5 +1,5 @@
 <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/size-add">Ingresar una nueva Medida</a>
+    <a type="button" class="btn btn-success" routerLink="/admin/size-add">Ingresar una nueva Medida</a>
 </div>
 <div class="content" >
     <table class="table table-hover">
@@ -20,7 +20,7 @@
                 <td>{{medida.descripcion}}</td>
                 <td>{{medida.tipo}}</td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteTallas(medida.idTallas)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/size-edit/',medida.idTallas]"> Actualizar Medida</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/size-edit/',medida.idTallas]"> Actualizar Medida</button></td>
               </tr>
           </tbody>
       </table> 

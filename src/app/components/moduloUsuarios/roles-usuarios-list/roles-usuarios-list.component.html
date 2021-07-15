@@ -1,5 +1,6 @@
+<div class="card">
 <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/rol-user-add">Ingresar un nuevo Genero</a>
+    <a type="button" class="btn btn-success" routerLink="/admin/rol-user-add">Ingresar un nuevo Genero</a>
 </div>
 <div class="content" >
     <table class="table table-hover">
@@ -18,8 +19,9 @@
                 <td>{{rol_users.usUser.nombre}}  {{rol_users.usUser.apellido}}</td>
                 <td>{{rol_users.usRole.rol}} </td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteRolusuarios(rol_users.usUser.idUsuario)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-user-edit/',rol_users.usUser.idUsuario]"> Actualizar Rol</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/rol-user-edit/',rol_users.usUser.idUsuario]"> Actualizar Rol</button></td>
               </tr>
           </tbody>
       </table> 
+</div>
 </div>

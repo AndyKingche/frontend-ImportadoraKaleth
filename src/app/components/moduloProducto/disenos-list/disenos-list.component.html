@@ -1,5 +1,5 @@
 <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/design-add">Ingresar un nuevo Diseño</a>
+    <a type="button" class="btn btn-success" routerLink="/admin/design-add">Ingresar un nuevo Diseño</a>
 </div>
 <div class="content" >
     <table class="table table-hover">
@@ -18,7 +18,7 @@
                 <td>{{disenos.nombre}}</td>
                 <td><img src="{{disenos.urlFoto}}" alt="{{disenos.nombre}}" width="100px" height="120px"></td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteDisenos(disenos.idDisenos)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/design-edit/',disenos.idDisenos]"> Actualizar Diseño</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/design-edit/',disenos.idDisenos]"> Actualizar Diseño</button></td>
               </tr>
           </tbody>
       </table> 

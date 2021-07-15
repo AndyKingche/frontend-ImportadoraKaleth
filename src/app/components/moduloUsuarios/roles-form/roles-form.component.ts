@@ -36,7 +36,7 @@ export class RolesFormComponent implements OnInit {
             this.edit = true;
 
           }else{
-            this.router.navigate(['/rol']);
+            this.router.navigate(['/admin/rol']);
           }
           
         },
@@ -69,7 +69,7 @@ export class RolesFormComponent implements OnInit {
           setTimeout(()=>{
             this.notificacion.showSuccess('Rol correctamente agregado', ' Rol Ingresado')
           },200);
-          this.router.navigate(['/rol'])
+          this.router.navigate(['/admin/rol'])
         },
         err => console.error(err)
       );
@@ -97,7 +97,7 @@ export class RolesFormComponent implements OnInit {
           setTimeout(()=>{
             this.notificacion.showSuccess('Rol actualizado Correctamente','Rol actualizado');
             },200)
-          this.router.navigate(['/rol']);
+          this.router.navigate(['/admin/rol']);
         },
         err => console.error(err)
       );

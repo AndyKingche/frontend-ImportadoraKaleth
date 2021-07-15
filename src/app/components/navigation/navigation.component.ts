@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
 
           icon: 'pi pi-fw pi-user',
           items:[
-            {label: 'Usuarios', icon: 'pi pi-fw pi-users',routerLink: ['/user']},
+            {label: 'Usuarios', icon: 'pi pi-fw pi-users',routerLink: ['/admin/user']},
             {label: 'Roles', icon: 'pi pi-fw pi-user-plus',routerLink: ['/rol']},
             {label: 'Asignar Rol Usuario', icon: 'pi pi-fw pi-id-card',routerLink: ['/rol-user']},
             

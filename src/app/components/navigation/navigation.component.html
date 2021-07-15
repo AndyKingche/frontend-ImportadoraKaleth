@@ -1,91 +1,108 @@
-<!-- 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Usuarios
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" routerLink="/user">Usuarios</a></li>
-              <li><a class="dropdown-item" routerLink="/rol">Rol</a></li>
-              <li><a class="dropdown-item" routerLink="/rol-user">Agregar Rol a Usuarios</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>  -->
+<div id="wrapper">
 
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Barra de navegación</font></font></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center">
+          <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-laugh-wink"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+          <a class="nav-link">
+              <i class="pi pi-globe"></i>
+              <span>Pagina Principal</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+          <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+              aria-expanded="true" aria-controls="collapseTwo">
+              
+              <i class="pi pi-user"></i>
+              <span>Usuarios</span>
+              
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  
+                  <a class="collapse-item" routerLink="/admin/user"><i class="pi pi-users"></i>Usuarios</a>
+                  <a class="collapse-item" routerLink="/admin/rol"><i class="pi pi-id-card"></i>Rol</a>
+                  <a class="collapse-item" routerLink="/admin/rol-user"><i class="pi pi-user-plus"></i>Asignar-Rol</a>
+              </div>
+          </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+          <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUtilities"
+              aria-expanded="true" aria-controls="collapseUtilities">
+              <i class="pi pi-briefcase"></i>
+              <span>Productos</span>
+          </a>
+          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+              data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" routerLink="/admin/category"><i class="pi pi-sort-amount-up"></i>Categoria</a>
+                <a class="collapse-item" routerLink="/admin/design"><i class="pi pi-image"></i>Diseño</a>
+                <a class="collapse-item" routerLink="/admin/size"><i class="pi pi-sort-alpha-up"></i>Talla</a>
+                <a class="collapse-item" routerLink="/admin/product"><i class="pi pi-tag"></i>Producto</a>
+                <a class="collapse-item" routerLink="/admin/stock"><i class="pi pi-list"></i>Stock</a>
+              </div>
+          </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Charts -->
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/sales-points" >
+              <i class="pi pi-home"></i>
+              <span>Puntos de Venta</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/bill">
+            <i class="pi pi-dollar"></i>
+              <span>Venta</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+  </ul>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+          </div>
+          <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
   
-      <div class="collapse navbar-collapse" id="navbarColor03">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Casa
-              </font></font><span class="visually-hidden"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">(Actual)</font></font></span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Características</font></font></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Precios</font></font></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Acerca de</font></font></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Desplegable</font></font></a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-sm-2" type="text" placeholder="Buscar">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Buscar</font></font></button>
-        </form>
-      </div>
-    </div>
-  </nav> 
-
-
-
-    <p-menubar [ngStyle]="{backgroundColor:'var(--blue-500)'}" [model]="items" class="layout-menu-wrapper">
-        <ng-template pTemplate="start">
-            
-        <div  class="titulo__nuevo--sitio" >
-          <img src="../../../assets/img/Logo.png" height="50" class="p-mr-2" routerLink="/">
-          IMPORTADORA KALETH
-        </div>
-          </ng-template>
-         
-      </p-menubar> -->
-       <p-menubar [ngStyle]="{backgroundColor:'var(--blue-500)'}" [model]="items" class="layout-menu-wrapper">
-        <ng-template pTemplate="start">
-            
-        <div  class="titulo__nuevo--sitio" >
-          <img src="../../../assets/img/Logo.png" height="50" class="p-mr-2" routerLink="/">
-          IMPORTADORA KALETH
-        </div>
-          </ng-template>
-         
-      </p-menubar> 
-   
