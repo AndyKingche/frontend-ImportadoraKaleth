@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
   }
 
   getStocksExistentsPuntoVenta() {
-    this.stockService.getStockAllExistPuntoVenta(1,this.inicio, this.numeroFilas).subscribe(
+    this.stockService.getStockAllExistPuntoVenta(14,this.inicio, this.numeroFilas).subscribe(
       res => {
         console.log(res)
         this.stock = res;

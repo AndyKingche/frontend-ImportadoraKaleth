@@ -711,6 +711,16 @@ export class StockFormComponent implements OnInit {
           ) {
             // sumatoria de la cantidad de un elemento encontrado
             this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
+            this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
+            this.stockAuxiliarLista[x].precioMayor=this.stockAuxiliar.precioMayor;
+            this.stockAuxiliarLista[x].precioDistribuidor=this.stockAuxiliar.precioDistribuidor;
+            this.stockAuxiliarLista[x].stockMax=this.stockAuxiliar.stockMax;
+            this.stockAuxiliarLista[x].stockMin=this.stockAuxiliar.stockMin;
+           
+            
+            //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
+           
+           
             console.log(this.stockAuxiliarLista[x].cantidad)
             //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
             this.encuentraArray = true;

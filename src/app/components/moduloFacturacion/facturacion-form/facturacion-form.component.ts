@@ -55,6 +55,8 @@ export class FacturacionFormComponent implements OnInit {
   listafacturaIngreso: VenCabezaFactura[];
   listaDetalleFactura: VenDetalleFact[];
 
+  selectedDetalles: VenDetalleFact;
+
   //variables
   idProductoConsulta: number = 0;
   codigoProducto;
@@ -66,6 +68,9 @@ export class FacturacionFormComponent implements OnInit {
   cantidad: number = 0;
   totalIngresoVista: string = "0";
   totalVenta: string = "0";
+
+  totalDescuento: string = '0';
+
   encuentraArray = false;
   //variables Stock
   cantidadDisponible: number = 0;
@@ -231,84 +236,132 @@ export class FacturacionFormComponent implements OnInit {
 
 
     if (this.cantidadDisponible < this.cantidad) {
-      console.log("no hay cantidad suficiente para vender")
+
+      alert("no hay cantidad suficiente para vender");
 
     } else {
       ///INGRESAR DATOS SI EXISTE EL CLIENTE
 
       this.venDetalleFactura.cantidadFact = this.cantidad;
       this.venDetalleFactura.descripcion = this.detalle;
-      this.venDetalleFactura.valorTotal = Number(this.precioUnit * this.cantidad);
-      this.venDetalleFactura.valorUnit = Number(this.precioUnit);
+
+
+      if (this.venDetalleFactura.cantidadFact > 0 && this.venDetalleFactura.cantidadFact < 12) {
+        this.venDetalleFactura.valorTotal = Number(this.precioUnit * this.cantidad);
+        this.venDetalleFactura.valorUnit = Number(this.precioUnit);
+        console.log("entre pprecio unit")
+      }
+
+      if (this.venDetalleFactura.cantidadFact >= 12 && this.venDetalleFactura.cantidadFact < 24) {
+        console.log("entre pprecio mayor")
+        this.venDetalleFactura.valorTotal = Number(this.precioMay * this.cantidad);
+        this.venDetalleFactura.valorUnit = Number(this.precioMay);
+      }
+      if (this.venDetalleFactura.cantidadFact >= 24) {
+        console.log("entre pprecio distribuidor")
+        this.venDetalleFactura.valorTotal = Number(this.precioDis * this.cantidad);
+        this.venDetalleFactura.valorUnit = Number(this.precioDis);
+      }
+
+      // this.venDetalleFactura.valorUnit = Number(this.precioUnit);
       this.venDetalleFactura.catStock.id.idProductos = this.idProductoConsulta;//cabiar al id proucto
       this.venDetalleFactura.catStock.id.idPuntosVenta = this.idPuntosVenta;
 
 
 
       if (this.listaDetalleFactura.length === 0) {
-        //añadimos el primer elemento a la lista
-        this.listaDetalleFactura.push(this.venDetalleFactura);
-        this.totalIngresoVista = "" + this.venDetalleFactura.cantidadFact * this.precioUnit;
-        this.totalVenta = "" + this.venDetalleFactura.valorTotal;
 
-        this.cantidadDisponible = this.cantidadDisponible - this.venDetalleFactura.cantidadFact;
+        if (this.venDetalleFactura.cantidadFact <= 0) {
+          alert("Ingrese cantidad mayor a 0");
+
+        } else {
+          //añadimos el primer elemento a la lista
+          this.listaDetalleFactura.push(this.venDetalleFactura);
+          this.totalIngresoVista = "" + this.venDetalleFactura.cantidadFact * this.precioUnit;
+
+          this.totalVenta = "" + this.venDetalleFactura.valorTotal;
+
+          this.cantidadDisponible = this.cantidadDisponible - this.venDetalleFactura.cantidadFact;
 
 
 
-        //enviamos una variable falsa si existe el productodespues de ingresar
-        this.encuentraArray = false;
+          //enviamos una variable falsa si existe el productodespues de ingresar
+          this.encuentraArray = false;
+
+        }
+
 
       } else {
 
-        this.cantidadLista = 0;
-        this.cantidadDisponible = 0;
+        if (this.venDetalleFactura.cantidadFact <= 0) {
+          alert("Ingrese cantidad mayor a 0")
+        } else {
+          this.cantidadLista = 0;
+          this.cantidadDisponible = 0;
 
-        for (var x in this.listaDetalleFactura) {
-          //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
-          if (this.listaDetalleFactura[x].catStock.id.idProductos == this.venDetalleFactura.catStock.id.idProductos
-            && this.listaDetalleFactura[x].catStock.id.idPuntosVenta == this.venDetalleFactura.catStock.id.idPuntosVenta
-          ) {
+          for (var x in this.listaDetalleFactura) {
+            //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
+            if (this.listaDetalleFactura[x].catStock.id.idProductos == this.venDetalleFactura.catStock.id.idProductos
+              && this.listaDetalleFactura[x].catStock.id.idPuntosVenta == this.venDetalleFactura.catStock.id.idPuntosVenta
+            ) {
 
-            this.listaDetalleFactura[x].valorUnit = this.precioUnit;
-            // sumatoria de la cantidad de un elemento encontrado
-            this.listaDetalleFactura[x].cantidadFact = Number(this.listaDetalleFactura[x].cantidadFact) + Number(this.venDetalleFactura.cantidadFact);
-            this.listaDetalleFactura[x].valorTotal = Number(this.listaDetalleFactura[x].cantidadFact * Number(this.precioUnit))
-            console.log(this.listaDetalleFactura[x].cantidadFact)
-            //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
-            this.encuentraArray = true;
-            this.cantidadLista = this.listaDetalleFactura[x].cantidadFact;
+              this.listaDetalleFactura[x].valorUnit = this.precioUnit;
+              // sumatoria de la cantidad de un elemento encontrado
+              this.listaDetalleFactura[x].cantidadFact = Number(this.listaDetalleFactura[x].cantidadFact) + Number(this.venDetalleFactura.cantidadFact);
+              if (this.listaDetalleFactura[x].cantidadFact > 0 && this.listaDetalleFactura[x].cantidadFact < 12) {
+                this.listaDetalleFactura[x].valorUnit = this.precioUnit;
+                console.log("entre pprecio unit")
+              }
+              if (this.listaDetalleFactura[x].cantidadFact >= 12 && this.listaDetalleFactura[x].cantidadFact < 24) {
+                console.log("entre pprecio mayor")
+                this.listaDetalleFactura[x].valorUnit = this.precioMay;
 
-            this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
+              } if (this.listaDetalleFactura[x].cantidadFact >= 24) {
+                console.log("entre pprecio distribuidor")
+                this.listaDetalleFactura[x].valorUnit = this.precioDis;
 
-            console.log("cantidad consulta=>", this.cantidadConsulta)
-            console.log("cantidad Lista=>", this.cantidadLista)
-            console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+              }
+
+              this.listaDetalleFactura[x].valorTotal = Number(this.listaDetalleFactura[x].cantidadFact * Number(this.listaDetalleFactura[x].valorUnit))
+              //console.log(this.listaDetalleFactura[x].cantidadFact)
+              //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
+              this.encuentraArray = true;
+              this.cantidadLista = this.listaDetalleFactura[x].cantidadFact;
+
+              this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
+
+              console.log("cantidad consulta=>", this.cantidadConsulta)
+              console.log("cantidad Lista=>", this.cantidadLista)
+              console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+
+            }
 
           }
 
+          //  se realiza la valicaión si existe el procuto en el array
+          if (this.encuentraArray) {
+            // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
+            this.encuentraArray = false;
+          } else {
+            //si no existe el producto ingresa un nuevo elemento en el array 
+            //metodo push para apilar elemnto en el array
+            this.listaDetalleFactura.push(this.venDetalleFactura);
+
+            this.cantidadDisponible = this.cantidadConsulta - this.venDetalleFactura.cantidadFact;
+
+            this.encuentraArray = false;
+          }
+
+          let totalvista = 0;
+          for (var x in this.listaDetalleFactura) {
+
+            totalvista += (this.listaDetalleFactura[x].valorTotal);
+          }
+          this.totalIngresoVista = "" + totalvista;
+          this.totalVenta = "" + totalvista;
         }
 
-        //  se realiza la valicaión si existe el procuto en el array
-        if (this.encuentraArray) {
-          // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
-          this.encuentraArray = false;
-        } else {
-          //si no existe el producto ingresa un nuevo elemento en el array 
-          //metodo push para apilar elemnto en el array
-          this.listaDetalleFactura.push(this.venDetalleFactura);
 
-          this.cantidadDisponible = this.cantidadConsulta - this.venDetalleFactura.cantidadFact;
-
-          this.encuentraArray = false;
-        }
-
-        let totalvista = 0;
-        for (var x in this.listaDetalleFactura) {
-
-          totalvista += (this.listaDetalleFactura[x].valorTotal);
-        }
-        this.totalIngresoVista = "" + totalvista;
-        this.totalVenta = "" + totalvista;
 
       }
 
@@ -554,6 +607,7 @@ export class FacturacionFormComponent implements OnInit {
           for (let i = 0; i < this.listaDetalleFactura.length; i++) {
             if (this.listaDetalleFactura[i].catStock.id.idProductos == result[0].catProducto.idProductos
               && this.listaDetalleFactura[i].catStock.id.idPuntosVenta == 14
+              ////ojo cambiar 
             ) {
 
               this.cantidadLista = Number(this.listaDetalleFactura[i].cantidadFact);
