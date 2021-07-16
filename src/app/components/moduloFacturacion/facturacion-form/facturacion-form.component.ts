@@ -289,7 +289,7 @@ export class FacturacionFormComponent implements OnInit {
           this.encuentraArray = false;
 
         }
-
+console.log("hola")
 
       } else {
 
