@@ -1,126 +1,97 @@
-
 <p-card header="{{creacion}} Usuario">
-    <div class="content">
-      <div class="container-fluid">
-        <form>
-          <!-- Este div es solo para el nombre -->
-            <div class="form-group">
-              <label for="Nombre" class="col-sm-2 col-form-label"> </label>
+<div class="container-fluid">
+	<div class="row filainput">
+		<div class="col-md-6">
+      <label for="Nombre" class="col-sm-2 col-form-label"> </label>
               <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
+                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
                 <label for="float-input">Nombre:</label>
               </span>
-            </div>
-            <!-- este div es para el apellido -->
-            <div class="form-group">
-              <label for="Apellido" class="col-sm-2 col-form-label"> </label>
+		</div>
+		<div class="col-md-6">
+      <label for="Apellido" class="col-sm-2 col-form-label"> </label>
               <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido" >
+                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido" >
                 <label for="float-input">Apellido:</label>
               </span>
-            </div>
-            <!--  -->
-            <div class="form-group">
-              <label for="Cedula" class="col-sm-2 col-form-label"> </label>
+		</div>
+	</div>
+	<div class="row filainput">
+		<div class="col-md-6 filainput__inputs--posci">
+     
+      <label for="Cedula" class="col-sm-2 col-form-label"> </label>
+      <span class="p-float-label">
+        <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula"  id="cedula" name="cedula">
+        <!-- <input type="text" pInputText pKeyFilter="num" placeholder="Numbers"> -->
+        <label for="float-input">Cedula:</label>
+      </span>
+    
+		</div>
+		<div class="col-md-6">
+      <div class="p-field p-col-12 p-md-4">
+        <label for="navigators">Fecha de nacimiento: </label>
+         <p-calendar  [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaObtenida" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar>
+      </div>
+      
+		</div>
+	</div>
+	<div class="row filainput">
+		<div class="col-md-6">
+      <label for="Direccion" class="col-sm-2 col-form-label"> </label>
+      <span class="p-float-label">
+        <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
+        <label for="float-input">Direccion:</label>
+      </span>
+		</div>
+		<div class="col-md-6">
+      <label for="Telefono" class="col-sm-2 col-form-label"> </label>
               <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.cedula"  id="cedula" name="cedula">
-                <label for="float-input">Cedula:</label>
+                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
+                <label for="float-input">Telefono:</label>
               </span>
-            </div>
-        <!-- Direccion -->
-            <div class="form-group">
-              <label for="Direccion" class="col-sm-2 col-form-label"> </label>
+		</div>
+	</div>
+	<div class="row filainput">
+		<div class="col-md-6">
+      <label for="Email" class="col-sm-2 col-form-label"> </label>
               <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
-                <label for="float-input">Direccion:</label>
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label for="Email" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.email" id="email" name="email">
+                <input type="email" class="form-control" pInputText [(ngModel)]="user.email" id="email" name="email">
                 <label for="float-input">Email:</label>
               </span>
-
-            </div>
-            <!-- Password -->
-            <div class="form-group">
-              <label for="Password" class="col-sm-2 col-form-label"> </label>
+		</div>
+		<div class="col-md-6">
+      <label for="Password" class="col-sm-2 col-form-label"> </label>
               <span class="p-float-label">
                 <input type="text" class="form-control" pInputText [(ngModel)]="user.password" id='password' name="password">
                 <label for="float-input">Password:</label>
               
               </span>
-            </div>
-            <!-- Telefono -->
-            <div class="form-group">
-              <label for="Telefono" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
-                <label for="float-input">Telefono:</label>
-              </span>
-            </div>
-            <!-- fecha Nacimiento -->
-              <!-- <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento: (aaaa-dd-mm)</label>
-                <input type="text" class="form-control" [(ngModel)]="user.fechanacimiento" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
-              </div> -->
-              <div class="form-control">
-                <div class="p-field p-col-12 p-md-4">
-                  <label for="navigators">Fecha de nacimiento: </label>
-                   <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="this.user.fechanacimiento" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar>
-                </div>
-              </div>
-
-              <!-- estado -->
-              <div class="form-control">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text"  for="Estado">Estado</label>
-                    </div>
-                    <select   class="js-example-placeholder-single js-states form-control" [(ngModel)]="user.estado" id="estados" name="estados" data-width="auto" required >
-                      
-                      <option   *ngFor="let estados of estados"  name="estado" value="{{estados.id}}" class="placeholder" >{{estados.nombre}}</option>   
-                      
-                    </select>
-                  </div>
-            </div>
-
-          <div class="form-control">
-              <div class="input-group mb-3">
-                <label class="input-group-text" for="Estado Civil">Estado Civil</label> 
-                  <select   class="js-example-placeholder-single js-states form-control" width="200px" height="300px" id="estadociviles" name="estadociviles"  data-width="auto" required >
-                    <option  [attr.selected]="estadocivilEscogido.idEstadocivil" [attr.value]="estadocivilEscogido.idEsatdocivil"></option>
-                    <option   *ngFor="let estadociviles of estadocivil"  name="estadocivil" value="{{estadociviles.idEstadocivil}}" class="placeholder" >{{estadociviles.nombre}}</option>   
-                  </select>
-                </div>
-          </div>
-
-              <div class="form-control">
-                 <div class="input-group mb-3">  
-                        <label class="input-group-text" for="Genero">Genero</label>      
-                        <select   class="js-example-placeholder-single js-states form-control"  id="generos" name="generos"  data-width="auto" required >
-                          <option  [attr.selected]="generoEscogido.idGenero" [attr.value]="generoEscogido.idGenero"></option>
-                          <option   *ngFor="let generos of genero"  name="genero" value="{{generos.idGenero}}" class="placeholder" >{{generos.nombre}}</option>   
-                        </select>
-                  </div>           
-              </div>
-
-           <div class="form-group">
-               <button  class="btn btn-primary" (click)="edit ? updateUsuario() : saveUsuario()">Aceptar</button>
-               <button type="button" class="btn btn-info" routerLink="/admin/user">Regresar</button>
-              
-            </div>
-        </form>
-      </div>
-
-
-    </div>
+		</div>
+	</div>
+	<div class="row filainput">
+		<div class="col-md-6">
+      <label for="navigators">Esatdo Civil: </label>
+      <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar un Estado Civil" optionLabel="nombre" [showClear]="true"></p-dropdown>
+		</div>
+		<div class="col-md-6">
+      <label for="navigators">Genero: </label>
+      <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar un Estado Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
+		</div>
+	</div>
+	<div class="row filainput">
+		<div class="col-md-12">
+      <label for="Estado">Estado: </label>
+      <p-dropdown [options]="estados" [(ngModel)]="estadosEscogidos" placeholder="Seleccionar un Estado" optionLabel="nombre" [showClear]="true"></p-dropdown>
+      
+		</div>
+	</div>
+  <div class="row filainput">
+		<div class="col-md-6">
+      <button  class="btn btn-primary" (click)="edit ? updateUsuario() : saveUsuario()">Aceptar</button>
+      	</div>
+		<div class="col-md-6">
+      <button type="button" class="btn btn-info" routerLink="/admin/user">Regresar</button>          
+		</div>
+	</div>
+</div>
 </p-card>
- 
-   
-
-
-
-

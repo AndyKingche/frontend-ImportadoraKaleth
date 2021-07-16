@@ -205,7 +205,7 @@ const routes: Routes = [
         component: RolesUsuariosFormComponent
       },
       {
-        path: 'rol-user-edit/:id',
+        path: 'rol-user-edit/:idu/:idr',
         component: RolesUsuariosFormComponent
       },  {
         path:'rol',
