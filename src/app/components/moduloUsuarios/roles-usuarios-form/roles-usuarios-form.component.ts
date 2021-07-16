@@ -22,7 +22,10 @@ declare let $: any;
 })
 export class RolesUsuariosFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
-  usuarios: Usuarios;
+  usuarios: any=[];
+  auxusuarios: any=[];
+  auxrolusuarios: any=[];
+  nuevosUsuarios:any=[];
   usuariosEscogidos: any=[];
 
   roles: Roles;
@@ -45,71 +48,48 @@ export class RolesUsuariosFormComponent implements OnInit {
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-
-    if(params.id){
-      this.rolesusuariosservice.getRolusuario(params.id).subscribe(
-        res=>{
-          if(res!= null){
-            console.log(res);
-            this.roles_usuarios.id = res;
-            this.usuariosservices.getUsuario(this.roles_usuarios.id.idUsuario).subscribe(
-              res=>{
-                this.usuariosEscogidos = res;
-                $('#usuarios').select2(
-                  {
-                    placeholder:this.usuariosEscogidos.nombre +' '+this.usuariosEscogidos.apellido,
-                    allowClear: true
-    
-                  }
-                );
-              },error => console.error(error)
-            );
-            this.rolesservices.getRol(this.roles_usuarios.id.idRoles).subscribe(
-              res=>{
-                this.rolesEscogidos = res;
-                $('#roles').select2({
-                  placeholder:this.rolesEscogidos.nombre,
-                  allowClear:true
-                });
-              },
-              error => console.error(error)
-              );
-            this.edit = true;
-
-          }else{
-            this.router.navigate(['/rol-user']);
-          }
+    //this.nuevosUsuarios[0].id=0;
+  console.log(params.idu)
+  console.log(params.idr)  
+  
+    if(params.idu && params.idr){
+      console.log("entre primer if de acualizar")
+      
+      this.rolesusuariosservice.findusrol(params.idu,params.idr).subscribe(res=>{
+        this.auxrolusuarios = res;
+        
+       
+        this.usuariosservices.getUsuario(this.auxrolusuarios.id.idUsuario).subscribe(res=>{
+          this.auxusuarios = res;
+          this.usuariosEscogidos = {};
+        this.usuariosEscogidos.id=this.auxusuarios.idUsuario;
+        this.usuariosEscogidos.nombre=this.auxusuarios.nombre+' '+this.auxusuarios.apellido;
+            
           
-        },
-        err => console.log("hay error "+ err)
-      )
+          console.log(this.usuariosEscogidos)
+        },err=>console.log(err));
+
+        this.rolesservices.getRol(this.auxrolusuarios.id.idRoles).subscribe(res=>{
+          this.rolesEscogidos=res;
+          console.log(this.rolesEscogidos)
+        },err=>console.log(err))
+
+      },err=>console.log(err))
+
+    }else{
+      console.log("no se pudo")
     }
     this.getUsuarios();
-    $('#usuarios').select2(
-      {
-        placeholder:'Usuarios...',
-        allowClear: true
-
-      }
-    );
     this.getRoles();
-    $('#roles').select2(
-      {
-        placeholder: 'Roles...',
-        allowClear: true
-
-      }
-    );
   }
-
-  saveRolusuario(){
+    saveRolusuario(){
     if(this.testingreso()){
       this.rolesusuariosservice.saveRolusuario(this.roles_usuarios).subscribe(
         res=>{
           setTimeout(()=>{
             this.notificacion.showSuccess('El Rol del Usuario se agrego correctamente','Rol usuarios Agregado');
           },200);
-          this.router.navigate(['/rol-user'])
+          this.router.navigate(['/admin/rol-user'])
           
         },error => console.error(error)
       );
@@ -121,19 +101,7 @@ export class RolesUsuariosFormComponent implements OnInit {
 
   updateRolusuario(){
     
-    if(this.roles_usuarios.id.idRoles &&
-      this.roles_usuarios.id.idUsuario){
-        this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id.idRoles,this.roles_usuarios).subscribe(
-          res => {
-            setTimeout(()=>{
-              this.notificacion.showSuccess('El rol actualizado ','Rol Usuarios actualizado');
-              
-            },200);
-            this.router.navigate(['/rol-user'])
-          },error => {console.error(error)}
-        );
-
-      }else{
+    
         if(this.testingreso()){
           this.rolesusuariosservice.updateRolusaurio(this.roles_usuarios.id.idRoles,this.roles_usuarios).subscribe(
             res => {
@@ -148,18 +116,35 @@ export class RolesUsuariosFormComponent implements OnInit {
           this.notificacion.showError('Revisar si selecciono un Usuario o un Rol','** Error al Actualizar los Roles de Usuarios')
         }
 
-      }
+      
     }
 
 
 
-  getUsuarios(){
-    this.usuariosservices.getUsuarios().subscribe(
+  async getUsuarios(){
+    const user = new Promise (async (resolve,reject)=>{
+      await this.usuariosservices.getUsuarios().subscribe(
       res=>{
-        this.usuarios = res;
+        resolve(res);
       },error => console.error(error)
-    );
+    );})
+    await user.then(res=>this.usuarios = res);
+    //console.log(this.usuarios);
+    
+    for(let x =0;x < this.usuarios.length;x++){
+    
+      
+      this.nuevosUsuarios[x]={
+        id:this.usuarios[x].idUsuario,
+        nombre:this.usuarios[x].nombre+' '+this.usuarios[x].apellido
+      }
+      
+    
+    }
+   console.log(this.nuevosUsuarios)
+
   }
+  
 
   getRoles(){
     this.rolesservices.getRoles().subscribe(
@@ -170,12 +155,13 @@ export class RolesUsuariosFormComponent implements OnInit {
     );
   }
   testingreso(){
-    let opcionRol = this.quitarespacios('#roles');
-    let opcionUsuario = this.quitarespacios('#usuarios');
-    if(opcionRol.length>0 &&
-      opcionUsuario.length>0){
-        this.roles_usuarios.id.idRoles = opcionRol;
-        this.roles_usuarios.id.idUsuario = opcionUsuario;
+    console.log(this.rolesEscogidos.idRoles)
+    if(this.usuariosEscogidos.id>0 &&
+      this.rolesEscogidos.idRoles>0){
+       this.roles_usuarios.id={
+         idRoles:this.rolesEscogidos.idRoles,
+         idUsuario:this.usuariosEscogidos.id
+       }
         return true;
       }else{
         return false;

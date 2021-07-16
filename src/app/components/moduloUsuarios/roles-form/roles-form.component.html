@@ -1,25 +1,41 @@
-<!-- <h1>{{actualizar}} Rol</h1> -->
+
 <p-card header="{{actualizar}} Rol">
 <div class="container-fluid">
-    <form>
+    <div class="row filainput"> 
         <div class="form-group">
-          <label for="nombre">Nombre del Rol</label>
-          <input type="text" class="form-control" [(ngModel)]="rol.nombre" id="nombre" name="nombre" placeholder="Nombre del Rol">
+          <label for="Nombre Rol" class="col-sm-2 col-form-label"> </label>
+              <span class="p-float-label">
+                <input type="text" pInputText class="form-control" [(ngModel)]="rol.nombre" id="nombrerol" name="nombrerol">
+                <label for="float-input">Nombre del Rol: </label>
+              </span>
         </div>
+    </div>
+    <div class="row filainput">
         <div class="form-group">
-          <label for="descripcion">Descripcion</label>
-          <input type="text" class="form-control" [(ngModel)]="rol.descripcion" id="descripcion" name="descripcion" placeholder="Descripcion">
-        </div>
+          <label for="Descripcion" class="col-sm-2 col-form-label"> </label>
+              <span class="p-float-label">
+                <input type="text" pInputText class="form-control"  [(ngModel)]="rol.descripcion" id="descripcion" name="descripcion">
+                <label for="float-input">Descripcion</label>
+              </span>
+           </div>
+    </div>
+    <div class="row filainput"> 
         <div class="form-group">
-            <label for="rol">Rol</label>
-            <input type="text" class="form-control" [(ngModel)]="rol.rol"  id="rol" name="rol" placeholder="Rol">
+          <label for="Rol" class="col-sm-2 col-form-label"> </label>
+              <span class="p-float-label">
+                <input type="text" pInputText class="form-control"  [(ngModel)]="rol.rol"  id="rol" name="rol">
+                <label for="float-input">Rol</label>
+              </span>
+            <!-- <label for="rol">Rol</label>
+            <input type="text" class="form-control" [(ngModel)]="rol.rol"  id="rol" name="rol" placeholder="Rol"> -->
         </div>
+    </div>
+    <div class="row">
        <div class="form-group">
            
            <button  class="btn btn-primary" (click)="edit ? updateRol() : saveRol()">Aceptar</button>
            <button type="button" class="btn btn-info" routerLink="/admin/rol">Regresar</button>
        </div>
-     
-    </form>
+    </div>
   </div>
 </p-card>

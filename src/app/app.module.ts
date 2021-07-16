@@ -68,6 +68,7 @@ import {ClientsListComponent} from '../app/components/clients-list/clients-list.
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 import {SidebarModule} from 'primeng/sidebar';
 import {SlideMenuModule} from 'primeng/slidemenu';
+import {KeyFilterModule} from 'primeng/keyfilter';
 import {NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
 //
 @NgModule({
@@ -136,7 +137,7 @@ import {NavigationCashierComponent } from './components/navigation-cashier/navig
     AngularFireStorageModule,
     SidebarModule,
     SlideMenuModule,
-  
+    KeyFilterModule
  
     
   ],

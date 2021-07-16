@@ -29,4 +29,8 @@ export class RolesUsuariosService {
   deleteRolusuario(id:number){
     return this.http.delete(`${this.API_URI}/${id}`);
   }
+
+  findusrol(idu:number,idr:number){
+    return this.http.get(`${this.API_URI}/find/${idu}/${idr}`)
+  }
 }

@@ -19,7 +19,7 @@
                 <td>{{rol_users.usUser.nombre}}  {{rol_users.usUser.apellido}}</td>
                 <td>{{rol_users.usRole.rol}} </td>
                 <td><button type="button" class="btn btn-danger" (click)="deleteRolusuarios(rol_users.usUser.idUsuario)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/rol-user-edit/',rol_users.usUser.idUsuario]"> Actualizar Rol</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/rol-user-edit/',rol_users.usUser.idUsuario,rol_users.usRole.idRoles]"> Actualizar Rol</button></td>
               </tr>
           </tbody>
       </table> 

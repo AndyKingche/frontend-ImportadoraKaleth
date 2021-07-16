@@ -1,0 +1,9 @@
+.filainput{
+   margin-top: 10px;
+   margin-bottom: 30px;
+   position: relative;
+   display: flex;
+}
+.filainput__inputs--posci{
+padding-top:18px;
+}
