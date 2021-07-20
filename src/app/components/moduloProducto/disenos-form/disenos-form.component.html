@@ -1,19 +1,19 @@
+<p-card header="{{creacion}} Diseño">
 <div class="container-fluid">
-    <form>
+    
         <div class="form-group">
-          <label for="nombre">Nombre del Diseño</label>
+          
           <input type="text" class="form-control" [(ngModel)]="this.disenos.nombre" id="nombre" name="nombre" placeholder="Nombre del Diseño">
           <div class="p-col">Ingrese imagen 
-            <input type="file" (change)="onBasicUpload($event)">
+            <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload($event)">
           </div>
           <img src="{{imagenObtenidaMostrar}}" alt="Imagen nueva" width="200px">
         </div>
        <div class="form-group">
-           <button  class="btn btn-primary" (click)="edit ? updateDisenos() : saveDisenos()">Agregar Diseno</button>
-           <button type="button" class="btn btn-info" routerLink="/admin/design">Regresar</button>
+           <button  class="btn btn-primary" (click)="edit ? updateDisenos() : saveDisenos()">Aceptar</button>
+           <button type="button" class="btn btn-info boton__dere" routerLink="/admin/design">Regresar</button>
        </div>
        
     
-    </form>
   </div>
-
+</p-card>

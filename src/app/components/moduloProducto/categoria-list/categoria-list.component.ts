@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../services/categoria.service';
+import { Categorias } from '../../../models/catCategoria';
 import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../../services/notificacion.service';
 
@@ -11,7 +12,7 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class CategoriaListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   categorias: any = [];
-  
+  selectedCategorias: Categorias;
   constructor(private categoriaservice : CategoriaService,
     private notificacion: NotificacionService) { }
 
@@ -33,7 +34,7 @@ export class CategoriaListComponent implements OnInit {
     this.categoriaservice.deleteCategoria(id).subscribe(
       res => {
         setTimeout(()=>{
-          this.notificacion.showInfo('El estado civil se ha eliminado','Estado civil eliminado');
+          this.notificacion.showInfo('La Categoria se ha eliminado','Estado civil eliminado');
 
         },200);
         this.getCategoria()

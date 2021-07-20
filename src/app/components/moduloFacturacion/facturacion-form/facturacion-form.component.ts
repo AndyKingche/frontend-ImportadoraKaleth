@@ -11,6 +11,7 @@ import { VenCabezaFactura } from 'src/app/models/VenCabezaFactura';
 import { VenDetalleFact } from 'src/app/models/VenDetalleFact';
 import { FacturacionService } from '../../../services/facturacion.service';
 import { ThrowStmt } from '@angular/compiler';
+import { cat_stock } from 'src/app/models/cat_stock';
 
 @Component({
   selector: 'app-facturacion-form',
@@ -101,6 +102,18 @@ export class FacturacionFormComponent implements OnInit {
 
   };
 
+  clientmodal: Clientes = {
+
+    idCliente: 0,
+    apellidoCli: "",
+    cedulaCli: "",
+    direccionCli: "",
+    email: "",
+    nombreCli: "",
+    telefono: ""
+
+  };
+
   auxiliarFacturaIngreso: VenCabezaFactura = {
     estado: "",
     iva: 0,
@@ -144,17 +157,26 @@ export class FacturacionFormComponent implements OnInit {
       }
     }
   }
-
-
+  displayConsultar:boolean=false;
+  displayCliente:boolean=false;
+  stockConsulta:any=[];
+  selectedStock:cat_stock;
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
     private router: Router,
-    private activedrouter: ActivatedRoute,) { }
+    private activedrouter: ActivatedRoute) {
+      activedrouter.params.subscribe(val => {
+        this.ngOnInit();
+        this.inicializarVariables();
+      })
+    }
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    this.idPuntosVenta = 14;
+    
+    this.idPuntosVenta = Number(params.id);
+    console.log("hola",this.idPuntosVenta)
     this.totalIngresoVista = "0";
     this.listafacturaIngreso = [{
       idCabezaFac: 0,
@@ -187,9 +209,14 @@ export class FacturacionFormComponent implements OnInit {
     ];
 
     this.listaDetalleFactura = [];
+    this.getStockConsulta(this.idPuntosVenta);
   }
 
-
+  obtenerVariable(nombreProd:any){
+    this.codigoProducto = nombreProd;
+    this.displayConsultar = false;
+    this.encontrarProducto(this.codigoProducto);
+  }
   async Agregar() {
     const IDCLIENTE = new Promise(async (resolve, reject) => {
       await this.clienteService.getClienteByCedula(this.cedula).subscribe((res) => {
@@ -261,6 +288,7 @@ export class FacturacionFormComponent implements OnInit {
         console.log("entre pprecio distribuidor")
         this.venDetalleFactura.valorTotal = Number(this.precioDis * this.cantidad);
         this.venDetalleFactura.valorUnit = Number(this.precioDis);
+        console.log("este es el precio total:", this.venDetalleFactura.valorTotal)
       }
 
       // this.venDetalleFactura.valorUnit = Number(this.precioUnit);
@@ -277,7 +305,7 @@ export class FacturacionFormComponent implements OnInit {
         } else {
           //añadimos el primer elemento a la lista
           this.listaDetalleFactura.push(this.venDetalleFactura);
-          this.totalIngresoVista = "" + this.venDetalleFactura.cantidadFact * this.precioUnit;
+          this.totalIngresoVista = "" + this.venDetalleFactura.cantidadFact * this.venDetalleFactura.valorUnit;
 
           this.totalVenta = "" + this.venDetalleFactura.valorTotal;
 
@@ -388,6 +416,8 @@ console.log("hola")
 
   }
 
+ 
+
 
   inicializarVariables() {
 
@@ -450,6 +480,7 @@ console.log("hola")
   async Vender() {
 
 
+    let idfacturaPDF = 0;
     let fecha = new Date()
     let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + (fecha.getDate() + 1);
     //console.log(fechaFormateada);
@@ -511,10 +542,13 @@ console.log("hola")
 
 
     console.log(this.auxiliarFacturaIngreso)
-    await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
+    const obtenerid = new Promise (async(resolve,reject)=>{await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
       console.log(res)
-    }, err => console.log(err))
+      resolve(res.idCabezaFac)
+    }, err => console.log(err))})
 
+    idfacturaPDF =await obtenerid.then(res=>Number(res));
+    console.log("este es el id de la factura realizada", idfacturaPDF)
     let restaCantidad = 0;
     let cantidadLista = 0;
     let cantidadConsulta = 0;
@@ -550,7 +584,9 @@ console.log("hola")
       ));
 
     }
-
+    
+//  window.open('/api/client/report',"_blank")
+  window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
     this.inicializarVariables();
   }
 
@@ -606,7 +642,7 @@ console.log("hola")
 
           for (let i = 0; i < this.listaDetalleFactura.length; i++) {
             if (this.listaDetalleFactura[i].catStock.id.idProductos == result[0].catProducto.idProductos
-              && this.listaDetalleFactura[i].catStock.id.idPuntosVenta == 14
+              && this.listaDetalleFactura[i].catStock.id.idPuntosVenta == this.idPuntosVenta
               ////ojo cambiar 
             ) {
 
@@ -690,6 +726,33 @@ console.log("hola")
 
   }
 
+  showConsultar(){
+    this.displayConsultar = true;
+  }
+  showCliente(){
+    this.displayCliente = true;
+  }
 
+  getStockConsulta(id:number){
+    console.log(this.idPuntosVenta)
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>
+      {this.stockConsulta = res},err=> console.log(err))
+  }
 
+  encontrarProductoModal(productoBuscar:any){
+    console.log(productoBuscar.length)
+    if(productoBuscar.length!=0){
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntosVenta,productoBuscar).subscribe(res=>{
+        this.stockConsulta = res;
+      },err=>console.log(err));
+    }
+    else{
+      this.getStockConsulta(this.idPuntosVenta);
+    }
+  
+  }
+
+  ingresarClienteModal(){
+    console.log(this.clientmodal)
+  }
 }

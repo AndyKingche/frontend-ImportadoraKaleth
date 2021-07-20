@@ -5,8 +5,13 @@
             <div class="col-md-1">
                 <label id="lblCedula" for="cedula">Cedula</label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" pTooltip="Ingrese la Cedula del cliente" tooltipPosition="top" class="form-control" [(ngModel)]="this.cedula" id="cedula" (input)="encontrarCliente($event.target.value)" (keyup.enter)="buscarClienteByCedula()" name="Cedula" placeholder="Cedula">
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" (click)="showCliente()">
+                    <i class="fas fa-user-plus"></i>
+                </button>
             </div>
             <div class="col-md-1">
                 <label id="lblNombre" for="nombre">Nombre</label>
@@ -82,15 +87,40 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1" style="margin-top: 20px;">
-                <button pButton class="boton__dere  p-button-rounded p-button-sm" id="botonInsertarListaVenta" (click)="Agregar()">Agregar</button>
+            <!-- <div class="col-md-1" style="margin-top: 20px;">
+                <button pButton class="boton__dere  p-button-rounded p-button-sm" id="botonInsertarListaVenta" (click)="Agregar()">
+                    <i class="far fa-check-square"></i>
+                    Agregar</button>
 
 
             </div>
             <div class="col-md-1" style="margin-top: 20px;">
-                <button id="botonVender" pButton class="boton__dere  p-button-rounded p-button-sm" (click)="Vender()">Vender</button>
+                <button id="botonVender" pButton class="boton__dere  p-button-rounded p-button-sm" (click)="Vender()">
+                    <i class="fas fa-cash-register"></i>
+                    Vender</button>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-1" style="margin-top: 20px;">
+                <button  pButton class="boton__dere  p-button-rounded p-button-sm" (click)="showConsultar()">
+                    <i class="fab fa-searchengin"></i>
+                    Consultar</button>
+            </div> -->
+            <div class="col-md-4 boton__menu">
+                
+                    <button pButton type="button" class="btn__size p-button-raised p-button-rounded p-button-sm" icon="far fa-check-square" iconPos="left" label="Agregar" (click)="Agregar()"></button>
+             
+              
+                <button  pButton class="btn__size p-button-raised p-button-rounded p-button-sm" label="Vender" icon="fas fa-cash-register" iconPos="left"  (click)="Vender()">
+                    </button>
+               
+                    
+
+
+    <button  pButton class="btn__size p-button-raised p-button-rounded p-button-sm" label="Consultar" icon="fas fa-search-plus" iconPos="left" (click)="showConsultar()"></button>
+
+
+                        
+            </div>
+            <div class="col-md-4">
 
             </div>
             <div class="col-md-3" style=" background-color: #f8f9fa;  margin-top: 10px;">
@@ -219,3 +249,147 @@
         </ng-template>
     </p-table>
 </div>
+
+<p-dialog position="top" [(visible)]="displayConsultar">
+    <h5>
+        Buscador de Productos</h5>
+    <p-card>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <i class="pi pi-search"></i>Buscar Producto: <input pInputText type="text" (input)="encontrarProductoModal($event.target.value)" >
+                </div>
+            </div>
+
+            <p-table #dt2 [value]="stockConsulta" [responsive]="true" selectionMode="single" [(selection)]="selectedStock" dataKey="id" styleClass="p-datatable-responsive"
+[rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+<ng-template pTemplate="header">
+    <tr> 
+    
+      <th class="card__word--header">Código Pro</th>
+      <th class="card__word--header">Nombre Local</th>
+      <th class="card__word--header">Detalle</th>
+      <th class="card__word--header">Categoria</th>
+      <th class="card__word--header">Diseño</th>
+      <th class="card__word--header">Talla</th>
+      <th class="card__word--header">P. Unit</th>
+      <th class="card__word--header">P. May</th>
+      <th class="card__word--header">P. Dis</th>
+      <th class="card__word--header">Cant</th>
+      <th class="card__word--header">S. Max</th>
+      <th class="card__word--header">S. Min</th>
+    </tr>
+
+</ng-template>
+<ng-template pTemplate="body" let-stocks>
+    <tr [pSelectableRow]="stocks" (click)="obtenerVariable(stocks.catProducto.codProducto)">
+
+        <td  class="card__word--row">
+       <span class="p-column-title">Código Pro</span>
+        
+            {{stocks.catProducto.codProducto}}
+        
+            </td>
+        
+        
+ <td class="card__word--row">
+     <span class="p-column-title">Nombre del local</span>
+     
+    {{stocks.catPuntosVenta.nombreLocal}}</td>
+
+
+        <td class="card__word--row">
+       <span class="p-column-title">Detalle</span>
+
+            {{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Categoria</span>
+            
+            {{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Diseño</span>
+            
+            {{stocks.catProducto.catDiseno.nombre}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Talla</span>
+
+            {{stocks.catProducto.catTalla.medida}}</td>
+
+        <td class="card__word--row">
+       <span class="p-column-title">P. Unit</span>
+            
+            {{stocks.precioUnit}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">P. May</span>
+            
+            {{stocks.precioMayor}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">P. Dis</span>
+            
+            {{stocks.precioDistribuidor}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Cant</span>
+            
+            {{stocks.cantidad}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">S. Max</span>
+            
+            {{stocks.stockMax}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">S. Min</span>
+            
+            {{stocks.stockMin}}</td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="4">No encontro ningun Producto</td>
+    </tr>
+</ng-template>
+</p-table>
+        </div>
+    </p-card>
+    
+    
+</p-dialog>
+
+<p-dialog position="top" [(visible)]="displayCliente">
+    <h4>Agregar Nuevo Cliente</h4>
+    <p-card>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.nombreCli" id="nombrecliente" name="nombrecliente" placeholder="Nombre">
+        </div>
+        <!-- este div es para el apellido -->
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.apellidoCli" id="apellidocliente" name="apellidocliente" placeholder="Apellido">
+        </div>
+        <!--  -->
+        <div class="form-group">
+            <label for="cedula">Cedula:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.cedulaCli" id="cedulacliente" name="cedulacliente" placeholder="Cedula">
+        </div>
+        <!-- Direccion -->
+        <div class="form-group">
+            <label for="direccion">Direccion:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.direccionCli" id="direccioncliente" name="direccioncliente" placeholder="Direccion">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.email" id="email" name="email" placeholder="Email">
+        </div>
+        <!-- Telefono -->
+        <div class="form-group">
+            <label for="telefono">Telefono:</label>
+            <input type="text" class="form-control" [(ngModel)]="clientmodal.telefono" id='telefono' name="telefono" placeholder="Telefono">
+        </div>
+    
+        <div class="form-group">
+            <button class="btn btn-primary" (click)="ingresarClienteModal()" >Aceptar</button>
+            
+    
+        </div>
+    </p-card>
+    </p-dialog>
+

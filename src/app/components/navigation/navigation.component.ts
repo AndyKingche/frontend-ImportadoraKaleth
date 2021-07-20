@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { PuntosVentasService } from '../../services/puntos-ventas.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -8,43 +10,29 @@ import {MenuItem} from 'primeng/api';
 })
 export class NavigationComponent implements OnInit {
   items: MenuItem[];
-  constructor() { }
+  puntoVenta: any = [];
+  displayPuntoVenta: boolean = false;
+  constructor(private puntosServices: PuntosVentasService,private router: Router,
+    private activedrouter: ActivatedRoute ) { 
+      
+    }
 
   ngOnInit() {
-    this.items = [
-      {
-          label: 'Usuarios',
-
-          icon: 'pi pi-fw pi-user',
-          items:[
-            {label: 'Usuarios', icon: 'pi pi-fw pi-users',routerLink: ['/admin/user']},
-            {label: 'Roles', icon: 'pi pi-fw pi-user-plus',routerLink: ['/rol']},
-            {label: 'Asignar Rol Usuario', icon: 'pi pi-fw pi-id-card',routerLink: ['/rol-user']},
-            
-          ]
-         
-      },
-      {
-          label: 'Productos',
-          icon: 'pi pi-fw pi-clone',
-          items: [
-              {label: 'Categoria', icon: 'pi pi-fw pi-sitemap',routerLink: ['/category']},
-              {label: 'Diseño', icon: 'pi pi-fw pi-images',routerLink: ['/design']},
-              {label: 'Talla', icon: 'pi pi-fw pi-sort-alpha-up',routerLink: ['/size']},
-              {label: 'Producto', icon: 'pi pi-fw pi-tags',routerLink: ['/product']},
-              {label: 'Stock', icon: 'pi pi-fw pi-list',routerLink: ['/stock']},
-          ]
-      },
-      {
-        label:'Punto de ventas',
-        icon:'pi pi-fw pi-check-square',
-        routerLink: ['/sales-points']
-      }
-  ]
-
-
-
+  this.getPuntosVenta();
   }
 
+  getPuntosVenta(){
+    this.puntosServices.getPuntosVentas()
+    .subscribe(res=>{
+      this.puntoVenta = res;
+    });
+  }
+
+  showDialogPuntoVenta(){
+    this.displayPuntoVenta = true
+  }
  
+  enviarPuntoVenta(id:number){
+    this.router.navigate(['/admin/bill/',id]);
+  }
 }

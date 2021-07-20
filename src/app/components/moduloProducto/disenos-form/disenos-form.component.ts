@@ -20,15 +20,18 @@ export class DisenosFormComponent implements OnInit {
   imagenObtenidaAnteriorUrl:any;
   imagenObtenidaIngresar:any;
   edit : boolean = false;
+  creacion:string ='';
   constructor(private disenoservice: DisenosService, 
     private router: Router,
     private activedrouter: ActivatedRoute,
     private notificacion: NotificacionService,private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
+    this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
     console.log(params)
     if(params.id){
+      this.creacion = 'Actualizar';
       this.disenoservice.getDiseno(params.id).subscribe(
         res=>{
           console.log(res)

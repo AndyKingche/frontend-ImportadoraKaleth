@@ -1,7 +1,8 @@
+<p-card header="{{creacion}} Producto">
 
-    <div class="container p-4">
-      <div class="p-grid">
-        <div class="p-col-4"><h2>INGRESE UN PRODUCTO</h2></div>
+    
+      <div class="row">
+        
         <div class="p-col"> <h4>Ingresar Categoria:</h4>  <p-dropdown [options]="categoria" [(ngModel)]="categoriaEscogida" placeholder="Seleccionar una Categoria" optionLabel="nombreCategoria" [showClear]="true"></p-dropdown></div>
         <div class="p-col"><h4>Ingresar Diseño:</h4>  <p-dropdown [options]="disenos" [(ngModel)]="disenosEscogida" placeholder="Seleccionar una  Diseño" optionLabel="nombre" [showClear]="true"></p-dropdown> </div>
         <div class="p-col"><h4>Ingresar Talla:</h4>  <p-dropdown [options]="tallas" [(ngModel)]="tallasEscogida" placeholder="Seleccionar una  Talla" optionLabel="medida" [showClear]="true"></p-dropdown>  </div>
@@ -11,10 +12,13 @@
         -->
       </div>
       <!-- <img src="{{imagenObtenidaMostrar}}" alt="Imagen nueva" width="200px"> -->
+      <div class="row boton__menu">
+
+      
       <div class="form-group">
        <button  class="btn btn-primary" (click)="edit ? updateProductos() : saveProductos()">Aceptar</button>
-       <button type="button" class="btn btn-info" routerLink="/admin/product">Regresar</button>
+       <button type="button" class="btn btn-info boton__dere" routerLink="/admin/product">Regresar</button>
     </div>
-
-    </div>
-  
+  </div>
+    
+</p-card>

@@ -50,6 +50,7 @@ disenosEscogida: any = [];
   }
   productosEscogidos: any [];
   edit: boolean = false;
+  creacion:string='';
   constructor(private productoservices: ProductoService, 
     private categoriaservices: CategoriaService,
     private diesnosservice: DisenosService,
@@ -58,35 +59,26 @@ disenosEscogida: any = [];
     private notificacion: NotificacionService,private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
+    this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
 
     if(params.id){
+      this.creacion = 'Actualizar';
       this.productoservices.getProducto(params.id).subscribe(
         res=>{
           if(res!= null){
             console.log(res);
             this.productos = res;
-            //this.imagenObtenidaMostrar = this.productos.urlFoto;
-           // this.imagenObtenidaAnteriorUrl = this.productos.urlFoto;
-            this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
+              this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
               res=>{
                 this.tallasEscogida = res;
-                $('#tallas').select2(
-                  {
-                    placeholder:this.tallasEscogida.medida,
-                    allowClear: true
-    
-                  }
-                );
+               
               },error => console.error(error)
             );
             this.categoriaservices.getCategoria(this.productos.catCategoria.idCategoria).subscribe(
               res=>{
                 this.categoriaEscogida = res;
-                $('#categorias').select2({
-                  placeholder:this.categoriaEscogida.nombreCategoria,
-                  allowClear:true
-                });
+               
               },
               error => console.error(error)
               );
@@ -94,10 +86,7 @@ disenosEscogida: any = [];
               this.diesnosservice.getDiseno(this.productos.catDiseno.idDisenos).subscribe(
                 res=>{
                   this.disenosEscogida = res;
-                  $('#disenos').select2({
-                    placeholder:this.disenosEscogida.nombre,
-                    allowClear:true
-                  });
+                  
                 },
                 error => console.error(error)
                 );
@@ -105,7 +94,7 @@ disenosEscogida: any = [];
             this.edit = true;
 
           }else{
-            this.router.navigate(['/product']);
+            this.router.navigate(['/admin/product']);
           }
           
         },
@@ -113,57 +102,23 @@ disenosEscogida: any = [];
       )
     }
     this.getTallas();
-    $('#tallas').select2(
-      {
-        placeholder:'Tallas...',
-        allowClear: true
-
-      }
-    );
+    
     this.getCategorias();
-    $('#categorias').select2(
-      {
-        placeholder: 'Categorias...',
-        allowClear: true
-
-      }
-    );
-
+  
     this.getDisenos();
-    $('#disenos').select2(
-      {
-        placeholder: 'Disenos...',
-        allowClear: true
-
-      }
-    );
+    
   }
 
   async saveProductos(){
     
     if(this.testingreso()){
-      let x = Math.floor(Math.random() * (1000-1)) + 1;
-      if(!this.imagenObtenidaIngresar){
-        console.log("si entre")
-        
-
-      }else{
-        // const urlNueva=new Promise(async (resolve,reject)=>{
-        //   await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
-        //       resolve(res);
-              
-        //     },err=>console.log("hola pe"))
-        //   });
-    
-          //await urlNueva.then(res=>this.productos.urlFoto = String(res));
-      }
      
       this.productoservices.saveProducto(this.productos).subscribe(
         res=>{
           setTimeout(()=>{
             this.notificacion.showSuccess('El Producto se agrego correctamente','Producto agregado');
           },200);
-          this.router.navigate(['/product'])
+          this.router.navigate(['/admin/product'])
           
         },error => console.error(error)
       );
@@ -174,37 +129,15 @@ disenosEscogida: any = [];
   }
 
   async updateProductos(){
-    
-    
-        console.log("esntre al else")
-        let x = Math.floor(Math.random() * (1000-1)) + 1;
-//cuando en el ingreso la imagen no tiene crgado no me muetsra nada, 
-//por el contrario me toca subir una imagen
-        // if(!this.imagenObtenidaIngresar){
-          
-  
-        // }else{
-        //   const urlNueva=new Promise(async (resolve,reject)=>{
-        //     await this.productoservices.uploadImage(this.imagenObtenidaIngresar,x.toString()).then(res=>{
-        //         resolve(res);
-                
-        //       },err=>console.log("hola pe"))
-        //     });
-      
-        //     //await urlNueva.then(res=>this.productos.urlFoto = String(res));
-        // }
-       
+     
         if(this.testingreso()){
-          //console.log("",this.imagenObtenidaAnteriorUrl)
-          
-          //this.productoservices.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res=>console.log(res));
           this.productoservices.updateProducto(this.productos.idProductos,this.productos).subscribe(
             res => {
               setTimeout(()=>{
                 this.notificacion.showSuccess('El producto se ha actualizado correctamente','Producto actualizado');
                 
               },200);
-              this.router.navigate(['/product'])
+              this.router.navigate(['/admin/product'])
             },error => {console.error(error)}
           );
         }else{
@@ -244,8 +177,6 @@ disenosEscogida: any = [];
 
   async testingreso(){
     
-    
-    
     if(this.tallasEscogida.length!=0 &&
       this.disenosEscogida.length !=0 &&
       this.categoriaEscogida.length !=0){
@@ -253,7 +184,7 @@ disenosEscogida: any = [];
         this.productos.catTalla.idTallas = this.tallasEscogida.idTallas;
         this.productos.catCategoria.idCategoria = this.categoriaEscogida.idCategoria;
         this.productos.catDiseno.idDisenos = this.disenosEscogida.idDisenos;
-        //this.productos.urlFoto = this.imagenObtenidaIngresar;
+        
        
         return true;
       }else{

@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { DisenosService } from '../../../services/disenos.service';
+import { Disenos } from '../../../models/catDiseno';
 import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../../services/notificacion.service';
 
@@ -11,6 +12,7 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class DisenosListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   disenos: any = [];
+  selectedDisenos : Disenos;
   
   constructor(private disenoservice : DisenosService,
     private notificacion: NotificacionService) { }

@@ -1,29 +1,69 @@
-<div class="content">
-    <a type="button" class="btn btn-success" routerLink="/admin/size-add">Ingresar una nueva Medida</a>
-</div>
-<div class="content" >
-    <table class="table table-hover">
-        <thead>
+
+<div class="card">
+  <div class="header">
+      
+          <div class="tittle__izq p-d-inline-flex p-ai-center">
+              <i class="pi pi-sort-alpha-up">
+              </i>
+              <b>Lista de Medidas </b> 
+              <button pButton  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/size-add">Nuevo</button>
+          </div>      
+        
+
+  </div>
+          
+
+  <p-table #dt2 [value]="medidas" [responsive]="true" selectionMode="single" [(selection)]="selectedmedidas" dataKey="id" styleClass="p-datatable-responsive"
+      [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+      <ng-template pTemplate="header">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Talla</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Elimnar</th>
-            <th scope="col">Actualizar</th>
+              <th class="card__word--header" >Talla         
+              </th>
+              <th class="card__word--header">Descripcion
+              </th>
+              <th class="card__word--header">Tipo de Medida
+              </th>
+              <th class="card__word--header">Opciones
+              </th>
+              
+              
           </tr>
-        </thead>
-        <tbody *ngFor="let medida of medidas">
-            <tr>
-                <td>{{medida.idTallas}}</td>
-                <td>{{medida.medida}}</td>
-                <td>{{medida.descripcion}}</td>
-                <td>{{medida.tipo}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteTallas(medida.idTallas)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/size-edit/',medida.idTallas]"> Actualizar Medida</button></td>
-              </tr>
-          </tbody>
-      </table> 
+    
+      </ng-template>
+      <ng-template pTemplate="body" let-medida>
+          <tr [pSelectableRow]="medida">
+              <td class="card__word--row">
+                  <span class="p-column-title">Talla</span>
+                  {{medida.medida}}
+              </td>
+              <td class="card__word--row">
+                  <span class="p-column-title">Descripcion</span>
+                  {{medida.descripcion}}
+              </td>
+              <td class="card__word--row">
+                <span class="p-column-title">Tipo de Medida</span>
+                {{medida.tipo}}
+            </td>
+                       
+              <td class="card__word--row">
+                  <span class="p-column-title">Opciones</span>
+                  <button pButton pRipple icon="pi pi-trash" 
+                class="p-button-rounded p-button-warning"             
+                 (click)="deleteTallas(medida.idTallas)" ></button>
+                 <br>
+                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/size-edit/',medida.idTallas]"></button>
+              </td>
+
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="4">No encontro Medidas</td>
+          </tr>
+      </ng-template>
+  </p-table>
 </div>
+
 
 

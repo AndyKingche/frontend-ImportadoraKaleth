@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StockListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   stock: any = [];
+  selectedstock : cat_stock;
   puntoVenta: any = [];
   displayPuntoVenta: boolean = false;
   constructor(private stockService: CatStockService,

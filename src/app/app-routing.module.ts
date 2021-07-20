@@ -44,7 +44,11 @@ import { ClientsListComponent } from './components/clients-list/clients-list.com
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
-
+import { NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
+//cashier
+import {StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
+import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
+import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 const routes: Routes = [
   {
     path:'',
@@ -175,9 +179,6 @@ const routes: Routes = [
   },{
     path:'client',
     component: ClientsListComponent
-  },{
-    path:'report-product',
-    component: ReportProductoComponent
   },
   {
     path:'admin',
@@ -281,7 +282,7 @@ const routes: Routes = [
         path: 'sales-points-edit/:id',
         component: PuntosVentasFormComponent
       },{
-        path:'bill',
+        path:'bill/:id',
         component: FacturacionFormComponent
       }
     ,
@@ -292,6 +293,27 @@ const routes: Routes = [
       {
         path:'stock-add/:id',
         component: StockFormComponent
+      },{
+        path:'report-product',
+        component: ReportProductoComponent
+      }
+    ]
+  },
+  {
+    path:'cashier',
+    component: NavigationCashierComponent,
+    children:[
+      {
+        path:'stock',
+        component:StockCashierListComponent
+      },
+      {
+        path:'stock-add/:id',
+        component:StockCashierFormComponent
+      },
+      {
+        path:'bill/:id',
+        component: FacturacionCashierComponent
       }
     ]
   }

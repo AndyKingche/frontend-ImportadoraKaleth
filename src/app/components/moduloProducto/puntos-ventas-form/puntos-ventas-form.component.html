@@ -1,5 +1,6 @@
+<p-card header="{{creacion}} Punto Venta">
 <div class="container-fluid">
-    <form>
+    
         <div class="form-group">
             <label for="nombreLocal">Nombre del Local</label>
             <input type="text" class="form-control" [(ngModel)]="puntosventas.nombreLocal" id="nombrelocal" name="nombrelocal"
@@ -27,8 +28,9 @@
         <div class="form-group">
             <button class="btn btn-primary" (click)="edit ? updatePuntosVentas() : savePuntosVentas()">Agregar
                 Puntos de venta</button>
-            <button type="button" class="btn btn-info" routerLink="/admin/sales-points">Regresar</button>
+            <button type="button" class="btn btn-info boton__dere" routerLink="/admin/sales-points">Regresar</button>
         </div>
 
-    </form>
+ 
 </div>
+</p-card>

@@ -228,3 +228,20 @@
     left: 998px;
     top: 804px;
 } */
+
+.boton__menu{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.btn__size{
+    
+    margin-right: 1em;
+}
+@media (max-width: 600px) {
+    .boton__menu {
+        flex-direction: column;
+    }
+  }

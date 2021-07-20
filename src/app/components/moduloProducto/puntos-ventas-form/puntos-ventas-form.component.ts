@@ -21,14 +21,16 @@ export class PuntosVentasFormComponent implements OnInit {
     telefono: 0
   }
   edit: boolean = false;
+  creacion:string='';
   constructor(private puntosventasservice: PuntosVentasService,
     private router: Router,
     private activedrouter: ActivatedRoute,
     private notificacion: NotificacionService) { }
 
   ngOnInit() {
+    this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
-    if (params.id) {
+    if (params.id) {this.creacion = 'Actualizar';
       this.puntosventasservice.getPuntosVenta(params.id).subscribe(
         res => {
           if (res != null) {

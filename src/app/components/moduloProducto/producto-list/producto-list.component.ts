@@ -11,6 +11,7 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class ProductoListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   productos :any=[];
+  selectedProductos: Productos;
     constructor(private productoservices : ProductoService,
       private notificacion: NotificacionService) { }
 

@@ -1,32 +1,69 @@
-<div class="content">
-    <a type="button" class="btn btn-success" routerLink="/admin/product-add">Ingresar un nuevo Producto</a>
-</div>
 
-<div class="content" >
-    <table class="table table-hover">
-        <thead>
+<div class="card">
+  <div class="header">
+      
+          <div class="tittle__izq p-d-inline-flex p-ai-center">
+              <i class="fa fa-tag p-mr-2">
+              </i>
+              <b>Lista de Productos</b> 
+              <button pButton  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/product-add">Nuevo</button>
+          </div>      
+        
+
+  </div>
+          
+
+  <p-table #dt2 [value]="productos" [responsive]="true" selectionMode="single" [(selection)]="selectedProductos" dataKey="id" styleClass="p-datatable-responsive"
+      [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+      <ng-template pTemplate="header">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Medida/Talla</th>
-            <th scope="col">Diseños</th>
-            <!-- <th>Foto</th> -->
-            <th scope="col">Eliminar</th>
-            <th scope="col">Actualizar</th>
+              <th class="card__word--header" >Categoria         
+              </th>
+              <th class="card__word--header">Medida/Talla
+              </th>
+              <th class="card__word--header">Diseños
+              </th>
+              <th class="card__word--header">Opciones
+              </th>
+              
+              
+          </tr>
+    
+      </ng-template>
+      <ng-template pTemplate="body" let-productos>
+          <tr [pSelectableRow]="productos">
+              <td class="card__word--row">
+                  <span class="p-column-title">Categoria</span>
+                  {{productos.catCategoria.nombreCategoria}}
+              </td>
+              <td class="card__word--row">
+                  <span class="p-column-title">Medida/Talla</span>
+                  {{productos.catTalla.medida}}
+              </td>
+              <td class="card__word--row">
+                <span class="p-column-title">Diseños</span>
+                {{productos.catDiseno.nombre}}
+            </td>
+                       
+              <td class="card__word--row">
+                  <span class="p-column-title">Opciones</span>
+                  <button pButton pRipple icon="pi pi-trash" 
+                class="p-button-rounded p-button-warning"             
+                 (click)="deleteProductos(productos.idProductos)" ></button>
+                 <br>
+                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/product-edit/',productos.idProductos]"></button>
+              </td>
+
 
           </tr>
-        </thead>
-        <tbody *ngFor="let productos  of productos">
-            <tr>
-                <td>{{productos.idProductos}}</td>
-                <td>{{productos.catCategoria.nombreCategoria}}</td>
-                <td>{{productos.catTalla.medida}} </td>
-                <td>{{productos.catDiseno.nombre}} </td>
-                <!-- <td><img src="{{productos.urlFoto}}" alt="" width="100px" height="120px"></td> -->
-                <td><button type="button" class="btn btn-danger" (click)="deleteProductos(productos.idProductos)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/admin/product-edit/',productos.idProductos]"> Actualizar Producto</button></td>
-              </tr>
-          </tbody>
-      </table> 
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="4">No encontro Medidas</td>
+          </tr>
+      </ng-template>
+  </p-table>
 </div>
+
+
 

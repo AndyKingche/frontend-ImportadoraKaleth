@@ -70,6 +70,10 @@ import {SidebarModule} from 'primeng/sidebar';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
+import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
+import { StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
+import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 //
 @NgModule({
   declarations: [
@@ -102,7 +106,10 @@ import {NavigationCashierComponent } from './components/navigation-cashier/navig
     CarritoComponent,
     ClientsListComponent,
     ReportProductoComponent,
-    NavigationCashierComponent
+    NavigationCashierComponent,
+    StockCashierListComponent,
+    StockCashierFormComponent,
+    FacturacionCashierComponent
 
   ],
   imports: [
@@ -137,7 +144,8 @@ import {NavigationCashierComponent } from './components/navigation-cashier/navig
     AngularFireStorageModule,
     SidebarModule,
     SlideMenuModule,
-    KeyFilterModule
+    KeyFilterModule,
+    CascadeSelectModule
  
     
   ],
