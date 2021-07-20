@@ -28,6 +28,8 @@ import { NotificacionService } from '../../services/notificacion.service';
 import { peCabezaPedido } from '../../models/peCabezaPedido';
 import { PedidosService } from '../../services/pedidos.service';
 import jsPDF from 'jspdf';
+import { async } from '@angular/core/testing';
+import { resolve } from 'url';
 declare let $: any;
 @Component({
   selector: 'app-home',
@@ -56,6 +58,7 @@ export class HomeComponent implements OnInit {
   numeroFilas: number = 12;
   cantidadExistente: number = 0;
   listaDetallePedido: peDetallePedido[];
+  valorTotalCarrito: number = 0;
 
   encuentraArray: boolean = false;
   encuentraArrayCarrito: boolean = false;
@@ -159,7 +162,7 @@ export class HomeComponent implements OnInit {
   }
 
   getStocksExistentsPuntoVenta() {
-    this.stockService.getStockAllExistPuntoVenta(14,this.inicio, this.numeroFilas).subscribe(
+    this.stockService.getStockAllExistPuntoVenta(14, this.inicio, this.numeroFilas).subscribe(
       res => {
         console.log(res)
         this.stock = res;
@@ -177,7 +180,7 @@ export class HomeComponent implements OnInit {
 
     );
   }
-  
+
   imprimirProductos() {
 
   }
@@ -216,7 +219,17 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+
+    //for para calcular el total del carrito 
+    this.valorTotalCarrito = 0;
+    for (var x in this.listaDetallePedido) {
+
+      this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
+    }
+
   }
+
+  //agregar productos a carrito 
   async Agregar(objeto: any) {
 
 
@@ -227,19 +240,18 @@ export class HomeComponent implements OnInit {
     this.peDetallePedido.valorTotal = Number(objeto.precioUnit * this.peDetallePedido.cantidadPe);
     this.peDetallePedido.catStock.id.idProductos = objeto.catProducto.idProductos;
     this.peDetallePedido.catStock.id.idPuntosVenta = objeto.catPuntosVenta.idPuntosVenta;
-    //this.peDetallePedido.canidadPe = this.cantidadPedido;
 
-    //console.log("esta es la cantidad", this.cantidadPedido)
 
     if (this.listaDetallePedido.length == 0) {
 
       this.listaDetallePedido.push(this.peDetallePedido);
+      this.valorTotalCarrito = this.listaDetallePedido[0].valorTotal;
       //this.cantidadPedido = 0;
       //this.auxcantidadPedido = 0;
 
       this.encuentraArray = false;
     } else {
-
+      this.valorTotalCarrito = 0;
       for (var x in this.listaDetallePedido) {
         //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
         if (this.listaDetallePedido[x].catStock.id.idProductos == this.peDetallePedido.catStock.id.idProductos
@@ -263,7 +275,11 @@ export class HomeComponent implements OnInit {
           //-----this.cantidadPedido=0;
           //this.auxcantidadPedido = 0;
 
+
+
         }
+
+        this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
       }
       if (this.encuentraArray) {
         // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
@@ -277,6 +293,12 @@ export class HomeComponent implements OnInit {
         console.log("holla añado un nuevo a la list")
         this.listaDetallePedido.push(this.peDetallePedido);
 
+        //for para calcular el total del carrito 
+        this.valorTotalCarrito = 0;
+        for (var x in this.listaDetallePedido) {
+
+          this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
+        }
 
         this.encuentraArray = false;
       }
@@ -338,6 +360,14 @@ export class HomeComponent implements OnInit {
         this.listaDetallePedido[i].cantidadPe = this.cantidadPedido;
         this.listaDetallePedido[i].valorTotal = this.cantidadPedido * this.listaDetallePedido[i].valorUnit;
       }
+    }
+
+
+    //for para calcular el total del carrito 
+    this.valorTotalCarrito = 0;
+    for (var x in this.listaDetallePedido) {
+
+      this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
     }
   }
 
@@ -421,58 +451,67 @@ export class HomeComponent implements OnInit {
   }
 
   async generarPedido() {
-    let fecha = new Date()
-    let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + (fecha.getDate() + 1);
-    this.cabezaPedidoIngreso.estado = "A",
-      //this.cabezaPedidoIngreso.total=0;
-      this.cabezaPedidoIngreso.fechaPe = fechaFormateada;
-    this.cabezaPedidoIngreso.venCliente.idCliente = 1;
-    for (let i in this.listaCheckout) {
-      this.cabezaPedidoIngreso.total += this.listaCheckout[i].valorTotal;
-      this.cabezaPedidoIngreso.detallepedido[i] = {
-        cantidadPe: this.listaCheckout[i].cantidadPe,
-        descripcion: this.listaCheckout[i].descripcion,
-        valorTotal: this.listaCheckout[i].valorTotal,
-        valorUnit: this.listaCheckout[i].valorUnit,
-        catStock: {
-          id: {
-            idProductos: this.listaCheckout[i].catProducto.idProductos,
-            idPuntosVenta: this.listaCheckout[i].catPuntosVenta.idPuntosVenta
+    if (this.listaCheckout.length > 0) {
+      let idfacturaPedidoPDF = 0;
+      let idClientePedido = 0;
+
+      let fecha = new Date()
+      let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + (fecha.getDate() + 1);
+      this.cabezaPedidoIngreso.estado = "A",
+        //this.cabezaPedidoIngreso.total=0;
+        this.cabezaPedidoIngreso.fechaPe = fechaFormateada;
+      this.cabezaPedidoIngreso.venCliente.idCliente = 1;
+      //capturamos el id del cliente para imprimir el pdf
+      idClientePedido = this.cabezaPedidoIngreso.venCliente.idCliente;
+      for (let i in this.listaCheckout) {
+        this.cabezaPedidoIngreso.total += this.listaCheckout[i].valorTotal;
+        this.cabezaPedidoIngreso.detallepedido[i] = {
+          cantidadPe: this.listaCheckout[i].cantidadPe,
+          descripcion: this.listaCheckout[i].descripcion,
+          valorTotal: this.listaCheckout[i].valorTotal,
+          valorUnit: this.listaCheckout[i].valorUnit,
+          catStock: {
+            id: {
+              idProductos: this.listaCheckout[i].catProducto.idProductos,
+              idPuntosVenta: this.listaCheckout[i].catPuntosVenta.idPuntosVenta
+            }
           }
         }
+
       }
 
+      console.log("PEDIDO realizado=>  ", this.cabezaPedidoIngreso)
+
+      const obtenerIdCabezaPedido = new Promise(async (resolve, reject) => {
+        await this.pedidoservice.saveOrder(this.cabezaPedidoIngreso).subscribe(res => {
+          console.log(res)
+          resolve(res.idCabezaPe)
+        }, err => console.log(err))
+      })
+
+
+      idfacturaPedidoPDF = await obtenerIdCabezaPedido.then(res => Number(res));
+
+      setTimeout(() => {
+        this.notificacion.showInfo('Su Pedido se realizo con exito', "PEDIDO REALIZADO");
+        this.listaDetallePedido = null;
+        this.listaCheckout = null;
+      }, 200);
+      this.router.navigate(["/"]);
+
+      this.valorTotalCarrito = 0;
+
+      //generar pdf proforma del pedido realizado 
+      window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
+
+
+    } else {
+      alert("no tiene pedidos para realizar")
     }
 
-    console.log("PEDIDO realizado=>  ", this.cabezaPedidoIngreso)
-    await this.pedidoservice.saveOrder(this.cabezaPedidoIngreso).subscribe(res => {
-      console.log(res)
-    }, err => console.log(err))
 
-
-    setTimeout(() => {
-      this.notificacion.showInfo('Su Pedido se realizo con exito', "PEDIDO REALIZADO");
-      this.listaDetallePedido = null;
-      this.listaCheckout = null;
-    }, 200);
-    this.router.navigate(["/home"]);
   }
-  imprimir() {
 
-   const options={
-     filename: 'Our_aweson.pdf',
-     image: {type: 'jepg'},
-     html2canva:{},
-     jsPDF:{orientation:'landascape'}
-   }
-
-   const content: Element= document.getElementById('TablaCarrito');
-   html2pdf()
-   .from(content)
-   .set(options)
-   .save();
-   console.log("Si ingrese")
-  }
 }
 
 
