@@ -74,6 +74,7 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
 import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
 import { StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
+import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
 //
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { FacturacionCashierComponent } from './components/moduloFacturacion/fact
     NavigationCashierComponent,
     StockCashierListComponent,
     StockCashierFormComponent,
-    FacturacionCashierComponent
+    FacturacionCashierComponent,
+    FacturaFechaComponent
 
   ],
   imports: [

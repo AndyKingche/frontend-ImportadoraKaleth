@@ -1,6 +1,6 @@
 
 <div class="card">
-  <div class="header">
+  <div class="header titulo">
       
           <div class="tittle__izq p-d-inline-flex p-ai-center">
               <i class="fa fa-tag p-mr-2">
@@ -50,8 +50,8 @@
                   <button pButton pRipple icon="pi pi-trash" 
                 class="p-button-rounded p-button-warning"             
                  (click)="deleteProductos(productos.idProductos)" ></button>
-                 <br>
-                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/product-edit/',productos.idProductos]"></button>
+                 
+                 <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/product-edit/',productos.idProductos]"></button>
               </td>
 
 

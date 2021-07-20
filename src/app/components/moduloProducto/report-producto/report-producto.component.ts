@@ -20,6 +20,8 @@ export class ReportProductoComponent implements OnInit {
   selectedItems2:any;
   selectedItems3:any;
   parametros:string="";
+  idInventarioTotal:number=0;
+  idInevntarioMin:number=0;
   constructor(private stockService: CatStockService, private puntoventaservice: PuntosVentasService) { }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class ReportProductoComponent implements OnInit {
   }
 
   getFindInventarioPuntoVenta(id:number){
+    this.idInventarioTotal=id;
     this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
       this.stock = res;
     },err=>console.log(err))
@@ -59,6 +62,7 @@ export class ReportProductoComponent implements OnInit {
     },err=>console.log(err))
   }
   getFindMinPuntoVenta(id:number){
+    this.idInevntarioMin = id;
     this.stockService.findStockbyMinPuntoVenta(id).subscribe(res=>{
       this.stock = res;
     },err=>console.log(err))
@@ -81,6 +85,31 @@ export class ReportProductoComponent implements OnInit {
    
   }
 
-  
+  imprimirInventarioTo(){
+    window.open(`/api/stock/reportTotal`,"_blank");
 
+  }
+
+  imprimirInventarioToPuntoVenta(){
+    if(this.idInventarioTotal!=0){
+      window.open(`/api/stock/report/${this.idInventarioTotal}`,"_blank");
+
+    }else{
+      alert('Debes esocger un Punto de Venta')
+    }
+
+  }
+  imprimirInventarioMin(){
+    //window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
+
+  }
+
+  imprimirInventarioMinPuntoVenta(){
+    if(this.idInevntarioMin!=0){
+      //window.open(`/api/stock/report/${this.idInventarioTotal}`,"_blank");
+
+    }else{
+      //alert('Debes esocger un Punto de Venta')
+    }
+  }
 }

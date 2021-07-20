@@ -3,81 +3,77 @@
     <div class="container-fluid" style="margin: 15px;">
         <div class="row">
             <div class="col-md-1">
-                <label id="lblCedula" for="cedula">Cedula</label>
+                <label id="lblCedula" class="letter" for="cedula">Cedula</label>
             </div>
-            <div class="col-md-2">
-                <input type="text" pTooltip="Ingrese la Cedula del cliente" tooltipPosition="top" class="form-control" [(ngModel)]="this.cedula" id="cedula" (input)="encontrarCliente($event.target.value)" (keyup.enter)="buscarClienteByCedula()" name="Cedula" placeholder="Cedula">
+            <div class="col-md-3">
+                <input type="text" pKeyFilter="num" maxlength=10 [disabled]="disabled" pTooltip="Ingrese la Cedula del cliente" tooltipPosition="top" class="form-control" [(ngModel)]="this.cedula" id="cedula" (input)="encontrarCliente($event.target.value)" (keyup.enter)="buscarClienteByCedula()" name="Cedula" placeholder="Cedula">
             </div>
+            
             <div class="col-md-1">
-                <button class="btn btn-primary" (click)="showCliente()">
-                    <i class="fas fa-user-plus"></i>
-                </button>
-            </div>
-            <div class="col-md-1">
-                <label id="lblNombre" for="nombre">Nombre</label>
+                <label id="lblNombre" class="letter" for="nombre">Nombre</label>
 
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" [(ngModel)]="this.nombreCliente" id="nombre" name="nombre" placeholder="Nombre">
+                <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.nombreCliente" id="nombre" name="nombre" placeholder="Nombre">
 
             </div>
             <div class="col-md-1">
-                <label id="lblApellido" for="apellido">Apellido</label>
+                <label id="lblApellido" class="letter" for="apellido">Apellido</label>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" [(ngModel)]="this.apellidoCliente" id="apellido" name="apellido" placeholder="Apellido">
+                <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.apellidoCliente" id="apellido" name="apellido" placeholder="Apellido">
 
             </div>
         </div>
         <div class="row">
             <div class="col-md-1">
-                <label id="lblTelefono" for="teleofno">Telefono</label>
+                <label id="lblTelefono" class="letter" for="teleofno">Telefono</label>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" [(ngModel)]="this.telefono" id="telefono" name="telefono" placeholder="Telefono">
+                <input type="text" pKeyFilter="num" maxlength=10 class="form-control" [disabled]="disabled" [(ngModel)]="this.telefono" id="telefono" name="telefono" placeholder="Telefono">
 
             </div>
             <div class="col-md-1">
-                <label id="lblCorreo" for="email">Email</label>
+                <label id="lblCorreo" class="letter" for="email">Email</label>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" [(ngModel)]="this.email" id="email" name="email" placeholder="Email">
+                <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.email" id="email" name="email" placeholder="Email">
 
             </div>
             <div class="col-md-1">
-                <label id="lblDireccion" for="direccion">Dirección</label>
+                <label id="lblDireccion" class="letter" for="direccion">Dirección</label>
 
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" [(ngModel)]="this.direccion" id="direccion" name="direccion" placeholder="Direccion">
+                <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.direccion" id="direccion" name="direccion" placeholder="Direccion">
 
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-1">
-                <label id="lblCodidoPro" for="codigo">Código</label>
+                <label id="lblCodidoPro" class="letter" for="codigo">Código</label>
             </div>
             <div class="col-md-1">
                 <input style="min-width:85px;" type="text" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" (input)="encontrarProducto($event.target.value)" class="form-control" [(ngModel)]="this.codigoProducto" id="codigo" (keyup.enter)="buscarStockProducto()" name="codigo"
                     placeholder="Codigo">
 
             </div>
-            <div class="col-md-1"><label style="text-align: right;" id="lblDetalle" for="detalle">Detalle</label>
+            <div class="col-md-1"><label style="text-align: right;" class="letter" id="lblDetalle" for="detalle">Detalle</label>
             </div>
             <div class="col-md-5">
                 <input type="text" class="form-control" [(ngModel)]="this.detalle" id="detalle" name="detalle" placeholder="Detalle">
 
             </div>
             <div class="col-md-1">
-                <label id="lblCantidad" for="cantidad">Cant</label>
+                <label id="lblCantidad" class="letter" for="cantidad">Cant</label>
             </div>
             <div class="col-md-1">
                 <input type="text" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
 
             </div>
             <div class="col-md-1">
-                <label id="lblPrecioUnit" for="PrecioUnit">P. Unit</label>
+                <label id="lblPrecioUnit" class="letter" for="PrecioUnit">P. Unit</label>
 
             </div>
             <div class="col-md-1">
@@ -235,10 +231,10 @@
                     </div>
                     <div class="col-md-1">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                     </div>
-                    <div class="col-md-1">
-                        <label for="PrecioDis">TOTAL $</label>
+                    <div class="col-md-2" style="text-align: right;">
+                        <label for="PrecioDis" >TOTAL $</label>
                     </div>
                     <div class="col-md-2"> <input type="text" class="form-control" [(ngModel)]="this.totalVenta" placeholder="Total">
                     </div>
@@ -353,43 +349,4 @@
     
 </p-dialog>
 
-<p-dialog position="top" [(visible)]="displayCliente">
-    <h4>Agregar Nuevo Cliente</h4>
-    <p-card>
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.nombreCli" id="nombrecliente" name="nombrecliente" placeholder="Nombre">
-        </div>
-        <!-- este div es para el apellido -->
-        <div class="form-group">
-            <label for="apellido">Apellido:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.apellidoCli" id="apellidocliente" name="apellidocliente" placeholder="Apellido">
-        </div>
-        <!--  -->
-        <div class="form-group">
-            <label for="cedula">Cedula:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.cedulaCli" id="cedulacliente" name="cedulacliente" placeholder="Cedula">
-        </div>
-        <!-- Direccion -->
-        <div class="form-group">
-            <label for="direccion">Direccion:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.direccionCli" id="direccioncliente" name="direccioncliente" placeholder="Direccion">
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.email" id="email" name="email" placeholder="Email">
-        </div>
-        <!-- Telefono -->
-        <div class="form-group">
-            <label for="telefono">Telefono:</label>
-            <input type="text" class="form-control" [(ngModel)]="clientmodal.telefono" id='telefono' name="telefono" placeholder="Telefono">
-        </div>
-    
-        <div class="form-group">
-            <button class="btn btn-primary" (click)="ingresarClienteModal()" >Aceptar</button>
-            
-    
-        </div>
-    </p-card>
-    </p-dialog>
 

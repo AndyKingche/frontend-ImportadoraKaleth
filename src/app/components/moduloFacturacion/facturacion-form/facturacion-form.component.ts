@@ -161,6 +161,7 @@ export class FacturacionFormComponent implements OnInit {
   displayCliente:boolean=false;
   stockConsulta:any=[];
   selectedStock:cat_stock;
+  disabled:boolean=false;
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
@@ -218,6 +219,7 @@ export class FacturacionFormComponent implements OnInit {
     this.encontrarProducto(this.codigoProducto);
   }
   async Agregar() {
+    this.disabled = true;
     const IDCLIENTE = new Promise(async (resolve, reject) => {
       await this.clienteService.getClienteByCedula(this.cedula).subscribe((res) => {
         if (Object.keys(res).length === 0) {
@@ -478,7 +480,7 @@ console.log("hola")
 
   }
   async Vender() {
-
+    this.disabled = false;
 
     let idfacturaPDF = 0;
     let fecha = new Date()

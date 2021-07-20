@@ -150,10 +150,12 @@ export class StockFormComponent implements OnInit {
   };
   stockAuxiliarLista: any[];
   //stock
+  stockConsulta:any=[];
+  selectedStock: cat_stock;
   stocks: cat_stock = {
     id: {
       idProductos: 0,
-      idPuntosVenta: 14
+      idPuntosVenta: 0
     },
     stockMax: 0,
     stockMin: 0,
@@ -166,7 +168,7 @@ export class StockFormComponent implements OnInit {
   stocksAux: cat_stock = {
     id: {
       idProductos: 0,
-      idPuntosVenta: 14
+      idPuntosVenta: 0
     },
     stockMax: 0,
     stockMin: 0,
@@ -197,7 +199,7 @@ export class StockFormComponent implements OnInit {
   nombreCategoriaexiste: boolean = false;
   medidaexiste: boolean = false;
   nombredisenoexiste: boolean = false;
-
+  displayConsultar:boolean=false;
 
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
@@ -234,7 +236,8 @@ export class StockFormComponent implements OnInit {
       this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
         (res:any)=>{
           console.log(res)
-          this.idPuntoVentaPrueba = res.idPuntosVenta
+          this.idPuntoVentaPrueba = res.idPuntosVenta;
+          this.consultarstockhabilitado(this.idPuntoVentaPrueba);
         }
 
       );
@@ -288,13 +291,7 @@ export class StockFormComponent implements OnInit {
       // )
     }
     this.getTallas();
-    $('#tallas').select2(
-      {
-        placeholder: 'Tallas...',
-        allowClear: true
-
-      }
-    );
+    
     this.getCategorias();
     // $('#categorias').select2(
     //   {
@@ -305,13 +302,8 @@ export class StockFormComponent implements OnInit {
     // );
 
     this.getDisenos();
-    $('#disenos').select2(
-      {
-        placeholder: 'Disenos...',
-        allowClear: true
-
-      }
-    );
+   
+  
   }
 
   //variables ingreso stock
@@ -820,6 +812,7 @@ export class StockFormComponent implements OnInit {
               this.stockAuxiliarLista[i].stockMax,
               this.stockAuxiliarLista[i].catProducto.idProductos,
               this.stockAuxiliarLista[i].stockMin,
+              'S',
               this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
             ).subscribe(res => {
               console.log("si se actualizo")
@@ -856,7 +849,7 @@ export class StockFormComponent implements OnInit {
                 id: {
                   idProductos: 0,
                   //cambiar este punto de venta automatico depues
-                  idPuntosVenta: 14,
+                  idPuntosVenta: 0,
                 },
                 stockMax: 0,
                 stockMin: 0,
@@ -875,7 +868,7 @@ export class StockFormComponent implements OnInit {
         }, err => console.log("salio error"))
     }
 
-    this.router.navigate(['/stock']);
+    this.router.navigate(['/admin/stock']);
 
 
   }
@@ -1091,5 +1084,37 @@ export class StockFormComponent implements OnInit {
   quitarespacios(atributoHTML: string) {
     let obtenerletras = $(atributoHTML).val();
     return obtenerletras.trim();
+  }
+
+  regresar(){
+    this.router.navigate(['/admin/stock']);
+  }
+  showConsultar(){
+    this.displayConsultar = true;
+  }
+
+  consultarstockhabilitado(id:number){
+    
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
+      this.stockConsulta = res;
+      console.log(res)
+    },err=>console.log("error",err))
+  }
+  obtenerVariable(cod:any){
+    this.idProductoPrueba = cod;
+    this.buscarStockProducto();
+    this.displayConsultar = false;
+  }
+  encontrarProductoModal(productoBuscar:any){
+    console.log(productoBuscar.length)
+    if(productoBuscar.length!=0){
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba,productoBuscar).subscribe(res=>{
+        this.stockConsulta = res;
+      },err=>console.log(err));
+    }
+    else{
+      this.consultarstockhabilitado(this.idPuntoVentaPrueba);
+    }
+  
   }
 }

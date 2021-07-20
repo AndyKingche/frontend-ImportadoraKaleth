@@ -10339,3 +10339,9 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+.card__sales--points{
+  margin-top: 20px;
+}
+.menu__row--points{
+  margin-bottom: 10px;
+}

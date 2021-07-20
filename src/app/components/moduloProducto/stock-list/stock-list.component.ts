@@ -30,13 +30,18 @@ export class StockListComponent implements OnInit {
     this.getPuntosVenta();
   }
   getStocks() {
-    this.stockService.getStocks().subscribe(
-      res => {
-        console.log(res)
-        this.stock = res;
-      }, err => console.error(err)
+    // this.stockService.getStocks().subscribe(
+    //   res => {
+    //     console.log(res)
+    //     this.stock = res;
+    //   }, err => console.error(err)
 
-    );
+    // );
+    this.stockService.findStockInventario().subscribe(
+      res=>{
+this.stock = res;
+      }
+    ,err=>console.log(err));
   }
 
   getPuntosVenta(){
@@ -50,4 +55,11 @@ export class StockListComponent implements OnInit {
     this.displayPuntoVenta = true
   }
 
+  dardebaja(idproducto:number,idpuntoventa:number){
+    this.stockService.updateStocks(0,0,0,0,0,idproducto,0,'N',idpuntoventa).subscribe(res=>{
+      
+      this.getStocks();
+    },err=>console.log(err))
+
+  }
 }

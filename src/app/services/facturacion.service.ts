@@ -18,5 +18,8 @@ export class FacturacionService {
   saveFactura(factura: VenCabezaFactura): Observable<VenCabezaFactura> {
     return this.http.post(`${this.API_URI}`, factura);
   }
+  facturafechas(fechainicio:string,fechafin:string){
+    return this.http.get(`${this.API_URI}/dates/${fechainicio}/${fechafin}`);
+  }
 
 }

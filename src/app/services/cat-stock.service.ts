@@ -41,8 +41,8 @@ export class CatStockService {
     return this.http.get(`${this.API_URI}/find/${id_producto}/${id_puntosventa}`);
 
   }
-  updateStocks(cantidad: number, precioUnit: number, precioMayor: number, precioDist: number, stockMax: number, id_producto: number, stockMin: number, id_puntosventa: number) {
-    return this.http.get(`${this.API_URI}/updates/${id_producto}/${id_puntosventa}/${cantidad}/${precioUnit}/${precioMayor}/${precioDist}/${stockMax}/${stockMin}`);
+  updateStocks(cantidad: number, precioUnit: number, precioMayor: number, precioDist: number, stockMax: number, id_producto: number, stockMin: number, existe:string,id_puntosventa: number) {
+    return this.http.get(`${this.API_URI}/updates/${id_producto}/${id_puntosventa}/${cantidad}/${precioUnit}/${precioMayor}/${precioDist}/${stockMax}/${stockMin}/${existe}`);
   }
   getStockProductbyCodProductoExite(codigoProducto: string, idPuntosVenta: number) {
     return this.http.get(`${this.API_URI}/product/${codigoProducto}/${idPuntosVenta}`);

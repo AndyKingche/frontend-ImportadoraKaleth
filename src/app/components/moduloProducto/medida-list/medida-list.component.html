@@ -1,6 +1,6 @@
 
 <div class="card">
-  <div class="header">
+  <div class="header titulo">
       
           <div class="tittle__izq p-d-inline-flex p-ai-center">
               <i class="pi pi-sort-alpha-up">
@@ -50,8 +50,8 @@
                   <button pButton pRipple icon="pi pi-trash" 
                 class="p-button-rounded p-button-warning"             
                  (click)="deleteTallas(medida.idTallas)" ></button>
-                 <br>
-                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/size-edit/',medida.idTallas]"></button>
+                 
+                 <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/size-edit/',medida.idTallas]"></button>
               </td>
 
 

@@ -49,6 +49,8 @@ import { NavigationCashierComponent } from './components/navigation-cashier/navi
 import {StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
 import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
+
+import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
 const routes: Routes = [
   {
     path:'',
@@ -296,6 +298,9 @@ const routes: Routes = [
       },{
         path:'report-product',
         component: ReportProductoComponent
+      },{
+        path:'report-bill',
+        component: FacturaFechaComponent
       }
     ]
   },
@@ -305,15 +310,16 @@ const routes: Routes = [
     children:[
       {
         path:'stock',
-        component:StockCashierListComponent
+        component:StockListComponent
       },
       {
         path:'stock-add/:id',
-        component:StockCashierFormComponent
+        component:StockFormComponent
       },
       {
         path:'bill/:id',
-        component: FacturacionCashierComponent
+        component: FacturacionFormComponent
+
       }
     ]
   }

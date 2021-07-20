@@ -12,7 +12,7 @@ export class NavigationComponent implements OnInit {
   items: MenuItem[];
   puntoVenta: any = [];
   displayPuntoVenta: boolean = false;
-  constructor(private puntosServices: PuntosVentasService,private router: Router,
+  constructor(private puntosServices: PuntosVentasService ,private router: Router,
     private activedrouter: ActivatedRoute ) { 
       
     }
@@ -34,5 +34,6 @@ export class NavigationComponent implements OnInit {
  
   enviarPuntoVenta(id:number){
     this.router.navigate(['/admin/bill/',id]);
+    this.displayPuntoVenta = false;
   }
 }

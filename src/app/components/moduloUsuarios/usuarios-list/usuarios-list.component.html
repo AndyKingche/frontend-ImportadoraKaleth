@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="header">
+    <div class="header titulo">
         
             <div class="tittle__izq p-d-inline-flex p-ai-center">
                 <i class="pi pi-user p-mr-2">
@@ -71,8 +71,8 @@
                     <button pButton pRipple icon="pi pi-trash" 
                   class="p-button-rounded p-button-warning"             
                    (click)="deleteUsuarios(usuarios.idUsuario)" ></button>
-                   <br>
-                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"  [routerLink]="['/admin/user-edit/',usuarios.idUsuario]"></button>
+                  
+                   <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2"  [routerLink]="['/admin/user-edit/',usuarios.idUsuario]"></button>
                 </td>
 
 

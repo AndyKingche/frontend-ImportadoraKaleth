@@ -4,7 +4,7 @@
     <div class="container-fluid" style="margin: 15px;">
         <div class="row">
             <div class="col-md-1">
-                <label id="lblcodigo" for="codigo">Código</label>
+                <label id="lblcodigo" class="letter" for="codigo">Código</label>
             </div>
             <div class="col-md-5">
                 <input type="text" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-md-1">
-                <label id="lblCantidad" for="cantidad">Cantidad</label>
+                <label id="lblCantidad" class="letter" for="cantidad">Cantidad</label>
 
             </div>
             <div class="col-md-2">
@@ -20,7 +20,7 @@
 
             </div>
             <div class="col-md-1">
-                <label id="lblPrecioUnit" for="PrecioUnit">P. Unit</label>
+                <label id="lblPrecioUnit" class="letter" for="PrecioUnit">P. Unit</label>
 
             </div>
             <div class="col-md-2">
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-md-1">
-                <label id="lblCategoria" for="categoria">Categor</label>
+                <label id="lblCategoria" class="letter" for="categoria">Categoría</label>
             </div>
             <div class="col-md-4">
                 <select class="form-control" (change)="changedCategoria($event.target.value)" [(ngModel)]="categoriaSelectSearch.nombreCategoria" id="categoria" name="categoria" required>
@@ -55,7 +55,7 @@
                 </p-dialog>
             </div>
             <div class="col-md-1">
-                <label id="lblStockMin" for="stockMin">Min</label>
+                <label id="lblStockMin" class="letter" for="stockMin">Min</label>
 
             </div>
             <div class="col-md-2">
@@ -63,7 +63,7 @@
 
             </div>
             <div class="col-md-1">
-                <label id="lblPrecioMay" for="PrecioMay">P. May</label>
+                <label id="lblPrecioMay" class="letter" for="PrecioMay">P. May</label>
             </div>
             <div class="col-md-2">
                 <input type="text" class="form-control" [(ngModel)]="this.precioMay" id="PrecioMay" name="PrecioMay" placeholder="P. May" value="100">
@@ -72,7 +72,7 @@
         </div>
         <div class="row">
             <div class="col-md-1">
-                <label id="lblDiseno" for="diseno">Diseño</label>
+                <label id="lblDiseno" class="letter" for="diseno">Diseño</label>
             </div>
             <div class="col-md-4">
                 <select class="form-control" (change)="changedDiseno($event.target.value)" [(ngModel)]="disenosSelectSearch.nombre" id="diseno" name="diseno" required>
@@ -98,7 +98,7 @@
 
             </div>
             <div class="col-md-1">
-                <label id="lblStockMax" for="stockMax">Max</label>
+                <label id="lblStockMax" class="letter" for="stockMax">Max</label>
 
 
             </div>
@@ -107,7 +107,7 @@
 
             </div>
             <div class="col-md-1">
-                <label id="lblPrecioDis" for="PrecioDis">P. Dis</label>
+                <label id="lblPrecioDis" class="letter" for="PrecioDis">P. Dis</label>
             </div>
             <div class="col-md-2">
                 <input type="text" class="form-control" [(ngModel)]="this.precioDis" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
@@ -116,7 +116,7 @@
         </div>
         <div class="row">
             <div class="col-md-1">
-                <label id="lblTalla" for="talla">Talla</label>
+                <label id="lblTalla" class="letter" for="talla">Talla</label>
             </div>
             <div class="col-md-4">
                 <select class="form-control" (change)="changedTalla($event.target.value)" [(ngModel)]="tallasSelectSearch.medida" id="talla" name="talla" required>
@@ -150,8 +150,8 @@
             <div class="col-md-1" style="margin-top: 20px;">
                 <button id="ingresarStockBDD" pButton class="boton__dere  p-button-rounded p-button-sm" (click)="ingresar()">Ingresar</button>
             </div>
-            <div class="col-md-6">
-
+            <div class="col-md-1" style="margin-top: 20px;">
+                <button  pButton class="btn__size p-button-raised p-button-rounded p-button-sm" label="Consultar" icon="fas fa-search-plus" iconPos="left" (click)="showConsultar()"></button>
             </div>
 
 
@@ -218,10 +218,12 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" (click)="regresar()">Regresar</button>
+
                     </div>
-                    <div class="col-md-1">
-                    </div>
+                    <!-- <div class="col-md-1">
+                    </div> -->
                     <div class="col-md-3">
                     </div>
                     <div class="col-md-1">
@@ -241,3 +243,106 @@
         </ng-template>
     </p-table>
 </div>
+
+<p-dialog position="top" [(visible)]="displayConsultar">
+    <h5>
+        Buscador de Productos</h5>
+    <p-card>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <i class="pi pi-search"></i>Buscar Producto: <input pInputText type="text" (input)="encontrarProductoModal($event.target.value)" >
+                </div>
+            </div>
+
+            <p-table #dt2 [value]="stockConsulta" [responsive]="true" selectionMode="single" [(selection)]="selectedStock" dataKey="id" styleClass="p-datatable-responsive"
+[rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+<ng-template pTemplate="header">
+    <tr> 
+    
+      <th class="card__word--header">Código Pro</th>
+      <th class="card__word--header">Nombre Local</th>
+      <th class="card__word--header">Detalle</th>
+      <th class="card__word--header">Categoria</th>
+      <th class="card__word--header">Diseño</th>
+      <th class="card__word--header">Talla</th>
+      <th class="card__word--header">P. Unit</th>
+      <th class="card__word--header">P. May</th>
+      <th class="card__word--header">P. Dis</th>
+      <th class="card__word--header">Cant</th>
+      <th class="card__word--header">S. Max</th>
+      <th class="card__word--header">S. Min</th>
+    </tr>
+
+</ng-template>
+<ng-template pTemplate="body" let-stocks>
+    <tr [pSelectableRow]="stocks" (click)="obtenerVariable(stocks.catProducto.codProducto)">
+
+        <td  class="card__word--row">
+       <span class="p-column-title">Código Pro</span>
+        
+            {{stocks.catProducto.codProducto}}
+        
+            </td>
+        
+        
+ <td class="card__word--row">
+     <span class="p-column-title">Nombre del local</span>
+     
+    {{stocks.catPuntosVenta.nombreLocal}}</td>
+
+
+        <td class="card__word--row">
+       <span class="p-column-title">Detalle</span>
+
+            {{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Categoria</span>
+            
+            {{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Diseño</span>
+            
+            {{stocks.catProducto.catDiseno.nombre}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Talla</span>
+
+            {{stocks.catProducto.catTalla.medida}}</td>
+
+        <td class="card__word--row">
+       <span class="p-column-title">P. Unit</span>
+            
+            {{stocks.precioUnit}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">P. May</span>
+            
+            {{stocks.precioMayor}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">P. Dis</span>
+            
+            {{stocks.precioDistribuidor}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">Cant</span>
+            
+            {{stocks.cantidad}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">S. Max</span>
+            
+            {{stocks.stockMax}}</td>
+        <td class="card__word--row">
+       <span class="p-column-title">S. Min</span>
+            
+            {{stocks.stockMin}}</td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="4">No encontro ningun Producto</td>
+    </tr>
+</ng-template>
+</p-table>
+        </div>
+    </p-card>
+    
+    
+</p-dialog>

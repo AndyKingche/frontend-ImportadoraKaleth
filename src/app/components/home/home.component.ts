@@ -456,23 +456,9 @@ export class HomeComponent implements OnInit {
       this.listaCheckout = null;
     }, 200);
     this.router.navigate(["/home"]);
+    
   }
-  imprimir() {
 
-   const options={
-     filename: 'Our_aweson.pdf',
-     image: {type: 'jepg'},
-     html2canva:{},
-     jsPDF:{orientation:'landascape'}
-   }
-
-   const content: Element= document.getElementById('TablaCarrito');
-   html2pdf()
-   .from(content)
-   .set(options)
-   .save();
-   console.log("Si ingrese")
-  }
 }
 
 
