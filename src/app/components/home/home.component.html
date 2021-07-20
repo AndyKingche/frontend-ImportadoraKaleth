@@ -38,7 +38,7 @@
                                 <a data-scroll-nav="0" href="#team">Puntos de Venta</a>
                             </li>
 
-                            
+
                             <li class="nav-item">
                                 <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
                             </li>
@@ -56,10 +56,10 @@
                             <a (click)="ShowCarrito()">
                                 <h3>
                                     <div class="total">
-                                        <span class="simpleCart_total"></span></div>
+                                        <span>$ {{this.valorTotalCarrito}}</span></div>
                                     <img src="../../../assets/images/cart.png" alt="" /></h3>
                             </a>
-                            <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                            <p>Ver Productos</p>
 
                         </div>
 
@@ -258,11 +258,7 @@
                         <div class="team-content mt-30">
                             <h4 class="title mb-10"><a href="#">Local Principal</a></h4>
                             <span>Otavalo</span>
-                            <ul class="social mt-15">
-                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                                <li><a href="#"><i class="lni-instagram"></i></a></li>
-                            </ul>
+
                         </div>
                     </div>
                     <!-- single temp -->
@@ -276,11 +272,7 @@
                         <div class="team-content mt-30">
                             <h4 class="title mb-10"><a href="#">Local Secundrio</a></h4>
                             <span>Quito</span>
-                            <ul class="social mt-15">
-                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                                <li><a href="#"><i class="lni-instagram"></i></a></li>
-                            </ul>
+
                         </div>
                     </div>
                     <!-- single temp -->
@@ -458,7 +450,7 @@
                 </tbody>
             </table>
             <a href="#" class="main-btn" (click)="generarPedido()">GENERAR PEDIDO</a>
-            <a href="#" class="main-btn" (click)="imprimir()"> PEDIDO</a>
+
             <div class="clearfix"> </div>
         </div>
     </div>
