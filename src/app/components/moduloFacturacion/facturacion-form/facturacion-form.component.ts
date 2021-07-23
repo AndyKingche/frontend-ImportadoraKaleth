@@ -69,14 +69,16 @@ export class FacturacionFormComponent implements OnInit {
   precioMay: number = 0;
   precioDis: number = 0;
   cantidad: number = 0;
-  checkSelect1: boolean = true;
-  checkSelect2: boolean = true;
-  checkSelect3: boolean = true;
+
+  subtotalFactura: number = 0;
+  descuentoFactura: number = 0;
+  porcentajeDescuentoSeleccionado: number = 0;
 
   precioSeleccionado: number = 0;
 
   totalIngresoVista: string = "0";
   totalVenta: string = "0";
+  totalVentaAxuliar: string = "0";
 
   totalDescuento: string = '0';
 
@@ -127,6 +129,8 @@ export class FacturacionFormComponent implements OnInit {
     iva: 0,
     fechaFactu: "",
     total: 0,
+    subtotal: 0,
+    descuento: 0,
     usUser: {
       idUsuario: 1
     },
@@ -195,6 +199,8 @@ export class FacturacionFormComponent implements OnInit {
       iva: 0,
       fechaFactu: "",
       total: 0,
+      subtotal: 0,
+      descuento: 0,
       usUser: {
         idUsuario: 0,
       },
@@ -302,25 +308,30 @@ export class FacturacionFormComponent implements OnInit {
 
       this.venDetalleFactura.cantidadFact = this.cantidad;
       this.venDetalleFactura.descripcion = this.detalle;
+      this.venDetalleFactura.valorTotal = Number(this.precioSeleccionado * this.cantidad);
+      this.venDetalleFactura.valorUnit = Number(this.precioSeleccionado);
+      console.log("entre pprecio unit")
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///Ccodigo para controlar los precios automaticamente cuando un producto es mayor a 12 y seleccionar el precio al por mayor 
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      // if (this.venDetalleFactura.cantidadFact > 0 && this.venDetalleFactura.cantidadFact < 12) {
+      //   this.venDetalleFactura.valorTotal = Number(this.precioSeleccionado * this.cantidad);
+      //   this.venDetalleFactura.valorUnit = Number(this.precioSeleccionado);
+      //   console.log("entre pprecio unit")
+      // }
 
-      if (this.venDetalleFactura.cantidadFact > 0 && this.venDetalleFactura.cantidadFact < 12) {
-        this.venDetalleFactura.valorTotal = Number(this.precioUnit * this.cantidad);
-        this.venDetalleFactura.valorUnit = Number(this.precioUnit);
-        console.log("entre pprecio unit")
-      }
-
-      if (this.venDetalleFactura.cantidadFact >= 12 && this.venDetalleFactura.cantidadFact < 24) {
-        console.log("entre pprecio mayor")
-        this.venDetalleFactura.valorTotal = Number(this.precioMay * this.cantidad);
-        this.venDetalleFactura.valorUnit = Number(this.precioMay);
-      }
-      if (this.venDetalleFactura.cantidadFact >= 24) {
-        console.log("entre pprecio distribuidor")
-        this.venDetalleFactura.valorTotal = Number(this.precioDis * this.cantidad);
-        this.venDetalleFactura.valorUnit = Number(this.precioDis);
-        console.log("este es el precio total:", this.venDetalleFactura.valorTotal)
-      }
+      // if (this.venDetalleFactura.cantidadFact >= 12 && this.venDetalleFactura.cantidadFact < 24) {
+      //   console.log("entre pprecio mayor")
+      //   this.venDetalleFactura.valorTotal = Number(this.precioMay * this.cantidad);
+      //   this.venDetalleFactura.valorUnit = Number(this.precioMay);
+      // }
+      // if (this.venDetalleFactura.cantidadFact >= 24) {
+      //   console.log("entre pprecio distribuidor")
+      //   this.venDetalleFactura.valorTotal = Number(this.precioDis * this.cantidad);
+      //   this.venDetalleFactura.valorUnit = Number(this.precioDis);
+      //   console.log("este es el precio total:", this.venDetalleFactura.valorTotal)
+      // }
 
       // this.venDetalleFactura.valorUnit = Number(this.precioUnit);
       this.venDetalleFactura.catStock.id.idProductos = this.idProductoConsulta;//cabiar al id proucto
@@ -339,6 +350,9 @@ export class FacturacionFormComponent implements OnInit {
           this.totalIngresoVista = "" + this.venDetalleFactura.cantidadFact * this.venDetalleFactura.valorUnit;
 
           this.totalVenta = "" + this.venDetalleFactura.valorTotal;
+          this.totalVentaAxuliar = "" + this.venDetalleFactura.valorTotal;
+
+          
 
           this.cantidadDisponible = this.cantidadDisponible - this.venDetalleFactura.cantidadFact;
 
@@ -363,22 +377,32 @@ export class FacturacionFormComponent implements OnInit {
               && this.listaDetalleFactura[x].catStock.id.idPuntosVenta == this.venDetalleFactura.catStock.id.idPuntosVenta
             ) {
 
-              this.listaDetalleFactura[x].valorUnit = this.precioUnit;
+
+
+              this.listaDetalleFactura[x].valorUnit = this.precioSeleccionado;
               // sumatoria de la cantidad de un elemento encontrado
               this.listaDetalleFactura[x].cantidadFact = Number(this.listaDetalleFactura[x].cantidadFact) + Number(this.venDetalleFactura.cantidadFact);
-              if (this.listaDetalleFactura[x].cantidadFact > 0 && this.listaDetalleFactura[x].cantidadFact < 12) {
-                this.listaDetalleFactura[x].valorUnit = this.precioUnit;
-                console.log("entre pprecio unit")
-              }
-              if (this.listaDetalleFactura[x].cantidadFact >= 12 && this.listaDetalleFactura[x].cantidadFact < 24) {
-                console.log("entre pprecio mayor")
-                this.listaDetalleFactura[x].valorUnit = this.precioMay;
 
-              } if (this.listaDetalleFactura[x].cantidadFact >= 24) {
-                console.log("entre pprecio distribuidor")
-                this.listaDetalleFactura[x].valorUnit = this.precioDis;
 
-              }
+              /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              ///Ccodigo para controlar los precios automaticamente cuando un producto es mayor a 12 y seleccionar el precio al por mayor 
+              /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+              // if (this.listaDetalleFactura[x].cantidadFact > 0 && this.listaDetalleFactura[x].cantidadFact < 12) {
+              //   this.listaDetalleFactura[x].valorUnit = this.precioUnit;
+              //   console.log("entre pprecio unit")
+              // }
+              // if (this.listaDetalleFactura[x].cantidadFact >= 12 && this.listaDetalleFactura[x].cantidadFact < 24) {
+              //   console.log("entre pprecio mayor")
+              //   this.listaDetalleFactura[x].valorUnit = this.precioMay;
+
+              // } if (this.listaDetalleFactura[x].cantidadFact >= 24) {
+              //   console.log("entre pprecio distribuidor")
+              //   this.listaDetalleFactura[x].valorUnit = this.precioDis;
+
+              // }
 
               this.listaDetalleFactura[x].valorTotal = Number(this.listaDetalleFactura[x].cantidadFact * Number(this.listaDetalleFactura[x].valorUnit))
               //console.log(this.listaDetalleFactura[x].cantidadFact)
@@ -417,6 +441,7 @@ export class FacturacionFormComponent implements OnInit {
           }
           this.totalIngresoVista = "" + totalvista;
           this.totalVenta = "" + totalvista;
+          this.totalVentaAxuliar = "" + totalvista;
         }
 
 
@@ -462,10 +487,13 @@ export class FacturacionFormComponent implements OnInit {
     this.precioUnit = 0;
     this.precioMay = 0;
     this.precioDis = 0;
+    this.subtotalFactura = 0;
+    this.descuentoFactura = 0;
     this.cantidad = 0;
-    this.precioSeleccionado=0;
+    this.precioSeleccionado = 0;
     this.totalIngresoVista = "0";
     this.totalVenta = "0";
+    this.totalVentaAxuliar = "0";
     this.encuentraArray = false;
     this.cedula = "";
     this.listafacturaIngreso = [];
@@ -486,6 +514,8 @@ export class FacturacionFormComponent implements OnInit {
       iva: 0,
       fechaFactu: "",
       total: 0,
+      subtotal: 0,
+      descuento: 0,
       usUser: {
         idUsuario: 1
       },
@@ -521,8 +551,10 @@ export class FacturacionFormComponent implements OnInit {
     //console.log(fechaFormateada);
     this.auxiliarFacturaIngreso.fechaFactu = fechaFormateada;
     this.auxiliarFacturaIngreso.estado = "A";
-    this.auxiliarFacturaIngreso.iva = 0;
-    this.auxiliarFacturaIngreso.total = (Number(this.totalIngresoVista));
+    this.auxiliarFacturaIngreso.iva = this.porcentajeDescuentoSeleccionado;
+    this.auxiliarFacturaIngreso.total = (Number(this.totalVenta));
+    this.auxiliarFacturaIngreso.subtotal = (Number(this.subtotalFactura));
+    this.auxiliarFacturaIngreso.descuento = (Number(this.descuentoFactura));
     this.auxiliarFacturaIngreso.usUser.idUsuario = 1;//Usuario logeaado 
     this.auxiliarFacturaIngreso.venCliente.idCliente = this.idClienteIngreso;
 
@@ -624,6 +656,7 @@ export class FacturacionFormComponent implements OnInit {
 
     //  window.open('/api/client/report',"_blank")
     window.open(`/api/bill/ticket/${idfacturaPDF}`, "_blank");
+    (<HTMLInputElement>document.getElementById("primerPorcentaje")).checked = true;
     this.inicializarVariables();
   }
 
@@ -660,11 +693,11 @@ export class FacturacionFormComponent implements OnInit {
         this.cantidad = 0;
         this.precioDis = 0;
         this.precioMay = 0;
-        
+
         this.precioUnit = 0;
         this.detalle = "";
         this.cantidadDisponible = 0;
-        this.precioSeleccionado=0;
+        this.precioSeleccionado = 0;
 
 
 
@@ -799,5 +832,19 @@ export class FacturacionFormComponent implements OnInit {
   favoriteSeason: string;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
 
+  //calcular descuento al total de la factura
+  calcularDescuento($event: any) {
+    this.porcentajeDescuentoSeleccionado = $event.target.value;
+
+
+    this.subtotalFactura = Number(this.totalVentaAxuliar);
+
+    let valorDescuento = Number(this.totalVentaAxuliar) * (Number(this.porcentajeDescuentoSeleccionado / 100));
+
+     this.descuentoFactura = Number(valorDescuento.toFixed(2));
+     this.totalVenta= String(Number( this.subtotalFactura) - Number(valorDescuento));
+
+    console.log(this.totalVenta);
+  }
 
 }
