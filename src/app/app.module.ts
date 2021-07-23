@@ -35,6 +35,7 @@ import { PuntosVentasListComponent } from './components/moduloProducto/puntos-ve
 import { StockFormComponent } from './components/moduloProducto/stock-form/stock-form.component';
 import { StockListComponent } from './components/moduloProducto/stock-list/stock-list.component';
 
+
 import {DialogModule} from 'primeng/dialog';
 
 import {InputTextModule} from 'primeng/inputtext';
@@ -52,6 +53,7 @@ import {SliderModule} from 'primeng/slider';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {PaginatorModule} from 'primeng/paginator';
 
+
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 
 import {MenubarModule} from 'primeng/menubar';
@@ -60,6 +62,9 @@ import { HomeComponent } from './components/home/home.component';
 import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.component';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {FileUploadModule} from 'primeng/fileupload';
+import {GalleriaModule} from 'primeng/galleria';
+
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
@@ -147,7 +152,8 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     SidebarModule,
     SlideMenuModule,
     KeyFilterModule,
-    CascadeSelectModule
+    CascadeSelectModule,
+    GalleriaModule
  
     
   ],

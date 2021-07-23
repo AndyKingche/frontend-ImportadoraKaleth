@@ -1,61 +1,67 @@
 <div class="card">
     <div class="header titulo">
-        
-            <div class="tittle__izq p-d-inline-flex p-ai-center">
-                <i class="pi pi-images">
-                </i>
-                <b>Lista de Diseños </b> 
-                <button pButton   type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/design-add">Nuevo</button>
-            </div>      
-          
-  
+
+        <div class="tittle__izq p-d-inline-flex p-ai-center">
+            <i class="pi pi-images">
+            </i>
+            <b>Lista de Diseños </b>
+            <button pButton type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/design-add">Nuevo</button>
+        </div>
+
+
     </div>
-            
-  
-    <p-table #dt2 [value]="disenos" [responsive]="true" selectionMode="single" [(selection)]="selectedDisenos" dataKey="id" styleClass="p-datatable-responsive"
-        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+
+
+    <p-table #dt2 [value]="disenos" [responsive]="true" selectionMode="single" [(selection)]="selectedDisenos" dataKey="id" styleClass="p-datatable-responsive" [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
         <ng-template pTemplate="header">
             <tr>
-                <th class="card__word--header" >Nombre         
+                <th class="card__word--header">Nombre
                 </th>
                 <th class="card__word--header">Imagen
                 </th>
+                <th class="card__word--header">Imagen 2
+                </th>
+                <th class="card__word--header">Imagen 3
+                </th>
                 <th class="card__word--header">Opciones
                 </th>
-                
-                
+
+
             </tr>
-      
+
         </ng-template>
         <ng-template pTemplate="body" let-disenos>
             <tr [pSelectableRow]="disenos">
                 <td class="card__word--row">
-                    <span class="p-column-title">Nombre</span>
-                    {{disenos.nombre}}
+                    <span class="p-column-title">Nombre</span> {{disenos.nombre}}
                 </td>
                 <td class="card__word--row">
                     <span class="p-column-title">Imagen</span>
-                    <!-- <img [src]="{{disenos.urlFoto}}" [alt]="{{disenos.nombre}}" width="100" class="p-shadow-4"> -->
                     <img src="{{disenos.urlFoto}}" alt="{{disenos.nombre}}" width="70px" height="100px" class="p-shadow-4" />
-                  </td>
-                         
+                </td>
+                <td class="card__word--row">
+                    <span class="p-column-title">Imagen 2</span>
+                    <img src="{{disenos.urlFoto1}}" alt="{{disenos.nombre}}" width="70px" height="100px" class="p-shadow-4" />
+                </td>
+                <td class="card__word--row">
+                    <span class="p-column-title">Imagen3</span>
+                    <img src="{{disenos.urlFoto2}}" alt="{{disenos.nombre}}" width="70px" height="100px" class="p-shadow-4" />
+                </td>
+
                 <td class="card__word--row">
                     <span class="p-column-title">Opciones</span>
-                    <button pButton pRipple icon="pi pi-trash" 
-                  class="p-button-rounded p-button-warning"             
-                   (click)="deleteDisenos(disenos.idDisenos)" ></button>
-                   
-                   <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/design-edit/',disenos.idDisenos]"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteDisenos(disenos.idDisenos)"></button>
+
+                    <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/design-edit/',disenos.idDisenos]"></button>
                 </td>
-  
-  
+
+
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="4">No encontro Diseños</td>
+                <td colspan="5">No encontro Diseños</td>
             </tr>
         </ng-template>
     </p-table>
-  </div>
-  
+</div>

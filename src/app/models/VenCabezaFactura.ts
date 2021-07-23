@@ -9,6 +9,8 @@ export interface VenCabezaFactura{
 	iva?:number;
 	fechaFactu?:string;
 	total?:number;
+	subtotal?:number;
+	descuento?:number;
     usUser?:Usuarios;
     detallefact?:Array<VenDetalleFact>;
     venCliente?:Clientes;

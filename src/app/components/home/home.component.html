@@ -56,8 +56,10 @@
                             <a (click)="ShowCarrito()">
                                 <h3>
                                     <div class="total">
-                                        <span>$ {{this.valorTotalCarrito}}</span></div>
-                                    <img src="../../../assets/images/cart.png" alt="" /></h3>
+                                        <span>$ {{this.valorTotalCarrito}}</span>
+                                    </div>
+                                    <img src="../../../assets/images/cart.png" alt="" />
+                                </h3>
                             </a>
                             <p>Ver Productos</p>
 
@@ -100,9 +102,12 @@
                             </div>
                             <div class="col-lg-8 col-md-7">
                                 <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
                                 </div>
                                 <!-- slider product content -->
                             </div>
@@ -125,9 +130,12 @@
                             </div>
                             <div class="col-lg-8 col-md-7">
                                 <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
                                 </div>
                                 <!-- slider product content -->
                             </div>
@@ -150,9 +158,12 @@
                             </div>
                             <div class="col-lg-8 col-md-7">
                                 <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público</p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver Productos <i class="lni-chevron-right"></i></a>
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
                                 </div>
                                 <!-- slider product content -->
                             </div>
@@ -168,7 +179,7 @@
                 <div class="row justify-content-end">
                     <div class="col-lg-7 col-md-6">
                         <ul class="social text-right">
-                            <li><a href="#"><i  class="lni-facebook-filled"></i></a></li>
+                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                             <li><a href="#"><i class="lni-twitter-original"></i></a></li>
                             <li><a href="#"><i class="lni-instagram"></i></a></li>
                         </ul>
@@ -185,16 +196,20 @@
             <div class="container">
                 <div class="content-top">
                     <h1>Productos disponibles</h1>
-                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
+                    </p-paginator>
                     <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                         <div class="col-md-3 col-md2">
 
                             <div class="col-md1 simpleCart_shelfItem">
-                                <a href="single.html">
+                                <a (click)="showDialogImagenes(stocks)">
                                     <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
                                 </a>
                                 <h3>
-                                    <a style="display:block;width:221px; height: 50.4px;" href="#">{{stocks.catProducto.catCategoria.nombreCategoria}} {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}} </a></h3>
+                                    <a style="display:block;width:221px; height: 50.4px;" href="#">{{stocks.catProducto.catCategoria.nombreCategoria}}
+                                        {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
+                                    </a>
+                                </h3>
                                 <div class="price">
                                     <h5 class="item_price">${{stocks.precioUnit}}</h5>
                                     <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->
@@ -410,7 +425,6 @@
 
 
 
-
 <div *ngIf="mostrarCarrito">
 
 
@@ -439,12 +453,14 @@
                             </div>
                             <div class="clearfix"> </div>
                         </td>
-                        <td class="check"><input type="number" value="{{listacarrito.cantidadPe}}" (change)="obtenerCantidad($event.target.value, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></td>
+                        <td class="check"><input type="number" value="{{listacarrito.cantidadPe}}" (change)="obtenerCantidad($event.target.value, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)">
+                        </td>
                         <td>{{listacarrito.valorUnit}}</td>
                         <td>Envio Acordar con el administrador</td>
                         <td>{{listacarrito.valorTotal}}</td>
                         <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></button>
-                            <br></td>
+                            <br>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -456,3 +472,71 @@
     </div>
 
 </div>
+
+
+<p-dialog position="top" [(visible)]="displayImagenes">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+
+
+                <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="7" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="item.urlFoto" style=" width: 400px;height: 500px; display: block;" />
+                    </ng-template>
+
+                    <ng-template pTemplate="thumbnail" let-item>
+                        <div class="p-grid p-nogutter p-justify-center">
+                            <img [src]="item.urlFoto" style=" width: 100px;
+                            height: 125px;display: block;" />
+                        </div>
+                    </ng-template>
+
+                </p-galleria>
+            </div>
+            <div class="col-md-4">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="content-top">
+                            <h1>Detalle del producto seleccionado</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 style="text-align: justify; ">{{detalle}}</h3>
+                        <p style="text-align: justify; ">{{detalle2}}</p>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="star-on">
+                            <ul>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                            </ul>
+
+                            <div class="clearfix"> </div>
+                        </div>
+
+                        <label class="add-to item_price">Precio: ${{precioModal}}</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</p-dialog>

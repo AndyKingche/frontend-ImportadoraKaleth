@@ -975,7 +975,7 @@ export class StockFormComponent implements OnInit {
 
           } else {
 
-            this.cantidad = 0;
+            this.cantidad = 1;
             this.precioDis = result[0].precioDistribuidor;
             this.precioMay = result[0].precioMayor;
             this.precioUnit = result[0].precioUnit;
