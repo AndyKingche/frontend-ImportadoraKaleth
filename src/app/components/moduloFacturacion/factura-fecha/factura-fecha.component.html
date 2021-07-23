@@ -1,26 +1,27 @@
-
-
 <div class="card">
     <div class="header titulo">
-        
-            <div class="tittle__izq p-d-inline-flex p-ai-center">
-                <i class="fas fa-file-pdf">
+
+        <div class="tittle__izq p-d-inline-flex p-ai-center">
+            <i class="fas fa-file-pdf">
                 </i>
-                <b>Lista de las facturas </b> 
-            </div>      
-            <input type="text" [(ngModel)]="this.i">
-            <input type="text" [(ngModel)]="this.f">
-            <button (click)="getfacturaFecha()" class="boton__dere btn btn-primary">Consultar</button>
-            <button (click)="imprimirfacturaFecha()" class="boton__dere btn btn-primary">Imprimir</button>
+            <b>Lista de las facturas </b>
+        </div>
+        <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="this.i" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators"></p-calendar>
+        <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="this.f" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators"></p-calendar>
+
+
+        <!-- <input type="text" [(ngModel)]="this.i">
+        <input type="text" [(ngModel)]="this.f"> -->
+        <button (click)="getfacturaFecha()" class="boton__dere btn btn-primary">Consultar</button>
+        <button (click)="imprimirfacturaFecha()" class="boton__dere btn btn-primary">Imprimir</button>
 
     </div>
-            
 
-    <p-table #dt2 [value]="facturafecha" [responsive]="true" selectionMode="single" [(selection)]="selectedFactura" dataKey="id" styleClass="p-datatable-responsive"
-        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+
+    <p-table #dt2 [value]="facturafecha" [responsive]="true" selectionMode="single" [(selection)]="selectedFactura" dataKey="id" styleClass="p-datatable-responsive" [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
         <ng-template pTemplate="header">
             <tr>
-                <th class="card__word--header" >Numero de Factura         
+                <th class="card__word--header">Numero de Factura
                 </th>
                 <th class="card__word--header">Fecha Venta
                 </th>
@@ -31,37 +32,31 @@
                 <th class="card__word--header">Cajero
                 </th>
                 <th class="card__word--header">Cliente
-                </th>  
+                </th>
             </tr>
-      
+
         </ng-template>
         <ng-template pTemplate="body" let-factura>
             <tr [pSelectableRow]="factura">
                 <td class="card__word--row">
-                    <span class="p-column-title">Numero de Factura</span>
-                    {{factura.idCabezaFac}}
+                    <span class="p-column-title">Numero de Factura</span> {{factura.idCabezaFac}}
                 </td>
                 <td class="card__word--row">
-                    <span class="p-column-title">Fecha Venta</span>
-                    {{factura.fechaFactu}}
+                    <span class="p-column-title">Fecha Venta</span> {{factura.fechaFactu}}
                 </td>
                 <td class="card__word--row">
-                    <span class="p-column-title">Total de Venta</span>
-                    {{factura.total}}
-                </td >
-                <td class="card__word--row">
-                    <span class="p-column-title">Estado</span>
-                    {{factura.estado}}
-                </td >
-                <td class="card__word--row">
-                  <span class="p-column-title">Cajero</span>
-                  {{factura.usUser.nombre}} {{factura.usUser.apellido}}
+                    <span class="p-column-title">Total de Venta</span> {{factura.total}}
                 </td>
                 <td class="card__word--row">
-                  <span class="p-column-title">Cliente</span>
-                  {{factura.venCliente.nombreCli}} {{factura.venCliente.apellidoCli}}
+                    <span class="p-column-title">Estado</span> {{factura.estado}}
                 </td>
-                
+                <td class="card__word--row">
+                    <span class="p-column-title">Cajero</span> {{factura.usUser.nombre}} {{factura.usUser.apellido}}
+                </td>
+                <td class="card__word--row">
+                    <span class="p-column-title">Cliente</span> {{factura.venCliente.nombreCli}} {{factura.venCliente.apellidoCli}}
+                </td>
+
                 <!-- <td class="card__word--row">
                     <span class="p-column-title">Opciones</span>
                     <button pButton pRipple icon="pi pi-trash" 
@@ -76,8 +71,33 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="4">No encontro Usuarios</td>
+                <td colspan="6">No encontro Usuarios</td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-2" style="text-align: right;">
+                        <label for="PrecioDis">TOTAL $</label>
+                    </div>
+                    <div class="col-md-2"> <input type="text" class="form-control" [(ngModel)]="this.totalVenta" placeholder="Total">
+                    </div>
+                </div>
+
+            </div>
+
         </ng-template>
     </p-table>
 </div>

@@ -60,6 +60,13 @@ export class HomeComponent implements OnInit {
   listaDetallePedido: peDetallePedido[];
   valorTotalCarrito: number = 0;
 
+
+  //variables modale mostrar productos conm mas imagenes
+  displayImagenes: boolean = false;
+  stringUrlFoto1: string = "";
+  stringUrlFoto2: string = "";
+  stringUrlFoto3: string = "";
+
   encuentraArray: boolean = false;
   encuentraArrayCarrito: boolean = false;
   cantidadPedido: number = 0;
@@ -450,6 +457,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
   async generarPedido() {
     if (this.listaCheckout.length > 0) {
       let idfacturaPedidoPDF = 0;
@@ -509,6 +517,50 @@ export class HomeComponent implements OnInit {
       alert("no tiene pedidos para realizar")
     }
 
+
+  }
+
+  images: any[];
+  detalle: string = "";
+  detalle2: string = "";
+  precioModal:number=0;
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+  // mostrar imagenes completas 
+  showDialogImagenes(stocks: any) {
+    this.images=[];
+    
+    this.stringUrlFoto1 = stocks.catProducto.catDiseno.urlFoto;
+    this.stringUrlFoto2 = stocks.catProducto.catDiseno.urlFoto1;
+    this.stringUrlFoto3 = stocks.catProducto.catDiseno.urlFoto2;
+
+
+    this.detalle=stocks.catProducto.catCategoria.nombreCategoria+" "+stocks.catProducto.catDiseno.nombre+" Talla: "+stocks.catProducto.catTalla.medida; 
+    this.detalle2=stocks.catProducto.catCategoria.descripcion;
+
+    this.precioModal=stocks.precioUnit;
+
+    //cargo una lista de las rutas de las imagenes 
+
+    console.log(this.precioModal)
+    this.images = [
+      { urlFoto: this.stringUrlFoto1 },
+      { urlFoto: this.stringUrlFoto2 },
+      { urlFoto: this.stringUrlFoto3 }];
+
+    this.displayImagenes = true
 
   }
 

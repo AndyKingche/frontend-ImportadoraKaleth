@@ -101,15 +101,22 @@ export class ReportProductoComponent implements OnInit {
   }
   imprimirInventarioMin(){
     //window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
+    window.open(`/api/stock/report/minTotal`,"_blank");
 
   }
 
   imprimirInventarioMinPuntoVenta(){
     if(this.idInevntarioMin!=0){
       //window.open(`/api/stock/report/${this.idInventarioTotal}`,"_blank");
+      window.open(`/api/stock/report/minTotalPoints/${this.idInevntarioMin}`,"_blank");
 
     }else{
-      //alert('Debes esocger un Punto de Venta')
+      alert('Debes escoger un Punto de Venta')
     }
   }
+  
+  imprimircodigoBarra(){
+    window.open(`/api/stock/codigoBarra`,"_blank");
+  }
+
 }

@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 //stockAuxiliar
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
 import { CatStockService } from '../../../services/cat-stock.service';
@@ -12,6 +13,7 @@ import { VenDetalleFact } from 'src/app/models/VenDetalleFact';
 import { FacturacionService } from '../../../services/facturacion.service';
 import { ThrowStmt } from '@angular/compiler';
 import { cat_stock } from 'src/app/models/cat_stock';
+declare let $: any;
 
 @Component({
   selector: 'app-facturacion-form',
@@ -57,7 +59,7 @@ export class FacturacionFormComponent implements OnInit {
   listaDetalleFactura: VenDetalleFact[];
 
   selectedDetalles: VenDetalleFact;
-
+  selectedValue: string = 'val1';
   //variables
   idProductoConsulta: number = 0;
   codigoProducto;
@@ -67,6 +69,12 @@ export class FacturacionFormComponent implements OnInit {
   precioMay: number = 0;
   precioDis: number = 0;
   cantidad: number = 0;
+  checkSelect1: boolean = true;
+  checkSelect2: boolean = true;
+  checkSelect3: boolean = true;
+
+  precioSeleccionado: number = 0;
+
   totalIngresoVista: string = "0";
   totalVenta: string = "0";
 
@@ -157,27 +165,29 @@ export class FacturacionFormComponent implements OnInit {
       }
     }
   }
-  displayConsultar:boolean=false;
-  displayCliente:boolean=false;
-  stockConsulta:any=[];
-  selectedStock:cat_stock;
-  disabled:boolean=false;
+  displayConsultar: boolean = false;
+  displayCliente: boolean = false;
+  stockConsulta: any = [];
+  selectedStock: cat_stock;
+  disabled: boolean = false;
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
     private router: Router,
     private activedrouter: ActivatedRoute) {
-      activedrouter.params.subscribe(val => {
-        this.ngOnInit();
-        this.inicializarVariables();
-      })
-    }
+
+    activedrouter.params.subscribe(val => {
+      this.ngOnInit();
+      this.inicializarVariables();
+    })
+  }
+
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    
+    this.disabled = false;
     this.idPuntosVenta = Number(params.id);
-    console.log("hola",this.idPuntosVenta)
+    console.log("hola", this.idPuntosVenta)
     this.totalIngresoVista = "0";
     this.listafacturaIngreso = [{
       idCabezaFac: 0,
@@ -213,13 +223,31 @@ export class FacturacionFormComponent implements OnInit {
     this.getStockConsulta(this.idPuntosVenta);
   }
 
-  obtenerVariable(nombreProd:any){
+  obtenerVariable(nombreProd: any) {
     this.codigoProducto = nombreProd;
     this.displayConsultar = false;
+
     this.encontrarProducto(this.codigoProducto);
+    (<HTMLInputElement>document.getElementById("primerRadio")).checked = true;
   }
+  //seleccionar el precio del radio button
+  radioChangeHandler($event: any) {
+    this.precioSeleccionado = $event.target.value;
+  }
+  imprimirRadiobutton() {
+    //(<HTMLInputElement>document.getElementById("primerRadio")).checked = true;
+
+    //let valorRadiobutton = document.getElementById("primerRadio").checked;
+
+    // console.log(x);
+    console.log(this.precioSeleccionado)
+
+  }
+
+
   async Agregar() {
     this.disabled = true;
+
     const IDCLIENTE = new Promise(async (resolve, reject) => {
       await this.clienteService.getClienteByCedula(this.cedula).subscribe((res) => {
         if (Object.keys(res).length === 0) {
@@ -248,6 +276,7 @@ export class FacturacionFormComponent implements OnInit {
       this.nuevoClienteIngreso.email = this.email;
 
       console.log("el nuevo clientea ingresar = > ", this.nuevoClienteIngreso);
+
       const IDCLIENTEINGREO = new Promise(async (resolve, reject) => {
         await this.clienteService.saveCliente(this.nuevoClienteIngreso).subscribe(res => {
           resolve(res.idCliente);
@@ -319,7 +348,6 @@ export class FacturacionFormComponent implements OnInit {
           this.encuentraArray = false;
 
         }
-console.log("hola")
 
       } else {
 
@@ -415,22 +443,27 @@ console.log("hola")
 
     this.codigoProducto = 0;
     this.buscarStockProducto();
+    (<HTMLInputElement>document.getElementById("primerRadio")).checked = true;
 
   }
 
- 
+
 
 
   inicializarVariables() {
 
     this.idProductoConsulta = 0;
     this.codigoProducto = 0;
+    //  (<HTMLInputElement>document.getElementById("primerRadio")).checked = true;
+
+
 
     this.detalle = "";
     this.precioUnit = 0;
     this.precioMay = 0;
     this.precioDis = 0;
     this.cantidad = 0;
+    this.precioSeleccionado=0;
     this.totalIngresoVista = "0";
     this.totalVenta = "0";
     this.encuentraArray = false;
@@ -544,12 +577,14 @@ console.log("hola")
 
 
     console.log(this.auxiliarFacturaIngreso)
-    const obtenerid = new Promise (async(resolve,reject)=>{await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
-      console.log(res)
-      resolve(res.idCabezaFac)
-    }, err => console.log(err))})
+    const obtenerid = new Promise(async (resolve, reject) => {
+      await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
+        console.log(res)
+        resolve(res.idCabezaFac)
+      }, err => console.log(err))
+    })
 
-    idfacturaPDF =await obtenerid.then(res=>Number(res));
+    idfacturaPDF = await obtenerid.then(res => Number(res));
     console.log("este es el id de la factura realizada", idfacturaPDF)
     let restaCantidad = 0;
     let cantidadLista = 0;
@@ -586,9 +621,9 @@ console.log("hola")
       ));
 
     }
-    
-//  window.open('/api/client/report',"_blank")
-  window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
+
+    //  window.open('/api/client/report',"_blank")
+    window.open(`/api/bill/ticket/${idfacturaPDF}`, "_blank");
     this.inicializarVariables();
   }
 
@@ -625,9 +660,11 @@ console.log("hola")
         this.cantidad = 0;
         this.precioDis = 0;
         this.precioMay = 0;
+        
         this.precioUnit = 0;
         this.detalle = "";
         this.cantidadDisponible = 0;
+        this.precioSeleccionado=0;
 
 
 
@@ -637,7 +674,7 @@ console.log("hola")
         this.cantidadConsulta = 0;
         this.cantidadLista = 0;
         this.cantidadConsulta = result[0].cantidad;
-
+        (<HTMLInputElement>document.getElementById("primerRadio")).checked = true;
         if (this.listaDetalleFactura.length == 0) {
           this.cantidadDisponible = this.cantidadConsulta;
         } else {
@@ -665,11 +702,13 @@ console.log("hola")
 
         this.idProductoConsulta = Number(result[0].catProducto.idProductos);
 
-        this.cantidad = 0;
+        this.cantidad = 1;
         //this.cantidadDisponible = result[0].cantidad;
         this.precioDis = result[0].precioDistribuidor;
         this.precioMay = result[0].precioMayor;
         this.precioUnit = result[0].precioUnit;
+
+        this.precioSeleccionado = this.precioUnit;
         this.detalle = result[0].catProducto.catCategoria.nombreCategoria + " " +
           result[0].catProducto.catDiseno.nombre + " - " +
           result[0].catProducto.catTalla.medida + " ";
@@ -728,33 +767,37 @@ console.log("hola")
 
   }
 
-  showConsultar(){
+  showConsultar() {
     this.displayConsultar = true;
   }
-  showCliente(){
+  showCliente() {
     this.displayCliente = true;
   }
 
-  getStockConsulta(id:number){
+  getStockConsulta(id: number) {
     console.log(this.idPuntosVenta)
-    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>
-      {this.stockConsulta = res},err=> console.log(err))
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res => { this.stockConsulta = res }, err => console.log(err))
   }
 
-  encontrarProductoModal(productoBuscar:any){
+  encontrarProductoModal(productoBuscar: any) {
     console.log(productoBuscar.length)
-    if(productoBuscar.length!=0){
-      this.stockService.findStockbyParametersPuntoVenta(this.idPuntosVenta,productoBuscar).subscribe(res=>{
+    if (productoBuscar.length != 0) {
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntosVenta, productoBuscar).subscribe(res => {
         this.stockConsulta = res;
-      },err=>console.log(err));
+      }, err => console.log(err));
     }
-    else{
+    else {
       this.getStockConsulta(this.idPuntosVenta);
     }
-  
+
   }
 
-  ingresarClienteModal(){
+  ingresarClienteModal() {
     console.log(this.clientmodal)
   }
+
+  favoriteSeason: string;
+  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
+
 }

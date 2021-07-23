@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { VenCabezaFactura } from '../../../models/VenCabezaFactura';
 import { FacturacionService } from '../../../services/facturacion.service';
 @Component({
@@ -8,27 +9,78 @@ import { FacturacionService } from '../../../services/facturacion.service';
 })
 export class FacturaFechaComponent implements OnInit {
 
-  facturafecha : any =[];
+  facturafecha: any = [];
   selectedFactura: VenCabezaFactura;
-  i:string='';
-  f:string='';
-  constructor(private facturacionservice:FacturacionService) { }
+  i = new Date();
+  f = new Date();
+  totalVenta: number = 0;
+  constructor(private facturacionservice: FacturacionService) { }
 
   ngOnInit() {
-    this.i=' ';
-    this.f=' ';
+    this.i = null;
+    this.f = null;
   }
-  
-  getfacturaFecha(){
+
+  async getfacturaFecha() {
     //fechainicio:string,fechafin:string
-    console.log(this.i,this.f)
-    this.facturacionservice.facturafechas(this.i,this.f).subscribe(res=>{
-      this.facturafecha = res;
-      console.log(this.facturafecha)
-    },err=>console.log(err))
+    let fechaInicio = this.i;
+    let fechaFormateadaInicio = fechaInicio.getFullYear() + "-" + ("0" + (fechaInicio.getMonth() + 1)).slice(-2) + "-" + (fechaInicio.getDate());
+
+    let fechaFin = this.f;
+    let fechaFormateadaFin = fechaFin.getFullYear() + "-" + ("0" + (fechaFin.getMonth() + 1)).slice(-2) + "-" + (fechaFin.getDate());
+
+
+
+    const arrayFacturas = new Promise(async (resolve, reject) => {
+      await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+        
+        resolve(res)
+        //this.facturafecha = res;
+       // console.log(this.facturafecha)
+      }, err => console.log(err))
+    });
+
+    await arrayFacturas.then(res => {
+    this.facturafecha=res;
+    })
+
+    this.totalVenta = 0;
+    for (var x in this.facturafecha) {
+
+      this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+    }
   }
-  imprimirfacturaFecha(){
-    window.open(`/api/bill/reporteFecha/${this.i}/${this.f}`,"_blank");
+  async imprimirfacturaFecha() {
+    let fechaInicio = this.i;
+    let fechaFormateadaInicio = fechaInicio.getFullYear() + "-" + ("0" + (fechaInicio.getMonth() + 1)).slice(-2) + "-" + (fechaInicio.getDate());
+
+    let fechaFin = this.f;
+    let fechaFormateadaFin = fechaFin.getFullYear() + "-" + ("0" + (fechaFin.getMonth() + 1)).slice(-2) + "-" + (fechaFin.getDate());
+
+
+
+
+    const arrayFacturas = new Promise(async (resolve, reject) => {
+      await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+        
+        resolve(res)
+        //this.facturafecha = res;
+       // console.log(this.facturafecha)
+      }, err => console.log(err))
+    });
+
+    await arrayFacturas.then(res => {
+    this.facturafecha=res;
+    })
+
+    this.totalVenta = 0;
+    for (var x in this.facturafecha) {
+
+      this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+    }
+let valor=""+this.totalVenta;
+
+    window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
 
   }
 
