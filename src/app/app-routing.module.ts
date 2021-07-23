@@ -308,13 +308,13 @@ const routes: Routes = [
     path:'cashier',
     component: NavigationCashierComponent,
     children:[
-      {
-        path:'stock',
-        component:StockListComponent
-      },
+      // {
+      //   path:'stock',
+      //   component:StockListComponent
+      // },
       {
         path:'stock-add/:id',
-        component:StockFormComponent
+        component:StockCashierFormComponent
       },
       {
         path:'bill/:id',

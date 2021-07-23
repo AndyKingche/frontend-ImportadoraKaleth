@@ -9,7 +9,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */i {
   
-    margin-right: 1em;
+  margin-right: 1em;
 }
 :root {
   --blue: #4e73df;
@@ -10338,4 +10338,10 @@ footer.sticky-footer .copyright {
 }
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+.card__sales--points{
+  margin-top: 20px;
+}
+.menu__row--points{
+  margin-bottom: 10px;
 }
