@@ -33,9 +33,12 @@
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "node_modules/ngx-toastr/toastr.css",
                             "node_modules/select2/dist/css/select2.min.css",
+                            // "node_modules/primeicons/primeicons.css",
+                            // "node_modules/primeng/resources/themes/saga-blue/theme.css",
+                            // "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
-                            "node_modules/primeng/resources/themes/saga-blue/theme.css",
-                            "node_modules/primeng/resources/primeng.min.css",
+                            "node_modules/primeng-lts/resources/themes/saga-blue/theme.css",
+                            "node_modules/primeng-lts/resources/primeng.min.css",
                             "src/assets/css/animate.css",
                             "src/assets/css/default.css",
                             "src/assets/css/LineIcons.css",
@@ -85,18 +88,8 @@
                             "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [{
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
-                                }
-                            ]
+                            "buildOptimizer": true
+                           
                         }
                     }
                 },

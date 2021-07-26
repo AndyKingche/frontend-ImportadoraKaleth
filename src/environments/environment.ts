@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   firebaseConfig : {
     apiKey: "AIzaSyAvkioim2QLpscsSAZQM_v-DxRJGNY7vjY",
     authDomain: "importadorakaleth.firebaseapp.com",
@@ -11,7 +11,8 @@ export const environment = {
     storageBucket: "importadorakaleth.appspot.com",
     messagingSenderId: "193749930922",
     appId: "1:193749930922:web:763f44c4848a0e09ff11d3"
-  }
+  },
+  url:"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/"
 };
 
 /*

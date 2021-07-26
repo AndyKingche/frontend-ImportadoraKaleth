@@ -200,7 +200,7 @@ export class StockFormComponent implements OnInit {
   medidaexiste: boolean = false;
   nombredisenoexiste: boolean = false;
   displayConsultar:boolean=false;
-
+  selectedDetalles:any;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,

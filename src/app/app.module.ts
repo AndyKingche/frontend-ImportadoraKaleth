@@ -36,50 +36,76 @@ import { StockFormComponent } from './components/moduloProducto/stock-form/stock
 import { StockListComponent } from './components/moduloProducto/stock-list/stock-list.component';
 
 
-import {DialogModule} from 'primeng/dialog';
+// import {DialogModule} from 'primeng/dialog';
 
-import {InputTextModule} from 'primeng/inputtext';
-import {TooltipModule} from 'primeng/tooltip';
-import {ButtonModule} from 'primeng/button';
-import {CalendarModule} from 'primeng/calendar';
-import { FilterService } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
-import {TableModule} from 'primeng/table';
-import {CardModule} from 'primeng/card';
-import {DividerModule} from 'primeng/divider';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {DropdownModule} from 'primeng/dropdown';
-import {SliderModule} from 'primeng/slider';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {PaginatorModule} from 'primeng/paginator';
+// import {InputTextModule} from 'primeng/inputtext';
+// import {TooltipModule} from 'primeng/tooltip';
+// import {ButtonModule} from 'primeng/button';
+// import {CalendarModule} from 'primeng/calendar';
+
+// import { PrimeNGConfig } from 'primeng/api';
+// import {TableModule} from 'primeng/table';
+// import {CardModule} from 'primeng/card';
 
 
+// import {DropdownModule} from 'primeng/dropdown';
+// import {SliderModule} from 'primeng/slider';
+// import {ProgressBarModule} from 'primeng/progressbar';
+// import {PaginatorModule} from 'primeng/paginator';
+
+import {DialogModule} from 'primeng-lts/dialog';
+
+import {InputTextModule} from 'primeng-lts/inputtext';
+import {TooltipModule} from 'primeng-lts/tooltip';
+import {ButtonModule} from 'primeng-lts/button';
+import {CalendarModule} from 'primeng-lts/calendar';
+
+import { PrimeNGConfig } from 'primeng-lts/api';
+import {TableModule} from 'primeng-lts/table';
+import {CardModule} from 'primeng-lts/card';
+
+
+import {DropdownModule} from 'primeng-lts/dropdown';
+import {SliderModule} from 'primeng-lts/slider';
+import {ProgressBarModule} from 'primeng-lts/progressbar';
+import {PaginatorModule} from 'primeng-lts/paginator';
+//primeros comentarios
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import { HomeComponent } from './components/home/home.component';
 import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.component';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {FileUploadModule} from 'primeng/fileupload';
-import {GalleriaModule} from 'primeng/galleria';
+// import {InputNumberModule} from 'primeng/inputnumber';
+// import {FileUploadModule} from 'primeng/fileupload';
+// import {GalleriaModule} from 'primeng/galleria';
+
+
+import {InputNumberModule} from 'primeng-lts/inputnumber';
+import {FileUploadModule} from 'primeng-lts/fileupload';
+import {GalleriaModule} from 'primeng-lts/galleria';
 
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 import {ClientsListComponent} from '../app/components/clients-list/clients-list.component';
+import {ClientsFormComponent} from '../app/components/clients-form/clients-form.component';
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
-import {SidebarModule} from 'primeng/sidebar';
-import {SlideMenuModule} from 'primeng/slidemenu';
-import {KeyFilterModule} from 'primeng/keyfilter';
+// import {SidebarModule} from 'primeng/sidebar';
+// import {SlideMenuModule} from 'primeng/slidemenu';
+// import {KeyFilterModule} from 'primeng/keyfilter';
+import {SidebarModule} from 'primeng-lts/sidebar';
+import {SlideMenuModule} from 'primeng-lts/slidemenu';
+import {KeyFilterModule} from 'primeng-lts/keyfilter';
 import {NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
-import {CascadeSelectModule} from 'primeng/cascadeselect';
+
 import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
 import { StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
+import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
 //
 @NgModule({
   declarations: [
@@ -116,7 +142,9 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     StockCashierListComponent,
     StockCashierFormComponent,
     FacturacionCashierComponent,
-    FacturaFechaComponent
+    FacturaFechaComponent,
+    ClientsFormComponent,
+    NavigationCustomerComponent
 
   ],
   imports: [
@@ -138,8 +166,8 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     InputTextModule,
     TableModule,
     CardModule,
-    DividerModule,
-    MultiSelectModule,
+    
+ 
     DropdownModule,
     SliderModule,
     ProgressBarModule,
@@ -152,12 +180,12 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     SidebarModule,
     SlideMenuModule,
     KeyFilterModule,
-    CascadeSelectModule,
+   
     GalleriaModule
  
     
   ],
-  providers: [RolesFormComponent,PrimeNGConfig,FilterService],
+  providers: [RolesFormComponent,PrimeNGConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

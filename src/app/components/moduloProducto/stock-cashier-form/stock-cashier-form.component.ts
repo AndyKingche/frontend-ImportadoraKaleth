@@ -198,6 +198,7 @@ export class StockCashierFormComponent implements OnInit {
   nombredisenoexiste: boolean = false;
   displayConsultar:boolean=false;
   disabled:boolean = true;
+  selectedDetalles:any;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
