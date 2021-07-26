@@ -39,7 +39,7 @@ import{ HomeComponent }from './components/home/home.component'
 //pedidos
 import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
 //cliente
-import { ClientsListComponent } from './components/clients-list/clients-list.component';
+//import { ClientsListComponent } from './components/clients-list/clients-list.component';
 // product consultas
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 
@@ -178,10 +178,12 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CarritoComponent
-  },{
-    path:'client',
-    component: ClientsListComponent
-  },
+  }
+  // ,{
+  //   path:'client',
+  //   component: ClientsListComponent
+  // }
+  ,
   {
     path:'admin',
     component: NavigationComponent,

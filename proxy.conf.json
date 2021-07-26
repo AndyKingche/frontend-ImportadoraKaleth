@@ -1,6 +1,7 @@
 {
     "/api/":{
-        "target":"http://localhost:8080/",
+        
+        "target":"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/",
         "secure": false,
         "loglevel": "debug"
     }

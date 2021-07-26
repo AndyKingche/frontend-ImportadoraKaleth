@@ -47,7 +47,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {CardModule} from 'primeng/card';
 import {DividerModule} from 'primeng/divider';
-import {MultiSelectModule} from 'primeng/multiselect';
+
 import {DropdownModule} from 'primeng/dropdown';
 import {SliderModule} from 'primeng/slider';
 import {ProgressBarModule} from 'primeng/progressbar';
@@ -67,19 +67,21 @@ import {GalleriaModule} from 'primeng/galleria';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 import {ClientsListComponent} from '../app/components/clients-list/clients-list.component';
+import {ClientsFormComponent} from '../app/components/clients-form/clients-form.component';
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 import {SidebarModule} from 'primeng/sidebar';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
-import {CascadeSelectModule} from 'primeng/cascadeselect';
+
 import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
 import { StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
+import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
 //
 @NgModule({
   declarations: [
@@ -116,7 +118,9 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     StockCashierListComponent,
     StockCashierFormComponent,
     FacturacionCashierComponent,
-    FacturaFechaComponent
+    FacturaFechaComponent,
+    ClientsFormComponent,
+    NavigationCustomerComponent
 
   ],
   imports: [
@@ -139,7 +143,7 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     TableModule,
     CardModule,
     DividerModule,
-    MultiSelectModule,
+ 
     DropdownModule,
     SliderModule,
     ProgressBarModule,
@@ -152,7 +156,7 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
     SidebarModule,
     SlideMenuModule,
     KeyFilterModule,
-    CascadeSelectModule,
+   
     GalleriaModule
  
     
