@@ -13,6 +13,7 @@ export class PuntosVentasListComponent implements OnInit {
 
   @HostBinding('class') classes= 'row';
   puntosVentas : any=[];
+  selectedpuntosVentas: PuntosVentas;
 
   constructor(private puntosventasservices:PuntosVentasService,
     private notification: NotificacionService) { }

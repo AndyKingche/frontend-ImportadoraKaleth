@@ -15,11 +15,11 @@ export class ClientsFormComponent implements OnInit {
   @HostBinding("class") classes = "row";
 
   client: Clientes = {
-    apellidocliente: "",
-    cedulacliente: "",
-    direccioncliente: "",
+    apellidoCli: "",
+    cedulaCli: "",
+    direccionCli: "",
     email: "",
-    nombrecliente: "",
+    nombreCli: "",
     telefono: ""
   };
   edit: boolean = false;
@@ -59,11 +59,11 @@ export class ClientsFormComponent implements OnInit {
         
         this.clientesservice.saveCliente(this.client).subscribe(
           (res) => {
-            this.client.apellidocliente= "";
-            this.client.cedulacliente= "";
-            this.client.direccioncliente= "";
+            this.client.apellidoCli= "";
+            this.client.cedulaCli= "";
+            this.client.direccionCli= "";
             this.client.email= "";
-            this.client.nombrecliente= "";
+            this.client.nombreCli= "";
             this.client.telefono= "";            
     setTimeout(() => {
               this.notificacion.showSuccess(
@@ -88,14 +88,14 @@ export class ClientsFormComponent implements OnInit {
 
   updateCliente() {
     try {
-      if(this.client.nombrecliente && 
-        this.client.apellidocliente &&
-        this.client.cedulacliente &&
-        this.client.direccioncliente &&
+      if(this.client.nombreCli && 
+        this.client.apellidoCli &&
+        this.client.cedulaCli &&
+        this.client.direccionCli &&
         this.client.email &&
         this.client.telefono){
           this.clientesservice
-          .updateCliente(this.client.id_cliente, this.client)
+          .updateCliente(this.client.idCliente, this.client)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -111,7 +111,7 @@ export class ClientsFormComponent implements OnInit {
       }else{
         if(this.testingresar()){
           this.clientesservice
-          .updateCliente(this.client.id_cliente, this.client)
+          .updateCliente(this.client.idCliente, this.client)
           .subscribe(
             (res) => {
               setTimeout(() => {
@@ -160,10 +160,10 @@ export class ClientsFormComponent implements OnInit {
       obtenerDireccion.length > 0 &&
       obtenerEmail.length > 0 
     ) {
-      this.client.nombrecliente = obtenerNombre;
-      this.client.apellidocliente = obtenerApellido;
-      this.client.cedulacliente = obtenerCedula;
-      this.client.direccioncliente = obtenerDireccion;
+      this.client.nombreCli = obtenerNombre;
+      this.client.apellidoCli = obtenerApellido;
+      this.client.cedulaCli = obtenerCedula;
+      this.client.direccionCli = obtenerDireccion;
       this.client.email = obtenerEmail;
       this.client.telefono = obtenerTelefono;
 

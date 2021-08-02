@@ -1,33 +1,5 @@
-
-    <!-- <a type="button" class="btn btn-success" routerLink="/rol-add">Ingresar un nuevo Rol</a>
-</div>
-<div class="content" >
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Descripcion</th>
-<th scope="col">Elimnar</th>
-<th scope="col">Actualizar</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let rol of roles">
-            <tr>
-                <td>{{rol.idRoles}}</td>
-                <td>{{rol.nombre}}</td>
-                <td>{{rol.rol}}</td>
-                <td>{{rol.descripcion}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteRol(rol.idRoles)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-edit/',rol.idRoles]"> Actualizar Rol</button></td>
-              </tr>
-          </tbody>
-      </table> 
-</div>
--->
 <div class="card">
-  <div class="header">
+  <div class="header titulo">
       
           <div class="tittle__izq p-d-inline-flex p-ai-center">
               <i class="pi pi-user p-mr-2">
@@ -35,7 +7,7 @@
               <b>Lista de Roles </b> 
           </div>      
           
-          <button pButton align="rigth"  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/rol-add">Nuevo</button>
+          <button pButton align="rigth"  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/rol-add">Nuevo</button>
 
   </div>
 
@@ -71,9 +43,9 @@
               <td>
                   <button pButton pRipple icon="pi pi-trash" 
                 class="p-button-rounded p-button-warning"             
-                 (click)="deleteUsuarios(roles.idRoles)" ></button>
-                 <br>
-                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"  [routerLink]="['/roles-edit/',roles.idRoles]"></button>
+                 (click)="deleteRol(roles.idRoles)" ></button>
+             
+                 <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2"  [routerLink]="['/admin/rol-edit/',roles.idRoles]"></button>
               </td>
 
 

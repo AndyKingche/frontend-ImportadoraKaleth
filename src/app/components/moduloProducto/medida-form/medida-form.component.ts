@@ -19,14 +19,17 @@ export class MedidaFormComponent implements OnInit {
     tipo:''
   }
   edit : boolean = false;
+  creacion:string = '';
   constructor(private tallasservice: MedidaService, 
               private router: Router,
               private activedrouter: ActivatedRoute,
               private notificacion: NotificacionService) { }
 
   ngOnInit() {
+    this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
     if(params.id){
+      this.creacion = 'Actualizar';
       this.tallasservice.getTalla(params.id).subscribe(
         res=>{
           if(res!= null){

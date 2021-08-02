@@ -36,7 +36,7 @@ export class RolesFormComponent implements OnInit {
             this.edit = true;
 
           }else{
-            this.router.navigate(['/rol']);
+            this.router.navigate(['/admin/rol']);
           }
           
         },
@@ -48,19 +48,8 @@ export class RolesFormComponent implements OnInit {
   }
 
   saveRol(){
-    let obtenerNombre = this.quitarespacios('#nombre');
-    let obtenerRol = this.quitarespacios('#rol');
-    let obtenerDescripcion = this.quitarespacios('#descripcion');
-    if(Object.keys(this.rol.nombre).length>0
-    && obtenerNombre.length>0
-    && Object.keys(this.rol.descripcion).length>0 
-    && obtenerRol.length>0
-    && Object.keys(this.rol.rol).length>0
-    && obtenerDescripcion.length>0){
-      this.rol.nombre = obtenerNombre;
-      this.rol.rol = obtenerRol;
-      this.rol.descripcion = obtenerDescripcion;
-
+    
+    if(this.testingresar()){   
       this.rolesService.saveRoles(this.rol).subscribe(
         res=>{
           this.rol.nombre =' ';
@@ -69,7 +58,7 @@ export class RolesFormComponent implements OnInit {
           setTimeout(()=>{
             this.notificacion.showSuccess('Rol correctamente agregado', ' Rol Ingresado')
           },200);
-          this.router.navigate(['/rol'])
+          this.router.navigate(['/admin/rol'])
         },
         err => console.error(err)
       );
@@ -79,16 +68,9 @@ export class RolesFormComponent implements OnInit {
   }
 
   updateRol(){
-    let obtenerNombre = this.quitarespacios('#nombre');
-    let obtenerRol = this.quitarespacios('#rol');
-    let obtenerDescripcion = this.quitarespacios('#descripcion');
-    if(obtenerNombre.length>0
-      &&obtenerDescripcion.length>0
-      &&obtenerRol.length>0){
-        this.rol.nombre = obtenerNombre;
-      this.rol.rol = obtenerRol;
-      this.rol.descripcion = obtenerDescripcion;
-
+    
+    if(this.testingresar()){
+        
       this.rolesService.updateRoles(this.rol.idRoles, this.rol).subscribe(
         res=>{
           this.rol.nombre =' ';
@@ -97,7 +79,7 @@ export class RolesFormComponent implements OnInit {
           setTimeout(()=>{
             this.notificacion.showSuccess('Rol actualizado Correctamente','Rol actualizado');
             },200)
-          this.router.navigate(['/rol']);
+          this.router.navigate(['/admin/rol']);
         },
         err => console.error(err)
       );
@@ -108,8 +90,23 @@ export class RolesFormComponent implements OnInit {
     }
   }
 
-  quitarespacios(atributoHTML:string){
-    let obtenerLetras = $(atributoHTML).val();
+  testingresar() {
+    
+    if ( this.rol.nombre.length !=0 &&
+      this.rol.descripcion.length != 0 &&
+      this.rol.rol.length !=0 ) {  
+        this.rol.nombre = this.quitarespacios(this.rol.nombre); 
+        this.rol.descripcion = this.quitarespacios(this.rol.descripcion); 
+        this.rol.rol = this.quitarespacios(this.rol.rol); 
+      return true;
+    } else {
+      
+      return false;
+    }
+  }
+
+  quitarespacios(letras:string){
+    let obtenerLetras = letras;
     return obtenerLetras.trim();
   }
 

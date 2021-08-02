@@ -1,10 +1,10 @@
 export interface Clientes{
-    id_cliente?:number;
-    apellidocliente?:string;
-    cedulacliente?:string;
-    direccioncliente?:string;
+    idCliente?:number;
+    apellidoCli?:string;
+    cedulaCli?:string;
+    direccionCli?:string;
     email?:string;
-    nombrecliente?:string;
+    nombreCli?:string;
     telefono?:string;
     
 }

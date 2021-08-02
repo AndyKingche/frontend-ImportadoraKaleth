@@ -1,1 +1,542 @@
-<p>home works!</p>
+<!--====== PRELOADER PART START ======-->
+<div class="preloader">
+    <div class="spin">
+        <div class="cube1"></div>
+        <div class="cube2"></div>
+    </div>
+</div>
+<!--====== HEADER PART START ======-->
+
+
+
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="/index.html">
+                        <img class="logo--logo" src="../../../assets/img/KALETH.png" width="200px" alt="Logo">
+                    </a>
+
+
+                    <!-- Logo -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="bar-icon"></span>
+                        <span class="bar-icon"></span>
+                        <span class="bar-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul id="nav" class="navbar-nav ml-auto">
+
+                            <li class="nav-item">
+                                <a data-scroll-nav="0" href="#product">Productos</a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a data-scroll-nav="0" href="#team">Puntos de Venta</a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="account.html">Entrar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/admin">Registrarse</a>
+                            </li>
+
+                        </ul>
+
+
+                        <div class="cart box_1">
+                            <a (click)="ShowCarrito()">
+                                <h3>
+                                    <div class="total">
+                                        <span>$ {{this.valorTotalCarrito}}</span>
+                                    </div>
+                                    <img src="../../../assets/images/cart.png" alt="" />
+                                </h3>
+                            </a>
+                            <p>Ver Productos</p>
+
+                        </div>
+
+                        <div class="clearfix"> </div>
+
+
+
+                        <!-- navbar nav -->
+                    </div>
+                </nav>
+                <!-- navbar -->
+            </div>
+
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</header>
+
+<!--====== HEADER PART ENDS ======-->
+
+<!--====== SLIDER PART START ======-->
+<div *ngIf="mostrarInicio">
+    <!-- <link rel="stylesheet" href="../../../assets/js/slick.min.js" type="text/javascript"> -->
+
+    <section id="home" class="slider-area pt-100">
+        <div class="container-fluid position-relative">
+            <div class="slider-active">
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpantuflas.jpg?alt=media&token=6e774b73-3349-43e3-bd60-4e272824fc95" alt="Slider">
+
+                                </div>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
+                                </div>
+                                <!-- slider product content -->
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
+
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijama%20dos%20piezas.jpg?alt=media&token=20994c32-ceba-4def-9910-84e38f31dbf6" alt="Slider">
+
+                                </div>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
+                                </div>
+                                <!-- slider product content -->
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
+
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijamaunapieza.jpg?alt=media&token=a646bcdf-a315-4bde-a473-79d65a31380c" alt="Slider" height="500">
+
+                                </div>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
+                                        Importadora Kaleth</h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
+                                    </p>
+                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
+                                        Productos <i class="lni-chevron-right"></i></a>
+                                </div>
+                                <!-- slider product content -->
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
+            </div>
+            <!-- slider active -->
+            <div class="slider-social">
+                <div class="row justify-content-end">
+                    <div class="col-lg-7 col-md-6">
+                        <ul class="social text-right">
+                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                            <li><a href="#"><i class="lni-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- container fluid -->
+    </section>
+
+
+    <section id="product" class="team-area pt-100">
+        <div class="content">
+            <div class="container">
+                <div class="content-top">
+                    <h1>Productos disponibles</h1>
+                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
+                    </p-paginator>
+                    <div class="content-top1" *ngFor="let stocks of stock; let i=index">
+                        <div class="col-md-3 col-md2">
+
+                            <div class="col-md1">
+                                <a (click)="showDialogImagenes(stocks)">
+                                    <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
+                                </a>
+                                <h3>
+                                    <a style="display:block;width:221px; height: 50.4px;" href="#">{{stocks.catProducto.catCategoria.nombreCategoria}}
+                                        {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
+                                    </a>
+                                </h3>
+                                <div class="price">
+                                    <h5>${{stocks.precioUnit}}</h5>
+                                    <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->
+                                    <a href="#productos" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="i==3||i==7||i==11">
+
+                                <div class="content-top1">
+                                    <div class="col-md-3 col-md2">
+                                        <h1></h1>
+                                    </div>
+
+
+                                    <div class="clearfix"> </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="team" class="team-area pt-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-title text-center pb-25 content-top">
+                        <h1>Locales Físicos</h1>
+                        <p>Visita nuestros locales en direfentes puntos.</p>
+                    </div>
+                    <!-- section title -->
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row justify-content-center">
+
+
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-temp text-center mt-30">
+                        <div class="team-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"
+                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div class="team-content mt-30">
+                            <h4 class="title mb-10"><a href="#">Local Principal</a></h4>
+                            <span>Otavalo</span>
+
+                        </div>
+                    </div>
+                    <!-- single temp -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-temp text-center mt-30">
+                        <div class="team-image">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"
+                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div class="team-content mt-30">
+                            <h4 class="title mb-10"><a href="#">Local Secundrio</a></h4>
+                            <span>Quito</span>
+
+                        </div>
+                    </div>
+                    <!-- single temp -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== FOOTER PART START ======-->
+
+    <section id="about" class="footer-area">
+        <div class="container">
+            <div class="footer-widget pt-75 pb-120">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 col-sm-7">
+                        <div class="footer-logo mt-40">
+                            <a href="#">
+                                <img src="../../../assets/img/KALETH.png" alt="Logo" width="200px">
+                            </a>
+                            <p class="mt-10">Importadora Kaleth es una empresa dedicada a la confecci&oacute;n de pijamas cheveres</p>
+                            <ul class="footer-social mt-25">
+                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                                <li><a href="#"><i class="lni-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- footer logo -->
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-5">
+                        <div class="footer-link mt-50">
+                            <h5 class="f-title">Servicios</h5>
+                            <ul>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-5">
+                        <div class="footer-link mt-50">
+                            <h5 class="f-title">Ayuda</h5>
+                            <ul>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">Pendiente</a></li>
+
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-7">
+                        <div class="footer-info mt-50">
+                            <h5 class="f-title">Información de Contactos</h5>
+                            <ul>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Teléfono :</span>
+                                        <div class="footer-info-content">
+                                            <p>+062 Pendiente</p>
+                                            <p>+593 pendiente</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Correo :</span>
+                                        <div class="footer-info-content">
+                                            <p>kaleth@yourmail.com</p>
+                                            <p>kaleth@yourmail.com</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Dirección:</span>
+                                        <div class="footer-info-content">
+                                            <p>Otavalo - Imbabura - Ecuador</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+                </div>
+                <!-- row -->
+            </div>
+            <!-- footer widget -->
+            <div class="footer-copyright pt-15 pb-15">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright text-center">
+                            <p></p>
+                        </div>
+                        <!-- copyright -->
+                    </div>
+                </div>
+                <!-- row -->
+            </div>
+            <!--  footer copyright -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+    <!-- </div> -->
+    <!-- este div es el nuevo para cerrar desde el header -->
+</div>
+<!-- <div *ngIf="mostrarCarrito">
+    <div class="container">
+        <div class="check-out">
+            <h1>Carrito</h1>
+            <a (click)="ShowInicio()" class="to-buy">Seguir Comprando</a>
+            <app-carrito [dataentrante]="listaDetallePedido"></app-carrito>
+        </div>
+    </div>
+
+</div> -->
+
+
+
+
+<div *ngIf="mostrarCarrito">
+
+
+    <div class="container" id="carritoImprimir">
+        <div class="check-out content-top">
+            <h1>Carrito Kaleth</h1>
+            <a (click)="ShowInicio()" class="main-btn">Seguir Comprando</a>
+            <table id="TablaCarrito">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Productos</th>
+                        <th>Precios</th>
+                        <th>Delery Detials</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let listacarrito of listaCheckout">
+                    <tr>
+                        <td class="ring-in">
+                            <a href="single.html" class="at-in"><img src="{{listacarrito.catProducto.catDiseno.urlFoto}}" width="100px" height="120px"></a>
+                            <div class="sed">
+                                <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
+                                <p> {{listacarrito.descripcion}} </p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </td>
+                        <td class="check"><input type="number" value="{{listacarrito.cantidadPe}}" (change)="obtenerCantidad($event.target.value, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)">
+                        </td>
+                        <td>{{listacarrito.valorUnit}}</td>
+                        <td>Envio Acordar con el administrador</td>
+                        <td>{{listacarrito.valorTotal}}</td>
+                        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></button>
+                            <br>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <a href="#" class="main-btn" (click)="generarPedido()">GENERAR PEDIDO</a>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+</div>
+
+
+<p-dialog position="top" [(visible)]="displayImagenes">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+
+
+                <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="7" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="item.urlFoto" style=" width: 400px;height: 500px; display: block;" />
+                    </ng-template>
+
+                    <ng-template pTemplate="thumbnail" let-item>
+                        <div class="p-grid p-nogutter p-justify-center">
+                            <img [src]="item.urlFoto" style=" width: 100px;
+                            height: 125px;display: block;" />
+                        </div>
+                    </ng-template>
+
+                </p-galleria>
+            </div>
+            <div class="col-md-4">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="content-top">
+                            <h1>Detalle del producto seleccionado</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 style="text-align: justify; ">{{detalle}}</h3>
+                        <p style="text-align: justify; ">{{detalle2}}</p>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="star-on">
+                            <ul>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
+                            </ul>
+
+                            <div class="clearfix"> </div>
+                        </div>
+
+                        <label class="add-to item_price">Precio: ${{precioModal}}</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</p-dialog>

@@ -1,15 +1,32 @@
-<div class="container-fluid">
-    <form>
-        <div class="form-group">
-          <label for="nombre">Nombre del Diseño</label>
-          <input type="text" class="form-control" [(ngModel)]="disenos.nombre" id="nombre" name="nombre" placeholder="Nombre del Diseño">
-          
-        </div>
-       <div class="form-group">
-           <button  class="btn btn-primary" (click)="edit ? updateDisenos() : saveDisenos()">Agregar Diseno</button>
-           <button type="button" class="btn btn-info" routerLink="/design">Regresar</button>
-       </div>
-     
-    </form>
-  </div>
+<p-card header="{{creacion}} Diseño">
+    <div class="container-fluid">
 
+        <div class="form-group">
+
+            <input type="text" class="form-control" [(ngModel)]="this.disenos.nombre" id="nombre" name="nombre" placeholder="Nombre del Diseño">
+            <div class="p-col">Ingrese Imagen 1
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload($event)">
+            </div>
+            <img src="{{imagenObtenidaMostrar}}" width="200px">
+
+            <div class="p-col">Ingrese Imagen 2
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload1($event)">
+            </div>
+            <img src="{{imagenObtenidaMostrar1}}" width="200px">
+
+            <div class="p-col">Ingrese Imagen 3
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload2($event)">
+            </div>
+            <img src="{{imagenObtenidaMostrar2}}" width="200px">
+
+
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" (click)="edit ? updateDisenos() : saveDisenos()">Aceptar</button>
+            <button type="button" class="btn btn-info boton__dere" routerLink="/admin/design">Regresar</button>
+        </div>
+
+
+    </div>
+</p-card>

@@ -93,7 +93,7 @@ export class StockFormComponent implements OnInit {
   }
   //Variables del index
 
-  idProductoPrueba: number = 0;
+  idProductoPrueba: string = '';
   idPuntoVentaPrueba: number;
   nombreCategoria: string = "";
   nombreDiseno: string = "";
@@ -115,7 +115,7 @@ export class StockFormComponent implements OnInit {
     catCategoria: { idCategoria: 0 },
     catTalla: { idTallas: 0 },
     catDiseno: { idDisenos: 0 },
-    codProducto: 0
+    codProducto: ''
   }
 
   ////////////////////////////////////////
@@ -138,7 +138,7 @@ export class StockFormComponent implements OnInit {
         descripcion: '',
         tipo: '',
       },
-      codProducto: 0
+      codProducto: ''
     },
     catPuntosVenta: { idPuntosVenta: 0 },
     existe: '',
@@ -150,10 +150,12 @@ export class StockFormComponent implements OnInit {
   };
   stockAuxiliarLista: any[];
   //stock
+  stockConsulta:any=[];
+  selectedStock: cat_stock;
   stocks: cat_stock = {
     id: {
       idProductos: 0,
-      idPuntosVenta: 14
+      idPuntosVenta: 0
     },
     stockMax: 0,
     stockMin: 0,
@@ -166,7 +168,7 @@ export class StockFormComponent implements OnInit {
   stocksAux: cat_stock = {
     id: {
       idProductos: 0,
-      idPuntosVenta: 14
+      idPuntosVenta: 0
     },
     stockMax: 0,
     stockMin: 0,
@@ -194,11 +196,11 @@ export class StockFormComponent implements OnInit {
   toStr: any = JSON.stringify;
 
   //Boolean para el nombre repesido
-  nombreCategoriaexiste:boolean=false;
-  medidaexiste:boolean=false;
-  nombredisenoexiste:boolean=false;
-
-
+  nombreCategoriaexiste: boolean = false;
+  medidaexiste: boolean = false;
+  nombredisenoexiste: boolean = false;
+  displayConsultar:boolean=false;
+  selectedDetalles:any;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -226,67 +228,70 @@ export class StockFormComponent implements OnInit {
     this.stockAuxiliarLista = [];
 
     const params = this.activedrouter.snapshot.params;
-    this.idPuntoVentaPrueba = 14;
+    this.idPuntoVentaPrueba = 0;
     this.totalIngresoVista = "0";
 
     if (params.id) {
-      this.stockService.getStock(params.id).subscribe(
-        res => {
-          if (res != null) {
-            console.log(res);
-            //this.productos = res;
-            this.medidaservice.getTalla(this.producto.catTalla.idTallas).subscribe(
-              res => {
-                this.tallasEscogida = res;
-                $('#tallas').select2(
-                  {
-                    placeholder: this.tallasEscogida.medida,
-                    allowClear: true
 
-                  }
-                );
-              }, error => console.error(error)
-            );
-            this.categoriaservices.getCategoria(this.producto.catCategoria.idCategoria).subscribe(
-              res => {
-                this.categoriaEscogida = res;
-                $('#categorias').select2({
-                  placeholder: this.categoriaEscogida.nombreCategoria,
-                  allowClear: true
-                });
-              },
-              error => console.error(error)
-            );
+      this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
+        (res:any)=>{
+          console.log(res)
+          this.idPuntoVentaPrueba = res.idPuntosVenta;
+          this.consultarstockhabilitado(this.idPuntoVentaPrueba);
+        }
 
-            this.diesnosservice.getDiseno(this.producto.catDiseno.idDisenos).subscribe(
-              res => {
-                this.disenosEscogida = res;
-                $('#disenos').select2({
-                  placeholder: this.disenosEscogida.nombre,
-                  allowClear: true
-                });
-              },
-              error => console.error(error)
-            );
+      );
+      // this.stockService.getStock(params.id).subscribe(
+      //   res => {
+      //     if (res != null) {
+      //       console.log(res);
+      //       //this.productos = res;
+      //       // this.medidaservice.getTalla(this.producto.catTalla.idTallas).subscribe(
+      //       //   res => {
+      //       //     this.tallasEscogida = res;
+      //       //     $('#tallas').select2(
+      //       //       {
+      //       //         placeholder: this.tallasEscogida.medida,
+      //       //         allowClear: true
 
-            this.edit = true;
+      //       //       }
+      //       //     );
+      //       //   }, error => console.error(error)
+      //       // );
+      //       // this.categoriaservices.getCategoria(this.producto.catCategoria.idCategoria).subscribe(
+      //       //   res => {
+      //       //     this.categoriaEscogida = res;
+      //       //     $('#categorias').select2({
+      //       //       placeholder: this.categoriaEscogida.nombreCategoria,
+      //       //       allowClear: true
+      //       //     });
+      //       //   },
+      //       //   error => console.error(error)
+      //       // );
 
-          } else {
-            this.router.navigate(['/stock']);
-          }
+      //       // this.diesnosservice.getDiseno(this.producto.catDiseno.idDisenos).subscribe(
+      //       //   res => {
+      //       //     this.disenosEscogida = res;
+      //       //     $('#disenos').select2({
+      //       //       placeholder: this.disenosEscogida.nombre,
+      //       //       allowClear: true
+      //       //     });
+      //       //   },
+      //       //   error => console.error(error)
+      //       // );
 
-        },
-        err => console.log("hay error " + err)
-      )
+      //       this.edit = true;
+
+      //     } else {
+      //       this.router.navigate(['/stock']);
+      //     }
+
+      //   },
+      //   err => console.log("hay error " + err)
+      // )
     }
     this.getTallas();
-    $('#tallas').select2(
-      {
-        placeholder: 'Tallas...',
-        allowClear: true
-
-      }
-    );
+    
     this.getCategorias();
     // $('#categorias').select2(
     //   {
@@ -297,13 +302,8 @@ export class StockFormComponent implements OnInit {
     // );
 
     this.getDisenos();
-    $('#disenos').select2(
-      {
-        placeholder: 'Disenos...',
-        allowClear: true
-
-      }
-    );
+   
+  
   }
 
   //variables ingreso stock
@@ -358,28 +358,27 @@ export class StockFormComponent implements OnInit {
       descripcion: "",
       tipo: ""
     },
-    codProducto: 0
+    codProducto: ''
   }
 
 
   /////////tomar el nombre de la lista de diseños
   async changedCategoria(event: any) {
-    const IDCAT = new Promise(async (resolve,reject)=>{
+    const IDCAT = new Promise(async (resolve, reject) => {
       await this.categoriaservices.findbynombre(this.categoriaSelectSearch.nombreCategoria)
-      .subscribe(res=>{
-        resolve(res);
-      })
+        .subscribe(res => {
+          resolve(res);
+        })
     });
 
-    await IDCAT.then(res=>
-      {
-        this.categoriaSelectSearch.idCategoria = Number(res)
-      }).catch(err=>console.error(err));
+    await IDCAT.then(res => {
+      this.categoriaSelectSearch.idCategoria = Number(res)
+    }).catch(err => console.error(err));
 
-    if(this.categoriaSelectSearch.idCategoria>0){
+    if (this.categoriaSelectSearch.idCategoria > 0) {
       this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
       this.nombreCategoriaexiste = true;
-    }else{
+    } else {
       this.nombreCategoria = this.categoriaSelectSearch.nombreCategoria;
       this.idCategoriaEscogida = this.categoriaSelectSearch.idCategoria;
       this.nombreCategoriaexiste = false;
@@ -388,45 +387,45 @@ export class StockFormComponent implements OnInit {
 
   async changedDiseno(value) {
 
-    const IDDIS = new Promise(async (resolve,reject)=>{
-     await  this.diesnosservice.
-      findbynombre(this.disenosSelectSearch.nombre)
-      .subscribe(res=>{
-        resolve(res);
-      })
+    const IDDIS = new Promise(async (resolve, reject) => {
+      await this.diesnosservice.
+        findbynombre(this.disenosSelectSearch.nombre)
+        .subscribe(res => {
+          resolve(res);
+        })
     });
 
-    await IDDIS.then(res=>{this.disenosSelectSearch.idDisenos = Number(res)});
-    
-    if(this.disenosSelectSearch.idDisenos>0){
+    await IDDIS.then(res => { this.disenosSelectSearch.idDisenos = Number(res) });
+
+    if (this.disenosSelectSearch.idDisenos > 0) {
       this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
       this.nombredisenoexiste = true;
-    }else{
+    } else {
       this.nombreDiseno = this.disenosSelectSearch.nombre;
       this.idDiseñoEscogido = this.disenosSelectSearch.idDisenos;
       this.nombredisenoexiste = false;
     }
 
   }
-  async changedTalla(value:any) {
-   
-  console.log("=====",this.tallasSelectSearch.medida)
+  async changedTalla(value: any) {
 
-    const IDTALLA = new Promise(async (resolve,reject)=>{
+    console.log("=====", this.tallasSelectSearch.medida)
+
+    const IDTALLA = new Promise(async (resolve, reject) => {
 
       await this.medidaservice.findbynombre(this.tallasSelectSearch.medida)
-      .subscribe(res=>{
-       
-        resolve(res)
-      }
-        ,err=>console.log(err));
-    }) 
-    await IDTALLA.then(res=> {this.tallasSelectSearch.idTallas=Number(res)})
-    .catch(err=>console.log(err))
-    if(this.tallasSelectSearch.idTallas>0){
+        .subscribe(res => {
+
+          resolve(res)
+        }
+          , err => console.log(err));
+    })
+    await IDTALLA.then(res => { this.tallasSelectSearch.idTallas = Number(res) })
+      .catch(err => console.log(err))
+    if (this.tallasSelectSearch.idTallas > 0) {
       this.idTallaEscogido = this.tallasSelectSearch.idTallas;
       this.medidaexiste = true;
-    }else{
+    } else {
       this.idTallaEscogido = this.tallasSelectSearch.idTallas;
       this.nombreTalla = this.tallasSelectSearch.medida;
       this.medidaexiste = false;
@@ -438,18 +437,18 @@ export class StockFormComponent implements OnInit {
 
   }
   ingresarpushCategoria() {
-    if(this.ingresoCategoria.length!=0){
+    if (this.ingresoCategoria.length != 0) {
       let categoriaAuxiliar = {
         idCategoria: 0,
         nombreCategoria: this.ingresoCategoria,
         descripcion: ""
       }
       this.categoriaEscogida.push(categoriaAuxiliar);
-  
+
       console.log("ingrese categoria lista=>", this.categoriaEscogida)
       this.displayCategoria = false;
-    }else{
-      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla');
+    } else {
+      this.notificacion.showError('Asegurese de llenar todos los campos !', 'Imposible Ingresar Nueva Talla');
     }
 
   }
@@ -458,19 +457,19 @@ export class StockFormComponent implements OnInit {
 
   }
   ingresarpushDiseno() {
-    
 
-    if(this.ingresoDiseno.length!=0){
+
+    if (this.ingresoDiseno.length != 0) {
       let disenoAuxiliar = {
         idDisenos: 0,
         nombre: this.ingresoDiseno
       }
       this.disenosEscogida.push(disenoAuxiliar);
-  
+
       console.log("ingrese Diseño lista=>", this.disenosEscogida)
       this.displayDiseno = false;
-    }else{
-      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla');
+    } else {
+      this.notificacion.showError('Asegurese de llenar todos los campos !', 'Imposible Ingresar Nueva Talla');
     }
 
   }
@@ -480,7 +479,7 @@ export class StockFormComponent implements OnInit {
   }
   ingresarpushTalla() {
     // console.log("este es el ingreso",this.ingresoTalla)
-    if(this.ingresoTalla.length!=0){
+    if (this.ingresoTalla.length != 0) {
       let tallaAuxiliar = {
         idTallas: 0,
         descripcion: "",
@@ -488,12 +487,12 @@ export class StockFormComponent implements OnInit {
         tipo: ""
       }
       this.tallasEscogida.push(tallaAuxiliar);
-  
+
       console.log("ingrese talla lista=>", this.tallasEscogida)
       this.displayTalla = false;
 
-    }else{
-      this.notificacion.showError('Asegurese de llenar todos los campos !','Imposible Ingresar Nueva Talla')
+    } else {
+      this.notificacion.showError('Asegurese de llenar todos los campos !', 'Imposible Ingresar Nueva Talla')
     }
 
   }
@@ -524,36 +523,36 @@ export class StockFormComponent implements OnInit {
 
           // de lo contrario si el codigo de la categoria es 0 crear categoria 
           /////
-          if(this.nombreCategoriaexiste){
+          if (this.nombreCategoriaexiste) {
             console.log("SI EXISTE NO SE PUEDE CREAR")
-          }else{
+          } else {
             console.log("NO existe si SE PUEDE CREAR")
-             //ingreso de categorias solo se ingresa el nombre
-          this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
+            //ingreso de categorias solo se ingresa el nombre
+            this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
 
-          console.log("categoria", this.categoriasIngreso)
-          const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
-            await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
-              res => {
-                resolve(res.idCategoria);
-                console.log("categoria ingre", res)
-                setTimeout(() => {
-                  this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
-                }, 100)
+            console.log("categoria", this.categoriasIngreso)
+            const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
+              await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
+                res => {
+                  resolve(res.idCategoria);
+                  console.log("categoria ingre", res)
+                  setTimeout(() => {
+                    this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
+                  }, 100)
 
-              }, error => console.error(error)
-            );
-          })
+                }, error => console.error(error)
+              );
+            })
 
-          await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
-            this.idCategoriaIngreso = Number(res)
-            console.log("id Categoria", this.idCategoriaIngreso)
-          });
+            await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+              this.idCategoriaIngreso = Number(res)
+              console.log("id Categoria", this.idCategoriaIngreso)
+            });
 
           }
 
           console.log("Entre=>2")
-         
+
 
 
         }
@@ -704,6 +703,16 @@ export class StockFormComponent implements OnInit {
           ) {
             // sumatoria de la cantidad de un elemento encontrado
             this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
+            this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
+            this.stockAuxiliarLista[x].precioMayor=this.stockAuxiliar.precioMayor;
+            this.stockAuxiliarLista[x].precioDistribuidor=this.stockAuxiliar.precioDistribuidor;
+            this.stockAuxiliarLista[x].stockMax=this.stockAuxiliar.stockMax;
+            this.stockAuxiliarLista[x].stockMin=this.stockAuxiliar.stockMin;
+           
+            
+            //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
+           
+           
             console.log(this.stockAuxiliarLista[x].cantidad)
             //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
             this.encuentraArray = true;
@@ -744,7 +753,7 @@ export class StockFormComponent implements OnInit {
             descripcion: '',
             tipo: '',
           },
-          codProducto: 0
+          codProducto: ''
         },
         catPuntosVenta: { idPuntosVenta: 0 },
         existe: '',
@@ -794,7 +803,7 @@ export class StockFormComponent implements OnInit {
             //     console.log("si se actualizo")
             //   }, err => console.log(err))
 
-//cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
+            //cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
             await this.stockService.updateStocks(
               this.cantidadConsulta,
               this.stockAuxiliarLista[i].precioUnit,
@@ -803,10 +812,11 @@ export class StockFormComponent implements OnInit {
               this.stockAuxiliarLista[i].stockMax,
               this.stockAuxiliarLista[i].catProducto.idProductos,
               this.stockAuxiliarLista[i].stockMin,
+              'S',
               this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
-              ).subscribe(res => {
-                console.log("si se actualizo")
-              }, err => console.log(err))
+            ).subscribe(res => {
+              console.log("si se actualizo")
+            }, err => console.log(err))
 
 
             //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
@@ -839,7 +849,7 @@ export class StockFormComponent implements OnInit {
                 id: {
                   idProductos: 0,
                   //cambiar este punto de venta automatico depues
-                  idPuntosVenta: 14,
+                  idPuntosVenta: 0,
                 },
                 stockMax: 0,
                 stockMin: 0,
@@ -858,7 +868,7 @@ export class StockFormComponent implements OnInit {
         }, err => console.log("salio error"))
     }
 
-    this.router.navigate(['/stock']);
+    this.router.navigate(['/admin/stock']);
 
 
   }
@@ -965,7 +975,7 @@ export class StockFormComponent implements OnInit {
 
           } else {
 
-            this.cantidad = 0;
+            this.cantidad = 1;
             this.precioDis = result[0].precioDistribuidor;
             this.precioMay = result[0].precioMayor;
             this.precioUnit = result[0].precioUnit;
@@ -1074,5 +1084,37 @@ export class StockFormComponent implements OnInit {
   quitarespacios(atributoHTML: string) {
     let obtenerletras = $(atributoHTML).val();
     return obtenerletras.trim();
+  }
+
+  regresar(){
+    this.router.navigate(['/admin/stock']);
+  }
+  showConsultar(){
+    this.displayConsultar = true;
+  }
+
+  consultarstockhabilitado(id:number){
+    
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
+      this.stockConsulta = res;
+      console.log(res)
+    },err=>console.log("error",err))
+  }
+  obtenerVariable(cod:any){
+    this.idProductoPrueba = cod;
+    this.buscarStockProducto();
+    this.displayConsultar = false;
+  }
+  encontrarProductoModal(productoBuscar:any){
+    console.log(productoBuscar.length)
+    if(productoBuscar.length!=0){
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba,productoBuscar).subscribe(res=>{
+        this.stockConsulta = res;
+      },err=>console.log(err));
+    }
+    else{
+      this.consultarstockhabilitado(this.idPuntoVentaPrueba);
+    }
+  
   }
 }

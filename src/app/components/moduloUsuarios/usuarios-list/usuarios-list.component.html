@@ -1,65 +1,13 @@
-<!-- <div class="content">
-    <a type="button" class="btn btn-success" routerLink="/user-add">Ingresar un Usuario</a>
-</div>
-<div class="content" >
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Cedula</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Email</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Fecha de Nacimiento</th>
-            <th scope="col">Password</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Estado Civil</th>
-            <th scope="col">Genero</th>
-
-            <th scope="col">Opciones</th> -->
-            <!-- <th scope="col">Actualizar</th> -->
-          <!-- </tr>
-        </thead>
-        <tbody *ngFor="let usuario of usuarios">
-            <tr>
-                <td>{{usuario.idUsuario}}</td>
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.apellido}}</td>
-                <td>{{usuario.cedula}}</td>
-                <td>{{usuario.direccion}}</td>
-                <td>{{usuario.email}}</td>
-                <td>{{usuario.estado}}</td>
-                <td>{{usuario.fechanacimiento}}</td>
-                <td>{{usuario.password}}</td>
-                <td>{{usuario.telefono}}</td>
-                <td>{{usuario.estadocivil.nombre}}</td>
-                <td>{{usuario.genero.nombre}}</td>
-            
-                <td><button pButton pRipple icon="pi pi-trash" 
-                  class="p-button-rounded p-button-warning"             
-                  
-                   (click)="deleteUsuarios(usuario.idUsuario)" ></button>
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"  [routerLink]="['/user-edit/',usuario.idUsuario]"></button></td>
-              </tr>
-          </tbody>
-      </table> 
-</div>
- -->
-
 <div class="card">
-    <div class="header">
+    <div class="header titulo">
         
             <div class="tittle__izq p-d-inline-flex p-ai-center">
                 <i class="pi pi-user p-mr-2">
                 </i>
                 <b>Lista de Usuarios </b> 
             </div>      
-            <!-- <div class="boton__dere">
-                <button pButton align="rigth" type="button" class="boton__dere p-button-raised p-button-rounded p-button-sm" routerLink="/user-add">Nuevo</button>
-            </div> -->
-            <button pButton align="rigth"  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/user-add">Nuevo</button>
+          
+            <button pButton align="rigth"  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/user-add">Nuevo</button>
 
     </div>
             
@@ -86,20 +34,7 @@
                 </th>
                 
             </tr>
-            <!-- <tr>
-                <th>
-                    <input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
-                </th>
-            </tr> -->
+      
         </ng-template>
         <ng-template pTemplate="body" let-usuarios>
             <tr [pSelectableRow]="usuarios">
@@ -131,12 +66,13 @@
                   <span class="p-column-title">Genero</span>
                   {{usuarios.genero.nombre}}
                 </td>
-                <td>
+                <td class="card__word--row">
+                    <span class="p-column-title">Opciones</span>
                     <button pButton pRipple icon="pi pi-trash" 
                   class="p-button-rounded p-button-warning"             
                    (click)="deleteUsuarios(usuarios.idUsuario)" ></button>
-                   <br>
-                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"  [routerLink]="['/user-edit/',usuarios.idUsuario]"></button>
+                  
+                   <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2"  [routerLink]="['/admin/user-edit/',usuarios.idUsuario]"></button>
                 </td>
 
 

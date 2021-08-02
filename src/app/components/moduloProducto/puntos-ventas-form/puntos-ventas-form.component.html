@@ -1,5 +1,6 @@
+<p-card header="{{creacion}} Punto Venta">
 <div class="container-fluid">
-    <form>
+    
         <div class="form-group">
             <label for="nombreLocal">Nombre del Local</label>
             <input type="text" class="form-control" [(ngModel)]="puntosventas.nombreLocal" id="nombrelocal" name="nombrelocal"
@@ -20,15 +21,16 @@
         </div>
         <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="number" class="form-control" [(ngModel)]="puntosventas.telefono" id="telefono" name="telefono"
+            <input type="text"  pKeyFilter="num" maxlength=10 class="form-control" [(ngModel)]="puntosventas.telefono" id="telefono" name="telefono"
                 placeholder="Digite el número de teléfono del local">
 
         </div>
         <div class="form-group">
             <button class="btn btn-primary" (click)="edit ? updatePuntosVentas() : savePuntosVentas()">Agregar
                 Puntos de venta</button>
-            <button type="button" class="btn btn-info" routerLink="/sales-points">Regresar</button>
+            <button type="button" class="btn btn-info boton__dere" routerLink="/admin/sales-points">Regresar</button>
         </div>
 
-    </form>
+ 
 </div>
+</p-card>

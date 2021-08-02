@@ -25,20 +25,53 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
+
                         ],
                         "styles": [
+                            
                             "src/styles.css",
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "node_modules/ngx-toastr/toastr.css",
                             "node_modules/select2/dist/css/select2.min.css",
+                            // "node_modules/primeicons/primeicons.css",
+                            // "node_modules/primeng/resources/themes/saga-blue/theme.css",
+                            // "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
-                            "node_modules/primeng/resources/themes/saga-blue/theme.css",
-                            "node_modules/primeng/resources/primeng.min.css"
+                            "node_modules/primeng-lts/resources/themes/saga-blue/theme.css",
+                            "node_modules/primeng-lts/resources/primeng.min.css",
+                            "src/assets/css/animate.css",
+                            "src/assets/css/default.css",
+                            "src/assets/css/LineIcons.css",
+                            "src/assets/css/jquery.nice-number.min.css",
+                            "src/assets/css/bootstrap.min.css",
+                            "src/assets/css/magnific-popup.css",
+                            "src/assets/css/responsive.css",
+                            "src/assets/css/slick.css",
+                            "src/assets/css/style.css",
+                            "src/assets/css/bootstrap.css",
+                            "src/assets/css/memenu.css",
+                            "src/assets/css/popuo-box.css",
+                            "src/assets/css/style_Productos.css",
+                            // "src/assets/css/sb-admin-2.min.css",
+                            "src/assets/vendor/fontawesome-free/css/all.min.css"
+
                         ],
                         "scripts": [
+
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
-                            "node_modules/select2/dist/js/select2.min.js"
+                            "node_modules/select2/dist/js/select2.min.js",
+                            "src/assets/js/bootstrap.min.js",
+                            "src/assets/js/jquery.magnific-popup.min.js",
+                            "src/assets/js/jquery.nav.js",
+                            "src/assets/js/jquery.nice-number.min.js",
+                            "src/assets/js/main.js",
+                            "src/assets/js/slick.min.js",
+                            "src/assets/js/simpleCart.min.js",
+                            "src/assets/js/memenu.js"
+                           
+
+
                         ]
                     },
                     "configurations": {
@@ -55,25 +88,17 @@
                             "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [{
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
-                                }
-                            ]
+                            "buildOptimizer": true
+                           
                         }
                     }
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "importkaleth:build"
+                        "browserTarget": "importkaleth:build",
+                        "proxyConfig": "src/proxy.conf.json"
+
                     },
                     "configurations": {
                         "production": {

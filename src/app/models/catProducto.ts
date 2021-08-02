@@ -7,5 +7,6 @@ export interface Productos{
     catCategoria?:Categorias,
     catDiseno?:Disenos,
     catTalla?:Tallas,
-    codProducto?:number
+    //codProducto?:number,
+    codProducto?:string
 }

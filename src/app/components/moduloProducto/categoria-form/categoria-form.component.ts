@@ -16,6 +16,7 @@ export class CategoriaFormComponent implements OnInit {
     nombreCategoria:'',
     descripcion:''
   }
+  creacion:string='';
   edit : boolean = false;
   constructor(private categoriaservice: CategoriaService, 
     private router: Router,
@@ -23,11 +24,13 @@ export class CategoriaFormComponent implements OnInit {
     private notificacion: NotificacionService) { }
 
   ngOnInit() {
+    this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
     if(params.id){
       this.categoriaservice.getCategoria(params.id).subscribe(
         res=>{
           if(res!= null){
+            this.creacion = 'Actualizar';
             this.categorias = res; 
             this.edit = true;
 
@@ -42,18 +45,16 @@ export class CategoriaFormComponent implements OnInit {
   }
 
   saveCategoria(){
-    let nombre = this.quitarespacios('#nombre');
-    let descripcion = this.quitarespacios('#descripcion')
-    if(nombre.length>0){
-      this.categorias.nombreCategoria = nombre;
-      this.categorias.descripcion = descripcion;
+    
+    if(this.testingresar()){
+     
       this.categoriaservice.saveCategoria(this.categorias).subscribe(
         res=>{
 
           setTimeout(()=>{
             this.notificacion.showSuccess('La categoria se ha agregado correctamente','Categoria agregada');
           },100)
-          this.router.navigate(['/category']);
+          this.router.navigate(['/admin/category']);
         },error => console.error(error)
       );
     }else{
@@ -62,11 +63,8 @@ export class CategoriaFormComponent implements OnInit {
   }
 
   updateCategoria(){
-    let nombre = this.quitarespacios('#nombre');
-    let descripcion = this.quitarespacios('#descripcion');
-    if(nombre.length > 0){
-      this.categorias.nombreCategoria = nombre;
-      this.categorias.descripcion = descripcion;
+
+    if(this.testingresar()){
       this.categoriaservice.updateCategoria(this.categorias.idCategoria, this.categorias).subscribe(
         res => {
           this.categorias.nombreCategoria = '';
@@ -75,7 +73,7 @@ export class CategoriaFormComponent implements OnInit {
             this.notificacion.showSuccess('La categoria se ha actualizado correctamente','Categoria actualizada');
           },100)
 
-          this.router.navigate(['/category'])
+          this.router.navigate(['/admin/category'])
         },
         err => console.error(err)
       );
@@ -84,10 +82,21 @@ export class CategoriaFormComponent implements OnInit {
     }
   }
 
-  quitarespacios(atributoHTML: string){
-    let obtenerletras = $(atributoHTML).val();
 
+  quitarespacios(atributoHTML: string) {
+    let obtenerletras = $(atributoHTML).val();
     return obtenerletras.trim();
+  }
+
+  testingresar() {
+    
+    if (this.categorias.nombreCategoria.length !=0 &&
+      this.categorias.descripcion.length !=0) {
+      return true;
+    } else {
+      
+      return false;
+    }
   }
 
 }

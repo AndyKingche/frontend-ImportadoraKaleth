@@ -11,6 +11,7 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class RolesUsuariosListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   rol_users :any=[];
+  selectedrolusers : Rolusuarios;
     constructor(private rolesusuarioservices : RolesUsuariosService,
       private notificacion: NotificacionService) { }
 

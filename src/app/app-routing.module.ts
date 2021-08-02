@@ -36,7 +36,22 @@ import {StockListComponent} from './components/moduloProducto/stock-list/stock-l
 import { FacturacionFormComponent } from './components/moduloFacturacion/facturacion-form/facturacion-form.component';
 //
 import{ HomeComponent }from './components/home/home.component'
+//pedidos
+import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
+//cliente
+//import { ClientsListComponent } from './components/clients-list/clients-list.component';
+// product consultas
+import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
 
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
+import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
+//cashier
+import {StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
+import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
+import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
+
+import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
 const routes: Routes = [
   {
     path:'',
@@ -48,18 +63,21 @@ const routes: Routes = [
     path:'home',
     component:HomeComponent,
   },
+  
+  // {
+  //   path:'rol',
+  //   component: RolesListComponent
+  // },
+  // {
+  //   path:'rol-add',
+  //   component:RolesFormComponent
+  // }
+  // ,{
+  //   path:'rol-edit/:id',
+  //   component:RolesFormComponent
+  // },
+  
   {
-    path:'rol',
-    component: RolesListComponent // esta es la principal, la lista
-  },
-  {
-    path:'rol-add',
-    component:RolesFormComponent
-  }
-  ,{
-    path:'rol-edit/:id',
-    component:RolesFormComponent
-  },{
     path:'civil-status',
     component:EstadoCivilListComponent
   },
@@ -79,110 +97,238 @@ const routes: Routes = [
   },{
     path: 'gender-edit/:id',
     component: GeneroFormComponent
-  },
-  {
-    path:'user',
-    component:UsuariosListComponent
-  },
-  {
-    path: 'user-add',
-    component: UsuariosFormComponent
-  },
-  {
-    path: 'user-edit/:id',
-    component: UsuariosFormComponent
-  },
-  {
-    path:'rol-user',
-    component: RolesUsuariosListComponent
-  },
-  {
-    path:'rol-user-add',
-    component: RolesUsuariosFormComponent
-  },
-  {
-    path: 'rol-user-edit/:id',
-    component: RolesUsuariosFormComponent
   }
+  // {
+  //   path:'category',
+  //   component: CategoriaListComponent
+  // },
+  // {
+  //   path:'category-add',
+  //   component: CategoriaFormComponent
+  // },
+  // {
+  //   path: 'category-edit/:id',
+  //   component: CategoriaFormComponent
+  // },
+  // {
+  //   path:'size',
+  //   component: MedidaListComponent
+  // },
+  // {
+  //   path:'size-add',
+  //   component: MedidaFormComponent
+  // },
+  // {
+  //   path: 'size-edit/:id',
+  //   component: MedidaFormComponent
+  // },
+  // {
+  //   path:'design',
+  //   component: DisenosListComponent
+  // },
+  // {
+  //   path:'design-add',
+  //   component: DisenosFormComponent
+  // },
+  // {
+  //   path: 'design-edit/:id',
+  //   component: DisenosFormComponent
+  // },
+  // {
+  //   path:'product',
+  //   component: ProductoListComponent
+  // },
+  // {
+  //   path:'product-add',
+  //   component: ProductoFormComponent
+  // },
+  // {
+  //   path: 'product-edit/:id',
+  //   component: ProductoFormComponent
+  // }
+//   ,
+//   {
+//     path:'sales-points',
+//     component: PuntosVentasListComponent
+//   },
+//   {
+//     path:'sales-points-add',
+//     component: PuntosVentasFormComponent
+//   },
+//   {
+//     path: 'sales-points-edit/:id',
+//     component: PuntosVentasFormComponent
+//   },{
+//     path:'bill',
+//     component: FacturacionFormComponent
+//   }
+// ,
+//   {
+//     path:'stock',
+//     component: StockListComponent
+//   },
+//   {
+//     path:'stock-add/:id',
+//     component: StockFormComponent
+//   },
+//   {
+//     path: 'stock-edit/:id',
+//     component: StockFormComponent
+//   }
   ,
   {
-    path:'category',
-    component: CategoriaListComponent
-  },
-  {
-    path:'category-add',
-    component: CategoriaFormComponent
-  },
-  {
-    path: 'category-edit/:id',
-    component: CategoriaFormComponent
-  },
-  {
-    path:'size',
-    component: MedidaListComponent
-  },
-  {
-    path:'size-add',
-    component: MedidaFormComponent
-  },
-  {
-    path: 'size-edit/:id',
-    component: MedidaFormComponent
-  },
-  {
-    path:'design',
-    component: DisenosListComponent
-  },
-  {
-    path:'design-add',
-    component: DisenosFormComponent
-  },
-  {
-    path: 'design-edit/:id',
-    component: DisenosFormComponent
-  },
-  {
-    path:'product',
-    component: ProductoListComponent
-  },
-  {
-    path:'product-add',
-    component: ProductoFormComponent
-  },
-  {
-    path: 'product-edit/:id',
-    component: ProductoFormComponent
+    path: 'checkout',
+    component: CarritoComponent
   }
+  // ,{
+  //   path:'client',
+  //   component: ClientsListComponent
+  // }
   ,
   {
-    path:'sales-points',
-    component: PuntosVentasListComponent
+    path:'admin',
+    component: NavigationComponent,
+    children:[
+      //USUARIO
+      {
+        path:'user',
+        component:UsuariosListComponent
+      },
+      {
+        path: 'user-add',
+        component: UsuariosFormComponent
+      },
+      {
+        path: 'user-edit/:id',
+        component: UsuariosFormComponent
+      },
+      {
+        path:'rol-user',
+        component: RolesUsuariosListComponent
+      },
+      {
+        path:'rol-user-add',
+        component: RolesUsuariosFormComponent
+      },
+      {
+        path: 'rol-user-edit/:idu/:idr',
+        component: RolesUsuariosFormComponent
+      },  {
+        path:'rol',
+        component: RolesListComponent
+      },
+      {
+        path:'rol-add',
+        component:RolesFormComponent
+      }
+      ,{
+        path:'rol-edit/:id',
+        component:RolesFormComponent
+      },
+      //PRODUCTO
+      {
+        path:'category',
+        component: CategoriaListComponent
+      },
+      {
+        path:'category-add',
+        component: CategoriaFormComponent
+      },
+      {
+        path: 'category-edit/:id',
+        component: CategoriaFormComponent
+      },
+      {
+        path:'size',
+        component: MedidaListComponent
+      },
+      {
+        path:'size-add',
+        component: MedidaFormComponent
+      },
+      {
+        path: 'size-edit/:id',
+        component: MedidaFormComponent
+      },
+      {
+        path:'design',
+        component: DisenosListComponent
+      },
+      {
+        path:'design-add',
+        component: DisenosFormComponent
+      },
+      {
+        path: 'design-edit/:id',
+        component: DisenosFormComponent
+      },
+      {
+        path:'product',
+        component: ProductoListComponent
+      },
+      {
+        path:'product-add',
+        component: ProductoFormComponent
+      },
+      {
+        path: 'product-edit/:id',
+        component: ProductoFormComponent
+      },
+      //pUNTO DE VENTA
+      {
+        path:'sales-points',
+        component: PuntosVentasListComponent
+      },
+      {
+        path:'sales-points-add',
+        component: PuntosVentasFormComponent
+      },
+      {
+        path: 'sales-points-edit/:id',
+        component: PuntosVentasFormComponent
+      },{
+        path:'bill/:id',
+        component: FacturacionFormComponent
+      }
+    ,
+      {
+        path:'stock',
+        component: StockListComponent
+      },
+      {
+        path:'stock-add/:id',
+        component: StockFormComponent
+      },{
+        path:'report-product',
+        component: ReportProductoComponent
+      },{
+        path:'report-bill',
+        component: FacturaFechaComponent
+      }
+    ]
   },
   {
-    path:'sales-points-add',
-    component: PuntosVentasFormComponent
-  },
-  {
-    path: 'sales-points-edit/:id',
-    component: PuntosVentasFormComponent
-  },{
-    path:'bill',
-    component: FacturacionFormComponent
-  }
-,
-  {
-    path:'stock',
-    component: StockListComponent
-  },
-  {
-    path:'stock-add',
-    component: StockFormComponent
-  },
-  {
-    path: 'stock-edit/:id',
-    component: StockFormComponent
-  }
+    path:'cashier',
+    component: NavigationCashierComponent,
+    children:[
+      // {
+      //   path:'stock',
+      //   component:StockListComponent
+      // },
+      {
+        path:'stock-add/:id',
+        component:StockCashierFormComponent
+      },
+      {
+        path:'bill/:id',
+        component: FacturacionFormComponent
 
+      }
+    ]
+  },{
+    path:'reportPdfs/:id',
+    component: NavigationCustomerComponent
+  }
 ];
 
 @NgModule({

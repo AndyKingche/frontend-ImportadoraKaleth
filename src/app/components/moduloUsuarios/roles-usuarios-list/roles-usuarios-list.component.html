@@ -1,25 +1,61 @@
-<div class="content">
-    <a type="button" class="btn btn-success" routerLink="/rol-user-add">Ingresar un nuevo Genero</a>
-</div>
-<div class="content" >
-    <table class="table table-hover">
-        <thead>
+<div class="card">
+  <div class="header titulo">
+      
+          <div class="tittle__izq p-d-inline-flex p-ai-center">
+              <i class="pi pi-user p-mr-2">
+              </i>
+              <b>Lista de Roles </b> 
+          </div>      
+        
+          <button pButton align="rigth"  type="button" class="boton__dere  p-button-rounded p-button-sm" routerLink="/admin/rol-user-add">Asignar Nuevo Rol</button>
+
+  </div>
+          
+
+  <p-table #dt2 [value]="rol_users" [responsive]="true" selectionMode="single" [(selection)]="selectedrolusers" dataKey="id" styleClass="p-datatable-responsive"
+      [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+      <ng-template pTemplate="header">
           <tr>
-            
-            <th scope="col">Nombre Usuario</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Eliminar</th>
-            <th scope="col">Actualizar</th>
+              <th class="card__word--header" >Nombre Usuarios         
+              </th>
+              <th class="card__word--header"> Rol
+              </th>
+              <th class="card__word--header"> Opciones
+              </th>
+             
           </tr>
-        </thead>
-        <tbody *ngFor="let rol_users  of rol_users">
-            <tr>
-               
-                <td>{{rol_users.usUser.nombre}}  {{rol_users.usUser.apellido}}</td>
-                <td>{{rol_users.usRole.rol}} </td>
-                <td><button type="button" class="btn btn-danger" (click)="deleteRolusuarios(rol_users.usUser.idUsuario)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/rol-user-edit/',rol_users.usUser.idUsuario]"> Actualizar Rol</button></td>
-              </tr>
-          </tbody>
-      </table> 
+    
+      </ng-template>
+      <ng-template pTemplate="body" let-rolusuarios>
+          <tr [pSelectableRow]="rolusuarios">
+              <td class="card__word--row">
+                  <span class="p-column-title">Nombre Usuario</span>
+                  {{rolusuarios.usUser.nombre}}  {{rolusuarios.usUser.apellido}}
+              </td>
+              <td class="card__word--row">
+                  <span class="p-column-title">Rol</span>
+                  {{rolusuarios.usRole.rol}}
+              </td>
+              
+              <td class="card__word--row">
+                  <span class="p-column-title">Opciones</span>
+                  <button pButton pRipple icon="pi pi-trash" 
+                class="p-button-rounded p-button-warning"             
+                 (click)="deleteRolusuarios(rolusuarios.id.idUsuario)" ></button>
+                 
+                 <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2"  [routerLink]="['/admin/rol-user-edit/',rolusuarios.id.idUsuario,rolusuarios.id.idRoles]"></button>
+              </td>
+
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="4">No encontro Rol de Usuarios</td>
+          </tr>
+      </ng-template>
+  </p-table>
 </div>
+
+
+

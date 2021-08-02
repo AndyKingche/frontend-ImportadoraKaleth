@@ -1,0 +1,16 @@
+.filainput{
+   margin-top: 10px;
+   margin-bottom: 30px;
+   position: relative;
+   display: flex;
+}
+.filainput__inputs--posci{
+padding-top:18px;
+}
+.letter{
+  
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   margin-top: 28px;
+}

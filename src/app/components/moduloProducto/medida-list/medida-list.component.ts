@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MedidaService }from '../../../services/medida.service';
+import { Tallas } from '../../../models/catTalla';
 import { NotificacionService } from '../../../services/notificacion.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { NotificacionService } from '../../../services/notificacion.service';
 export class MedidaListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   medidas : any = [] ;
-
+  selectedmedidas: Tallas;
   constructor( private medidaservice : MedidaService,
     private notificacion: NotificacionService) { }
 

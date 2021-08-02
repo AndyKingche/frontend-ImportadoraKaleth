@@ -1,35 +1,41 @@
 <div class="content">
     <a type="button" class="btn btn-success" routerLink="/client-add">Ingresar nuevo Cliente</a>
+    <a type="button" class="btn btn-success" (click)="PDFCliente()" target="_blank">ReportePdf </a>
+    <!-- <a class="navf" href="http://localhost:8080/api/client/report" fragment="ayudaDiv" target="_blank">Contacto con atributo routerLink</a> -->
+
+    <!-- <iframe src="http://localhost:8080/api/client/htmlCliente" frameborder="10"></iframe> -->
 </div>
-<div class="content" >
+
+<div class="content">
     <table class="table table-hover">
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Cedula</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Elimnar</th>
-            <th scope="col">Actualizar</th>
-          </tr>
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Elimnar</th>
+                <th scope="col">Actualizar</th>
+            </tr>
         </thead>
         <tbody *ngFor="let cliente of client">
             <tr>
-                <td>{{cliente.id_cliente}}</td>
-                <td>{{cliente.nombrecliente}}</td>
-                <td>{{cliente.apellidocliente}}</td>
-                <td>{{cliente.cedulacliente}}</td>
-                <td>{{cliente.direccioncliente}}</td>
+                <td>{{cliente.idCliente}}</td>
+                <td>{{cliente.nombreCliente}}</td>
+                <td>{{cliente.apellidoCliente}}</td>
+                <td>{{cliente.cedulaCliente}}</td>
+                <td>{{cliente.direccionCliente}}</td>
                 <td>{{cliente.email}}</td>
                 <td>{{cliente.telefono}}</td>
-            
-                <td><button type="button" class="btn btn-danger" (click)="deleteCliente(cliente.id_cliente)" >Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/client-edit/',cliente.id_cliente]"> Actualizar Usuarios</button></td>
-              </tr>
-          </tbody>
-      </table> 
-</div>
 
+                <td><button type="button" class="btn btn-danger" (click)="deleteCliente(cliente.idCliente)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/client-edit/',cliente.idCliente]">
+                        Actualizar Usuarios</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

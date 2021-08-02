@@ -1,7 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, OnInit } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
 import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../services/notificacion.service';
+import { ActivatedRoute,Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
@@ -11,12 +13,16 @@ export class ClientsListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   client: any = [];
   
-  constructor(private clientesservice : ClientesService,
-    private notificacion: NotificacionService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private clientesservice : ClientesService,
+    private notificacion: NotificacionService,private activedrouter: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getCliente();
   }
+ PDFCliente(){
+   
+      window.open('/api/client/report',"_blank")
+}
 
   getCliente(){
     this.clientesservice.getClientes().subscribe(

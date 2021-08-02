@@ -36,10 +36,8 @@ export class UsuariosFormComponent implements OnInit {
   };
   edit: boolean = false;
   estados: any = [];
-  estadosEscogidos: any = {
-    id: true,
-    nombre: " ",
-  };
+  estadosEscogidos: any=[];
+  fechaObtenida: any;
   creacion:string='Crear';
   constructor(
     private usuariosservice: UsuariosService,
@@ -49,43 +47,37 @@ export class UsuariosFormComponent implements OnInit {
     private router: Router,
     private notificacion: NotificacionService
   ) {}
-
+  regexpresion: RegExp= /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    console.log(params);
     this.creacion = 'Crear';
     if (params.id) {
       this.usuariosservice.getUsuario(params.id).subscribe(
         (res) => {
           if (res != null) {
             this.user = res;
-            this.creacion = 'Actualizar';
-            if (this.user.estado) {
-              this.estadosEscogidos.id = "true";
-              this.estadosEscogidos.nombre = "Activo";
-              $("#estados").select2({
-                placeholder: this.estadosEscogidos.nombre,
-                allowClear: true,
-              });
-            } else {
-              this.estadosEscogidos.id = "false";
-              this.estadosEscogidos.nombre = "Inactivo";
-              $("#estados").select2({
-                placeholder: this.estadosEscogidos.nombre,
-                allowClear: true,
-              });
-            }
+            this.estadosEscogidos={};
 
+            this.fechaObtenida = new Date(this.user.fechanacimiento)
+            this.creacion = 'Actualizar';
+            
+            this.estadosEscogidos.estado = this.user.estado;
+            
+            if(this.user.estado){
+              this.estadosEscogidos.id = 1
+              this.estadosEscogidos.nombre = 'Activo'
+            }else{
+              this.estadosEscogidos.id = 2
+              this.estadosEscogidos.nombre = 'Inactivo'
+
+            }
+            console.log(this.estadosEscogidos)
             this.estadocivilservice
               .getEstadocivil(this.user.estadocivil.idEstadocivil)
               .subscribe(
                 (resul) => {
                   this.estadocivilEscogido = resul;
-
-                  $("#estadociviles").select2({
-                    placeholder: this.estadocivilEscogido.nombre,
-                    allowClear: true,
-                  });
+                  console.log(this.estadocivilEscogido)
                 },
                 (err) => console.error(err)
               );
@@ -93,17 +85,14 @@ export class UsuariosFormComponent implements OnInit {
             this.generoservice.getGenero(this.user.genero.idGenero).subscribe(
               (result) => {
                 this.generoEscogido = result;
-
-                $("#generos").select2({
-                  placeholder: this.generoEscogido.nombre,
-                  allowClear: true,
-                });
+                console.log(this.generoEscogido )
+                
               },
               (err) => console.error(err)
             );
             this.edit = true;
           } else {
-            this.router.navigate(["/user"]);
+            this.router.navigate(["/admin/user"]);
           }
         },
         (err) => console.log("hay error " + err)
@@ -114,19 +103,6 @@ export class UsuariosFormComponent implements OnInit {
     this.getGenero();
     this.getEstado();
 
-    $("#generos").select2({
-      placeholder: "Genero ....",
-      allowClear: true,
-    });
-    $("#estadociviles").select2({
-      placeholder: "Estado Civil ....",
-      allowClear: true,
-      outerHeight: 500,
-    });
-    $("#estados").select2({
-      placeholder: "Estados ....",
-      allowClear: true,
-    });
   }
 
   saveUsuario() {
@@ -154,7 +130,7 @@ export class UsuariosFormComponent implements OnInit {
                 "Usuario Creado"
               );
             }, 200);
-            this.router.navigate(["/user"]);
+            this.router.navigate(["/admin/user"]);
           },
           (error) => console.error(error)
         );
@@ -171,33 +147,7 @@ export class UsuariosFormComponent implements OnInit {
 
   updateUsuario() {
     try {
-      if(this.user.nombre && 
-        this.user.apellido &&
-        this.user.cedula &&
-        this.user.direccion &&
-        this.user.email &&
-        this.user.password &&
-        this.user.telefono &&
-        this.user.fechanacimiento &&
-        this.user.estado &&
-        this.user.estadocivil.idEstadocivil &&
-        this.user.genero.idGenero){
-          this.usuariosservice
-          .updateUsuario(this.user.idUsuario, this.user)
-          .subscribe(
-            (res) => {
-              setTimeout(() => {
-                this.notificacion.showSuccess(
-                  "El usuario se edito correctamente",
-                  "Usuario Editado"
-                );
-              }, 100);
-              this.router.navigate(["/user"]);
-            },
-            (error) => console.error(error)
-          );
-      }else{
-        console.log("si entre")
+      
         if(this.testingresar()){
           this.usuariosservice
           .updateUsuario(this.user.idUsuario, this.user)
@@ -209,14 +159,14 @@ export class UsuariosFormComponent implements OnInit {
                   "Usuario Editado"
                 );
               }, 100);
-              this.router.navigate(["/user"]);
+              this.router.navigate(["/admin/user"]);
             },
             (error) => console.error(error)
           );
         }else{
           this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
         }
-      }
+      
        
     } catch (error) {
       this.notificacion.showError('Revisar si los datos estan completos','**Error al actualizar')
@@ -247,15 +197,18 @@ export class UsuariosFormComponent implements OnInit {
   getEstado() {
     this.estados = [
       {
-        id: true,
+        id: 1,
         nombre: "Activo",
+        estado:true
       },
       {
-        id: false,
+        id: 2,
         nombre: "Inactivo",
+        estado:false
       },
     ];
-    return this.estados;
+    console.log(this.estados)
+   //this.estadosEscogidos = this.estados
   }
 
   quitarespacios(atributoHTML: string) {
@@ -264,37 +217,22 @@ export class UsuariosFormComponent implements OnInit {
   }
 
   testingresar() {
-    //select
-    let opcionEstado = $("#estados").val(); //este no por que me devuelve un null
-    let opcionEstadocivil = this.quitarespacios('#estadociviles');
-    let opcionGenero = this.quitarespacios("#generos");
     
-    //input
-    let obtenerNombre = this.quitarespacios("#nombre");
-    let obtenerApellido = this.quitarespacios("#apellido");
-    let obtenerCedula = this.quitarespacios("#cedula");
-    let obtenerDireccion = this.quitarespacios("#direccion");
-    let obtenerPassword = this.quitarespacios("#password");
-    let obtenerTelefono = this.quitarespacios("#telefono");
-    let obtenerFechaNacimiento = this.user.fechanacimiento
-    let obtenerEmail = this.quitarespacios("#email");
+    if (this.user.nombre.length != 0 &&
+      this.user.apellido.length != 0 &&
+      this.user.cedula.length != 0 &&
+      this.user.direccion.length != 0 &&
+      this.user.email.length != 0 &&
+      this.user.password.length != 0 &&
+      this.user.telefono.length != 0 &&
+      this.fechaObtenida.length !=0
+       ) {
 
-    if (
-      true
-     
-    ) {
-      this.user.nombre = obtenerNombre;
-      this.user.apellido = obtenerApellido;
-      this.user.cedula = obtenerCedula;
-      this.user.direccion = obtenerDireccion;
-      this.user.email = obtenerEmail;
-      this.user.password = obtenerPassword;
-      this.user.telefono = obtenerTelefono;
-      this.user.fechanacimiento = this.user.fechanacimiento;
-      this.user.estado = opcionEstado;
-      this.user.estadocivil.idEstadocivil = opcionEstadocivil;
-      this.user.genero.idGenero = opcionGenero;
-
+      this.user.fechanacimiento = this.fechaObtenida
+      this.user.estadocivil.idEstadocivil = this.estadocivilEscogido.idEstadocivil;
+      this.user.genero.idGenero = this.generoEscogido.idGenero;
+      this.user.estado = this.estadosEscogidos.estado;
+      console.log(this.estadosEscogidos.id);
       return true;
     } else {
       
