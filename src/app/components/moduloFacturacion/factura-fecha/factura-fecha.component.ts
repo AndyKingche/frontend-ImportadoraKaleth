@@ -80,8 +80,16 @@ export class FacturaFechaComponent implements OnInit {
     }
 let valor=""+this.totalVenta;
 
-    window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
-
+    //window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
+this.facturacionservice.reporteFacturaFechas(fechaFormateadaInicio,fechaFormateadaFin,valor).subscribe(res=>{
+  let pdfWindow = window.open("")
+pdfWindow.document.write(
+"<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+encodeURI(res[0]) + "'></iframe>"
+)
+ },
+err=>console.log(err))
+    
   }
 
 

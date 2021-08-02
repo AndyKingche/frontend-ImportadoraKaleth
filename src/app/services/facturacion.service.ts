@@ -26,4 +26,14 @@ export class FacturacionService {
     return this.http.get(`${this.URL}/dates/${fechainicio}/${fechafin}`);
   }
 
+  reporteFacturaFechas(fechaDesde:string,fechaHasta:string,totalVentas:string){
+    return this.http.get(`${this.URL}/reporteFecha/${fechaDesde}/${fechaHasta}/${totalVentas}`)
+  }
+  ticket(idfactura:number){
+    return this.http.get(`${this.URL}/ticket/${idfactura}`)
+  }
+  reporteFcturaFechasLocal(fechaDesde:string,fechaHasta:string,idPuntosVenta:number){
+    return this.http.get(`${this.URL}/reporteFechaLocal/${fechaDesde}/${fechaHasta}/${idPuntosVenta}`);
+  }
+
 }

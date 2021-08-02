@@ -17,4 +17,8 @@ export class PedidosService {
     // return this.http.post(`${this.API_URI}`, pedido);
     return this.http.post(`${this.URL}`, pedido);
   }
+
+  orderreport(idCliente:number,idCabezaPedido:number){
+    return this.http.get(`${this.URL}/report/${idCliente}/${idCabezaPedido}`)
+  }
 }

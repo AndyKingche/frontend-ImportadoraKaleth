@@ -169,7 +169,7 @@ export class HomeComponent implements OnInit {
   }
 
   getStocksExistentsPuntoVenta() {
-    this.stockService.getStockAllExistPuntoVenta(14, this.inicio, this.numeroFilas).subscribe(
+    this.stockService.getStockAllExistPuntoVenta(15, this.inicio, this.numeroFilas).subscribe(
       res => {
         console.log(res)
         this.stock = res;
@@ -510,8 +510,15 @@ export class HomeComponent implements OnInit {
       this.valorTotalCarrito = 0;
 
       //generar pdf proforma del pedido realizado 
-      window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
-
+     // window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
+     this.pedidoservice.orderreport(idClientePedido,idfacturaPedidoPDF).subscribe(res=>{
+      let pdfWindow = window.open("")
+pdfWindow.document.write(
+  "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+  encodeURI(res[0]) + "'></iframe>"
+)
+     },
+ err=>console.log(err));
 
     } else {
       alert("no tiene pedidos para realizar")

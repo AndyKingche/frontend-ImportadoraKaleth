@@ -4,6 +4,8 @@ import { CatStockService } from '../../../services/cat-stock.service';
 import { cat_stock } from '../../../models/cat_stock';
 import { PuntosVentas } from '../../../models/catPuntosVenta';
 import { PuntosVentasService } from '../../../services/puntos-ventas.service';
+import { environment } from '../../../../environments/environment.prod';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-producto',
@@ -22,7 +24,9 @@ export class ReportProductoComponent implements OnInit {
   parametros:string="";
   idInventarioTotal:number=0;
   idInevntarioMin:number=0;
-  constructor(private stockService: CatStockService, private puntoventaservice: PuntosVentasService) { }
+  pdf:string = "data:application/pdf;base64,";
+  constructor(private stockService: CatStockService, private puntoventaservice: PuntosVentasService,
+    private activedrouter: ActivatedRoute, private router : Router) { }
 
   ngOnInit() {
     this.puntoventaservice.getPuntosVentas().subscribe(res=>{
@@ -46,7 +50,7 @@ export class ReportProductoComponent implements OnInit {
   getFindInventario(){
     this.stockService.findStockInventario().subscribe(res=>{
       this.stock = res;
-      console.log(this.stock)
+    
     },err=>console.log(err))
   }
 
@@ -86,13 +90,37 @@ export class ReportProductoComponent implements OnInit {
   }
 
   imprimirInventarioTo(){
-    window.open(`/api/stock/reportTotal`,"_blank");
+   this.stockService.reporteStockTotal().subscribe(
+     res=>{
+        let pdfWindow = window.open("")
+pdfWindow.document.write(
+    "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+    encodeURI(res[0]) + "'></iframe>"
+)
+       },
+   err=>console.log(err));
+  }
 
+  downloadPdf(base64String, fileName) {
+    const source = `data:application/pdf;base64,${base64String}`;
+    const link = document.createElement("a");
+    link.href = source;
+    link.download = `${fileName}.pdf`
+    link.click();
   }
 
   imprimirInventarioToPuntoVenta(){
     if(this.idInventarioTotal!=0){
-      window.open(`/api/stock/report/${this.idInventarioTotal}`,"_blank");
+      this.stockService.reporteStockTotalLocal(this.idInventarioTotal).subscribe(
+        res=>{
+           let pdfWindow = window.open("")
+   pdfWindow.document.write(
+       "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+       encodeURI(res[0]) + "'></iframe>"
+   )
+          },
+      err=>console.log(err));
+      //window.open(`api/stock/report/${this.idInventarioTotal}`,"_blank");
 
     }else{
       alert('Debes esocger un Punto de Venta')
@@ -101,22 +129,50 @@ export class ReportProductoComponent implements OnInit {
   }
   imprimirInventarioMin(){
     //window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
-    window.open(`/api/stock/report/minTotal`,"_blank");
+    this.stockService.reporteStockMinTotal().subscribe(
+      res=>{
+        console.log(res)
+       let pdfWindow = window.open("")
+pdfWindow.document.write(
+    "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+    encodeURI(res[0]) + "'></iframe>"
+)
+       },
+   err=>console.log(err));
+    //window.open(`api/stock/report/minTotal`,"_blank");
 
   }
 
   imprimirInventarioMinPuntoVenta(){
     if(this.idInevntarioMin!=0){
-      //window.open(`/api/stock/report/${this.idInventarioTotal}`,"_blank");
-      window.open(`/api/stock/report/minTotalPoints/${this.idInevntarioMin}`,"_blank");
+     
+      //window.open(`api/stock/report/minTotalPoints/${this.idInevntarioMin}`,"_blank");
 
+      this.stockService.reporteStockMinTotalLocal(this.idInevntarioMin).subscribe(
+        res=>{
+           let pdfWindow = window.open("")
+   pdfWindow.document.write(
+       "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+       encodeURI(res[0]) + "'></iframe>"
+   )
+          },
+      err=>console.log(err));
     }else{
       alert('Debes escoger un Punto de Venta')
     }
   }
   
   imprimircodigoBarra(){
-    window.open(`/api/stock/codigoBarra`,"_blank");
+    //window.open(`api/stock/codigoBarra`,"_blank");
+    this.stockService.reporteCodigoBarra().subscribe(
+      res=>{
+         let pdfWindow = window.open("")
+ pdfWindow.document.write(
+     "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+     encodeURI(res[0]) + "'></iframe>"
+ )
+        },
+    err=>console.log(err));
   }
 
 }

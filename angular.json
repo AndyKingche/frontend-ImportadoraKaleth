@@ -96,7 +96,9 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "importkaleth:build"
+                        "browserTarget": "importkaleth:build",
+                        "proxyConfig": "src/proxy.conf.json"
+
                     },
                     "configurations": {
                         "production": {

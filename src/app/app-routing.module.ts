@@ -45,6 +45,7 @@ import { ReportProductoComponent } from './components/moduloProducto/report-prod
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NavigationCashierComponent } from './components/navigation-cashier/navigation-cashier.component';
+import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
 //cashier
 import {StockCashierFormComponent } from './components/moduloProducto/stock-cashier-form/stock-cashier-form.component';
 import { StockCashierListComponent } from './components/moduloProducto/stock-cashier-list/stock-cashier-list.component';
@@ -324,6 +325,9 @@ const routes: Routes = [
 
       }
     ]
+  },{
+    path:'reportPdfs/:id',
+    component: NavigationCustomerComponent
   }
 ];
 

@@ -166,11 +166,7 @@ import { NavigationCustomerComponent } from './components/navigation-customer/na
     InputTextModule,
     TableModule,
     CardModule,
-<<<<<<< HEAD
     
-=======
-    DividerModule,
->>>>>>> 02d461432fae842e764fc8f26aed4b6021918253
  
     DropdownModule,
     SliderModule,

@@ -588,7 +588,15 @@ console.log("hola")
     }
     
 //  window.open('/api/client/report',"_blank")
-  window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
+  //window.open(`/api/bill/ticket/${idfacturaPDF}`,"_blank");
+  this.facturaService.ticket(idfacturaPDF).subscribe(res=>{
+    let pdfWindow = window.open("")
+pdfWindow.document.write(
+"<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+encodeURI(res[0]) + "'></iframe>"
+)
+   },
+err=>console.log(err));
     this.inicializarVariables();
   }
 

@@ -201,7 +201,7 @@
                     <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                         <div class="col-md-3 col-md2">
 
-                            <div class="col-md1 simpleCart_shelfItem">
+                            <div class="col-md1">
                                 <a (click)="showDialogImagenes(stocks)">
                                     <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
                                 </a>
@@ -211,7 +211,7 @@
                                     </a>
                                 </h3>
                                 <div class="price">
-                                    <h5 class="item_price">${{stocks.precioUnit}}</h5>
+                                    <h5>${{stocks.precioUnit}}</h5>
                                     <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->
                                     <a href="#productos" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
                                     <div class="clearfix"> </div>
