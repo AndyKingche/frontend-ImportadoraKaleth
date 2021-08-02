@@ -1,0 +1,26 @@
+<p-card header="{{creacion}} Medida">
+
+<div class="container-fluid">
+    
+        <div class="row">
+
+          <input type="text" class="form-control" [(ngModel)]="tallas.medida" id="medida" name="medida" placeholder="Medida">
+          <input type="text" class="form-control" [(ngModel)]="tallas.descripcion" id="descripcion" name="descripcion" placeholder="Descripcion">
+          <input type="text" class="form-control" [(ngModel)]="tallas.tipo" id="tipo" name="tipo" placeholder="Tipo">
+
+        </div>
+         
+
+        
+       <div class="row boton__menu">
+         <div class="form-group">
+
+           <button  class="btn btn-primary" (click)="edit ? updateTallas() : saveTallas()">Aceptar</button>
+           <button type="button" class="btn btn-info boton__dere" routerLink="/admin/size">Regresar</button>
+      
+         </div>
+       </div>
+     
+   
+  </div>
+</p-card>

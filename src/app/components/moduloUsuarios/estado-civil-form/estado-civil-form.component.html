@@ -1,0 +1,41 @@
+<h1>{{actualizar}} Estado Civil</h1>
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+          <label for="nombre">Nombre del Estado Civil</label>
+          <input type="text" class="form-control" [(ngModel)]="state.nombre" id="nombre" name="nombre" placeholder="Nombre del Estado Civil">
+        </div>
+       <div class="form-group">
+           <button  class="btn btn-primary" (click)="edit ? updateEstado_Civil() : saveEstado_Civil()">Aceptar</button>
+           <button type="button" class="btn btn-info" routerLink="/civil-status">Regresar</button>
+       </div>
+     
+    </form>
+  </div>
+  <p-dialog position="top" [(visible)]="display">
+    Hola mijo rey
+    </p-dialog>
+
+<button class="btn btn-primary" type="button" (click)="showDialog()">Hola</button>
+<button pButton type="button" class="p-button-raised p-button-rounded">jj</button>
+<button pButton type="button" icon="pi pi-check" iconPos="left"></button>
+<p-button label="Click" icon="pi pi-check" iconPos="left"></p-button>
+<button pButton type="button" label="Primary" class="p-button-outlined"></button>
+<button pButton type="button" label="Emails" badge="8"></button>
+<button pButton type="button" label="Messages" icon="pi pi-users" class="p-button-warning" badge="8" badgeClass="p-badge-info"></button>
+<span class="p-buttonset">
+  <button pButton type="button" label="Save" icon="pi pi-check"></button>
+  <button pButton type="button" label="Delete" icon="pi pi-trash"></button>
+  <button pButton type="button" label="Cancel" icon="pi pi-times"></button>
+</span>
+<button pButton type="button" label="Small" icon="pi pi-check" class="p-button-sm"></button>
+<button pButton type="button" label="Normal" icon="pi pi-check" class="p-button"></button>
+<button pButton type="button" label="Large" icon="pi pi-check" class="p-button-lg"></button>
+
+<button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
+<button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary"></button>
+<button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success"></button>
+<button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info"></button>
+<button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning"></button>
+<button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help"></button>
+<button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>

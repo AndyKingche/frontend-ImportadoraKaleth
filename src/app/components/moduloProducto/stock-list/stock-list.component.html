@@ -1,0 +1,92 @@
+<div class="card">
+    
+    <div class="header titulo">
+        
+            <div class="tittle__izq p-d-inline-flex p-ai-center">
+                <i class="fa fa-list-ol p-mr-2">
+                </i>
+                <b>Lista de Stock</b> 
+                <button pButton  type="button" class="boton__dere  p-button-rounded p-button-sm" (click)="showDialogPuntoVenta()">Nuevo</button>
+            </div>      
+          
+  
+    </div>
+    <p-dialog position="top" [(visible)]="displayPuntoVenta">
+        <h5>
+            <i class="pi pi-home"></i> 
+            Escoger un Punto Venta</h5>
+        <div class="card  card__sales--points">
+        <div class="row" *ngFor="let puntoVenta of puntoVenta"> 
+            <div class="col-md-6 menu__row--points"> 
+                <i class="fas fa-store"></i> {{puntoVenta.nombreLocal}}
+            </div>
+            <div class="col-md-6 menu__row--points"> 
+            <p-button label="Aceptar" icon="far fa-check-circle" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
+             </div>
+        </div>
+    </div>
+    </p-dialog>
+            
+  
+    <p-table #dt2 [value]="stock" [responsive]="true" selectionMode="single" [(selection)]="selectedstock" dataKey="id" styleClass="p-datatable-responsive"
+        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+        <ng-template pTemplate="header">
+            <tr>
+                
+                <th class="card__word--header">Código Pro</th>
+                <th class="card__word--header">Id Punto ven</th>
+                <th class="card__word--header">Detalle</th>
+                <th class="card__word--header">Categoria</th>
+                <th class="card__word--header">Diseño</th>
+                <th class="card__word--header">Talla</th>
+                <th class="card__word--header">P. Unit</th>
+                <th class="card__word--header">P. May</th>
+                <th class="card__word--header">P. Dis</th>
+                <th class="card__word--header">Cant</th>
+                <th class="card__word--header">S. Max</th>
+                <th class="card__word--header">S. Min</th>
+                <th class="card__word--header">Dar de baja</th>
+                
+            </tr>
+      
+        </ng-template>
+        <ng-template pTemplate="body" let-stocks>
+            <tr [pSelectableRow]="stocks">
+                   
+              <td class="card__word--row">{{stocks.catProducto.codProducto}}</td>
+                <td class="card__word--row">{{stocks.catPuntosVenta.nombreLocal}}</td>
+
+
+                <td class="card__word--row">{{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+                <td class="card__word--row">{{stocks.catProducto.catCategoria.nombreCategoria}}</td>
+                <td class="card__word--row">{{stocks.catProducto.catDiseno.nombre}}</td>
+                <td class="card__word--row">{{stocks.catProducto.catTalla.medida}}</td>
+
+                <td class="card__word--row">{{stocks.precioUnit}}</td>
+                <td class="card__word--row">{{stocks.precioMayor}}</td>
+                <td class="card__word--row">{{stocks.precioDistribuidor}}</td>
+                <td class="card__word--row">{{stocks.cantidad}}</td>
+                <td class="card__word--row">{{stocks.stockMax}}</td>
+                <td class="card__word--row">{{stocks.stockMin}}</td>
+
+
+
+
+                <td class="card__word--row">
+                    <span class="p-column-title">Dar de baja</span>
+                    <button pButton pRipple icon="pi pi-trash" 
+                  class="p-button-rounded p-button-warning" (click)="dardebaja(stocks.catProducto.idProductos,stocks.catPuntosVenta.idPuntosVenta)"></button>
+                   
+                </td>
+  
+  
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4">No encontro productos en stock</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+  </div>

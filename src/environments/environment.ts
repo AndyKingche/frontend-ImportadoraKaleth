@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+<<<<<<< HEAD
   production: false,
   firebaseConfig : {
     apiKey: "AIzaSyAgcrgla80X_JNJAcRNIaSNwxoF3HTuQ0g",
@@ -14,6 +15,18 @@ export const environment = {
     appId: "1:87641923026:web:042d5c2293f253b1eefc0b",
     measurementId: "G-0GRNSJP85V"
   }
+=======
+  production: true,
+  firebaseConfig : {
+    apiKey: "AIzaSyAvkioim2QLpscsSAZQM_v-DxRJGNY7vjY",
+    authDomain: "importadorakaleth.firebaseapp.com",
+    projectId: "importadorakaleth",
+    storageBucket: "importadorakaleth.appspot.com",
+    messagingSenderId: "193749930922",
+    appId: "1:193749930922:web:763f44c4848a0e09ff11d3"
+  },
+  url:"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/"
+>>>>>>> developer
 };
 
 /*

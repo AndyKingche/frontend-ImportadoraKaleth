@@ -1,9 +1,9 @@
 {
   "targets": {
-    "angularautentificacionexample": {
+    "importadorakaleth": {
       "hosting": {
         "importkaleth": [
-          "angularautentificacionexample"
+          "importadorakaleth"
         ]
       }
     }
