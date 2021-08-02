@@ -1,0 +1,12 @@
+{
+    "/api/*":{
+        
+        "target":"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com",
+        "secure": false,
+        "pathRewrite": {
+            "^/api": "http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/api"
+                        },
+        "loglevel": "debug",
+        "changeOrigin": true
+    }
+}

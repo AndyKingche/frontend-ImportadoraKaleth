@@ -1,16 +1,18 @@
 
+import { Genero } from './Genero';
+import { Estadocivil } from './Estadocivil';
 export interface Usuarios{
-    id?:string;
+    idUsuario?:number;
     apellido?:string;
     cedula?:string;
     direccion?:string;
     email?:string;
     estado?:string;
-    fecha_nacimiento?:string;
+    fechanacimiento?:string;
     nombre?:string;
     password?:string;
     telefono?:string;
-    estadocivil?:string;
-    genero?:string
+    estadocivil?: Estadocivil;
+    genero?:Genero;
  
 }

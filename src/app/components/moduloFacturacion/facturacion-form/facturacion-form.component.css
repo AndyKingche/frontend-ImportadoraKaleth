@@ -1,0 +1,42 @@
+.card__word--header{
+    font-size: smaller;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 900;
+}
+.card__word--row{
+    font-size: small;
+    font-weight: 400;
+   
+}
+.boton__dere{
+    justify-content: flex-end;
+   
+}
+.tittle__izq{
+    justify-content: flex-start;
+}
+.header{
+    display: flex;
+    align-items: center;
+    align-items: space-;
+
+}
+.boton__menu{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.letter{
+    font-size: 13px;
+}
+.btn__size{
+    
+    margin-right: 1em;
+}
+@media (max-width: 600px) {
+    .boton__menu {
+        flex-direction: column;
+    }
+  }

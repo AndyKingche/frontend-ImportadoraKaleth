@@ -1,0 +1,24 @@
+<p-card header="{{creacion}} Producto">
+
+    
+      <div class="row">
+        
+        <div class="p-col"> <h4>Ingresar Categoria:</h4>  <p-dropdown [options]="categoria" [(ngModel)]="categoriaEscogida" placeholder="Seleccionar una Categoria" optionLabel="nombreCategoria" [showClear]="true"></p-dropdown></div>
+        <div class="p-col"><h4>Ingresar Diseño:</h4>  <p-dropdown [options]="disenos" [(ngModel)]="disenosEscogida" placeholder="Seleccionar una  Diseño" optionLabel="nombre" [showClear]="true"></p-dropdown> </div>
+        <div class="p-col"><h4>Ingresar Talla:</h4>  <p-dropdown [options]="tallas" [(ngModel)]="tallasEscogida" placeholder="Seleccionar una  Talla" optionLabel="medida" [showClear]="true"></p-dropdown>  </div>
+        <!-- <div class="p-col">Ingrese imagen 
+           <input type="file" (change)="onBasicUpload($event)">
+       </div>
+        -->
+      </div>
+      <!-- <img src="{{imagenObtenidaMostrar}}" alt="Imagen nueva" width="200px"> -->
+      <div class="row boton__menu">
+
+      
+      <div class="form-group">
+       <button  class="btn btn-primary" (click)="edit ? updateProductos() : saveProductos()">Aceptar</button>
+       <button type="button" class="btn btn-info boton__dere" routerLink="/admin/product">Regresar</button>
+    </div>
+  </div>
+    
+</p-card>

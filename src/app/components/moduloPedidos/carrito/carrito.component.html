@@ -1,0 +1,124 @@
+
+<!-- <div class="container">
+    <div class="check-out">
+        <h1>Carrito</h1>
+        <a href="#" class="to-buy">Seguir Comprando</a> -->
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Prices</th>
+                    <th>Delery Detials</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="ring-in">
+                        <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                        <div class="sed">
+                            <h5>Sed ut perspiciatis unde</h5>
+                            <p>(At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium) </p>
+    
+                        </div>
+                        <div class="clearfix"> </div>
+                    </td>
+                    <td class="check"><input type="text" value="1" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"></td>
+                    <td>$100.00</td>
+                    <td>FREE SHIPPING</td>
+                    <td>$100.00</td>
+                </tr>
+
+            </tbody>
+            <tr>
+                <td class="ring-in">
+                    <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                    <div class="sed">
+                        <h5>Sed ut perspiciatis unde</h5>
+                        <p>(At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium) </p>
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </td>
+                <td class="check"><input type="text" value="1" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"></td>
+                <td>$100.00</td>
+                <td>FREE SHIPPING</td>
+                <td>$100.00</td>
+            </tr>
+            <tr>
+                <td class="ring-in">
+                    <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                    <div class="sed">
+                        <h5>Sed ut perspiciatis unde</h5>
+                        <p>(At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium ) </p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </td>
+                <td class="check"><input type="text" value="1" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"></td>
+                <td>$200.00</td>
+                <td>FREE SHIPPING</td>
+                <td>$200.00</td>
+            </tr>
+            <tr>
+                <td class="ring-in">
+                    <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                    <div class="sed">
+                        <h5>Sed ut perspiciatis unde</h5>
+                        <p>(At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium) </p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </td>
+                <td class="check"><input type="text" value="1" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"></td>
+                <td>$150.00</td>
+                <td>FREE SHIPPING</td>
+                <td>$150.00</td>
+            </tr>
+        </table>
+        <a href="#" class="to-buy">PROCEED TO BUY</a>
+        <div class="clearfix"> </div> -->
+    <!-- </div>
+</div> -->
+
+
+<!-- <div class="container">
+    <div class="check-out">
+        <h1>Carrito</h1>
+        <a href="#" class="to-buy">Seguir Comprando</a> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Producto</th>
+                    <th>Prices</th>
+                    <th>Delery Detials</th>
+                    <th>Subtotal</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let listacarrito of listaCheckout">
+                <tr>
+                    <td class="ring-in">
+                        <a href="single.html" class="at-in"><img src="../../../../assets/images/sonic.jpg" class="img-responsive" alt=""></a>
+                        <div class="sed">
+                            <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
+                            <p>{{listacarrito.descripcion}} </p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </td>
+                    <td class="check"><input type="text" value="1" (input)="obtenerCantidad($event.target.value, listacarrito)"></td>
+                    <td>{{listacarrito.valorUnit}}</td>
+                    <td>Envio Acordar con el administrador</td>
+                    <td>{{this.cantidadInput}}</td>
+                    <td><button pButton pRipple icon="pi pi-trash" 
+                        class="p-button-rounded p-button-warning"             
+                         (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" ></button>
+                         <br></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <a href="#" class="to-buy">GENERAR PEDIDO</a>
+        <div class="clearfix"> </div>
+    <!-- </div>
+</div> -->

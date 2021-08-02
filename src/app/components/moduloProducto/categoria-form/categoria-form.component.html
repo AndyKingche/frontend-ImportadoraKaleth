@@ -1,0 +1,23 @@
+<p-card header="{{creacion}} Categoria">
+<div class="container-fluid">
+  <div class="row"> 
+        <div class="col-md-6">
+          <input type="text" class="form-control" [(ngModel)]="categorias.nombreCategoria" id="nombre" name="nombre" placeholder="Nombre de la Categoria">
+          
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" [(ngModel)]="categorias.descripcion" id="descripcion" name="descripcion" placeholder="Desripcion">
+
+        </div>
+    </div>
+    <div class="row boton__menu">
+
+        <div class="form-group">
+            <button  class="btn btn-primary" (click)="edit ? updateCategoria() : saveCategoria()">Aceptar</button>
+            <button type="button" class="btn btn-info dere" routerLink="/admin/category">Regresar</button>
+        </div>
+    </div>
+     
+    
+</div>
+</p-card>
