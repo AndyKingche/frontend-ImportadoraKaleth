@@ -12,6 +12,7 @@ export interface Usuarios{
     nombre?:string;
     password?:string;
     telefono?:string;
+    rol?:number;
     estadocivil?: Estadocivil;
     genero?:Genero;
  

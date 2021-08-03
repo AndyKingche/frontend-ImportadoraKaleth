@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+// import { AngularFireAuth } from '@angular/fire/auth';
+// import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-register',
@@ -9,26 +9,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginRegisterComponent implements OnInit {
 
-  constructor(private auth: AngularFireAuth,private actived:ActivatedRoute) { }
-
+  constructor() { }
+//private auth: AngularFireAuth,private actived:ActivatedRoute
   ngOnInit() {
-   this.Obteneruser();
+  //  this.Obteneruser();
  
   }
 
-Obteneruser(){
-  console.log('si',
-  this.auth.user.toPromise().then((user)=>{
-    console.log("user",user.providerData);
-  }))
-}
+// Obteneruser(){
+//   console.log('si',
+//   this.auth.user.toPromise().then((user)=>{
+//     console.log("user",user.providerData);
+//   }))
+// }
 
-  loginOut(){
-    this.auth.auth.signOut().then((x)=>{console.log(x)});
-    console.log("si me aplasta");
+//   loginOut(){
+//     // this.auth.auth.signOut().then((x)=>{console.log(x)});
+//     // console.log("si me aplasta");
   
     
-  }
+//   }
    
 
 }

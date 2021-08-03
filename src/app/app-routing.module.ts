@@ -55,6 +55,10 @@ import { StockCashierListComponent } from './components/moduloProducto/stock-cas
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
+
+import { AuthGuard } from './guards/auth.guard';
+import { CashierGuard } from './guards/cashier.guard';
+import { ClientGuard } from './guards/client.guard'
 const routes: Routes = [
   {
     path:'',
@@ -65,7 +69,10 @@ const routes: Routes = [
   {
     path:'home',
     component:HomeComponent,
-  },
+  },{
+    path:'login',
+    component:LoginComponent
+  }
   
   // {
   //   path:'rol',
@@ -79,7 +86,7 @@ const routes: Routes = [
   //   path:'rol-edit/:id',
   //   component:RolesFormComponent
   // },
-  
+  ,
   {
     path:'civil-status',
     component:EstadoCivilListComponent
@@ -191,6 +198,7 @@ const routes: Routes = [
   {
     path:'admin',
     component: NavigationComponent,
+    canActivate:[AuthGuard],
     children:[
       //USUARIO
       {
@@ -313,6 +321,7 @@ const routes: Routes = [
   {
     path:'cashier',
     component: NavigationCashierComponent,
+    canActivate:[CashierGuard],
     children:[
       // {
       //   path:'stock',

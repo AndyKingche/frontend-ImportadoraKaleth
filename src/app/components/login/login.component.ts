@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { auth } from 'firebase/app';
-import { resolve } from 'url';
+import { UsuariosService } from  '../../services/usuarios.service';
+import { HttpClient, HttpResponse ,HttpHeaders, HttpRequest} from '@angular/common/http';
 
+import { CookieService } from "ngx-cookie-service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,41 +13,60 @@ import { resolve } from 'url';
 })
 export class LoginComponent implements OnInit {
   @Input() action:string;
-  email: string;
-  pass: string;
+  login:any={
+    username: '',
+    password: ''
+  }
+ aux : any={
+token: null
+ }
  // autentificacion: AngularFireAuth;
-  constructor(private auth: AngularFireAuth, private ruta : Router) { }
+  constructor(private auth: AngularFireAuth, private ruta : Router, private userSservice:UsuariosService, private cookieService:CookieService) { }
 
   ngOnInit() {
   }
 
-  logingoogle(){
-    try {   
-      this.auth.auth.signInWithPopup(new auth.GoogleAuthProvider).then((autentificacion)=>{
+logingoogle(){
+console.log(this.login)
+  this.userSservice.loginUser(this.login).subscribe(res=>{
         
-        if(autentificacion.user.emailVerified){
-          this.ruta.navigate(['/login-register']);    
+        this.aux=res;
+        
+        this.userSservice.setToken(this.aux.token);
+        
+
+
+      this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
+        console.log(res[0].idUsuario)
+
+        this.userSservice.updateUserLogged(this.aux.token,res[0].idUsuario).subscribe(
+          res=>console.log(res)
+          ,err=>console.log(err))
+
+          
+        if(res[0].rol == 1){
+          this.ruta.navigate(['/admin'])
+        }
+        if(res[0].rol == 2){
+          this.ruta.navigate(['/cashier'])
+        }
+        if(res[0].rol == 3){
+          this.ruta.navigate(['/index.html'])
         }
         
+      },err=>console.log(err))
+        
+      },err=>console.log(err)
       
-      }).catch((error)=>{
-        console.log("Este es el error");
-        console.log(error);
-      })
-      // this.email='laqm_14@hotmail.com'
-      // this.pass='32972546';
-      // this.auth.auth.createUserWithEmailAndPassword(this.email,this.pass).then((user)=>{
-      //   console.log(user)
-      // }).catch((err)=>{console.log(err)})
+      
+      )
 
-      
-      
-     
-    } catch (error) {
-      console.log("error")
-    }
-    //this.auth.auth.signInWithPopup(new auth.GoogleAuthProvider);
+  
     
+
+  }
+  logOut() {
+    sessionStorage.removeItem('token')
   }
 
 }

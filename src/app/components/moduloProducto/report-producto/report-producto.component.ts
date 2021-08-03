@@ -92,6 +92,7 @@ export class ReportProductoComponent implements OnInit {
   imprimirInventarioTo(){
    this.stockService.reporteStockTotal().subscribe(
      res=>{
+       //console.log(res[0])
         let pdfWindow = window.open("")
 pdfWindow.document.write(
     "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +

@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Usuarios } from '../models/Usuarios';
+//import { login } from '../models/login';
 import { environment } from '../../environments/environment.prod';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UsuariosService {
   // API_URI = 'api/user';
   URL=environment.url+'api/user';
-
-  constructor(private http: HttpClient) { }
+  UrlLogin = environment.url;
+  
+  constructor(private http: HttpClient,private cookies: CookieService) { }
 
   getUsuarios(){
-    // return this.http.get(`${this.API_URI}`);
+   
     return this.http.get(`${this.URL}`);
   }
 
@@ -41,5 +45,40 @@ export class UsuariosService {
     return this.http.delete(`${this.URL}/${id}`);
   }
 
+  loginUser(login:any):Observable<Usuarios>{
+
+    return this.http.post(`${this.UrlLogin}authenticate`,login)
+  }
+  setToken(tokensito: any) {
+    console.log(tokensito)
+    this.cookies.set('token',tokensito);     
+  }
+  getToken() {
+   // return this.cookies.get("token");
+   return this.cookies.get("token")
+  }
+
+  getUserLogged(){
+    let token = this.getToken();
+console.log(token);
+try {
+  return this.http.get(`${this.URL}/finduserlogged/${token}`);
+  
+} catch (error) {
+  console.log("Usuario logeado no encontrado")
+}
+
+  }
+
+  getUserByEmail(email:string){
+    
+    return this.http.get(`${this.URL}/findemail/${email}`);
+    
+  }
+
+  updateUserLogged(token:string,id_usuario:number){
+    return this.http.get(`${this.URL}/updateuserlogged/${token}/${id_usuario}`);
+  }
+  
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { PuntosVentasService } from '../../services/puntos-ventas.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import {UsuariosService } from '../../services/usuarios.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -13,12 +13,15 @@ export class NavigationComponent implements OnInit {
   puntoVenta: any = [];
   displayPuntoVenta: boolean = false;
   constructor(private puntosServices: PuntosVentasService ,private router: Router,
-    private activedrouter: ActivatedRoute ) { 
+    private activedrouter: ActivatedRoute, private userService:UsuariosService ) { 
       
     }
 
   ngOnInit() {
   this.getPuntosVenta();
+  this.userService.getUserLogged().subscribe(res=>{
+    console.log("el usuario logeado es "+res[0].nombre)
+  })
   }
 
   getPuntosVenta(){

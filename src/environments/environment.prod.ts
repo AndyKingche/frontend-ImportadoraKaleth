@@ -8,7 +8,7 @@ export const environment = {
     messagingSenderId: "193749930922",
     appId: "1:193749930922:web:763f44c4848a0e09ff11d3"
   },
- url:"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/"
-  //url:"http://localhost:8080/"
+ //url:"http://importadorakbackend-env.eba-37sxpzi3.us-east-2.elasticbeanstalk.com/"
+  url:"http://localhost:8080/"
 };
 
