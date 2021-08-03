@@ -24,8 +24,8 @@ Obteneruser(){
 }
 
   loginOut(){
-    this.auth.auth.signOut().then((x)=>{console.log(x)});
-    console.log("si me aplasta");
+    // this.auth.auth.signOut().then((x)=>{console.log(x)});
+    // console.log("si me aplasta");
   
     
   }

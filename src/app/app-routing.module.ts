@@ -55,6 +55,7 @@ import { StockCashierListComponent } from './components/moduloProducto/stock-cas
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
+
 const routes: Routes = [
   {
     path:'',
@@ -65,7 +66,10 @@ const routes: Routes = [
   {
     path:'home',
     component:HomeComponent,
-  },
+  },{
+    path:'login',
+    component:LoginComponent
+  }
   
   // {
   //   path:'rol',
@@ -79,7 +83,7 @@ const routes: Routes = [
   //   path:'rol-edit/:id',
   //   component:RolesFormComponent
   // },
-  
+  ,
   {
     path:'civil-status',
     component:EstadoCivilListComponent

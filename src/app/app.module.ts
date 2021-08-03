@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -112,6 +112,9 @@ import { StockCashierFormComponent } from './components/moduloProducto/stock-cas
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
 import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
+//import { CookieService } from 'ngx-cookie-service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
 //
 @NgModule({
   declarations: [
@@ -193,7 +196,13 @@ import { NavigationCustomerComponent } from './components/navigation-customer/na
     AngularFireAuthModule
     
   ],
-  providers: [RolesFormComponent,PrimeNGConfig],
+  providers: [RolesFormComponent,PrimeNGConfig
+  //   ,{
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: TokenInterceptorService,
+  //   multi: true
+  // }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
