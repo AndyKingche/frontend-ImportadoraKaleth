@@ -23,6 +23,7 @@ export class UsuariosService {
     return this.http.get(`${this.URL}`);
   }
 
+
   getUsuario(id: number){
     // return this.http.get(`${this.API_URI}/${id}`);
     return this.http.get(`${this.URL}/${id}`);
