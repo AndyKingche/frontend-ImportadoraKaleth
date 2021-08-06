@@ -95,7 +95,7 @@ export class StockCashierFormComponent implements OnInit {
   nombreCategoria: string = "";
   nombreDiseno: string = "";
   nombreTalla: string = "";
-
+  isloading = false;
   cantidad: number = 0;
   stockMin: number = 0;
   stockMax: number = 0;
@@ -147,7 +147,7 @@ export class StockCashierFormComponent implements OnInit {
   };
   stockAuxiliarLista: any[];
   //stock
-  stockConsulta:any=[];
+  stockConsulta: any = [];
   selectedStock: cat_stock;
   stocks: cat_stock = {
     id: {
@@ -196,9 +196,9 @@ export class StockCashierFormComponent implements OnInit {
   nombreCategoriaexiste: boolean = false;
   medidaexiste: boolean = false;
   nombredisenoexiste: boolean = false;
-  displayConsultar:boolean=false;
-  disabled:boolean = true;
-  selectedDetalles:any;
+  displayConsultar: boolean = false;
+  disabled: boolean = true;
+  selectedDetalles: any;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -232,7 +232,7 @@ export class StockCashierFormComponent implements OnInit {
     if (params.id) {
 
       this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
-        (res:any)=>{
+        (res: any) => {
           console.log(res)
           this.idPuntoVentaPrueba = res.idPuntosVenta;
           this.consultarstockhabilitado(this.idPuntoVentaPrueba);
@@ -289,7 +289,7 @@ export class StockCashierFormComponent implements OnInit {
       // )
     }
     this.getTallas();
-    
+
     this.getCategorias();
     // $('#categorias').select2(
     //   {
@@ -300,8 +300,8 @@ export class StockCashierFormComponent implements OnInit {
     // );
 
     this.getDisenos();
-   
-  
+
+
   }
 
   //variables ingreso stock
@@ -495,380 +495,388 @@ export class StockCashierFormComponent implements OnInit {
 
   }
 
-
+  //metodo para insertar productos a la lista para posteriormente ser ingresada a la base de datos 
   async consultar() {
     //   ////  this.codigoProducto(no hay)
+    if (this.idProductoencontrado <= 0) {
+      alert('No existe el producto en el inventario del almacen ');
+    } else {
 
-    const IDPRODUCTOINPUT = new Promise(async (resolve, reject) => {
-      await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
-        resolve(res)
-        console.log("idProductos consulta", res)
+      const IDPRODUCTOINPUT = new Promise(async (resolve, reject) => {
+        await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
+          resolve(res)
+          console.log("idProductos consulta", res)
 
-      }, err => console.log(err))
-    });
-
-
-    await IDPRODUCTOINPUT.then(async (res) => {
-      console.log("Entre=>1")
-      if (Number(res) == -1) {
-        /////
-        //if si escoge una categoria con el codigo existente solo ingresar ese de lo contrario crear 
-
-        if (this.idCategoriaEscogida != 0) {
-          this.idCategoriaIngreso = this.idCategoriaEscogida;// guarda el mismo valor 
-        } else {
+        }, err => console.log(err))
+      });
 
 
-          // de lo contrario si el codigo de la categoria es 0 crear categoria 
+      await IDPRODUCTOINPUT.then(async (res) => {
+        console.log("Entre=>1")
+        if (Number(res) == -1) {
           /////
-          if (this.nombreCategoriaexiste) {
-            console.log("SI EXISTE NO SE PUEDE CREAR")
-          } else {
-            console.log("NO existe si SE PUEDE CREAR")
-            //ingreso de categorias solo se ingresa el nombre
-            this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
+          //if si escoge una categoria con el codigo existente solo ingresar ese de lo contrario crear 
 
-            console.log("categoria", this.categoriasIngreso)
-            const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
-              await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
+          if (this.idCategoriaEscogida != 0) {
+            this.idCategoriaIngreso = this.idCategoriaEscogida;// guarda el mismo valor 
+          } else {
+
+
+            // de lo contrario si el codigo de la categoria es 0 crear categoria 
+            /////
+            if (this.nombreCategoriaexiste) {
+              console.log("SI EXISTE NO SE PUEDE CREAR")
+            } else {
+              console.log("NO existe si SE PUEDE CREAR")
+              //ingreso de categorias solo se ingresa el nombre
+              this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
+
+              console.log("categoria", this.categoriasIngreso)
+              const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
+                await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
+                  res => {
+                    resolve(res.idCategoria);
+                    console.log("categoria ingre", res)
+                    setTimeout(() => {
+                      this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
+                    }, 100)
+
+                  }, error => console.error(error)
+                );
+              })
+
+              await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+                this.idCategoriaIngreso = Number(res)
+                console.log("id Categoria", this.idCategoriaIngreso)
+              });
+
+            }
+
+            console.log("Entre=>2")
+
+
+
+          }
+          ///validación si el diseño ya existe 
+          if (this.idDiseñoEscogido != 0) {
+            this.idDisenoIngreso = this.idDiseñoEscogido;// guarda el mismo valor 
+          } else {
+
+            //ingreso de diseño solo se ingresa el nombre del diseño 
+            this.disenosIngreso.nombre = this.nombreDiseno;
+            console.log("diseños", this.disenosIngreso)
+            const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
+              await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
                 res => {
-                  resolve(res.idCategoria);
-                  console.log("categoria ingre", res)
+
+                  resolve(res.idDisenos);
+                  console.log("diseno ingre", res)
                   setTimeout(() => {
-                    this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
+                    this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
                   }, 100)
 
                 }, error => console.error(error)
               );
             })
 
-            await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
-              this.idCategoriaIngreso = Number(res)
-              console.log("id Categoria", this.idCategoriaIngreso)
+
+            await Promise.resolve(DISENOIDNUEVO).then(res => {
+              this.idDisenoIngreso = Number(res)
+              console.log("id Diseño", this.idDisenoIngreso)
+            });
+          }
+
+
+          ///validación si la talla ya existe 
+          if (this.idTallaEscogido != 0) {
+            this.idTallaIngreso = this.idTallaEscogido;// guarda el mismo valor 
+          } else {
+            //ingreso talla, solo se ingresa la medida
+            this.tallasIngreso.medida = this.nombreTalla;
+            console.log("tallas ", this.tallasIngreso)
+            const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
+
+              await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
+                res => {
+                  resolve(res.idTallas);
+                  console.log("talla ingre", res)
+                  setTimeout(() => {
+                    this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
+                  }, 200)
+
+                }, error => console.error(error)
+              );
+            })
+
+
+
+            await Promise.resolve(TALLAIDNUEVO).then(res => {
+              this.idTallaIngreso = Number(res)
+              console.log("id Talla", this.idTallaIngreso)
             });
 
           }
+          //////////vamos a obtener los valores de cadaa uno de los ids de los ultimos ingresados
 
-          console.log("Entre=>2")
+          // await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
+          //   this.idCategoriaIngreso = Number(res)
+          //   console.log("id Categoria", this.idCategoriaIngreso)
+          // });
+          // await Promise.resolve(DISENOIDNUEVO).then(res => {
+          //   this.idDisenoIngreso = Number(res)
+          //   console.log("id Diseño", this.idDisenoIngreso)
+          // });
+          // await Promise.resolve(TALLAIDNUEVO).then(res => {
+          //   this.idTallaIngreso = Number(res)
+          //   console.log("id Talla", this.idTallaIngreso)
+          // });
 
 
+          //lenamos el prodcuto (codigoProducto,idCategoria,idDiseño,idTalla),
 
-        }
-        ///validación si el diseño ya existe 
-        if (this.idDiseñoEscogido != 0) {
-          this.idDisenoIngreso = this.idDiseñoEscogido;// guarda el mismo valor 
-        } else {
+          console.log("cat x->")
+          console.log(" cat", this.idCategoriaIngreso, "dise", this.idDisenoIngreso, "talla", this.idTallaIngreso)
 
-          //ingreso de diseño solo se ingresa el nombre del diseño 
-          this.disenosIngreso.nombre = this.nombreDiseno;
-          console.log("diseños", this.disenosIngreso)
-          const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
-            await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
-              res => {
 
-                resolve(res.idDisenos);
-                console.log("diseno ingre", res)
-                setTimeout(() => {
-                  this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
-                }, 100)
+          this.productonuevo = {
 
-              }, error => console.error(error)
-            );
+            catCategoria: { idCategoria: this.idCategoriaIngreso },
+            catTalla: { idTallas: this.idTallaIngreso },
+            catDiseno: { idDisenos: this.idDisenoIngreso },
+            codProducto: this.idProductoPrueba
+          }
+          const PRODUCTOIDNUEVO = new Promise(async (resolve, reject) => {
+            await this.productServices.saveProducto(this.productonuevo).subscribe(res => {
+              console.log(res.idProductos)
+              resolve(res.idProductos)
+            }, err => console.log(err))
           })
 
+          await PRODUCTOIDNUEVO.then(res => this.idProductoIngreso = Number(res));
 
-          await Promise.resolve(DISENOIDNUEVO).then(res => {
-            this.idDisenoIngreso = Number(res)
-            console.log("id Diseño", this.idDisenoIngreso)
-          });
+          console.log("id producto nuevo ingresado", this.idProductoIngreso)
+          this.idProductoencontrado = this.idProductoIngreso;
         }
+        console.log("Entre=>3")
+
+      }).catch(err => console.log(err))
+
+      //////////////si hay el producot///////////////
 
 
-        ///validación si la talla ya existe 
-        if (this.idTallaEscogido != 0) {
-          this.idTallaIngreso = this.idTallaEscogido;// guarda el mismo valor 
-        } else {
-          //ingreso talla, solo se ingresa la medida
-          this.tallasIngreso.medida = this.nombreTalla;
-          console.log("tallas ", this.tallasIngreso)
-          const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
+      if (this.testingreso()) {
 
-            await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
-              res => {
-                resolve(res.idTallas);
-                console.log("talla ingre", res)
-                setTimeout(() => {
-                  this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
-                }, 200)
-
-              }, error => console.error(error)
-            );
-          })
-
-
-
-          await Promise.resolve(TALLAIDNUEVO).then(res => {
-            this.idTallaIngreso = Number(res)
-            console.log("id Talla", this.idTallaIngreso)
-          });
-
-        }
-        //////////vamos a obtener los valores de cadaa uno de los ids de los ultimos ingresados
-
-        // await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
-        //   this.idCategoriaIngreso = Number(res)
-        //   console.log("id Categoria", this.idCategoriaIngreso)
-        // });
-        // await Promise.resolve(DISENOIDNUEVO).then(res => {
-        //   this.idDisenoIngreso = Number(res)
-        //   console.log("id Diseño", this.idDisenoIngreso)
-        // });
-        // await Promise.resolve(TALLAIDNUEVO).then(res => {
-        //   this.idTallaIngreso = Number(res)
-        //   console.log("id Talla", this.idTallaIngreso)
-        // });
-
-
-        //lenamos el prodcuto (codigoProducto,idCategoria,idDiseño,idTalla),
-
-        console.log("cat x->")
-        console.log(" cat", this.idCategoriaIngreso, "dise", this.idDisenoIngreso, "talla", this.idTallaIngreso)
-
-
-        this.productonuevo = {
-
-          catCategoria: { idCategoria: this.idCategoriaIngreso },
-          catTalla: { idTallas: this.idTallaIngreso },
-          catDiseno: { idDisenos: this.idDisenoIngreso },
-          codProducto: this.idProductoPrueba
-        }
-        const PRODUCTOIDNUEVO = new Promise(async (resolve, reject) => {
-          await this.productServices.saveProducto(this.productonuevo).subscribe(res => {
-            console.log(res.idProductos)
-            resolve(res.idProductos)
+        //consultamos el producto
+        const PROMESAPRODUCTO = new Promise(async (resolve, rej) => {
+          await this.productServices.getProducto(this.idProductoencontrado).subscribe(
+            res => {
+              resolve(res)
+            }, err => console.error(err
+            )
+          )
+        })
+        // console.log("entre")
+        //Consultamos el putno de venta 
+        const PROMESASPUNTOVENTA = new Promise(async (resolve, reject) => {
+          await this.puntosVentaServices.getPuntosVenta(this.idPuntoVentaPrueba).subscribe(res => {
+            console.log(res)
+            resolve(res);
           }, err => console.log(err))
         })
+        //Ingresamos el producto consultado al StockAuxiliar
+        await PROMESAPRODUCTO.then(res => this.stockAuxiliar.catProducto = res)
+        //Ingresamos el Punto de Venta consultado al StockAuxiliar
+        await PROMESASPUNTOVENTA.then(res => this.stockAuxiliar.catPuntosVenta = res)
 
-        await PRODUCTOIDNUEVO.then(res => this.idProductoIngreso = Number(res));
+        //realizamos la validación si la lista esta vacia 
+        if (this.stockAuxiliarLista.length === 0) {
+          //añadimos el primer elemento a la lista
+          this.stockAuxiliarLista.push(this.stockAuxiliar);
+          //enviamos una variable falsa si existe el productodespues de ingresar
+          this.encuentraArray = false;
 
-        console.log("id producto nuevo ingresado", this.idProductoIngreso)
-        this.idProductoencontrado = this.idProductoIngreso;
-      }
-      console.log("Entre=>3")
+        } else {
+          /// recorrido for para verirficar si el producto ecxiste dentro del array
+          for (var x in this.stockAuxiliarLista) {
+            //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
+            if (this.stockAuxiliarLista[x].catProducto.idProductos == this.stockAuxiliar.catProducto.idProductos
+              && this.stockAuxiliarLista[x].catPuntosVenta.idPuntosVenta == this.stockAuxiliar.catPuntosVenta.idPuntosVenta
+            ) {
+              // sumatoria de la cantidad de un elemento encontrado
+              this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
+              this.stockAuxiliarLista[x].precioUnit = this.stockAuxiliar.precioUnit;
+              this.stockAuxiliarLista[x].precioMayor = this.stockAuxiliar.precioMayor;
+              this.stockAuxiliarLista[x].precioDistribuidor = this.stockAuxiliar.precioDistribuidor;
+              this.stockAuxiliarLista[x].stockMax = this.stockAuxiliar.stockMax;
+              this.stockAuxiliarLista[x].stockMin = this.stockAuxiliar.stockMin;
 
-    }).catch(err => console.log(err))
 
-    //////////////si hay el producot///////////////
+              //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
 
 
-    if (this.testingreso()) {
+              console.log(this.stockAuxiliarLista[x].cantidad)
+              //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
+              this.encuentraArray = true;
+            }
 
-      //consultamos el producto
-      const PROMESAPRODUCTO = new Promise(async (resolve, rej) => {
-        await this.productServices.getProducto(this.idProductoencontrado).subscribe(
-          res => {
-            resolve(res)
-          }, err => console.error(err
-          )
-        )
-      })
-      // console.log("entre")
-      //Consultamos el putno de venta 
-      const PROMESASPUNTOVENTA = new Promise(async (resolve, reject) => {
-        await this.puntosVentaServices.getPuntosVenta(this.idPuntoVentaPrueba).subscribe(res => {
-          console.log(res)
-          resolve(res);
-        }, err => console.log(err))
-      })
-      //Ingresamos el producto consultado al StockAuxiliar
-      await PROMESAPRODUCTO.then(res => this.stockAuxiliar.catProducto = res)
-      //Ingresamos el Punto de Venta consultado al StockAuxiliar
-      await PROMESASPUNTOVENTA.then(res => this.stockAuxiliar.catPuntosVenta = res)
-
-      //realizamos la validación si la lista esta vacia 
-      if (this.stockAuxiliarLista.length === 0) {
-        //añadimos el primer elemento a la lista
-        this.stockAuxiliarLista.push(this.stockAuxiliar);
-        //enviamos una variable falsa si existe el productodespues de ingresar
-        this.encuentraArray = false;
-
-      } else {
-        /// recorrido for para verirficar si el producto ecxiste dentro del array
-        for (var x in this.stockAuxiliarLista) {
-          //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
-          if (this.stockAuxiliarLista[x].catProducto.idProductos == this.stockAuxiliar.catProducto.idProductos
-            && this.stockAuxiliarLista[x].catPuntosVenta.idPuntosVenta == this.stockAuxiliar.catPuntosVenta.idPuntosVenta
-          ) {
-            // sumatoria de la cantidad de un elemento encontrado
-            this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
-            this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
-            this.stockAuxiliarLista[x].precioMayor=this.stockAuxiliar.precioMayor;
-            this.stockAuxiliarLista[x].precioDistribuidor=this.stockAuxiliar.precioDistribuidor;
-            this.stockAuxiliarLista[x].stockMax=this.stockAuxiliar.stockMax;
-            this.stockAuxiliarLista[x].stockMin=this.stockAuxiliar.stockMin;
-           
-            
-            //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
-           
-           
-            console.log(this.stockAuxiliarLista[x].cantidad)
-            //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
-            this.encuentraArray = true;
+          }
+          //  se realiza la valicaión si existe el procuto en el array
+          if (this.encuentraArray) {
+            // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
+            this.encuentraArray = false;
+          } else {
+            //si no existe el producto ingresa un nuevo elemento en el array 
+            //metodo push para apilar elemnto en el array
+            this.stockAuxiliarLista.push(this.stockAuxiliar);
+            this.encuentraArray = false;
           }
 
         }
-        //  se realiza la valicaión si existe el procuto en el array
-        if (this.encuentraArray) {
-          // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
-          this.encuentraArray = false;
-        } else {
-          //si no existe el producto ingresa un nuevo elemento en el array 
-          //metodo push para apilar elemnto en el array
-          this.stockAuxiliarLista.push(this.stockAuxiliar);
-          this.encuentraArray = false;
-        }
+
+        console.log(this.stockAuxiliarLista);
+        //Vaciamos el stockAuxiliar para evitar conflictos
+        this.stockAuxiliar = {
+          cantidad: 0,
+          catProducto: {
+            idProductos: 0,
+            catCategoria: {
+              idCategoria: 0,
+              descripcion: '',
+              nombreCategoria: '',
+            },
+            catDiseno: {
+              idDisenos: 0,
+              nombre: '',
+            },
+            catTalla: {
+              idTallas: 0,
+              medida: '',
+              descripcion: '',
+              tipo: '',
+            },
+            codProducto: ''
+          },
+          catPuntosVenta: { idPuntosVenta: 0 },
+          existe: '',
+          precioDistribuidor: 0,
+          precioMayor: 0,
+          precioUnit: 0,
+          stockMax: 0,
+          stockMin: 0
+        };
+
+
+        console.log("se limpia")
 
       }
 
-      console.log(this.stockAuxiliarLista);
-      //Vaciamos el stockAuxiliar para evitar conflictos
-      this.stockAuxiliar = {
-        cantidad: 0,
-        catProducto: {
-          idProductos: 0,
-          catCategoria: {
-            idCategoria: 0,
-            descripcion: '',
-            nombreCategoria: '',
-          },
-          catDiseno: {
-            idDisenos: 0,
-            nombre: '',
-          },
-          catTalla: {
-            idTallas: 0,
-            medida: '',
-            descripcion: '',
-            tipo: '',
-          },
-          codProducto: ''
-        },
-        catPuntosVenta: { idPuntosVenta: 0 },
-        existe: '',
-        precioDistribuidor: 0,
-        precioMayor: 0,
-        precioUnit: 0,
-        stockMax: 0,
-        stockMin: 0
-      };
 
+      ///hhhhhhhh
+      this.totalValorIngreso = 0;
 
-      console.log("se limpia")
+      this.stockAuxiliarLista.forEach(element => {
+        element = element.cantidad * element.precioUnit;
+        this.totalValorIngreso += element;
+        console.log(element);
+      });
+
+      this.totalIngresoVista = "" + (this.totalValorIngreso);
 
     }
-
-
-    ///hhhhhhhh
-    this.totalValorIngreso = 0;
-
-    this.stockAuxiliarLista.forEach(element => {
-      element = element.cantidad * element.precioUnit;
-      this.totalValorIngreso += element;
-      console.log(element);
-    });
-
-    this.totalIngresoVista = "" + (this.totalValorIngreso);
-
   }
   //METODO PARA INGRESAR A LA BDD EN LA TABLA STOCK 
   async ingresar() {
-    //Se realiza un recorrido a la lista auxiliar 
-    for (let i = 0; i < this.stockAuxiliarLista.length; i++) {
-      //se reaqliza una consulta en donde verificamos si existe el el porduco por id punto venta en el stock 
-      //nos devuelve el valor la cantidad que tiene en stock del registro 
-      await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
-        this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
-          //si la cantidad es mayor o igual a cero quiere decir que el elemento si existe 
-          if (res >= 0) {
-            //creamos una variable y guardamos el resultado de la busqueda("cantidad")
-            this.cantidadConsulta = Number(res);
-            //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
-            this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
-            //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
-            // await this.stockService.updateStockCantidad(this.cantidadConsulta,
-            //   this.stockAuxiliarLista[i].catProducto.idProductos,
-            //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
-            //     console.log("si se actualizo")
-            //   }, err => console.log(err))
 
-            //cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
-            await this.stockService.updateStocks(
-              this.cantidadConsulta,
-              this.stockAuxiliarLista[i].precioUnit,
-              this.stockAuxiliarLista[i].precioMayor,
-              this.stockAuxiliarLista[i].precioDistribuidor,
-              this.stockAuxiliarLista[i].stockMax,
-              this.stockAuxiliarLista[i].catProducto.idProductos,
-              this.stockAuxiliarLista[i].stockMin,
-              'S',
-              this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
-            ).subscribe(res => {
-              console.log("si se actualizo")
-            }, err => console.log(err))
+    if (this.stockAuxiliarLista.length === 0) {
+      alert('No hay datos para ingresar')
+    } else {
+      //Se realiza un recorrido a la lista auxiliar 
+      for (let i = 0; i < this.stockAuxiliarLista.length; i++) {
+        //se reaqliza una consulta en donde verificamos si existe el el porduco por id punto venta en el stock 
+        //nos devuelve el valor la cantidad que tiene en stock del registro 
+        await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
+          this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
+            //si la cantidad es mayor o igual a cero quiere decir que el elemento si existe 
+            if (res >= 0) {
+              //creamos una variable y guardamos el resultado de la busqueda("cantidad")
+              this.cantidadConsulta = Number(res);
+              //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
+              this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
+              //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
+              // await this.stockService.updateStockCantidad(this.cantidadConsulta,
+              //   this.stockAuxiliarLista[i].catProducto.idProductos,
+              //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
+              //     console.log("si se actualizo")
+              //   }, err => console.log(err))
 
-
-            //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
-            this.cantidadConsulta = 0;
-
-
-            console.log(res)
-            console.log("si hay")
-
-          } else {
-
-            //ingresamos los datos de la posición de la lista en un objeto tipo stock para porceder a ingresar a la BDD
-
-            this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
-            this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
-            this.stocks.cantidad = this.stockAuxiliarLista[i].cantidad;
-            this.stocks.stockMin = this.stockAuxiliarLista[i].stockMin;
-            this.stocks.stockMax = this.stockAuxiliarLista[i].stockMax;
-            this.stocks.precioMayor = this.stockAuxiliarLista[i].precioMayor;
-            this.stocks.precioUnit = this.stockAuxiliarLista[i].precioUnit;
-            this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
-            this.stocks.existe = 'S';
-
-            //se ingresa a la BDD como un nuevo registro en la tabla Stock
-
-            await this.stockService.saveStock(this.stocks).subscribe(res => {
-              console.log("si se ingreso nuevo stock")
-              //reiniciamos los valores del objeto stock para un unevo resgitro 
-              this.stocks = {
-                id: {
-                  idProductos: 0,
-                  //cambiar este punto de venta automatico depues
-                  idPuntosVenta: 0,
-                },
-                stockMax: 0,
-                stockMin: 0,
-                precioDistribuidor: 0,
-                precioMayor: 0,
-                precioUnit: 0,
-                existe: '',
-
-              }
+              //cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
+              await this.stockService.updateStocks(
+                this.cantidadConsulta,
+                this.stockAuxiliarLista[i].precioUnit,
+                this.stockAuxiliarLista[i].precioMayor,
+                this.stockAuxiliarLista[i].precioDistribuidor,
+                this.stockAuxiliarLista[i].stockMax,
+                this.stockAuxiliarLista[i].catProducto.idProductos,
+                this.stockAuxiliarLista[i].stockMin,
+                'S',
+                this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
+              ).subscribe(res => {
+                console.log("si se actualizo")
+              }, err => console.log(err))
 
 
-            }, err => console.log(err))
+              //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
+              this.cantidadConsulta = 0;
 
-            console.log("no hay")
-          }
-        }, err => console.log("salio error"))
+
+              console.log(res)
+              console.log("si hay")
+
+            } else {
+
+              //ingresamos los datos de la posición de la lista en un objeto tipo stock para porceder a ingresar a la BDD
+
+              this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
+              this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
+              this.stocks.cantidad = this.stockAuxiliarLista[i].cantidad;
+              this.stocks.stockMin = this.stockAuxiliarLista[i].stockMin;
+              this.stocks.stockMax = this.stockAuxiliarLista[i].stockMax;
+              this.stocks.precioMayor = this.stockAuxiliarLista[i].precioMayor;
+              this.stocks.precioUnit = this.stockAuxiliarLista[i].precioUnit;
+              this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
+              this.stocks.existe = 'S';
+
+              //se ingresa a la BDD como un nuevo registro en la tabla Stock
+
+              await this.stockService.saveStock(this.stocks).subscribe(res => {
+                console.log("si se ingreso nuevo stock")
+                //reiniciamos los valores del objeto stock para un unevo resgitro 
+                this.stocks = {
+                  id: {
+                    idProductos: 0,
+                    //cambiar este punto de venta automatico depues
+                    idPuntosVenta: 0,
+                  },
+                  stockMax: 0,
+                  stockMin: 0,
+                  precioDistribuidor: 0,
+                  precioMayor: 0,
+                  precioUnit: 0,
+                  existe: '',
+
+                }
+
+
+              }, err => console.log(err))
+
+              console.log("no hay")
+            }
+          }, err => console.log("salio error"))
+      }
+
+      this.router.navigate(['/cashier']);
+
     }
-
-    this.router.navigate(['/cashier']);
-
-
   }
 
 
@@ -987,7 +995,7 @@ export class StockCashierFormComponent implements OnInit {
 
         }, err => console.log(err))
       } else {
-
+        this.idProductoencontrado = 0;
         this.tallasAux = {
           idTallas: 0,
           medida: "",
@@ -1084,35 +1092,35 @@ export class StockCashierFormComponent implements OnInit {
     return obtenerletras.trim();
   }
 
-  regresar(){
+  regresar() {
     this.router.navigate(['/cashier']);
   }
-  showConsultar(){
+  showConsultar() {
     this.displayConsultar = true;
   }
 
-  consultarstockhabilitado(id:number){
-    
-    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
+  consultarstockhabilitado(id: number) {
+
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res => {
       this.stockConsulta = res;
       console.log(res)
-    },err=>console.log("error",err))
+    }, err => console.log("error", err))
   }
-  obtenerVariable(cod:any){
+  obtenerVariable(cod: any) {
     this.idProductoPrueba = cod;
     this.buscarStockProducto();
     this.displayConsultar = false;
   }
-  encontrarProductoModal(productoBuscar:any){
+  encontrarProductoModal(productoBuscar: any) {
     console.log(productoBuscar.length)
-    if(productoBuscar.length!=0){
-      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba,productoBuscar).subscribe(res=>{
+    if (productoBuscar.length != 0) {
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba, productoBuscar).subscribe(res => {
         this.stockConsulta = res;
-      },err=>console.log(err));
+      }, err => console.log(err));
     }
-    else{
+    else {
       this.consultarstockhabilitado(this.idPuntoVentaPrueba);
     }
-  
+
   }
 }

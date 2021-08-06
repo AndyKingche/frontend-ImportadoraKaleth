@@ -23,7 +23,7 @@ export class DisenosFormComponent implements OnInit {
   imagenObtenidaAnteriorUrl: any;
   imagenObtenidaAnteriorUrl1: any;
   imagenObtenidaAnteriorUrl2: any;
-
+  isloading=false;
   imagenObtenidaIngresar: any;
   imagenObtenidaIngresar1: any;
   imagenObtenidaIngresar2: any;
@@ -188,6 +188,7 @@ export class DisenosFormComponent implements OnInit {
 
   async saveDisenos() {
     //let nombre = this.quitarespacios('#nombre');
+    this.isloading=true;
     let x = Math.floor(Math.random() * (1000 - 1)) + 1;
     if (this.disenos.nombre.length > 0) {
 
@@ -223,6 +224,7 @@ export class DisenosFormComponent implements OnInit {
         res => {
 
           setTimeout(() => {
+            this.isloading=false;
             this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
           }, 100)
           this.router.navigate(['/admin/design']);
@@ -231,6 +233,8 @@ export class DisenosFormComponent implements OnInit {
     } else {
       this.notificacion.showError('Revise si todos los campo esten llenos', '**Error al agergar Disenos')
     }
+
+    
   }
 
 
@@ -238,7 +242,7 @@ export class DisenosFormComponent implements OnInit {
 
     //cuando en el ingreso la imagen no tiene crgado no me muetsra nada, 
     //por el contrario me toca subir una imagen
-
+    this.isloading=true;
     let x = Math.floor(Math.random() * (1000 - 1)) + 1;
     if (!this.imagenObtenidaIngresar) {
 
@@ -322,6 +326,7 @@ export class DisenosFormComponent implements OnInit {
 
           setTimeout(() => {
             this.notificacion.showSuccess('El diseno se ha actualizado correctamente', 'Diseno se ha actualizado');
+            this.isloading=false;
           }, 100)
 
           this.router.navigate(['/admin/design'])

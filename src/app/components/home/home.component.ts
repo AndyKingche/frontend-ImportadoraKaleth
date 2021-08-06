@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
   stock: any = [];
   mostrarCarrito: boolean = false;
   mostrarInicio: boolean = true
+  isloading= false;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -459,12 +460,15 @@ export class HomeComponent implements OnInit {
 
 
   async generarPedido() {
-    if (this.listaCheckout.length > 0) {
+    if (this.listaCheckout.length=== 0) {
+      alert("no tiene pedidos para realizar")
+
+    } else {
       let idfacturaPedidoPDF = 0;
       let idClientePedido = 0;
-
+      this.isloading=true;
       let fecha = new Date()
-      let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + (fecha.getDate() + 1);
+      let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + ("0" +(fecha.getDate() + 1)).slice(-2);
       this.cabezaPedidoIngreso.estado = "A",
         //this.cabezaPedidoIngreso.total=0;
         this.cabezaPedidoIngreso.fechaPe = fechaFormateada;
@@ -502,26 +506,25 @@ export class HomeComponent implements OnInit {
 
       setTimeout(() => {
         this.notificacion.showInfo('Su Pedido se realizo con exito', "PEDIDO REALIZADO");
-        this.listaDetallePedido = null;
-        this.listaCheckout = null;
+        this.listaDetallePedido =  [];
+        this.listaCheckout =  [];
       }, 200);
-      this.router.navigate(["/"]);
+   
 
       this.valorTotalCarrito = 0;
 
       //generar pdf proforma del pedido realizado 
-     // window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
-     this.pedidoservice.orderreport(idClientePedido,idfacturaPedidoPDF).subscribe(res=>{
-      let pdfWindow = window.open("")
-pdfWindow.document.write(
-  "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-  encodeURI(res[0]) + "'></iframe>"
-)
-     },
- err=>console.log(err));
-
-    } else {
-      alert("no tiene pedidos para realizar")
+      // window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
+      this.pedidoservice.orderreport(idClientePedido, idfacturaPedidoPDF).subscribe(res => {
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+          "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+          encodeURI(res[0]) + "'></iframe>"
+        )
+        this.isloading=false;
+        this.router.navigate(["/home"]);
+      },
+        err => console.log(err));
     }
 
 
@@ -530,7 +533,7 @@ pdfWindow.document.write(
   images: any[];
   detalle: string = "";
   detalle2: string = "";
-  precioModal:number=0;
+  precioModal: number = 0;
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -547,17 +550,17 @@ pdfWindow.document.write(
   ];
   // mostrar imagenes completas 
   showDialogImagenes(stocks: any) {
-    this.images=[];
-    
+    this.images = [];
+
     this.stringUrlFoto1 = stocks.catProducto.catDiseno.urlFoto;
     this.stringUrlFoto2 = stocks.catProducto.catDiseno.urlFoto1;
     this.stringUrlFoto3 = stocks.catProducto.catDiseno.urlFoto2;
 
 
-    this.detalle=stocks.catProducto.catCategoria.nombreCategoria+" "+stocks.catProducto.catDiseno.nombre+" Talla: "+stocks.catProducto.catTalla.medida; 
-    this.detalle2=stocks.catProducto.catCategoria.descripcion;
+    this.detalle = stocks.catProducto.catCategoria.nombreCategoria + " " + stocks.catProducto.catDiseno.nombre + " Talla: " + stocks.catProducto.catTalla.medida;
+    this.detalle2 = stocks.catProducto.catCategoria.descripcion;
 
-    this.precioModal=stocks.precioUnit;
+    this.precioModal = stocks.precioUnit;
 
     //cargo una lista de las rutas de las imagenes 
 

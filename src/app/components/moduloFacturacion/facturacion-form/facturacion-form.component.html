@@ -1,9 +1,16 @@
+<div class="preloaderConsulta" *ngIf="isloading">
+    <div class="spinConsulta">
+        <div class="cube1Consulta"></div>
+        <div class="cube2Consulta"></div>
+    </div>
+</div>
+
 <div class="card">
 
     <div class="container-fluid" style="margin: 15px;">
         <div class="row">
             <div class="col-md-1">
-                <label id="lblCedula" class="letter" for="cedula">Cedula</label>
+                <label id="lblCedula" class="letter" for="cedula">Cedula: *</label>
             </div>
             <div class="col-md-3">
                 <input required type="text" pKeyFilter="num" maxlength=10 [disabled]="disabled" pTooltip="Ingrese la Cedula del cliente" tooltipPosition="top" class="form-control" [(ngModel)]="this.cedula" id="cedula" (input)="encontrarCliente($event.target.value)" (keyup.enter)="buscarClienteByCedula()"
@@ -11,7 +18,7 @@
             </div>
 
             <div class="col-md-1">
-                <label id="lblNombre" class="letter" for="nombre">Nombre</label>
+                <label id="lblNombre" class="letter" for="nombre">Nombre: *</label>
 
             </div>
             <div class="col-md-3">
@@ -19,7 +26,7 @@
 
             </div>
             <div class="col-md-1">
-                <label id="lblApellido" class="letter" for="apellido">Apellido</label>
+                <label id="lblApellido" class="letter" for="apellido">Apellido: *</label>
             </div>
             <div class="col-md-3">
                 <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.apellidoCliente" id="apellido" name="apellido" placeholder="Apellido">
@@ -28,21 +35,21 @@
         </div>
         <div class="row">
             <div class="col-md-1">
-                <label id="lblTelefono" class="letter" for="teleofno">Telefono</label>
+                <label id="lblTelefono" class="letter" for="teleofno">Telefono: *</label>
             </div>
             <div class="col-md-3">
                 <input type="text" pKeyFilter="num" maxlength=10 class="form-control" [disabled]="disabled" [(ngModel)]="this.telefono" id="telefono" name="telefono" placeholder="Telefono">
 
             </div>
             <div class="col-md-1">
-                <label id="lblCorreo" class="letter" for="email">Email</label>
+                <label id="lblCorreo" class="letter" for="email">Email: *</label>
             </div>
             <div class="col-md-3">
                 <input type="text" class="form-control" [disabled]="disabled" [(ngModel)]="this.email" id="email" name="email" placeholder="Email">
 
             </div>
             <div class="col-md-1">
-                <label id="lblDireccion" class="letter" for="direccion">Dirección</label>
+                <label id="lblDireccion" class="letter" for="direccion">Dirección: *</label>
 
             </div>
             <div class="col-md-3">

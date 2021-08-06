@@ -84,7 +84,7 @@ import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.com
 import {InputNumberModule} from 'primeng-lts/inputnumber';
 import {FileUploadModule} from 'primeng-lts/fileupload';
 import {GalleriaModule} from 'primeng-lts/galleria';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -106,6 +106,7 @@ import { StockCashierFormComponent } from './components/moduloProducto/stock-cas
 import { FacturacionCashierComponent } from './components/moduloFacturacion/facturacion-cashier/facturacion-cashier.component';
 import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fecha/factura-fecha.component';
 import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
+
 //
 @NgModule({
   declarations: [
@@ -181,7 +182,8 @@ import { NavigationCustomerComponent } from './components/navigation-customer/na
     SlideMenuModule,
     KeyFilterModule,
    
-    GalleriaModule
+    GalleriaModule,
+    ProgressSpinnerModule
  
     
   ],
