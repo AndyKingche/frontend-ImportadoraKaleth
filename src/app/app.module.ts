@@ -66,7 +66,7 @@ import {CardModule} from 'primeng-lts/card';
 
 //firebase
 //import { AngularFireModule } from '@angular/fire';
-import {  AngularFireAuthModule } from '@angular/fire/auth';
+//import {  AngularFireAuthModule } from '@angular/fire/auth';
 //import { environment } from '../environments/environment';
 import { LoginComponent } from './components/login/login.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
@@ -93,6 +93,7 @@ import {GalleriaModule} from 'primeng-lts/galleria';
 
 
 import { AngularFireModule } from '@angular/fire';
+import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment.prod';
 
@@ -114,7 +115,10 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
 import { NavigationCustomerComponent } from './components/navigation-customer/navigation-customer.component';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-
+import {FieldsetModule} from 'primeng-lts/fieldset';
+import {PasswordModule} from 'primeng-lts/password';
+import {InputMaskModule} from 'primeng-lts/inputmask';
+import { PasswordResetFormComponent } from './componenets/password-reset-form/password-reset-form.component';
 //
 @NgModule({
   declarations: [
@@ -155,7 +159,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     FacturacionCashierComponent,
     FacturaFechaComponent,
     ClientsFormComponent,
-    NavigationCustomerComponent
+    NavigationCustomerComponent,
+    PasswordResetFormComponent
 
   ],
   imports: [
@@ -193,7 +198,10 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     KeyFilterModule,
    
     GalleriaModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FieldsetModule,
+    PasswordModule,
+    InputMaskModule
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,CookieService

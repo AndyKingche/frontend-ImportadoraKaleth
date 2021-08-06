@@ -59,6 +59,8 @@ import { FacturaFechaComponent } from './components/moduloFacturacion/factura-fe
 import { AuthGuard } from './guards/auth.guard';
 import { CashierGuard } from './guards/cashier.guard';
 import { ClientGuard } from './guards/client.guard'
+
+import { PasswordResetFormComponent } from './componenets/password-reset-form/password-reset-form.component';
 const routes: Routes = [
   {
     path:'',
@@ -338,8 +340,9 @@ const routes: Routes = [
       }
     ]
   },{
-    path:'reportPdfs/:id',
-    component: NavigationCustomerComponent
+    path:'resetpassword/:id',
+    
+    component: PasswordResetFormComponent
   }
 ];
 

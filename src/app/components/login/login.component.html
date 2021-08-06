@@ -16,6 +16,138 @@
   
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
+      <a [routerLink]="" (click)="showDisplayRegister()">Registarse</a>
+      <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
     </div>
 
+    <p-dialog position="top" [(visible)]="displayRegister" [modal]="true">
+      <h5>
+          <i class="fa fa-user-tag"></i> Registrarse a KALETH STORE</h5>
+          <p-card>
+          <div class="container-fluid">
+            
+            <div class="row">
+              <div class="col-md-3 label__modal--register">
+                Nombre
+              </div>
+              <div class="col-md-9 ">
+                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Apellido
+              </div>
+              <div class="col-md-9">
+                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido" >
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Cedula
+              </div>
+              <div class="col-md-9">
+                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula"  id="cedula" name="cedula">
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Direccion
+              </div>
+              <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Telefono
+              </div>
+              <div class="col-md-9">
+                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
+
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Correo
+              </div>
+              <div class="col-md-9">
+                <input type="email" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
+                <small id="username2-help" class="p-invalid">{{mensaje}}</small>
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Password
+              </div>
+              <div class="col-md-6">
+                <input  pPassword type="password" [(ngModel)]="user.password" [weakLabel]="'Malo'" [mediumLabel]="'Bueno'" [strongLabel]="'Excelente !!!!'" [promptLabel]="'Ingrese una contraseña'" [showPassword]="verPassword"/>
+              </div>
+              <div class="col-md-3">
+                <button pButton type="button" class="p-button-rounded p-button-sm" icon="far fa-eye" iconPos="left"(click)="verContrase()"></button>
+
+              </div>
+            </div>
+            <!--  -->
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Fecha de Nacimiento
+              </div>
+              <div class="col-md-9">
+         <!-- <p-calendar  [ngModelOptions]="{standalone: true}"   [(ngModel)]="fechaObtenida" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar> -->
+              <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd" ></p-inputMask>
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Estado Civil
+              </div>
+              <div class="col-md-9">
+              <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar su Estado Civil " optionLabel="nombre" [showClear]="true"></p-dropdown>
+
+              </div>
+            </div>
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Genero
+              </div>
+              <div class="col-md-9">
+              <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
+
+              </div>
+            </div>
+            
+            <div class="row inputs__modal--register">
+              <div class="col-md-12">
+                <button class="btn btn-primary" (click)="Resgistrar()">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </p-card>
+  </p-dialog>
+
+  <p-dialog position="top" [(visible)]="displayForgot" [modal]="true">
+    <h5>
+        <i class="fa fa-user-tag"></i> Ingresar su email </h5>
+        <p-card>
+        <div class="container-fluid"> 
+          <div class="row inputs__modal--register">
+            <div class="col-md-3 label__modal--register">
+              Correo
+            </div>
+            <div class="col-md-6">
+              <input type="email" class="form-control" pInputText [(ngModel)]="emailRecuperacion" [email]="true" id="email" name="email">
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-primary" (click)="OnReset()"> Enviar </button>
+            </div>
+          </div>
+        </div>
+      </p-card>
+</p-dialog>

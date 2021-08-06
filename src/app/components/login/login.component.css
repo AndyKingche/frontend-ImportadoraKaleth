@@ -1,0 +1,12 @@
+.inputs__modal--register{
+    margin-top: 10px;
+   
+}
+.label__modal--register{
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+p-dialog{
+    background-color: aqua;
+}
