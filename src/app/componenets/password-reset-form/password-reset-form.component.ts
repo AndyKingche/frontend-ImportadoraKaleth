@@ -25,7 +25,7 @@ export class PasswordResetFormComponent implements OnInit {
   }
 
   updatePassword(){
-    firebase.
+    
     console.log(this.usuario);
     this.userService.updateResetPassword(this.usuario, this.password).subscribe(res=>{
       if(res){

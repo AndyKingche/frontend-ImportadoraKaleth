@@ -90,7 +90,7 @@ import { CarritoComponent } from './components/moduloPedidos/carrito/carrito.com
 import {InputNumberModule} from 'primeng-lts/inputnumber';
 import {FileUploadModule} from 'primeng-lts/fileupload';
 import {GalleriaModule} from 'primeng-lts/galleria';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import { AngularFireModule } from '@angular/fire';
 import {  AngularFireAuthModule } from '@angular/fire/auth';
@@ -201,7 +201,9 @@ import { PasswordResetFormComponent } from './componenets/password-reset-form/pa
     AngularFireAuthModule,
     FieldsetModule,
     PasswordModule,
-    InputMaskModule
+    InputMaskModule,
+    ProgressSpinnerModule
+ 
     
   ],
   providers: [RolesFormComponent,PrimeNGConfig,CookieService

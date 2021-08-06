@@ -14,6 +14,7 @@ export class FacturaFechaComponent implements OnInit {
   i = new Date();
   f = new Date();
   totalVenta: number = 0;
+  isloading = false;
   constructor(private facturacionservice: FacturacionService) { }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class FacturaFechaComponent implements OnInit {
 
   async getfacturaFecha() {
     //fechainicio:string,fechafin:string
+    this.isloading = true;
     let fechaInicio = this.i;
     let fechaFormateadaInicio = fechaInicio.getFullYear() + "-" + ("0" + (fechaInicio.getMonth() + 1)).slice(-2) + "-" + (fechaInicio.getDate());
 
@@ -33,15 +35,17 @@ export class FacturaFechaComponent implements OnInit {
 
     const arrayFacturas = new Promise(async (resolve, reject) => {
       await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
-        
-        resolve(res)
+
+        resolve(res);
+
         //this.facturafecha = res;
-       // console.log(this.facturafecha)
+        // console.log(this.facturafecha)
       }, err => console.log(err))
     });
 
     await arrayFacturas.then(res => {
-    this.facturafecha=res;
+      this.facturafecha = res;
+      this.isloading = false;
     })
 
     this.totalVenta = 0;
@@ -51,6 +55,7 @@ export class FacturaFechaComponent implements OnInit {
     }
   }
   async imprimirfacturaFecha() {
+    this.isloading = true;
     let fechaInicio = this.i;
     let fechaFormateadaInicio = fechaInicio.getFullYear() + "-" + ("0" + (fechaInicio.getMonth() + 1)).slice(-2) + "-" + (fechaInicio.getDate());
 
@@ -62,15 +67,16 @@ export class FacturaFechaComponent implements OnInit {
 
     const arrayFacturas = new Promise(async (resolve, reject) => {
       await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
-        
+
         resolve(res)
         //this.facturafecha = res;
-       // console.log(this.facturafecha)
+        // console.log(this.facturafecha)
       }, err => console.log(err))
     });
 
     await arrayFacturas.then(res => {
-    this.facturafecha=res;
+      this.facturafecha = res;
+
     })
 
     this.totalVenta = 0;
@@ -78,19 +84,33 @@ export class FacturaFechaComponent implements OnInit {
 
       this.totalVenta = this.totalVenta + this.facturafecha[x].total;
     }
-let valor=""+this.totalVenta;
+
+    let valor = "" + (this.totalVenta).toFixed(2);
 
     //window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
-this.facturacionservice.reporteFacturaFechas(fechaFormateadaInicio,fechaFormateadaFin,valor).subscribe(res=>{
-  let pdfWindow = window.open("")
-pdfWindow.document.write(
-"<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-encodeURI(res[0]) + "'></iframe>"
-)
- },
-err=>console.log(err))
-    
+    this.facturacionservice.reporteFacturaFechas(fechaFormateadaInicio, fechaFormateadaFin, valor).subscribe(res => {
+      let pdfWindow = window.open("")
+      pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+        encodeURI(res[0]) + "'></iframe>"
+      )
+      this.isloading = false;
+    },
+      err => console.log(err))
+
   }
 
+  mostrarTicket(idfacturaPDF: number) {
+    this.isloading = true;
+    this.facturacionservice.ticket(idfacturaPDF).subscribe(res => {
+      let pdfWindow = window.open("")
+      pdfWindow.document.write(
+        "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+        encodeURI(res[0]) + "'></iframe>"
+      )
+      this.isloading = false;
+    },
+      err => console.log(err));
 
+  }
 }
