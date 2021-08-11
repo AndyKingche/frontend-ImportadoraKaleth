@@ -481,7 +481,6 @@ p {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .header-area .navbar .navbar-collapse {
-        position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
