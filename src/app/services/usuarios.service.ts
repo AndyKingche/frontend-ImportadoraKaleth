@@ -78,8 +78,12 @@ register(email:string,password:string){
     let token = this.getToken();
 console.log(token);
 try {
-  
-  return this.http.get(`${this.URL}/finduserlogged/${token}`);
+  if(token!=null){
+
+    return this.http.get(`${this.URL}/finduserlogged/${token}`);
+  }else{
+    return null;
+  }
   
 } catch (error) {
   console.log("Usuario logeado no encontrado")

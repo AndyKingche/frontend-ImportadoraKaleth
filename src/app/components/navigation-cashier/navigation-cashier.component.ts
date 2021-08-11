@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { PuntosVentasService } from '../../services/puntos-ventas.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
 @Component({
   selector: 'app-navigation-cashier',
   templateUrl: './navigation-cashier.component.html',
@@ -16,7 +17,8 @@ export class NavigationCashierComponent implements OnInit {
   displayStock: boolean = false;
   city: string ;
   constructor(private puntosServices: PuntosVentasService ,private router: Router,
-    private activedrouter: ActivatedRoute ) { 
+    private activedrouter: ActivatedRoute,
+    private cookies:CookieService  ) { 
       
     }
 
@@ -64,7 +66,10 @@ export class NavigationCashierComponent implements OnInit {
     this.displayStock = false;
     
   }
-
+  logOut(){
+    this.cookies.delete('token');
+    this.router.navigate(['/login'])
+  }
 
 
 

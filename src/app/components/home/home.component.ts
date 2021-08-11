@@ -30,7 +30,10 @@ import { PedidosService } from '../../services/pedidos.service';
 import jsPDF from 'jspdf';
 import { async } from '@angular/core/testing';
 import { resolve } from 'url';
+import { UsuariosService } from '../../services/usuarios.service';
+import { ClientesService } from '../../services/clientes.service';
 declare let $: any;
+import {Usuarios} from '../../models/Usuarios';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -52,7 +55,9 @@ export class HomeComponent implements OnInit {
     private medidaservice: MedidaService,
     private activedrouter: ActivatedRoute, private router: Router,
     private notificacion: NotificacionService,
-    private pedidoservice: PedidosService) { }
+    private pedidoservice: PedidosService,
+    private userService: UsuariosService,
+    private clienteService:ClientesService) { }
 
   //varibales 
   inicio: number = 0;
@@ -123,15 +128,32 @@ export class HomeComponent implements OnInit {
 
   precioUnit: number = 0;
   cantidad: number = 1;
+  //usuarios
+  usuarioLogeado:Usuarios={
+    idUsuario:0,
+    apellido:"",
+    cedula:"",
+    direccion:"",
+    email:"",
+    estado:"",
+    fechanacimiento:"",
+    nombre:"",
+    password:"",
+    telefono:"",
+    rol:0,
+    estadocivil: {},
+    genero:{},
+    resetPassword:false
+  }
+  //
+  idCliente:number=0;
   ngOnInit() {
     //this.getStocksExistents();
     this.getStocksExistentsPuntoVenta();
     this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
-
-
-
+    
   }
   ShowCarrito() {
     console.log("si aplastaste")
@@ -140,10 +162,11 @@ export class HomeComponent implements OnInit {
     this.listanuevaCarrito();
 
   }
+  
   ShowInicio() {
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
-    this.router.navigate(["/index.html"])
+    this.router.navigateByUrl("#productos")
   }
   enviarLista() {
     console.log("Hola")
@@ -237,10 +260,31 @@ export class HomeComponent implements OnInit {
 
   }
 
+  async getUserId(){
+    const userLoged = new Promise(async (resolve,reject)=>{
+      await this.userService.getUserLogged().subscribe(async (res)=>{
+      resolve(res)
+      })
+    });
+    const getNewCliente = new Promise(async(resolve,reject)=>{
+      await userLoged.then(async(result)=>{
+        await this.clienteService.findClienteByEmail(result[0].email).subscribe(
+          res=>{
+            resolve(res)
+          },err=>console.log(err)
+        )
+      })
+    });
+   this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
+   console.log(this.idCliente)
+  }
+
   //agregar productos a carrito 
   async Agregar(objeto: any) {
 
-
+    await this.getUserId();
+   
+    console.log("entre despues")
     console.log("este es el objeto", objeto)
     this.peDetallePedido.cantidadPe = 1;
     this.peDetallePedido.descripcion = objeto.catProducto.catCategoria.nombreCategoria + " " + objeto.catProducto.catDiseno.nombre + "-" + objeto.catProducto.catTalla.medida;
@@ -342,9 +386,10 @@ export class HomeComponent implements OnInit {
       }
 
     }
+    //this.idCliente=0;
     //this.auxcantidadPedido = 0;
     //this.cantidadPedido = 0;
-
+ 
 
 
   }
@@ -472,9 +517,11 @@ export class HomeComponent implements OnInit {
       this.cabezaPedidoIngreso.estado = "A",
         //this.cabezaPedidoIngreso.total=0;
         this.cabezaPedidoIngreso.fechaPe = fechaFormateada;
-      this.cabezaPedidoIngreso.venCliente.idCliente = 1;
+      this.cabezaPedidoIngreso.venCliente.idCliente = this.idCliente;
       //capturamos el id del cliente para imprimir el pdf
+
       idClientePedido = this.cabezaPedidoIngreso.venCliente.idCliente;
+      console.log("idClientePedido "+idClientePedido)
       for (let i in this.listaCheckout) {
         this.cabezaPedidoIngreso.total += this.listaCheckout[i].valorTotal;
         this.cabezaPedidoIngreso.detallepedido[i] = {
@@ -522,7 +569,9 @@ export class HomeComponent implements OnInit {
           encodeURI(res[0]) + "'></iframe>"
         )
         this.isloading=false;
-        this.router.navigate(["/home"]);
+        this.router.navigateByUrl("#productos");
+        this.mostrarInicio = true;
+        this.mostrarCarrito = false;
       },
         err => console.log(err));
     }

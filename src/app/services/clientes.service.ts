@@ -52,4 +52,9 @@ export class ClientesService {
     return this.http.get(`${this.URL}/viewPDF`);
   }
 
+  findClienteByEmail(email:string){
+    return this.http.get(`${this.URL}/findemail/${email}`);
+  }
+ 
+
 }

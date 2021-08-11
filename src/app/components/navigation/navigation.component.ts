@@ -3,6 +3,7 @@ import {MenuItem} from 'primeng/api';
 import { PuntosVentasService } from '../../services/puntos-ventas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {UsuariosService } from '../../services/usuarios.service';
+import { CookieService } from "ngx-cookie-service";
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -13,7 +14,8 @@ export class NavigationComponent implements OnInit {
   puntoVenta: any = [];
   displayPuntoVenta: boolean = false;
   constructor(private puntosServices: PuntosVentasService ,private router: Router,
-    private activedrouter: ActivatedRoute, private userService:UsuariosService ) { 
+    private activedrouter: ActivatedRoute, private userService:UsuariosService,
+    private cookies:CookieService ) { 
       
     }
 
@@ -38,5 +40,9 @@ export class NavigationComponent implements OnInit {
   enviarPuntoVenta(id:number){
     this.router.navigate(['/admin/bill/',id]);
     this.displayPuntoVenta = false;
+  }
+  logOut(){
+    this.cookies.delete('token');
+    this.router.navigate(['/login'])
   }
 }

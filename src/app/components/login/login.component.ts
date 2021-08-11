@@ -15,7 +15,8 @@ import {  EstadoCivilService } from '../../services/estado-civil.service';
 import { Genero } from 'src/app/models/Genero';
 import { Estadocivil } from 'src/app/models/Estadocivil';
 import { NotificacionService } from "../../services/notificacion.service";
-
+import { Clientes } from '../../models/Clientes';
+import { ClientesService } from '../../services/clientes.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,6 +31,15 @@ export class LoginComponent implements OnInit {
  aux : any={
 token: null
  }
+ clienteNuevo: Clientes={
+  idCliente:0,
+  apellidoCli:"",
+  cedulaCli:"",
+  direccionCli:"",
+  email:"",
+  nombreCli:"",
+  telefono:""
+ }
  user: Usuarios = {
   apellido: "",
   cedula: "",
@@ -40,6 +50,7 @@ token: null
   nombre: "",
   password: "",
   telefono: "",
+  resetPassword:false,
   estadocivil: { idEstadocivil: 0 },
   genero: { idGenero: 0 },
 };
@@ -53,10 +64,24 @@ usuarioRecibido: Usuarios = {
   nombre: "",
   password: "",
   telefono: "",
+  resetPassword:false,
   estadocivil: { idEstadocivil: 0 },
   genero: { idGenero: 0 },
 };
-
+userUpdateState:Usuarios = {
+  apellido: "",
+  cedula: "",
+  direccion: "",
+  email: "",
+  estado: "",
+  fechanacimiento: "",
+  nombre: "",
+  password: "",
+  telefono: "",
+  resetPassword:false,
+  estadocivil: { idEstadocivil: 0 },
+  genero: { idGenero: 0 },
+};
 genero:Genero;
 estadocivil:Estadocivil;
 generoEscogido:any=[];
@@ -69,7 +94,8 @@ mensaje:string="";
 emailRecuperacion:string="";
  // autentificacion: AngularFireAuth;
   constructor(private auth: AngularFireAuth, private ruta : Router, private userSservice:UsuariosService, private cookieService:CookieService,
-    private generoService:GeneroService, private civilService: EstadoCivilService, private notificacion:NotificacionService) { }
+    private generoService:GeneroService, private civilService: EstadoCivilService, private notificacion:NotificacionService,
+    private clienteService: ClientesService) { }
   
   
   
@@ -88,40 +114,43 @@ emailRecuperacion:string="";
     }
   }
 logingoogle(){
-console.log(this.login)
-
+try {
   this.userSservice.loginUser(this.login).subscribe(res=>{
-        
-        this.aux=res;
-        
-        this.userSservice.setToken(this.aux.token);
-        
+    
+    this.aux=res;
+    this.userSservice.setToken(this.aux.token);
+    
 
 
-      this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
-        console.log(res[0].idUsuario)
+  this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
+    console.log(res[0].idUsuario)
 
-        this.userSservice.updateUserLogged(this.aux.token,res[0].idUsuario).subscribe(
-          res=>console.log(res)
-          ,err=>console.log(err))
+    this.userSservice.updateUserLogged(this.aux.token,res[0].idUsuario).subscribe(
+      res=>console.log(res)
+      ,err=>console.log(err))
 
-          
-        if(res[0].rol == 1){
-          this.ruta.navigate(['/admin'])
-        }
-        if(res[0].rol == 2){
-          this.ruta.navigate(['/cashier'])
-        }
-        if(res[0].rol == 3){
-          this.ruta.navigate(['/index.html'])
-        }
-        
-      },err=>console.log(err))
-        
-      },err=>console.log(err)
       
-      
-      )
+    if(res[0].rol == 1){
+      this.ruta.navigate(['/admin'])
+    }
+    if(res[0].rol == 2){
+      this.ruta.navigate(['/cashier'])
+    }
+    if(res[0].rol == 3){
+      this.ruta.navigateByUrl('#productos')
+    }
+    
+  },err=>console.log(err))
+    
+  },err=>{
+    this.notificacion.showError("Revise su email o su contraseña","***ERROR")
+  });
+} catch (error) {
+  console.log(error);
+}
+  
+
+  
 
  
 
@@ -152,7 +181,7 @@ this.user.genero.idGenero = this.generoEscogido.idGenero;
 this.user.estadocivil.idEstadocivil = this.estadocivilEscogido.idEstadocivil;
 this.user.rol = 3;
 let emailConsultar : string = this.user.email
-console.log(emailConsultar);
+
 const consultarUser = new Promise(async (resolve,reject)=>{
 await this.userSservice.getUserByEmail(this.user.email).subscribe(res=>{
   resolve(res[0]);
@@ -162,7 +191,7 @@ await this.userSservice.getUserByEmail(this.user.email).subscribe(res=>{
 let usuarioExistente = await consultarUser.then(res=>res);
 console.log(usuarioExistente);
 
-if(usuarioExistente ==undefined){
+if(usuarioExistente == undefined){
   firebase.auth().createUserWithEmailAndPassword(this.user.email,this.user.password).then(res=>{
     console.log(res);
   })
@@ -171,10 +200,26 @@ if(usuarioExistente ==undefined){
       resolve(res); 
     },err=>console.log(err))
   });
+
   
   this.usuarioRecibido = await register.then(res=>res);
   this.login.username = this.usuarioRecibido.email;
   this.login.password = this.usuarioRecibido.password;
+  //Obtener datos de los usuarios y ingresarlos en los clientes
+  this.clienteNuevo.nombreCli = this.usuarioRecibido.nombre;
+  this.clienteNuevo.apellidoCli = this.usuarioRecibido.apellido;
+  this.clienteNuevo.cedulaCli = this.usuarioRecibido.cedula;
+  this.clienteNuevo.telefono = this.usuarioRecibido.telefono;
+  this.clienteNuevo.direccionCli = this.usuarioRecibido.direccion;
+  this.clienteNuevo.email = this.usuarioRecibido.email;
+  
+  const clienteRegister = new Promise(async (resolve,reject)=>{
+    await this.clienteService.saveCliente(this.clienteNuevo).subscribe(res=>{
+      resolve(res);
+    })
+  })
+
+  await clienteRegister.then(res=>res);
   console.log(this.login);
 
   
@@ -209,13 +254,36 @@ console.log(this.usuarioRecibido.idUsuario)
  console.log(registroActualizado);
  if(registroActualizado){
    this.mensaje = "";
+   this.user = {
+    apellido: "",
+    cedula: "",
+    direccion: "",
+    email: "",
+    estado: "",
+    fechanacimiento: "",
+    nombre: "",
+    password: "",
+    telefono: "",
+    resetPassword:false,
+    estadocivil: { idEstadocivil: 0 },
+    genero: { idGenero: 0 },
+   }
+   this.clienteNuevo={
+    idCliente:0,
+    apellidoCli:"",
+    cedulaCli:"",
+    direccionCli:"",
+    email:"",
+    nombreCli:"",
+    telefono:""
+   }
   this.ruta.navigate(['/home'])
  }else{
    alert("Problemas al registrar su Usuario")
  }
   
 }else{
-  this.notificacion.showError(`Ya existe un usuario con ese email ${this.user.email}`,"*** No se puede realizar el REGISTRO");
+  this.notificacion.showError(`Ya existe un usuario con ese email ${this.user.email}, Olvidaste la contraseña?`,"*** No se puede realizar el REGISTRO");
   this.mensaje = "Cambiar el email"
 }
 
@@ -231,6 +299,25 @@ showDisplayForgot(){
 OnReset(){
   console.log(this.emailRecuperacion);
   firebase.auth().sendPasswordResetEmail(this.emailRecuperacion);
+  this.userSservice.getUserByEmail(this.emailRecuperacion).subscribe(res=>{
+    if(res[0]){
+      this.userUpdateState = res[0];
+      this.userUpdateState.resetPassword = true;
+  
+      this.userSservice.updateUsuario(this.userUpdateState.idUsuario,this.userUpdateState).subscribe(
+        res=> {
+          this.emailRecuperacion = "";
+          this.notificacion.showSuccess("Se ha enviado un correo con un link para recuperar su contraseña","Recuperar Correo");
+          this.displayForgot = false;
+        }
+        
+      )
+    }else{
+      this.emailRecuperacion="";
+      this.notificacion.showError("El email ingresado no coincide con ningun usuario en Kaleth Store, vuelva a ingresar el email","***ERROR")
+    }
+   
+  })
 }
 
 

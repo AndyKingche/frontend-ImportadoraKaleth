@@ -61,6 +61,7 @@ import { CashierGuard } from './guards/cashier.guard';
 import { ClientGuard } from './guards/client.guard'
 
 import { PasswordResetFormComponent } from './componenets/password-reset-form/password-reset-form.component';
+import { ResetPasswordGuard } from './guards/reset-password.guard';
 const routes: Routes = [
   {
     path:'',
@@ -71,9 +72,12 @@ const routes: Routes = [
   {
     path:'home',
     component:HomeComponent,
+    pathMatch: 'full'
   },{
     path:'login',
-    component:LoginComponent
+    component:LoginComponent,
+    pathMatch: 'full',
+
   }
   
   // {
@@ -190,7 +194,8 @@ const routes: Routes = [
   ,
   {
     path: 'checkout',
-    component: CarritoComponent
+    component: CarritoComponent,
+    pathMatch: 'full'
   }
   // ,{
   //   path:'client',
@@ -201,11 +206,13 @@ const routes: Routes = [
     path:'admin',
     component: NavigationComponent,
     canActivate:[AuthGuard],
+    
     children:[
       //USUARIO
       {
         path:'user',
-        component:UsuariosListComponent
+        component:UsuariosListComponent,
+        
       },
       {
         path: 'user-add',
@@ -301,7 +308,8 @@ const routes: Routes = [
         component: PuntosVentasFormComponent
       },{
         path:'bill/:id',
-        component: FacturacionFormComponent
+        component: FacturacionFormComponent,
+        
       }
     ,
       {
@@ -324,6 +332,7 @@ const routes: Routes = [
     path:'cashier',
     component: NavigationCashierComponent,
     canActivate:[CashierGuard],
+    
     children:[
       // {
       //   path:'stock',
@@ -342,7 +351,9 @@ const routes: Routes = [
   },{
     path:'resetpassword/:id',
     
-    component: PasswordResetFormComponent
+    component: PasswordResetFormComponent,
+    canActivate:[ResetPasswordGuard]
+    
   }
 ];
 

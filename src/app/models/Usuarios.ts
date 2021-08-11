@@ -15,5 +15,6 @@ export interface Usuarios{
     rol?:number;
     estadocivil?: Estadocivil;
     genero?:Genero;
+    resetPassword?:Boolean;
  
 }
