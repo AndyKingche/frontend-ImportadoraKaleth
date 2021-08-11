@@ -48,10 +48,12 @@
                             <li class="nav-item">
                                 <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
                             </li>
-                            <li class="nav-item">
+
+
+                            <li class="nav-item" *ngIf="inicioSesion">
                                 <a href="account.html">Entrar</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" *ngIf="inicioSesion">
                                 <a routerLink="/admin">Registrarse</a>
                             </li>
 
@@ -93,109 +95,43 @@
 <div *ngIf="mostrarInicio">
     <!-- <link rel="stylesheet" href="../../../assets/js/slick.min.js" type="text/javascript"> -->
 
-    <section id="home" class="slider-area pt-100">
-        <div class="container-fluid position-relative">
-            <div class="slider-active">
-                <div class="single-slider">
-                    <div class="slider-bg">
-                        <div class="row no-gutters align-items-center ">
-                            <div class="col-lg-4 col-md-5">
-                                <div class="slider-product-image d-none d-md-block">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpantuflas.jpg?alt=media&token=6e774b73-3349-43e3-bd60-4e272824fc95" alt="Slider">
 
-                                </div>
-                                <!-- slider product image -->
-                            </div>
-                            <div class="col-lg-8 col-md-7">
-                                <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
-                                        Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
-                                    </p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
-                                        Productos <i class="lni-chevron-right"></i></a>
-                                </div>
-                                <!-- slider product content -->
-                            </div>
-                        </div>
-                        <!-- row -->
-                    </div>
-                    <!-- container -->
-                </div>
-                <!-- single slider -->
+    <div class="container-fluid slider__kaleth">
+        <div class="col-md-5">
 
-                <div class="single-slider">
-                    <div class="slider-bg">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-lg-4 col-md-5">
-                                <div class="slider-product-image d-none d-md-block">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijama%20dos%20piezas.jpg?alt=media&token=20994c32-ceba-4def-9910-84e38f31dbf6" alt="Slider">
+            <div class="contenido__kaleth">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, id adipisci. Eos earum error quibusdam voluptatem officia? Exercitationem ullam laboriosam minus doloremque magnam deserunt eveniet neque, sit excepturi ipsa rerum?
 
-                                </div>
-                                <!-- slider product image -->
-                            </div>
-                            <div class="col-lg-8 col-md-7">
-                                <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
-                                        Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
-                                    </p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
-                                        Productos <i class="lni-chevron-right"></i></a>
-                                </div>
-                                <!-- slider product content -->
-                            </div>
-                        </div>
-                        <!-- row -->
-                    </div>
-                    <!-- container -->
-                </div>
-                <!-- single slider -->
-
-                <div class="single-slider">
-                    <div class="slider-bg">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-lg-4 col-md-5">
-                                <div class="slider-product-image d-none d-md-block">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijamaunapieza.jpg?alt=media&token=a646bcdf-a315-4bde-a473-79d65a31380c" alt="Slider" height="500">
-
-                                </div>
-                                <!-- slider product image -->
-                            </div>
-                            <div class="col-lg-8 col-md-7">
-                                <div class="slider-product-content">
-                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s">
-                                        Importadora Kaleth</h1>
-                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">Empresa dedidaca a la confección de pijamas térmicas, pantuflas con diseños exclusivos para el público
-                                    </p>
-                                    <a class="main-btn" href="#product" data-animation="fadeInUp" data-delay="1.5s">Ver
-                                        Productos <i class="lni-chevron-right"></i></a>
-                                </div>
-                                <!-- slider product content -->
-                            </div>
-                        </div>
-                        <!-- row -->
-                    </div>
-                    <!-- container -->
-                </div>
-                <!-- single slider -->
-            </div>
-            <!-- slider active -->
-            <div class="slider-social">
-                <div class="row justify-content-end">
-                    <div class="col-lg-7 col-md-6">
-                        <ul class="social text-right">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
-        <!-- container fluid -->
-    </section>
+        <div class="col-md-6 img__sliderkaleth">
+            <div class="slider__efect">
+                <ul>
+                    <li>
+                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijamaunapieza.jpg?alt=media&token=a646bcdf-a315-4bde-a473-79d65a31380c" alt="">
+                    </li>
+                    <li>
+                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijama%20dos%20piezas.jpg?alt=media&token=20994c32-ceba-4def-9910-84e38f31dbf6" alt="">
+                    </li>
+                    <li>
+                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpantuflas.jpg?alt=media&token=6e774b73-3349-43e3-bd60-4e272824fc95" alt="">
+                    </li>
+                </ul>
+            </div>
 
+
+
+            <div class="slick__slideritem">
+                <div class="slick__slider"></div>
+                <div class="slick__slider"></div>
+                <div class="slick__slider"></div>
+            </div>
+        </div>
+
+
+
+
+    </div>
 
     <section id="product" class="team-area pt-100">
         <div class="content">
