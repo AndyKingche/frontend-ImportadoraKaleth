@@ -11,7 +11,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-report-producto',
   templateUrl: './report-producto.component.html',
-  styleUrls: ['./report-producto.component.css']
+  styleUrls: ['./report-producto.component.css'],
+  styles: [`
+  .outofstock {
+      font-weight: 700;
+      color: #FF5252;
+      text-decoration: line-through;
+  }
+  
+  .lowstock {
+      font-weight: 700;
+      color: #FFA726;
+  }
+  
+  .instock {
+      font-weight: 700;
+      color: #66BB6A;
+  }
+  
+  :host ::ng-deep .row-accessories {
+      background-color: rgba(0,0,0,.15) !important;
+  }
+`
+]
 })
 export class ReportProductoComponent implements OnInit {
 

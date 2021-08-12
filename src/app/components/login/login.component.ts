@@ -18,6 +18,7 @@ import { NotificacionService } from "../../services/notificacion.service";
 import { Clientes } from '../../models/Clientes';
 import { ClientesService } from '../../services/clientes.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+declare let $:any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -106,6 +107,7 @@ puedeRegistrarCliente:boolean=false;
   ngOnInit() {
     this.getGenero();
     this.getEstadoCivil();
+    $('<input/ >').attr({"type":"password"}).appendTo('container-fluid');
   }
 
   verContrase(){

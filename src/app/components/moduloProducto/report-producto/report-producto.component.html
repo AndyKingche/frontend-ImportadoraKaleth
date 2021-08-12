@@ -147,7 +147,11 @@
 
                 </td>
                 <td class="card__word--row">
-                    <span class="p-column-title">Cant</span> {{stocks.cantidad}}
+                    <span class="p-column-title">Cant</span> 
+                    <div [ngClass]="{'outofstock': stocks.cantidad <= stocks.stockMin, 'instock': (stocks.cantidad > stocks.stockMin && stocks.cantidad <= stocks.stockMax ),'lowstock': stocks.cantidad >= stocks.stockMax}">
+
+                        {{stocks.cantidad}}
+                    </div>
 
                 </td>
                 <td class="card__word--row">

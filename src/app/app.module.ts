@@ -6,8 +6,6 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { RolesFormComponent } from './components/moduloUsuarios/roles-form/roles-form.component';
-import { RolesListComponent } from './components/moduloUsuarios/roles-list/roles-list.component';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EstadoCivilFormComponent } from './components/moduloUsuarios/estado-civil-form/estado-civil-form.component';
@@ -16,8 +14,6 @@ import { UsuariosFormComponent } from './components/moduloUsuarios/usuarios-form
 import { UsuariosListComponent } from './components/moduloUsuarios/usuarios-list/usuarios-list.component';
 import { GeneroFormComponent } from './components/moduloUsuarios/genero-form/genero-form.component';
 import { GeneroListComponent } from './components/moduloUsuarios/genero-list/genero-list.component';
-import { RolesUsuariosFormComponent } from './components/moduloUsuarios/roles-usuarios-form/roles-usuarios-form.component';
-import { RolesUsuariosListComponent } from './components/moduloUsuarios/roles-usuarios-list/roles-usuarios-list.component';
 
 import { NgSelect2Module } from 'ng-select2';
 import { ToastrModule} from 'ngx-toastr';
@@ -124,16 +120,12 @@ import { PasswordResetFormComponent } from './componenets/password-reset-form/pa
   declarations: [
     AppComponent,
     NavigationComponent,
-    RolesFormComponent,
-    RolesListComponent,
     EstadoCivilFormComponent,
     EstadoCivilListComponent,
     UsuariosFormComponent,
     UsuariosListComponent,
     GeneroFormComponent,
     GeneroListComponent,
-    RolesUsuariosFormComponent,
-    RolesUsuariosListComponent,
     CategoriaFormComponent,
     CategoriaListComponent,
     MedidaFormComponent,
@@ -206,7 +198,7 @@ import { PasswordResetFormComponent } from './componenets/password-reset-form/pa
  
     
   ],
-  providers: [RolesFormComponent,PrimeNGConfig,CookieService
+  providers: [PrimeNGConfig,CookieService
     ,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
