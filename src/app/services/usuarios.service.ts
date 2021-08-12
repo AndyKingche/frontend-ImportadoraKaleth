@@ -91,6 +91,10 @@ try {
 
   }
 
+  usuarioSINo(token:string){
+    return this.http.get(`${this.URL}/finduserlogged/${token}`);
+  }
+
   getUserByEmail(email:string){
     
     return this.http.get(`${this.URL}/findemail/${email}`);

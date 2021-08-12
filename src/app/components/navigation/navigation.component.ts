@@ -12,6 +12,7 @@ import { CookieService } from "ngx-cookie-service";
 export class NavigationComponent implements OnInit {
   items: MenuItem[];
   puntoVenta: any = [];
+  nombreUsuario:string="";
   displayPuntoVenta: boolean = false;
   constructor(private puntosServices: PuntosVentasService ,private router: Router,
     private activedrouter: ActivatedRoute, private userService:UsuariosService,
@@ -22,9 +23,12 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
   this.getPuntosVenta();
   this.userService.getUserLogged().subscribe(res=>{
-    console.log("el usuario logeado es "+res[0].nombre)
-  })
+    console.log("el usuario logeado es "+res[0].nombre);
+    this.nombreUsuario = `${res[0].nombre}`+"\n" +`${res[0].apellido}`;
+  });
+  
   }
+  
 
   getPuntosVenta(){
     this.puntosServices.getPuntosVentas()

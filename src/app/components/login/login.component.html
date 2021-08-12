@@ -52,7 +52,15 @@
           <i class="fa fa-user-tag"></i> Registrarse a KALETH STORE</h5>
           <p-card>
           <div class="container-fluid">
-            
+            <div class="row inputs__modal--register">
+              <div class="col-md-3 label__modal--register">
+                Correo
+              </div>
+              <div class="col-md-9">
+                <input type="email"  (input)="buscarCliente($event.target.value)" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
+                <small id="username2-help" class="p-invalid">{{mensaje}}</small>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-3 label__modal--register">
                 Nombre
@@ -99,15 +107,7 @@
 
               </div>
             </div>
-            <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Correo
-              </div>
-              <div class="col-md-9">
-                <input type="email" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
-                <small id="username2-help" class="p-invalid">{{mensaje}}</small>
-              </div>
-            </div>
+            
             <div class="row inputs__modal--register">
               <div class="col-md-3 label__modal--register">
                 Password

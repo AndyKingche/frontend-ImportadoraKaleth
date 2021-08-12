@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { NotificacionService } from '../../services/notificacion.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { Clientes } from 'src/app/models/Clientes';
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
@@ -12,7 +13,7 @@ import { DOCUMENT } from '@angular/common';
 export class ClientsListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   client: any = [];
-  
+  selectedClientes: Clientes;
   constructor(@Inject(DOCUMENT) private document: Document, private clientesservice : ClientesService,
     private notificacion: NotificacionService,private activedrouter: ActivatedRoute, private router: Router) { }
 

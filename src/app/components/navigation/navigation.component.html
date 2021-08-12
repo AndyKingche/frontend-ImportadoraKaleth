@@ -13,18 +13,23 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link">
+            <a class="nav-link" [routerLink]="" routerLinkActive="router-link-active" >
                 <i class="pi pi-globe"></i>
                 <span>Pagina Principal</span></a>
         </li>
-
+        <li class="nav-item active">
+            <a class="nav-link">
+                <i class="far fa-user-circle"></i>
+                <span>{{nombreUsuario}}</span>
+            </a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
 
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" [routerLink]="" routerLinkActive="router-link-active" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 
                 <i class="pi pi-user"></i>
                 <span>Usuarios</span>
@@ -34,15 +39,16 @@
                 <div class="bg-white py-2 collapse-inner rounded">
 
                     <a class="collapse-item" routerLink="/admin/user"><i class="pi pi-users"></i>Usuarios</a>
-                    <a class="collapse-item" routerLink="/admin/rol"><i class="pi pi-id-card"></i>Rol</a>
-                    <a class="collapse-item" routerLink="/admin/rol-user"><i class="pi pi-user-plus"></i>Asignar-Rol</a>
+                    <a class="collapse-item" routerLink="/admin/client"><i class="far fa-smile-wink"></i>Clientes</a>
+                    <!-- <a class="collapse-item" routerLink="/admin/rol"><i class="pi pi-id-card"></i>Rol</a>
+                    <a class="collapse-item" routerLink="/admin/rol-user"><i class="pi pi-user-plus"></i>Asignar-Rol</a> -->
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <a class="nav-link collapsed" [routerLink]="" routerLinkActive="router-link-active" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="pi pi-briefcase"></i>
                 <span>Productos</span>
             </a>
@@ -69,7 +75,7 @@
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <!-- <a class="nav-link" routerLink="/admin/bill"> -->
-            <a class="nav-link" (click)="showDialogPuntoVenta()">
+            <a class="nav-link" (click)="showDialogPuntoVenta()" [routerLink]="" routerLinkActive="router-link-active">
                 <i class="pi pi-dollar"></i>
                 <span>Venta</span></a>
         </li>
@@ -88,7 +94,7 @@
                 <span>Facturas</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" (click)="logOut()">
+            <a class="nav-link" (click)="logOut()" [routerLink]="" routerLinkActive="router-link-active">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Cerrar Sesion</span></a>
         </li>

@@ -147,20 +147,65 @@ export class HomeComponent implements OnInit {
   }
   //
   idCliente:number=0;
+  activarButton:boolean=true;
+  puedeComprar:boolean=false;
   ngOnInit() {
     //this.getStocksExistents();
     this.getStocksExistentsPuntoVenta();
     this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
+    //this.getUserId();
+    this.getuserTOKEN();
+  }
+  async getuserTOKEN(){
+   
+    let nuevoTOKEN = this.userService.getToken();
+    if(nuevoTOKEN){
+      
+    const userLoged = new Promise(async (resolve,reject)=>{
+      await this.userService.usuarioSINo(nuevoTOKEN).subscribe(res=>{
+        resolve(res)
+      },err=>console.log(err))
+    });
+    console.log(userLoged.then(res=>res));
+    const getNewCliente = new Promise(async(resolve,reject)=>{
+      await userLoged.then(async(result)=>{
+        await this.clienteService.findClienteByEmail(result[0].email).subscribe(
+          res=>{
+            resolve(res)
+          },err=>console.log(err)
+        )
+      })
+    });
+   this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
+   if(this.idCliente){
+     this.puedeComprar = true;
+   }else{
+     this.router.navigate(['/login'])
+   }
+   this.activarButton = false;
+   console.log(this.idCliente)
+
+
+      
+    }else{
+      console.log("no encontre")
+      this.puedeComprar = false;
+    }
     
   }
   ShowCarrito() {
     console.log("si aplastaste")
-    this.mostrarCarrito = true;
-    this.mostrarInicio = false;
-    this.listanuevaCarrito();
-
+    if(this.puedeComprar){
+      this.mostrarCarrito = true;
+      this.mostrarInicio = false;
+      this.listanuevaCarrito();
+    }else{
+      this.router.navigate(['/login']);
+    }
+    
+    
   }
   
   ShowInicio() {
@@ -261,11 +306,13 @@ export class HomeComponent implements OnInit {
   }
 
   async getUserId(){
+    console.log("si estoy entrando pero no obtemgp nada")
     const userLoged = new Promise(async (resolve,reject)=>{
       await this.userService.getUserLogged().subscribe(async (res)=>{
       resolve(res)
       })
     });
+    console.log(userLoged.then(res=>res));
     const getNewCliente = new Promise(async(resolve,reject)=>{
       await userLoged.then(async(result)=>{
         await this.clienteService.findClienteByEmail(result[0].email).subscribe(
@@ -276,14 +323,15 @@ export class HomeComponent implements OnInit {
       })
     });
    this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
+   this.activarButton = false;
    console.log(this.idCliente)
   }
 
   //agregar productos a carrito 
   async Agregar(objeto: any) {
 
-    await this.getUserId();
-   
+    //await this.getUserId();
+   if(this.puedeComprar){
     console.log("entre despues")
     console.log("este es el objeto", objeto)
     this.peDetallePedido.cantidadPe = 1;
@@ -389,8 +437,10 @@ export class HomeComponent implements OnInit {
     //this.idCliente=0;
     //this.auxcantidadPedido = 0;
     //this.cantidadPedido = 0;
- 
-
+  }else{
+    this.router.navigateByUrl('login')
+  }
+//hasta aqui
 
   }
 

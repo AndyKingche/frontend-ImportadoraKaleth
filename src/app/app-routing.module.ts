@@ -42,6 +42,7 @@ import{ HomeComponent }from './components/home/home.component'
 //pedidos
 import {CarritoComponent} from './components/moduloPedidos/carrito/carrito.component'
 //cliente
+import {ClientsListComponent} from './components/clients-list/clients-list.component';
 //import { ClientsListComponent } from './components/clients-list/clients-list.component';
 // product consultas
 import { ReportProductoComponent } from './components/moduloProducto/report-producto/report-producto.component';
@@ -325,6 +326,10 @@ const routes: Routes = [
       },{
         path:'report-bill',
         component: FacturaFechaComponent
+      },
+      {
+        path:'client',
+        component:ClientsListComponent
       }
     ]
   },
@@ -358,7 +363,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

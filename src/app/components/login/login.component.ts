@@ -17,6 +17,7 @@ import { Estadocivil } from 'src/app/models/Estadocivil';
 import { NotificacionService } from "../../services/notificacion.service";
 import { Clientes } from '../../models/Clientes';
 import { ClientesService } from '../../services/clientes.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -92,6 +93,7 @@ verPassword:boolean=false;
 displayForgot:boolean=false;
 mensaje:string="";
 emailRecuperacion:string="";
+puedeRegistrarCliente:boolean=false;
  // autentificacion: AngularFireAuth;
   constructor(private auth: AngularFireAuth, private ruta : Router, private userSservice:UsuariosService, private cookieService:CookieService,
     private generoService:GeneroService, private civilService: EstadoCivilService, private notificacion:NotificacionService,
@@ -113,6 +115,23 @@ emailRecuperacion:string="";
       this.verPassword = true;
     }
   }
+
+  buscarCliente(event:string){
+    console.log(event)
+    this.clienteService.findClienteByEmail(event).subscribe(res=>{
+      if(res!=0){
+        this.puedeRegistrarCliente = false;
+        this.user.nombre = res[0].nombreCli;
+        this.user.apellido = res[0].apellidoCli;
+        this.user.cedula = res[0].cedulaCli;
+        this.user.direccion = res[0].direccionCli;
+        this.user.telefono = res[0].telefono;
+      }else{
+        this.puedeRegistrarCliente = true;
+      }
+    })
+  }
+
 logingoogle(){
 try {
   this.userSservice.loginUser(this.login).subscribe(res=>{
@@ -137,7 +156,7 @@ try {
       this.ruta.navigate(['/cashier'])
     }
     if(res[0].rol == 3){
-      this.ruta.navigateByUrl('#productos')
+      this.ruta.navigate(['/'])
     }
     
   },err=>console.log(err))
@@ -206,6 +225,7 @@ if(usuarioExistente == undefined){
   this.login.username = this.usuarioRecibido.email;
   this.login.password = this.usuarioRecibido.password;
   //Obtener datos de los usuarios y ingresarlos en los clientes
+  if(this.puedeRegistrarCliente){
   this.clienteNuevo.nombreCli = this.usuarioRecibido.nombre;
   this.clienteNuevo.apellidoCli = this.usuarioRecibido.apellido;
   this.clienteNuevo.cedulaCli = this.usuarioRecibido.cedula;
@@ -221,7 +241,7 @@ if(usuarioExistente == undefined){
 
   await clienteRegister.then(res=>res);
   console.log(this.login);
-
+}
   
   const loginUserRegister = new Promise(async(resolve,reject)=>{
     await this.userSservice.loginUser(this.login).subscribe(resultado=>{
@@ -277,6 +297,7 @@ console.log(this.usuarioRecibido.idUsuario)
     nombreCli:"",
     telefono:""
    }
+   this.puedeRegistrarCliente = false;
   this.ruta.navigate(['/home'])
  }else{
    alert("Problemas al registrar su Usuario")

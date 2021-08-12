@@ -36,7 +36,9 @@ export class UsuariosFormComponent implements OnInit {
   };
   edit: boolean = false;
   estados: any = [];
+  roles:any=[];
   estadosEscogidos: any=[];
+  rolesEscogidos:any=[];
   fechaObtenida: any;
   creacion:string='Crear';
   constructor(
@@ -102,7 +104,7 @@ export class UsuariosFormComponent implements OnInit {
     this.getEstadocivil();
     this.getGenero();
     this.getEstado();
-
+    this.getRoles();
   }
 
   saveUsuario() {
@@ -211,6 +213,19 @@ export class UsuariosFormComponent implements OnInit {
    //this.estadosEscogidos = this.estados
   }
 
+  getRoles(){
+    this.roles=[
+      {
+        id:1,
+        nombre:"Administrador"
+      },
+      {
+        id:2,
+        nombre:"Cajero"
+      }
+    ]
+  }
+
   quitarespacios(atributoHTML: string) {
     let obtenerletras = $(atributoHTML).val();
     return obtenerletras.trim();
@@ -232,6 +247,7 @@ export class UsuariosFormComponent implements OnInit {
       this.user.estadocivil.idEstadocivil = this.estadocivilEscogido.idEstadocivil;
       this.user.genero.idGenero = this.generoEscogido.idGenero;
       this.user.estado = this.estadosEscogidos.estado;
+      this.user.rol = this.rolesEscogidos.id;
       console.log(this.estadosEscogidos.id);
       return true;
     } else {
