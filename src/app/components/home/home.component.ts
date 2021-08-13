@@ -34,6 +34,13 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { ClientesService } from '../../services/clientes.service';
 declare let $: any;
 import {Usuarios} from '../../models/Usuarios';
+import { Clientes } from 'src/app/models/Clientes';
+import { Genero } from 'src/app/models/Genero';
+import { Estadocivil } from 'src/app/models/Estadocivil';
+import { GeneroService } from 'src/app/services/genero.service';
+import { EstadoCivilService } from 'src/app/services/estado-civil.service';
+import * as firebase from 'firebase/app';
+import { LocationStrategy } from '@angular/common'; 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -57,7 +64,16 @@ export class HomeComponent implements OnInit {
     private notificacion: NotificacionService,
     private pedidoservice: PedidosService,
     private userService: UsuariosService,
-    private clienteService:ClientesService) { }
+    private clienteService:ClientesService,
+    private generoService:GeneroService, private civilService: EstadoCivilService, private location: LocationStrategy) {
+      activedrouter.params.subscribe(res=>{
+        this.ngOnInit();
+      });
+      history.pushState(null, null, window.location.href);
+this.location.onPopState(() => {  
+history.pushState(null, null, window.location.href);
+});
+     }
 
   //varibales 
   inicio: number = 0;
@@ -148,7 +164,11 @@ export class HomeComponent implements OnInit {
   //
   idCliente:number=0;
   activarButton:boolean=true;
+  activarSesion:boolean=false;
   puedeComprar:boolean=false;
+  displayRegister:boolean=false;
+  puedeRegistrarCliente:boolean=false;
+  usuariologeadosesion = "";
   ngOnInit() {
     //this.getStocksExistents();
     this.getStocksExistentsPuntoVenta();
@@ -158,11 +178,19 @@ export class HomeComponent implements OnInit {
     //this.getUserId();
     this.getuserTOKEN();
   }
+
+  closesesion(){
+    this.userService.deleteToken();
+    this.activarButton = true;
+    this.activarSesion = false;
+    this.router.navigate(['/home'])
+  }
+
   async getuserTOKEN(){
    
     let nuevoTOKEN = this.userService.getToken();
     if(nuevoTOKEN){
-      
+      this.activarSesion = true;
     const userLoged = new Promise(async (resolve,reject)=>{
       await this.userService.usuarioSINo(nuevoTOKEN).subscribe(res=>{
         resolve(res)
@@ -171,6 +199,7 @@ export class HomeComponent implements OnInit {
     console.log(userLoged.then(res=>res));
     const getNewCliente = new Promise(async(resolve,reject)=>{
       await userLoged.then(async(result)=>{
+        this.usuariologeadosesion =`${result[0].nombre} ${result[0].apellido}`
         await this.clienteService.findClienteByEmail(result[0].email).subscribe(
           res=>{
             resolve(res)
@@ -185,6 +214,7 @@ export class HomeComponent implements OnInit {
      this.router.navigate(['/login'])
    }
    this.activarButton = false;
+   
    console.log(this.idCliente)
 
 

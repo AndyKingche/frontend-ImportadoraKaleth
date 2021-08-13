@@ -73,6 +73,9 @@ register(email:string,password:string){
    // return this.cookies.get("token");
    return this.cookies.get("token")
   }
+  deleteToken(){
+    return this.cookies.deleteAll();
+  }
 
   getUserLogged(){
     let token = this.getToken();

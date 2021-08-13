@@ -107,7 +107,7 @@ puedeRegistrarCliente:boolean=false;
   ngOnInit() {
     this.getGenero();
     this.getEstadoCivil();
-    $('<input/ >').attr({"type":"password"}).appendTo('container-fluid');
+   // $('<input/ >').attr({"type":"password"}).appendTo('container-fluid');
   }
 
   verContrase(){

@@ -17,7 +17,14 @@
               <i class="pi pi-globe"></i>
               <span>Pagina Principal</span></a>
       </li>
-
+      <li class="nav-item active">
+        <a class="nav-link">
+            <i class="far fa-user-circle"></i>
+            <span>{{nombreUsuario}}</span>
+            <br/>
+            <span>{{apellidoUsuario}}</span>
+        </a>
+    </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -26,7 +33,7 @@
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-          <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUtilities"
+          <a [routerLink]="" routerLinkActive="router-link-active" class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUtilities"
               aria-expanded="true" aria-controls="collapseUtilities">
               <i class="pi pi-briefcase"></i>
               <span>Productos</span>
@@ -35,7 +42,7 @@
               data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
                 
-                <a class="collapse-item" (click)="showDialogStock()"><i class="pi pi-list"></i>Stock</a>
+                <a [routerLink]="" routerLinkActive="router-link-active" class="collapse-item" (click)="showDialogStock()"><i class="pi pi-list"></i>Stock</a>
               </div>
           </div>
       </li>
@@ -46,14 +53,14 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <!-- <a class="nav-link" routerLink="/admin/bill"> -->
-          <a class="nav-link" (click)="showDialogPuntoVenta()">
+          <a [routerLink]="" routerLinkActive="router-link-active" class="nav-link" (click)="showDialogPuntoVenta()">
           <i class="pi pi-dollar"></i>
             <span>Venta</span></a>
     </li>
 
       <!-- Divider -->
       <li class="nav-item logout">
-        <a class="nav-link" (click)="logOut()">
+        <a [routerLink]="" routerLinkActive="router-link-active"  class="nav-link" (click)="logOut()">
             <i class="fas fa-sign-out-alt"></i>
             <span>Cerrar Sesion</span></a>
     </li>

@@ -3,6 +3,8 @@ import {MenuItem} from 'primeng/api';
 import { PuntosVentasService } from '../../services/puntos-ventas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from "ngx-cookie-service";
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { LocationStrategy } from '@angular/common'; 
 @Component({
   selector: 'app-navigation-cashier',
   templateUrl: './navigation-cashier.component.html',
@@ -16,15 +18,25 @@ export class NavigationCashierComponent implements OnInit {
   displayPuntoVenta: boolean = false;
   displayStock: boolean = false;
   city: string ;
+  nombreUsuario:string="";
+  apellidoUsuario:string="";
   constructor(private puntosServices: PuntosVentasService ,private router: Router,
     private activedrouter: ActivatedRoute,
-    private cookies:CookieService  ) { 
-      
+    private cookies:CookieService,private userService:UsuariosService,private location: LocationStrategy) { 
+      history.pushState(null, null, window.location.href);
+this.location.onPopState(() => {  
+history.pushState(null, null, window.location.href);
+}); 
     }
 
   ngOnInit() {
     //this.getPuntosVenta();
     //this.getpuntoventaStock();
+    this.userService.getUserLogged().subscribe(res=>{
+      console.log("el usuario logeado es "+res[0].nombre);
+      this.nombreUsuario = `${res[0].nombre}`;
+      this.apellidoUsuario = `${res[0].apellido}`;
+    });
   }
 
   getPuntosVenta(){

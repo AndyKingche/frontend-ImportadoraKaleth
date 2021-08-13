@@ -17,6 +17,9 @@
     line-height: 83px;
     color: #006bb1;
 }
+.titulo__productosDisponibles{
+    font-family: "DM Sans",sans-serif;
+}
 
 .contenido__kaleth {
     margin-top: 170px;
