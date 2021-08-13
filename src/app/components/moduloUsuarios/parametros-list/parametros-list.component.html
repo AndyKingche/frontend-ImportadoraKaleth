@@ -1,0 +1,158 @@
+<div class="preloaderConsulta" *ngIf="isloading">
+    <div class="spinConsulta">
+        <div class="cube1Consulta"></div>
+        <div class="cube2Consulta"></div>
+    </div>
+</div>
+<p-card header="Parametros Home">
+
+    <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/parameters-edit/',this.idParametros]"></button>
+
+    <div class="container-fluid">
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Texto Principal:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.textoBanner}}
+            </div>
+        </div>
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Mensaje Puntos de Venta:</label>
+            </div>
+            <div class="col-md-9">
+                {{ this.mensajePuntosVenta}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Frases Footer Izquierda:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.fraseFooter}}</div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Titulo Servicio:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.tituloServicios}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 1:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.servicio1}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 2:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.servicio2}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 3:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.servicio3}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 4:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.servicio4}}
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 5:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.servicio5}}
+
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Título Información:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.tituloInformacion}} </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Teléfono:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.telefono}} </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Celular:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.celular}} </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Correo 1:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.correo1}} </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Correo 2:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.correo2}} </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Dirección:</label>
+            </div>
+            <div class="col-md-9">
+                {{this.direccion}} </div>
+        </div>
+
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-2">
+                <label for="Nombre">Foto 1 Banner:</label>
+            </div>
+            <div class="col-md-2">
+
+                <img src="{{this.urlFotoBanner1}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+            <div class="col-md-2">
+                <label for="Nombre">Foto 2 Banner:</label>
+            </div>
+            <div class="col-md-2">
+
+                <img src="{{this.urlFotoBanner2}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+            <div class="col-md-2">
+                <label for="Nombre">Foto 3 Banner:</label>
+            </div>
+            <div class="col-md-2">
+
+                <img src="{{this.urlFotoBanner3}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+        </div>
+
+
+
+
+    </div>
+</p-card>

@@ -52,7 +52,7 @@
                                 <a routerLink="/login">Entrar</a>
                             </li>
                             <li class="nav-item" *ngIf="activarButton">
-                                <a >Registrarse</a>
+                                <a>Registrarse</a>
                             </li>
 
                         </ul>
@@ -98,7 +98,7 @@
         <div class="col-md-5">
 
             <div class="contenido__kaleth">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, id adipisci. Eos earum error quibusdam voluptatem officia? Exercitationem ullam laboriosam minus doloremque magnam deserunt eveniet neque, sit excepturi ipsa rerum?
+                {{this.textoBanner}}
 
             </div>
         </div>
@@ -106,13 +106,13 @@
             <div class="slider__efect">
                 <ul>
                     <li>
-                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijamaunapieza.jpg?alt=media&token=a646bcdf-a315-4bde-a473-79d65a31380c" alt="">
+                        <img class="img__slider" src="{{this.urlFotoBanner1}}" alt="">
                     </li>
                     <li>
-                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpijama%20dos%20piezas.jpg?alt=media&token=20994c32-ceba-4def-9910-84e38f31dbf6" alt="">
+                        <img class="img__slider" src="{{this.urlFotoBanner2}}" alt="">
                     </li>
                     <li>
-                        <img class="img__slider" src="https://firebasestorage.googleapis.com/v0/b/importadorakaleth.appspot.com/o/slider%2Fpantuflas.jpg?alt=media&token=6e774b73-3349-43e3-bd60-4e272824fc95" alt="">
+                        <img class="img__slider" src="{{this.urlFotoBanner3}}" alt="">
                     </li>
                 </ul>
             </div>
@@ -153,7 +153,7 @@
                                 <div class="price">
                                     <h5>${{stocks.precioUnit}}</h5>
                                     <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->
-                                    <a [routerLink]=""  class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
+                                    <a [routerLink]="" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
                                     <div class="clearfix"> </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                 <div class="col-lg-6">
                     <div class="section-title text-center pb-25 content-top">
                         <h1>Locales Físicos</h1>
-                        <p>Visita nuestros locales en direfentes puntos.</p>
+                        <p>{{this.mensajePuntosVenta}}</p>
                     </div>
                     <!-- section title -->
                 </div>
@@ -204,34 +204,25 @@
             <div class="row justify-content-center">
 
 
-                <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="col-lg-4 col-md-6 col-sm-8" *ngFor="let puntosVenta of puntosVentas; let i=index">
                     <div class="single-temp text-center mt-30">
                         <div class="team-image">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"
-                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+                            <!-- <iframe src="{{this.urlSafe}}" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
                         </div>
                         <div class="team-content mt-30">
-                            <h4 class="title mb-10"><a href="#">Local Principal</a></h4>
-                            <span>Otavalo</span>
+                            <h4 class="title mb-10" *ngIf="i==0"><a href="#">Local Principal</a></h4>
+                            <h4 class="title mb-10" *ngIf="i>0"><a href="#">Local Secundario</a></h4>
+
+
+                            <span>{{puntosVenta.nombreLocal}}</span>
+                            <span>{{puntosVenta.direccion}}</span>
 
                         </div>
                     </div>
                     <!-- single temp -->
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-temp text-center mt-30">
-                        <div class="team-image">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1616.2674259842402!2d-78.26412197010876!3d0.22656798923472857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a149a8310015b%3A0x8f20ba76dcee21fe!2sC.%20Bol%C3%ADvar%2C%20Otavalo!5e0!3m2!1ses-419!2sec!4v1625245493435!5m2!1ses-419!2sec"
-                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
-                        <div class="team-content mt-30">
-                            <h4 class="title mb-10"><a href="#">Local Secundrio</a></h4>
-                            <span>Quito</span>
 
-                        </div>
-                    </div>
-                    <!-- single temp -->
-                </div>
             </div>
             <!-- row -->
         </div>
@@ -249,7 +240,7 @@
                             <a href="#">
                                 <img src="../../../assets/img/KALETH.png" alt="Logo" width="200px">
                             </a>
-                            <p class="mt-10">Importadora Kaleth es una empresa dedicada a la confecci&oacute;n de pijamas cheveres</p>
+                            <p class="mt-10">{{this.fraseFooter}}</p>
                             <ul class="footer-social mt-25">
                                 <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                                 <li><a href="#"><i class="lni-twitter-original"></i></a></li>
@@ -260,13 +251,13 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-5">
                         <div class="footer-link mt-50">
-                            <h5 class="f-title">Servicios</h5>
+                            <h5 class="f-title">{{this.tituloServicios}}</h5>
                             <ul>
-                                <li><a href="#">Pendiente</a></li>
-                                <li><a href="#">Pendiente</a></li>
-                                <li><a href="#">Pendiente</a></li>
-                                <li><a href="#">Pendiente</a></li>
-                                <li><a href="#">Pendiente</a></li>
+                                <li><a href="#">{{this.servicio1}}</a></li>
+                                <li><a href="#">{{this.servicio2}}</a></li>
+                                <li><a href="#">{{this.servicio3}}</a></li>
+                                <li><a href="#">{{this.servicio4}}</a></li>
+                                <li><a href="#">{{this.servicio5}}</a></li>
 
                             </ul>
                         </div>
@@ -275,14 +266,14 @@
 
                     <div class="col-lg-4 col-md-5 col-sm-7">
                         <div class="footer-info mt-50">
-                            <h5 class="f-title">Información de Contactos</h5>
+                            <h5 class="f-title">{{this.tituloInformacion}}</h5>
                             <ul>
                                 <li>
                                     <div class="single-footer-info mt-20">
                                         <span>Teléfono :</span>
                                         <div class="footer-info-content">
-                                            <p>+062 Pendiente</p>
-                                            <p>+593 pendiente</p>
+                                            <p>{{this.telefono}}</p>
+                                            <p>{{this.celular}}</p>
                                         </div>
                                     </div>
                                     <!-- single footer info -->
@@ -291,8 +282,8 @@
                                     <div class="single-footer-info mt-20">
                                         <span>Correo :</span>
                                         <div class="footer-info-content">
-                                            <p>kaleth@yourmail.com</p>
-                                            <p>kaleth@yourmail.com</p>
+                                            <p>{{this.correo1}}</p>
+                                            <p>{{this.correo2}}</p>
                                         </div>
                                     </div>
                                     <!-- single footer info -->
@@ -301,7 +292,7 @@
                                     <div class="single-footer-info mt-20">
                                         <span>Dirección:</span>
                                         <div class="footer-info-content">
-                                            <p>Otavalo - Imbabura - Ecuador</p>
+                                            <p>{{this.direccion}}</p>
                                         </div>
                                     </div>
                                     <!-- single footer info -->
