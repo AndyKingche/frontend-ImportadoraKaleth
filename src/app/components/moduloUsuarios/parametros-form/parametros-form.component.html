@@ -1,0 +1,162 @@
+<div class="preloaderConsulta" *ngIf="isloading">
+    <div class="spinConsulta">
+        <div class="cube1Consulta"></div>
+        <div class="cube2Consulta"></div>
+    </div>
+</div>
+<p-card header="Parametros Home Editar">
+
+    <div class="container-fluid">
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Texto Principal:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.textoBanner" id="textoBanner" name="textoBanner">
+            </div>
+        </div>
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Mensaje Puntos de Venta:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.mensajePuntosVenta" id="textoMensaje" name="textoMensaje">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Frases Footer Izquierda:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.fraseFooter" id="fraseFooter" name="fraseFooter"></div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Titulo Servicio:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.tituloServicios" id="tituloServicios" name="tituloServicios">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 1:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.servicio1" id="servicio1" name="servicio1">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 2:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.servicio2" id="servicio2" name="servicio2">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 3:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.servicio3" id="servicio3" name="servicio3">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 4:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.servicio4" id="servicio4" name="servicio4">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Servicio Item 5:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.servicio5" id="servicio5" name="servicio5">
+
+            </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Título Información:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.tituloInformacion" id="tituloInformacion" name="tituloInformacion"></div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Teléfono:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.telefono" id="telefono" name="telefono"> </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Celular:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.celular" id="celular" name="celular"></div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Correo 1:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.correo1" id="correo1" name="correo1"></div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Correo 2:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.correo2" id="correo2" name="correo2"> </div>
+        </div>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-3">
+                <label for="Nombre"> Dirección:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" pInputText [(ngModel)]="parametro.direccion" id="direccion" name="direccion"> </div>
+        </div>
+
+
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-2">
+                <label for="Nombre">Foto 1 Banner:</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload($event)">
+                <img src="{{imagenObtenidaMostrar}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+            <div class="col-md-2">
+                <label for="Nombre">Foto 2 Banner:</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload1($event)">
+                <img src="{{imagenObtenidaMostrar1}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+            <div class="col-md-2">
+
+                <label for="Nombre">Foto 3 Banner:</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" id="formFile" type="file" accept="image/*" (change)="onBasicUpload2($event)">
+                <img src="{{this.imagenObtenidaMostrar2}}" alt="" width="100px" height="130px" class="p-shadow-4" />
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" (click)="updateParametro()">Aceptar</button>
+        <button type="button" class="btn btn-info boton__dere" routerLink="/admin/parameters">Regresar</button>
+    </div>
+
+</p-card>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CatStockService } from '../../services/cat-stock.service';
 import { peDetallePedido } from '../../models/peDetallePedido';
 import { peDetallePedidoAux } from 'src/app/models/peDetallePedidoAux';
-import * as html2pdf from 'html2pdf.js';
+import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 //Productos
 import { Productos } from '../../models/catProducto';
 import { ProductoService } from '../../services/producto.service';
@@ -41,6 +41,7 @@ import { GeneroService } from 'src/app/services/genero.service';
 import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import * as firebase from 'firebase/app';
 import { LocationStrategy } from '@angular/common'; 
+import { ParametrosService } from 'src/app/services/parametros.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -51,6 +52,8 @@ export class HomeComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   @Input()
   stock: any = [];
+ 
+
   mostrarCarrito: boolean = false;
   mostrarInicio: boolean = true
   isloading= false;
@@ -65,7 +68,9 @@ export class HomeComponent implements OnInit {
     private pedidoservice: PedidosService,
     private userService: UsuariosService,
     private clienteService:ClientesService,
-    private generoService:GeneroService, private civilService: EstadoCivilService, private location: LocationStrategy) {
+    private generoService:GeneroService, private civilService: EstadoCivilService, private location: LocationStrategy,
+    private sanitizer: DomSanitizer,
+    private parametroServicio : ParametrosService) {
       activedrouter.params.subscribe(res=>{
         this.ngOnInit();
       });
@@ -177,6 +182,11 @@ history.pushState(null, null, window.location.href);
     this.listaCheckout = [];
     //this.getUserId();
     this.getuserTOKEN();
+    this.getPuntosVentas();
+    this. getParametros();
+
+   
+
   }
 
   closesesion(){
@@ -702,7 +712,71 @@ history.pushState(null, null, window.location.href);
     this.displayImagenes = true
 
   }
+  //Obtener los puntos de vemnta para mostrar en el hom de los locales fisicos existentes
+  puntosVentas : any=[];
+  urlSafe: SafeResourceUrl;
 
+  getPuntosVentas(){
+    this.puntosVentaServices.getPuntosVentas().subscribe(
+      res =>{
+        console.log(res)
+        this.puntosVentas = res;
+        this.urlSafe=this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
+      },err => console.error(err)
+      
+    );
+  }
+
+
+//obtener los datos de parametros para las vistas
+parametros : any = [];
+idParametro = 0;
+textoBanner = '';
+mensajePuntosVenta = '';
+fraseFooter = '';
+tituloServicios = '';
+servicio1 = '';
+servicio2 = '';
+servicio3 = '';
+servicio4 = '';
+servicio5 = '';
+tituloInformacion = '';
+telefono = '';
+celular = '';
+correo1 = '';
+correo2 = '';
+direccion = '';
+urlFotoBanner1 = '';
+urlFotoBanner2 = '';
+urlFotoBanner3 = '';
+  getParametros(){
+    this.parametroServicio.gerParametros().subscribe(
+      res=>{
+        this.parametros = res;
+        this.parametros = res;
+        this.idParametro = res[0].idParametro;
+        this.textoBanner = res[0].textoBanner;
+        this.mensajePuntosVenta = res[0].mensajePuntosVenta;
+        this.fraseFooter = res[0].fraseFooter;
+        this.tituloServicios = res[0].tituloServicios;
+        this.servicio1 = res[0].servicio1;
+        this.servicio2 = res[0].servicio2;
+        this.servicio3 = res[0].servicio3;
+        this.servicio4 = res[0].servicio4;
+        this.servicio5 = res[0].servicio5;
+        this.tituloInformacion = res[0].tituloInformacion;
+        this.telefono = res[0].telefono;
+        this.celular = res[0].celular;
+        this.correo1 = res[0].correo1;
+        this.correo2 = res[0].correo2;
+        this.direccion = res[0].direccion;
+        this.urlFotoBanner1 = res[0].urlFotoBanner1;
+        this.urlFotoBanner2 = res[0].urlFotoBanner2;
+        this.urlFotoBanner3 = res[0].urlFotoBanner3;
+      },
+      err => console.error(err)
+    );
+  }
 }
 
 

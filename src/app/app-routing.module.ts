@@ -59,6 +59,9 @@ import { ClientGuard } from './guards/client.guard'
 
 import { PasswordResetFormComponent } from './componenets/password-reset-form/password-reset-form.component';
 import { ResetPasswordGuard } from './guards/reset-password.guard';
+
+import {ParametrosListComponent} from './components/moduloUsuarios/parametros-list/parametros-list.component'
+import {ParametrosFormComponent} from './components/moduloUsuarios/parametros-form/parametros-form.component'
 const routes: Routes = [
   {
     path:'',
@@ -213,7 +216,17 @@ const routes: Routes = [
       {
         path:'client',
         component:ClientsListComponent
-      }
+      },
+      {
+        path:'parameters',
+        component: ParametrosListComponent
+        
+      },
+      {
+        path:'parameters-edit/:id',
+        component: ParametrosFormComponent
+        
+      },
     ]
   },
   {

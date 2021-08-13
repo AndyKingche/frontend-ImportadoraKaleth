@@ -3,5 +3,6 @@ export interface PuntosVentas{
     nombreLocal?:string;
     direccion?:string;
     ciudad?:string;
-    telefono?:number
+    telefono?:number;
+    urlMapa?:string;
 }

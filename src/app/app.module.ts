@@ -115,6 +115,9 @@ import {FieldsetModule} from 'primeng-lts/fieldset';
 import {PasswordModule} from 'primeng-lts/password';
 import {InputMaskModule} from 'primeng-lts/inputmask';
 import { PasswordResetFormComponent } from './componenets/password-reset-form/password-reset-form.component';
+import {GMapModule} from 'primeng-lts/gmap';
+import { ParametrosListComponent } from './components/moduloUsuarios/parametros-list/parametros-list.component';
+import { ParametrosFormComponent } from './components/moduloUsuarios/parametros-form/parametros-form.component';
 //
 @NgModule({
   declarations: [
@@ -152,7 +155,9 @@ import { PasswordResetFormComponent } from './componenets/password-reset-form/pa
     FacturaFechaComponent,
     ClientsFormComponent,
     NavigationCustomerComponent,
-    PasswordResetFormComponent
+    PasswordResetFormComponent,
+    ParametrosListComponent,
+    ParametrosFormComponent
 
   ],
   imports: [
