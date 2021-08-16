@@ -30,7 +30,7 @@
     font-size: 17px;
     line-height: 39px;
     text-align: center;
-    color: #000000;
+    color: #828181;
 }
 
 .slider__kaleth {
@@ -188,6 +188,9 @@ body::-webkit-scrollbar {
         cursor: context-menu;
     }
 }
+
+
+
 
 @media only screen and (max-width: 768px) {
     .img__sliderkaleth {

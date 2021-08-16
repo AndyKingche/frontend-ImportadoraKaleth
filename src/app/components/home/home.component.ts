@@ -45,7 +45,62 @@ import { ParametrosService } from 'src/app/services/parametros.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  styles: [`
+  .outofstock {
+      font-weight: 700;
+      color: #FF5252;
+      
+  }
+  
+  .lowstock {
+      font-weight: 700;
+      color: #FFA726;
+  }
+  
+  .instock {
+      font-weight: 700;
+      color: #66BB6A;
+  }
+  .badgeoutofstock{
+    background-color:  #FB888A;
+    color: #D9080B;
+    text-align: center;
+font-weight: bold;
+border-radius: 20px 20px 20px 20px;
+  }
+  .badgeoutofstock .titulo__status--stock::before{
+
+    content:'Agotado';
+    }
+  .badgelowstock{
+    background-color:  #E9C46A;
+    color: #E76F51;
+    text-align: center;
+  font-weight: bold;
+  border-radius: 20px 20px 20px 20px;
+    }
+    .badgelowstock .titulo__status--stock::before{
+
+      content:'Disponible';
+      }
+    .badgeinstock{
+      background-color:  #89C46E;
+  color: #45742F;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 20px 20px 20px 20px;
+      }
+      .badgeinstock .titulo__status--stock::before{
+
+        content:'Disponible';
+        }
+  
+  :host ::ng-deep .row-accessories {
+      background-color: rgba(0,0,0,.15) !important;
+  }
+`
+]
 })
 export class HomeComponent implements OnInit {
 

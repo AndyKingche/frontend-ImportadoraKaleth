@@ -1,12 +1,3 @@
-<!--====== PRELOADER PART START ======-->
-<!-- <div class="preloader">
-    <div class="spin">
-        <div class="cube1"></div>
-        <div class="cube2"></div>
-    </div>
-</div> -->
-<!--====== HEADER PART START ======-->
-
 <div class="preloaderConsulta" *ngIf="isloading">
     <div class="spinConsulta">
         <div class="cube1Consulta"></div>
@@ -95,12 +86,21 @@
 
 
     <div class="container-fluid slider__kaleth">
-        <div class="col-md-5">
+        <div class="col-md-6">
 
             <div class="contenido__kaleth">
                 {{this.textoBanner}}
-
+                <div class="footer-logo mt-40">
+                    <ul class="footer-social mt-25">
+                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                        <li><a href="#"><i class="lni-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                </div>
             </div>
+            
+            
         </div>
         <div class="col-md-6 img__sliderkaleth">
             <div class="slider__efect">
@@ -141,23 +141,77 @@
                     <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                         <div class="col-md-3 col-md2">
 
-                            <div class="col-md1">
+                            <!-- <div class="col-md1">
+                                <h3>
+                                {{stocks.catProducto.catCategoria.nombreCategoria}}
+                                {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
+                                    
+                                </h3>
                                 <a (click)="showDialogImagenes(stocks)">
                                     <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
                                 </a>
-                                <h3>
-                                    <a style="display:block; height: 50.4px;" href="#">{{stocks.catProducto.catCategoria.nombreCategoria}}
-                                        {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
-                                    </a>
-                                </h3>
-                                <div class="price">
+                                
+                                <div class=" price">
                                     <h5>${{stocks.precioUnit}}</h5>
-                                    <!-- <input class="cantidad" id="numerocantidad" name="numerocantidad" (change)="obtenerCantidad($event.target.value)" type="number"> -->
+        
                                     <a [routerLink]="" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
                                     <div class="clearfix"> </div>
                                 </div>
-                            </div>
+                            </div> -->
 
+                            <div class="tarjeta">
+                                <div class="tarjeta__imagen">
+                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="">
+                                </div>
+                                <div class="tarjeta__contenido">
+                                    <h3>
+                                        {{stocks.catProducto.catCategoria.nombreCategoria}} - 
+                                        {{stocks.catProducto.catDiseno.nombre}}
+                                            
+                                        </h3>
+                                        <div class="container-fluid tarjeta__contenido--detalle">
+                                            <div class="row">
+                                                <div class="col-md-12 precio">
+                                                
+                                                Talla: {{stocks.catProducto.catTalla.medida}}
+                                                
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6 precio">
+                                                
+                                                Cant.:  <div [ngClass]="{'outofstock': stocks.cantidad === 0 , 'instock': stocks.cantidad >= 1}">
+
+                                                    {{stocks.cantidad}}
+                                                </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 precio2">
+                                                    <div [ngClass]="{'badgeoutofstock': stocks.cantidad === 0, 'badgeinstock': stocks.cantidad >=1 }">
+                                                        <span class="titulo__status--stock"></span>
+                                                                
+                                                            </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 precio">
+                                                <i class="fas fa-tags"></i>
+                                                Precio: ${{stocks.precioUnit}}
+                                                    
+                                                </div>                                                  
+                                            </div>
+                                            <div class="row tarjeta__contenido--boton">
+                                                <div class="col-md-12 ">
+                                                    <button pButton class="p-button-rounded p-button-danger p-button-sm" type="button" icon="fa fa-cart-plus" iconPos="left" label="Añadir al carrito"></button>
+                                                </div>                                                  
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
                             <div *ngIf="i==3||i==7||i==11">
 
                                 <div class="content-top1">
@@ -217,7 +271,7 @@
 
                             <span>{{puntosVenta.nombreLocal}}</span>
                             <span>{{puntosVenta.direccion}}</span>
-
+                            <span>{{puntosVenta.telefono}}</span>
                         </div>
                     </div>
                     <!-- single temp -->
@@ -245,6 +299,7 @@
                                 <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                                 <li><a href="#"><i class="lni-twitter-original"></i></a></li>
                                 <li><a href="#"><i class="lni-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
                             </ul>
                         </div>
                         <!-- footer logo -->

@@ -18,6 +18,7 @@ import { NotificacionService } from "../../services/notificacion.service";
 import { Clientes } from '../../models/Clientes';
 import { ClientesService } from '../../services/clientes.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 declare let $:any;
 @Component({
   selector: 'app-login',
@@ -108,6 +109,32 @@ puedeRegistrarCliente:boolean=false;
     this.getGenero();
     this.getEstadoCivil();
    // $('<input/ >').attr({"type":"password"}).appendTo('container-fluid');
+   this.verUsuarioLogeado()
+  }
+
+  async verUsuarioLogeado(){
+    let nuevoTOKEN = this.userSservice.getToken();
+    if(nuevoTOKEN){
+      
+    const userLoged = new Promise(async (resolve,reject)=>{
+      await this.userSservice.usuarioSINo(nuevoTOKEN).subscribe(res=>{
+        resolve(res)
+      },err=>console.log(err))
+    });
+    let rol = await userLoged.then(res=>res[0].rol);
+    if(rol == 1){
+      this.ruta.navigate(['/admin'])
+    }
+    if(rol == 2){
+      this.ruta.navigate(['/cashier'])
+    }
+    if(rol == 3){
+      this.ruta.navigate(['/'])
+    }
+  
+    }else{
+      console.log("no hay nadie")
+    }
   }
 
   verContrase(){
@@ -134,47 +161,69 @@ puedeRegistrarCliente:boolean=false;
     })
   }
 
-logingoogle(){
+async logingoogle(){
 try {
-  this.userSservice.loginUser(this.login).subscribe(res=>{
+  
+  const login = new Promise(async (resolve,reject)=>{
+    await this.userSservice.loginUser(this.login).subscribe(res=>{
+      if(res){
+        resolve(res);
+      }else{
+        reject(res);
+      }
+    },err=>reject())
+  })
+  //obtenemos el objeto token
+  this.aux =  await login.then(res=>res);
+
+  //seteamos en las cookies.
+  this.userSservice.setToken(this.aux.token);
+  //obteneos el id del usuario logeado 
+  const obtenerUsuarioLogin = new Promise(async (resolve,reject)=>{
+    await this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
+      resolve(res[0].idUsuario);
+    });
+
+  });
+
+  //obtenemos el rol del ussuario logeado
+
+  let idUsuario = await obtenerUsuarioLogin.then(res=>res);
+  const obtenerROLogin = new Promise(async (resolve,reject)=>{
+    await this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
+      resolve(res[0].rol);
+    });
+
+  });
+  let rol = await obtenerROLogin.then(res=>res)
+// una vez que se haya logado obtenemos el token.
+    const updateUserLogin = new Promise(async (resolve,reject)=>{
+      this.userSservice.updateUserLogged(this.aux.token,Number(idUsuario)).subscribe(
+        res=>{resolve(res)}
+        )
+    })
+
     
-    this.aux=res;
-    this.userSservice.setToken(this.aux.token);
-    
 
-
-  this.userSservice.getUserByEmail(this.login.username).subscribe(res=>{
-    console.log(res[0].idUsuario)
-
-    this.userSservice.updateUserLogged(this.aux.token,res[0].idUsuario).subscribe(
-      res=>console.log(res)
-      ,err=>console.log(err))
-
+    await updateUserLogin.then(res=>res);
       
-    if(res[0].rol == 1){
+
+    if(rol == 1){
       this.ruta.navigate(['/admin'])
     }
-    if(res[0].rol == 2){
+    if(rol == 2){
       this.ruta.navigate(['/cashier'])
     }
-    if(res[0].rol == 3){
+    if(rol == 3){
       this.ruta.navigate(['/'])
     }
     
-  },err=>console.log(err))
-    
-  },err=>{
-    this.notificacion.showError("Revise su email o su contraseña","***ERROR")
-  });
+
 } catch (error) {
   console.log(error);
+  this.notificacion.showError("Las credenciales no coinciden con nuestros usuarios, revisa tu email o tu contraseña","**Kaleth Error")
 }
   
-
-  
-
- 
-
   }
   logOut() {
     this.cookieService.delete('token');

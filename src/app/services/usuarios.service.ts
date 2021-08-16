@@ -81,7 +81,7 @@ register(email:string,password:string){
     let token = this.getToken();
 console.log(token);
 try {
-  if(token!=null){
+  if(token){
 
     return this.http.get(`${this.URL}/finduserlogged/${token}`);
   }else{

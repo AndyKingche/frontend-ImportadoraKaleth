@@ -48,6 +48,7 @@ export class UsuariosFormComponent implements OnInit {
     private activedrouter: ActivatedRoute,
     private router: Router,
     private notificacion: NotificacionService
+   
   ) {}
   regexpresion: RegExp= /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
   ngOnInit() {
@@ -243,6 +244,7 @@ export class UsuariosFormComponent implements OnInit {
       this.fechaObtenida.length !=0
        ) {
 
+        
       this.user.fechanacimiento = this.fechaObtenida
       this.user.estadocivil.idEstadocivil = this.estadocivilEscogido.idEstadocivil;
       this.user.genero.idGenero = this.generoEscogido.idGenero;
