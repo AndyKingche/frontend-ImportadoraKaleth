@@ -6,7 +6,7 @@
 </div>
 
 
-<header class="header-area">
+<div class="header-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -76,7 +76,7 @@
         <!-- row -->
     </div>
     <!-- container -->
-</header>
+</div>
 
 <!--====== HEADER PART ENDS ======-->
 
@@ -133,7 +133,7 @@
 
     <section id="product" class="team-area pt-100">
         <div class="content">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="content-top">
                     <h1 >Productos disponibles</h1>
                     <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
@@ -161,7 +161,9 @@
 
                             <div class="tarjeta">
                                 <div class="tarjeta__imagen">
-                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="">
+                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
+                                    {{stocks.catProducto.catDiseno.nombre}}">
+                                    <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
                                 </div>
                                 <div class="tarjeta__contenido">
                                     <h3>
@@ -182,7 +184,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 precio">
                                                 
-                                                Cant.:  <div [ngClass]="{'outofstock': stocks.cantidad === 0 , 'instock': stocks.cantidad >= 1}">
+                                                Cant.:  <div [ngClass]="{'outofstock': stocks.cantidad <= 0 , 'instock': stocks.cantidad >= 1}">
 
                                                     {{stocks.cantidad}}
                                                 </div>
@@ -190,8 +192,8 @@
                                                 
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-12 precio2">
-                                                    <div [ngClass]="{'badgeoutofstock': stocks.cantidad === 0, 'badgeinstock': stocks.cantidad >=1 }">
+                                                <div class="col-md-12 precio">
+                                                    <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
                                                         <span class="titulo__status--stock"></span>
                                                                 
                                                             </div>
@@ -206,7 +208,7 @@
                                             </div>
                                             <div class="row tarjeta__contenido--boton">
                                                 <div class="col-md-12 ">
-                                                    <button pButton class="p-button-rounded p-button-danger p-button-sm" type="button" icon="fa fa-cart-plus" iconPos="left" label="Añadir al carrito"></button>
+                                                    <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0"  type="button" icon="fa fa-cart-plus" iconPos="left" label="Añadir al carrito" (click)="Agregar(stocks)"></button>
                                                 </div>                                                  
                                             </div>
                                         </div>
@@ -244,7 +246,7 @@
 
 
     <section id="team" class="team-area pt-100">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section-title text-center pb-25 content-top">
@@ -286,7 +288,7 @@
     <!--====== FOOTER PART START ======-->
 
     <section id="about" class="footer-area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="footer-widget pt-75 pb-120">
                 <div class="row">
                     <div class="col-lg-3 col-md-5 col-sm-7">
@@ -401,7 +403,7 @@
 <div *ngIf="mostrarCarrito">
 
 
-    <div class="container" id="carritoImprimir">
+    <!-- <div class="container-fluid" id="carritoImprimir">
         <div class="check-out content-top">
             <h1 style="margin-top:30px ;">Carrito Kaleth</h1>
             <a (click)="ShowInicio()" class="main-btn">Seguir Comprando</a>
@@ -442,12 +444,91 @@
 
             <div class="clearfix"> </div>
         </div>
-    </div>
+    </div> -->
+    <div class="titulo__carrito">
+      
+        <div class="tittle__izq">
+            <i class="fa fa-tag p-mr-2">
+            </i>
+            <b>Carrito Kaleth</b>
+        </div>      
+      
+
+</div>
+        
+
+<p-table #dt2 [value]="listaCheckout" [responsive]="true" selectionMode="single" [(selection)]="selectedProductos" dataKey="id" styleClass="p-datatable-responsive"
+    [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="card__word--header">Items         
+            </th>
+            <th class="card__word--header">Productos
+            </th>
+            <th class="card__word--header">Precios
+            </th>
+            <th class="card__word--header">Cantidad
+            </th>
+            <th class="card__word--header">Detalles
+            </th>
+            <th class="card__word--header">Subtotal
+            </th>
+            <th class="card__word--header">Eliminar
+            </th>
+            
+        </tr>
+  
+    </ng-template>
+    <ng-template pTemplate="body" let-listacarrito>
+        <tr [pSelectableRow]="listacarrito">
+            <td class="card__word--row">
+                <span class="p-column-title">Items</span>
+                <img src="{{listacarrito.catProducto.catDiseno.urlFoto}}" width="100px" height="120px">
+                
+            </td>
+            <td class="card__word--row">
+                <span class="p-column-title">Producto</span>
+                <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
+                               <p> {{listacarrito.descripcion}} </p>
+            </td>
+            <td class="card__word--row">
+                <span class="p-column-title">Precios</span>
+                {{listacarrito.valorUnit}}
+            </td>
+            <td class="card__word--row">
+                <span class="p-column-title">Cantidad</span>
+                <p-inputNumber [(ngModel)]="listacarrito.cantidadPe" width="100px" (onInput)="obtenerCantidad(listacarrito.cantidadPe, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100"></p-inputNumber>
+                <!-- <input type="number" class="p-inputtext-sm" placeholder="Small" pInputText > -->
+            </td>
+            <td class="card__word--row">
+              <span class="p-column-title">Detalles</span>
+              Envio Acordar con el administrador
+          </td>
+          <td class="card__word--row">
+            <span class="p-column-title">Subtotal</span>
+            {{listacarrito.valorTotal}}
+        </td>
+        
+                     
+            <td class="card__word--row">
+                <span class="p-column-title">Opciones</span>
+               <button pButton pRipple icon="fa fa-trash" class="boton__derecho p-button-rounded p-button-danger p-mr-2" (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></button>
+            </td>
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4">No encontro Pedidos</td>
+        </tr>
+    </ng-template>
+</p-table>
 
 </div>
 
 
-<p-dialog position="top" [(visible)]="displayImagenes">
+<p-dialog position="left" [(visible)]="displayImagenes">
 
     <div class="container-fluid">
         <div class="row">

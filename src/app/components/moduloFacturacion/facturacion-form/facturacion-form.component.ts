@@ -13,6 +13,7 @@ import { VenDetalleFact } from 'src/app/models/VenDetalleFact';
 import { FacturacionService } from '../../../services/facturacion.service';
 import { ThrowStmt } from '@angular/compiler';
 import { cat_stock } from 'src/app/models/cat_stock';
+import { UsuariosService } from '../../../services/usuarios.service';
 declare let $: any;
 
 @Component({
@@ -132,7 +133,7 @@ export class FacturacionFormComponent implements OnInit {
     subtotal: 0,
     descuento: 0,
     usUser: {
-      idUsuario: 1
+      idUsuario: 0,
     },
     detallefact: [{
       cantidadFact: 0,
@@ -174,11 +175,13 @@ export class FacturacionFormComponent implements OnInit {
   stockConsulta: any = [];
   selectedStock: cat_stock;
   disabled: boolean = false;
+  usuarioId:number=0;
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
     private router: Router,
-    private activedrouter: ActivatedRoute) {
+    private activedrouter: ActivatedRoute,
+    private userService:UsuariosService) {
 
     activedrouter.params.subscribe(val => {
       this.ngOnInit();
@@ -202,7 +205,7 @@ export class FacturacionFormComponent implements OnInit {
       subtotal: 0,
       descuento: 0,
       usUser: {
-        idUsuario: 0,
+        idUsuario: this.usuarioId,
       },
       detallefact: [{
         idDetalleFact: 0,
@@ -227,7 +230,13 @@ export class FacturacionFormComponent implements OnInit {
 
     this.listaDetalleFactura = [];
     this.getStockConsulta(this.idPuntosVenta);
+    this.userService.getUserLogged().subscribe(res=>{
+      console.log("el usuario logeado es "+res[0].idUsuario);
+      this.usuarioId = res[0].idUsuario;
+    })
   }
+
+
 
   obtenerVariable(nombreProd: any) {
     this.codigoProducto = nombreProd;
@@ -529,7 +538,7 @@ export class FacturacionFormComponent implements OnInit {
       subtotal: 0,
       descuento: 0,
       usUser: {
-        idUsuario: 1
+        idUsuario: 0
       },
       detallefact: [{
         cantidadFact: 0,
@@ -571,7 +580,7 @@ export class FacturacionFormComponent implements OnInit {
     this.auxiliarFacturaIngreso.total = (Number(this.totalVenta));
     this.auxiliarFacturaIngreso.subtotal = (Number(this.subtotalFactura));
     this.auxiliarFacturaIngreso.descuento = (Number(this.descuentoFactura));
-    this.auxiliarFacturaIngreso.usUser.idUsuario = 1;//Usuario logeaado 
+    this.auxiliarFacturaIngreso.usUser.idUsuario = this.usuarioId;//Usuario logeaado 
     this.auxiliarFacturaIngreso.venCliente.idCliente = this.idClienteIngreso;
     if (this.listaDetalleFactura.length === 0) {
       alert("no hay datos");

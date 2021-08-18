@@ -118,6 +118,9 @@ import { PasswordResetFormComponent } from './componenets/password-reset-form/pa
 import {GMapModule} from 'primeng-lts/gmap';
 import { ParametrosListComponent } from './components/moduloUsuarios/parametros-list/parametros-list.component';
 import { ParametrosFormComponent } from './components/moduloUsuarios/parametros-form/parametros-form.component';
+import { OrderProductComponent } from './components/moduloProducto/order-product/order-product.component';
+import {ConfirmDialogModule} from 'primeng-lts/confirmdialog';
+import {ConfirmationService} from 'primeng-lts/api';
 //
 @NgModule({
   declarations: [
@@ -157,7 +160,8 @@ import { ParametrosFormComponent } from './components/moduloUsuarios/parametros-
     NavigationCustomerComponent,
     PasswordResetFormComponent,
     ParametrosListComponent,
-    ParametrosFormComponent
+    ParametrosFormComponent,
+    OrderProductComponent
 
   ],
   imports: [
@@ -199,11 +203,12 @@ import { ParametrosFormComponent } from './components/moduloUsuarios/parametros-
     FieldsetModule,
     PasswordModule,
     InputMaskModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ConfirmDialogModule
  
     
   ],
-  providers: [PrimeNGConfig,CookieService
+  providers: [PrimeNGConfig,CookieService,ConfirmationService
     ,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -283,6 +283,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   /* border-bottom:5px solid #A49E9E; */
   
 }
+
 .tarjeta:hover{
 
   -webkit-transform:scale(1.0);transform:scale(1.02);
@@ -291,10 +292,16 @@ ul.callbacks_tabs.callbacks1_tabs {
   -o-transition: 0.5s all;
   -moz-transition: 0.5s all;
   -ms-transition: 0.5s all;
+  cursor: pointer;
   
 }
+.tarjeta:hover div a{
+display:block;
+position: relative;
+
+}
 .tarjeta__contenido{
-  margin-top: -22px;
+  margin-top: -55px;
   background-color: white;
   border-width: 1px;
   border-style: solid;
@@ -364,13 +371,32 @@ margin-top:1vh auto;
     
     color: rgb(168, 52, 52);
     }
+.tarjeta__imagen{
+  display: inline-block;
+    text-align: center;
+}
 .tarjeta__imagen img {
-  
+  width: 100vw;
+  height: 45vh;
   border-style: solid;
   border-color: #fff;
   border-radius: 30px 30px 10px 10px;
   -webkit-box-shadow: 1px 3px 3px 1px rgba(0,0,0,0.39); 
   box-shadow: 1px 3px 3px 1px rgba(0,0,0,0.39);
+}
+.tarjeta__imagen a{
+  top: -150px;
+  background: #eee;
+  font-size:.9em;
+  padding: 0.5em 2.3em;
+  left: 30%;
+  width: 50%;
+  opacity: 95%;
+}
+.tarjeta__imagen a i{
+  color:rgba(149, 148, 148, 0.81);
+  background-color: rgb(253, 253, 253);
+  border-radius: 30px 30px 30px 30px;
 }
 .col-md1 h3 {
   	font-size: 0.8em;
@@ -544,6 +570,9 @@ p.footer-class a:hover{
 /*-- contact --*/
 .contact {
   padding: 4em 0;
+}
+.p-inputnumber-buttons-stacked .p-inputnumber-input{
+  width: 10%;
 }
 .contact h1{
 	font-size: 3em;
@@ -1149,12 +1178,17 @@ ul.nav.nav-pills {
 /*--//typo--*/
 /*--responsive--*/
 @media(max-width:1366px){
+
+  .tarjeta__contenido--detalle .precio{
+   
+    margin-top: 1em;
+    }
+
+    .tarjeta__contenido h3{
+      height: 2vh;
+    
+    }
 	
-}
-@media(max-width:1280px){
-	
-}
-@media(max-width:1024px){
 .content-top h1 {
   font-size: 2.5em;
   margin: 0 0 0.3em;
@@ -1217,6 +1251,85 @@ ul.nav.nav-pills {
 h1.typo1 {
   font-size: 2.5em;
 }
+}
+@media(max-width:1280px){
+	
+}
+@media only screen and (max-width:1024px){
+  
+  .tarjeta__contenido--detalle .precio{
+   
+    margin-top: 1em;
+    }
+
+    .tarjeta__contenido h3{
+      height: 4.5vh;
+    
+    }
+
+.content-top h1 {
+  font-size: 2.5em;
+  margin: 0 0 0.3em;
+}	
+
+.content-top {
+  padding: 3em 0;
+}
+
+.top-footer1 input[type="submit"] {
+  width: 33%;
+}
+.banner-mat img {
+  height: 256px;
+  width: 100%;
+}
+.footer-bottom {
+  padding: 3em 0;
+}
+/*--products--*/
+.products {
+  padding: 3em 0;
+}
+.products h1 {
+  font-size: 2.5em;
+}
+.tags li a {
+  font-size: 0.77em;
+}
+/*--single--*/
+.thumb-image {
+  width: 242px;
+}
+/*--contact--*/
+.contact {
+  padding: 3em 0;
+}
+.contact h1 {
+  font-size: 2.5em;
+    margin: 0 0px 0.8em;
+}
+/*--account--*/
+.account h1,.register h1 {
+  font-size: 2.5em;
+}
+.account,.register {
+  padding: 3em 0;
+}
+/*--checkout--*/
+.check-out {
+  padding: 3em 0em;
+}
+.check-out h1 {
+  font-size: 2.5em;
+}
+/*--typo--*/
+.page {
+  padding: 3em 0;
+}
+h1.typo1 {
+  font-size: 2.5em;
+}
+
 }
 @media(max-width:768px){
 .col-md2 {
@@ -1352,6 +1465,8 @@ p.log {
 h1.grid2 {
   font-size: 2.3em;
 }
+
+
 }
 
 @media (max-width: 736px){

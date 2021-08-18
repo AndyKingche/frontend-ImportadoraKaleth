@@ -42,7 +42,7 @@
 
                     <a class="collapse-item" routerLink="/admin/user"><i class="pi pi-users"></i>Usuarios</a>
                     <a class="collapse-item" routerLink="/admin/client"><i class="far fa-smile-wink"></i>Clientes</a>
-                    <a class="collapse-item" routerLink="/admin/parameters"><i class="far fa-smile-wink"></i>Parametros</a>
+                    <a class="collapse-item" routerLink="/admin/parameters"><i class="fa fa-cogs"></i>Parametros</a>
                     <!-- <a class="collapse-item" routerLink="/admin/rol"><i class="pi pi-id-card"></i>Rol</a>
                     <a class="collapse-item" routerLink="/admin/rol-user"><i class="pi pi-user-plus"></i>Asignar-Rol</a> -->
                 </div>
@@ -86,11 +86,27 @@
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/admin/report-product">
                 <i class="fa fa-search-plus"></i>
                 <span>Consultas</span></a>
+        </li> -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" [routerLink]="" routerLinkActive="router-link-active" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fa fa-search-plus"></i>
+                <span>Consultas</span>
+            </a>
+            <div id="collapse3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" routerLink="/admin/report-product"><i class="pi pi-sort-amount-up"></i>Estado de <br/>Productos</a>
+                    <a class="collapse-item" routerLink="/admin/order"><i class="fa fa-boxes"></i>Pedidos</a>
+                    
+                </div>
+            </div>
         </li>
+
+
         <li class="nav-item">
             <a class="nav-link" routerLink="/admin/report-bill">
                 <i class="fas fa-file-pdf"></i>

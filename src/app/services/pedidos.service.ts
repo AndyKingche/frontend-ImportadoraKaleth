@@ -13,6 +13,15 @@ export class PedidosService {
   constructor(private http: HttpClient) {   
   }
 
+  getOrder(){
+    return this.http.get(`${this.URL}`);
+  }
+  getOrderbyId(id:number){
+    return this.http.get(`${this.URL}/${id}`);
+  }
+  updateOrderByid(id:number,pedido: peCabezaPedido): Observable<peCabezaPedido>{
+    return this.http.put(`${this.URL}/${id}`,pedido);
+  }
   saveOrder(pedido: peCabezaPedido): Observable<peCabezaPedido> {
     // return this.http.post(`${this.API_URI}`, pedido);
     return this.http.post(`${this.URL}`, pedido);
@@ -20,5 +29,12 @@ export class PedidosService {
 
   orderreport(idCliente:number,idCabezaPedido:number){
     return this.http.get(`${this.URL}/report/${idCliente}/${idCabezaPedido}`)
+  }
+  deleteOrder(id:number){
+    return this.http.delete(`${this.URL}/${id}`);
+  }
+
+  deleteOrder_Detalle(idCabezaPedido:number){
+    return this.http.get(`${this.URL}/deletedetalle/${idCabezaPedido}`);
   }
 }

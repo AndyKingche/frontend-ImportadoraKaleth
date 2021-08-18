@@ -1,0 +1,93 @@
+<div class="preloaderConsulta" *ngIf="isloading">
+    <div class="spinConsulta">
+        <div class="cube1Consulta"></div>
+        <div class="cube2Consulta"></div>
+    </div>
+</div>
+<div class="card">
+    
+    <div class="header titulo">
+        
+            <div class="tittle__izq p-d-inline-flex p-ai-center">
+                <i class="fa fa-boxes p-mr-2">
+                </i>
+                <b>Lista de Pedidos</b> 
+            </div>      
+          
+  
+    </div>
+    <p-dialog position="top" [(visible)]="displayPuntoVenta">
+        <h5>
+            <i class="pi pi-home"></i> 
+            Escoger un Punto Venta</h5>
+        <div class="card  card__sales--points">
+        <div class="row" *ngFor="let puntoVenta of puntoVenta"> 
+            <div class="col-md-6 menu__row--points"> 
+                <i class="fas fa-store"></i> {{puntoVenta.nombreLocal}}
+            </div>
+            <div class="col-md-6 menu__row--points"> 
+            <p-button label="Aceptar" icon="far fa-check-circle" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
+             </div>
+        </div>
+    </div>
+    </p-dialog>
+            
+  
+    <p-table #dt2 [value]="pedido" [responsive]="true" selectionMode="single" [(selection)]="selectedstock" dataKey="id" styleClass="p-datatable-responsive"
+        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+        <ng-template pTemplate="header">
+            <tr>
+                
+                <th class="card__word--header">Id Pedido</th>
+                <th class="card__word--header">Fecha Pedido</th>
+                <th class="card__word--header">Estado</th>
+                <th class="card__word--header">Total</th>
+                <th class="card__word--header">Cliente</th>
+                <th class="card__word--header">Opciones</th>
+                
+            </tr>
+      
+        </ng-template>
+        <ng-template pTemplate="body" let-pedido>
+            <tr [pSelectableRow]="pedido">
+                   
+              <td class="card__word--row">{{pedido.idCabezaPe}}</td>
+                <td class="card__word--row">{{pedido.fechaPe}}</td>
+
+
+                <td class="card__word--row">{{pedido.estado}}</td>
+                <td class="card__word--row">{{pedido.total}}</td>
+                <td class="card__word--row">{{pedido.venCliente.nombreCli}} {{pedido.venCliente.apellidoCli}}</td>
+                
+
+                <td class="card__word--row">
+                    <span class="p-column-title">Ver</span>
+                    <button pButton pRipple icon="pi pi-eye"
+                  class="p-button-rounded p-button-warning" pTooltip="Ver pedido" tooltipPosition="top" (click)="verPedido(pedido.venCliente.idCliente,pedido.idCabezaPe)"></button>
+
+                  <span class="p-column-title">Realizar</span>
+                  
+                    <button pButton pRipple icon="far fa-check-circle" 
+                  class="p-button-rounded p-button-success" pTooltip="Realizar" tooltipPosition="top" [disabled]="pedido.estado == 'V'" (click)="vender(pedido.idCabezaPe)"></button>
+                  <span class="p-column-title">Dar de baja</span>
+                    <button pButton pRipple icon="pi pi-trash" 
+                  class="p-button-rounded p-button-danger" pTooltip="Eliminar" tooltipPosition="top" [disabled]="pedido.estado == 'V'" (click)="borrar(pedido.idCabezaPe)"></button>
+                   
+                </td>
+  
+  
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4">No encontro ningun pedido</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+  </div>
+  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
+
+
+  <p-messages [value]="msgs"></p-messages>

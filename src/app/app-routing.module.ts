@@ -62,6 +62,7 @@ import { ResetPasswordGuard } from './guards/reset-password.guard';
 
 import {ParametrosListComponent} from './components/moduloUsuarios/parametros-list/parametros-list.component'
 import {ParametrosFormComponent} from './components/moduloUsuarios/parametros-form/parametros-form.component'
+import {OrderProductComponent} from './components/moduloProducto/order-product/order-product.component';
 const routes: Routes = [
   {
     path:'',
@@ -227,6 +228,10 @@ const routes: Routes = [
         component: ParametrosFormComponent
         
       },
+      {
+        path:'order',
+        component:OrderProductComponent
+      }
     ]
   },
   {

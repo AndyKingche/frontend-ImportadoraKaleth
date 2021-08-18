@@ -21,14 +21,14 @@
                     <label id="lblFechaDesde" class="letter" for="lblFechaDesde">Fecha Desde:</label>
                 </div>
                 <div class="col-md-2">
-                    <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="this.i" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators">
+                    <p-calendar [locale]="es" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.i" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators">
                     </p-calendar>
                 </div>
                 <div class="col-md-2">
                     <label id="lblFechaHasta" class="letter" for="lblFechaHasta">Fecha Hasta:</label>
                 </div>
                 <div class="col-md-2">
-                    <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="this.f" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators">
+                    <p-calendar [locale]="es" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.f" [monthNavigator]="true" [yearNavigator]="true" yearRange="2005:2060" dateFormat="yy-mm-dd" inputId="navigators">
                     </p-calendar>
 
                 </div>

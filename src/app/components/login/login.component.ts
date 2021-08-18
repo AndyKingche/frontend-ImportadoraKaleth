@@ -96,6 +96,7 @@ displayForgot:boolean=false;
 mensaje:string="";
 emailRecuperacion:string="";
 puedeRegistrarCliente:boolean=false;
+isloading:boolean=false;
  // autentificacion: AngularFireAuth;
   constructor(private auth: AngularFireAuth, private ruta : Router, private userSservice:UsuariosService, private cookieService:CookieService,
     private generoService:GeneroService, private civilService: EstadoCivilService, private notificacion:NotificacionService,
@@ -163,7 +164,7 @@ puedeRegistrarCliente:boolean=false;
 
 async logingoogle(){
 try {
-  
+  this.isloading = true;
   const login = new Promise(async (resolve,reject)=>{
     await this.userSservice.loginUser(this.login).subscribe(res=>{
       if(res){
@@ -209,12 +210,15 @@ try {
       
 
     if(rol == 1){
+      this.isloading = false;
       this.ruta.navigate(['/admin'])
     }
     if(rol == 2){
+      this.isloading = false;
       this.ruta.navigate(['/cashier'])
     }
     if(rol == 3){
+      this.isloading = false;
       this.ruta.navigate(['/'])
     }
     

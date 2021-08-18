@@ -41,6 +41,7 @@ export class UsuariosFormComponent implements OnInit {
   rolesEscogidos:any=[];
   fechaObtenida: any;
   creacion:string='Crear';
+  es:any;
   constructor(
     private usuariosservice: UsuariosService,
     private generoservice: GeneroService,
@@ -106,6 +107,16 @@ export class UsuariosFormComponent implements OnInit {
     this.getGenero();
     this.getEstado();
     this.getRoles();
+    this.es = {
+      firstDayOfWeek: 1,
+      dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+      dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+      dayNamesMin: [ "D","L","M","X","J","V","S" ],
+      monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+      monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+      today: 'Hoy',
+      clear: 'Borrar'
+  }
   }
 
   saveUsuario() {
