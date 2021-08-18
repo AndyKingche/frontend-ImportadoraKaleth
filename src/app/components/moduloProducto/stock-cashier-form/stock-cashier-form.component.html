@@ -150,15 +150,16 @@
 
         </div>
         <div class="row">
-            <div class="col-md-1" style="margin-top: 20px;">
-                <button id="insertarStock" pButton class="boton__dere  p-button-rounded p-button-sm" (click)="consultar()">Insertar</button>
+            <div class="col-md-4 boton__menu">
+                <button id="insertarStock" pButton class="boton__dere  p-button-rounded p-button-sm" icon="fas fa-clipboard-list" label="Insertar" (click)="consultar()"></button>
 
-            </div>
-            <div class="col-md-1" style="margin-top: 20px;">
-                <button id="ingresarStockBDD" pButton class="boton__dere  p-button-rounded p-button-sm" (click)="ingresar()">Ingresar</button>
-            </div>
-            <div class="col-md-1" style="margin-top: 20px;">
-                <button pButton class="btn__size p-button-raised p-button-rounded p-button-sm" label="Consultar" icon="fas fa-search-plus" iconPos="left" (click)="showConsultar()"></button>
+           
+           
+                <button id="ingresarStockBDD" pButton class="boton__dere  p-button-rounded p-button-sm p-button-success" icon="fas fa-check-square" label="Aceptar" (click)="ingresar()"></button>
+            
+          
+                <button  pButton class="btn__size p-button-raised p-button-rounded p-button-sm p-button-warning " label="Consultar" icon="fas fa-search-plus" iconPos="left" (click)="showConsultar()"></button>
+           
             </div>
 
 

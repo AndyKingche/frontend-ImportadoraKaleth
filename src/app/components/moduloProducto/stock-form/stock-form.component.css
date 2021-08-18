@@ -12,9 +12,16 @@
     font-weight: 400;
    
 }
+.boton__menu{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
 .boton__dere{
-    justify-content: flex-end;
-   
+    margin-right: 1em;
 }
 .tittle__izq{
     justify-content: flex-start;
@@ -25,3 +32,8 @@
     align-items: space-;
 
 }
+@media (max-width: 600px) {
+    .boton__menu {
+        flex-direction: column;
+    }
+  }

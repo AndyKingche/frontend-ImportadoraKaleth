@@ -28,17 +28,22 @@ export class PasswordResetFormComponent implements OnInit {
     
     // console.log(this.usuario);
     // console.log(this.password);
-    this.userService.updateResetPassword(this.password,this.usuario).subscribe(res=>{
-      if(res){
-         alert("Contraseña editada con exito");
-         this.ruta.navigate(['/login']);
-         this.usuario = " ";
-         this.password = " ";
-      }else{
-        alert("Vuelva a ingresar la contraseña");
-      }
-      
-    },err=>console.log(err))
+    if(this.password.length>0){
+      this.userService.updateResetPassword(this.password,this.usuario).subscribe(res=>{
+        if(res){
+           alert("Contraseña editada con exito");
+           this.ruta.navigate(['/login']);
+           this.usuario = " ";
+           this.password = " ";
+        }else{
+          alert("Vuelva a ingresar la contraseña");
+        }
+        
+      },err=>console.log(err))
+    }else{
+      alert("Vuelva a ingresar la contraseña");
+    }
+    
   }
 
 

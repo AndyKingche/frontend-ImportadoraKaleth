@@ -134,7 +134,7 @@ isloading:boolean=false;
     }
   
     }else{
-      console.log("no hay nadie")
+      //console.log("no hay nadie")
     }
   }
 
@@ -147,7 +147,7 @@ isloading:boolean=false;
   }
 
   buscarCliente(event:string){
-    console.log(event)
+    //console.log(event)
     this.clienteService.findClienteByEmail(event).subscribe(res=>{
       if(res!=0){
         this.puedeRegistrarCliente = false;
@@ -224,8 +224,13 @@ try {
     
 
 } catch (error) {
-  console.log(error);
+  //console.log(error);
   this.notificacion.showError("Las credenciales no coinciden con nuestros usuarios, revisa tu email o tu contraseña","**Kaleth Error")
+  this.login={
+    username: '',
+    password: ''
+  }
+  this.isloading = false;
 }
   
   }
@@ -249,8 +254,19 @@ getEstadoCivil(){
   }, err=> console.log(err))
 }
 async Resgistrar(){
+
 this.user.estado = "true";
 
+if(this.user.apellido.length > 0 &&
+  this.user.nombre.length>0 &&
+  this.user.cedula.length>0 &&
+  this.user.direccion.length>0 &&
+  this.user.fechanacimiento.length>0 &&
+  this.user.email.length>0 &&
+  this.user.estado.length>0 &&
+  this.user.password.length> 0 &&
+  this.user.telefono.length>0 && this.estadocivilEscogido.idEstadocivil > 0 && this.generoEscogido.idGenero > 0){
+    this.isloading = true;
 this.user.genero.idGenero = this.generoEscogido.idGenero;
 this.user.estadocivil.idEstadocivil = this.estadocivilEscogido.idEstadocivil;
 this.user.rol = 3;
@@ -278,7 +294,8 @@ if(usuarioExistente == undefined){
   
   this.usuarioRecibido = await register.then(res=>res);
   this.login.username = this.usuarioRecibido.email;
-  this.login.password = this.usuarioRecibido.password;
+
+  this.login.password = this.user.password;
   //Obtener datos de los usuarios y ingresarlos en los clientes
   if(this.puedeRegistrarCliente){
   this.clienteNuevo.nombreCli = this.usuarioRecibido.nombre;
@@ -297,7 +314,7 @@ if(usuarioExistente == undefined){
   await clienteRegister.then(res=>res);
   //console.log(this.login);
 }
-  
+ 
   const loginUserRegister = new Promise(async(resolve,reject)=>{
     await this.userSservice.loginUser(this.login).subscribe(resultado=>{
       resolve(resultado);          
@@ -352,19 +369,43 @@ this.usuarioRecibido = await getuserRegister.then(res=>res);
     nombreCli:"",
     telefono:""
    }
+   this.login={
+    username: '',
+    password: ''
+  }
+  this.user = {
+    apellido: "",
+    cedula: "",
+    direccion: "",
+    email: "",
+    estado: "",
+    fechanacimiento: "",
+    nombre: "",
+    password: "",
+    telefono: "",
+    resetPassword:false,
+    estadocivil: { idEstadocivil: 0 },
+    genero: { idGenero: 0 },
+  };
    this.puedeRegistrarCliente = false;
+   this.isloading = false;
   this.ruta.navigate(['/home'])
  }else{
-   alert("Problemas al registrar su Usuario")
+   alert("Problemas al registrar su Usuario");
+   this.isloading = false;
  }
   
 }else{
   this.notificacion.showError(`Ya existe un usuario con ese email ${this.user.email}, Olvidaste la contraseña?`,"*** No se puede realizar el REGISTRO");
-  this.mensaje = "Cambiar el email"
+  this.mensaje = "Cambiar el email";
+  this.isloading = false;
 }
 
- 
+}else{
+  this.notificacion.showError("Llene todos los campos, requeridos","No se puede registrar")
+  this.isloading = false;
 }
+}//fin de metodo resgistrar
 showDisplayForgot(){
   if(this.displayForgot){
     this.displayForgot = false;

@@ -16,24 +16,10 @@
           
   
     </div>
-    <p-dialog position="top" [(visible)]="displayPuntoVenta">
-        <h5>
-            <i class="pi pi-home"></i> 
-            Escoger un Punto Venta</h5>
-        <div class="card  card__sales--points">
-        <div class="row" *ngFor="let puntoVenta of puntoVenta"> 
-            <div class="col-md-6 menu__row--points"> 
-                <i class="fas fa-store"></i> {{puntoVenta.nombreLocal}}
-            </div>
-            <div class="col-md-6 menu__row--points"> 
-            <p-button label="Aceptar" icon="far fa-check-circle" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
-             </div>
-        </div>
-    </div>
-    </p-dialog>
+    
             
   
-    <p-table #dt2 [value]="pedido" [responsive]="true" selectionMode="single" [(selection)]="selectedstock" dataKey="id" styleClass="p-datatable-responsive"
+    <p-table #dt2 [value]="pedido" [responsive]="true" selectionMode="single" dataKey="id" styleClass="p-datatable-responsive"
         [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
         <ng-template pTemplate="header">
             <tr>
@@ -87,7 +73,4 @@
     </p-table>
 
   </div>
-  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
-
-
-  <p-messages [value]="msgs"></p-messages>
+ 
