@@ -261,7 +261,7 @@ history.pushState(null, null, window.location.href);
         resolve(res)
       },err=>console.log(err))
     });
-    console.log(userLoged.then(res=>res));
+    
     const getNewCliente = new Promise(async(resolve,reject)=>{
       await userLoged.then(async(result)=>{
         this.usuariologeadosesion =`${result[0].nombre} ${result[0].apellido}`
@@ -280,18 +280,18 @@ history.pushState(null, null, window.location.href);
    }
    this.activarButton = false;
    
-   console.log(this.idCliente)
+   
 
 
       
     }else{
-      console.log("no encontre")
+      
       this.puedeComprar = false;
     }
     
   }
   ShowCarrito() {
-    console.log("si aplastaste")
+    
     if(this.puedeComprar){
       this.mostrarCarrito = true;
       this.mostrarInicio = false;
@@ -309,11 +309,11 @@ history.pushState(null, null, window.location.href);
     this.router.navigateByUrl("#productos")
   }
   enviarLista() {
-    console.log("Hola")
+    
     //this.nuevaListaDetallePedidio.emit(this.listaDetallePedido);
   }
   paginate(event) {
-    console.log(event)
+    
 
     if (event.page == 0) {
       this.inicio = Number(event.page) * 12;
@@ -327,7 +327,7 @@ history.pushState(null, null, window.location.href);
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
-    console.log(this.inicio, this.numeroFilas)
+    
     //this.getStocksExistents();
     this.getStocksExistentsPuntoVenta();
   }
@@ -335,7 +335,7 @@ history.pushState(null, null, window.location.href);
   getStocksExistentsPuntoVenta() {
     this.stockService.getStockAllExistPuntoVenta(15, this.inicio, this.numeroFilas).subscribe(
       res => {
-        console.log(res)
+        
         this.stock = res;
       }, err => console.error(err)
 
@@ -345,7 +345,7 @@ history.pushState(null, null, window.location.href);
   getStocksExistents() {
     this.stockService.getAllStockExistents(this.inicio, this.numeroFilas).subscribe(
       res => {
-        console.log(res)
+        
         this.stock = res;
       }, err => console.error(err)
 
@@ -358,7 +358,7 @@ history.pushState(null, null, window.location.href);
   getCantExistent() {
     this.stockService.getCantExistents().subscribe(
       res => {
-        console.log(res)
+        
         this.cantidadExistente = Number(res);
         this.cantidadExistente = Math.ceil((this.cantidadExistente) / 12);
       }, err => console.error(err)
@@ -369,24 +369,24 @@ history.pushState(null, null, window.location.href);
 
 
   quitardelista(idproduct: number, idpuntoventa: number) {
-    console.log("idproduct", idproduct, "puntoventa ", idpuntoventa)
+    
     for (let x in this.listaCheckout) {
       if (Number(this.listaCheckout[x].catProducto.idProductos) === idproduct && Number(this.listaCheckout[x].catPuntosVenta.idPuntosVenta) === idpuntoventa) {
-        console.log("entre", x)
+        
         this.listaCheckout.splice(Number(x), 1);
 
-        console.log(this.listaCheckout)
+        
         break;
       }
     }
 
     for (let x in this.listaDetallePedido) {
-      console.log(this.listaDetallePedido)
+      
       if (Number(this.listaDetallePedido[x].catStock.id.idProductos) === idproduct && Number(this.listaDetallePedido[x].catStock.id.idPuntosVenta) === idpuntoventa) {
-        console.log("entre", x)
+        
         this.listaDetallePedido.splice(Number(x), 1);
 
-        console.log(this.listaDetallePedido)
+        
         break;
       }
     }
@@ -401,13 +401,13 @@ history.pushState(null, null, window.location.href);
   }
 
   async getUserId(){
-    console.log("si estoy entrando pero no obtemgp nada")
+    
     const userLoged = new Promise(async (resolve,reject)=>{
       await this.userService.getUserLogged().subscribe(async (res)=>{
       resolve(res)
       })
     });
-    console.log(userLoged.then(res=>res));
+   
     const getNewCliente = new Promise(async(resolve,reject)=>{
       await userLoged.then(async(result)=>{
         await this.clienteService.findClienteByEmail(result[0].email).subscribe(
@@ -419,7 +419,7 @@ history.pushState(null, null, window.location.href);
     });
    this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
    this.activarButton = false;
-   console.log(this.idCliente)
+   
   }
 
   //agregar productos a carrito 
@@ -427,8 +427,7 @@ history.pushState(null, null, window.location.href);
 
     //await this.getUserId();
    if(this.puedeComprar){
-    console.log("entre despues")
-    console.log("este es el objeto", objeto)
+    
     this.peDetallePedido.cantidadPe = 1;
     this.peDetallePedido.descripcion = objeto.catProducto.catCategoria.nombreCategoria + " " + objeto.catProducto.catDiseno.nombre + "-" + objeto.catProducto.catTalla.medida;
     this.peDetallePedido.valorUnit = objeto.precioUnit;
@@ -453,22 +452,16 @@ history.pushState(null, null, window.location.href);
           && this.listaDetallePedido[x].catStock.id.idPuntosVenta == this.peDetallePedido.catStock.id.idPuntosVenta
         ) {
 
-          //let cantidadSpiner=0;
-          // cantidadSpiner= this.peDetallePedido.canidadPe;
-
-          // console.log("entreeee => cantidad ",this.listaDetallePedido[x].canidadPe)
-          // this.listaDetallePedido[x].canidadPe = this.listaDetallePedido[x].canidadPe+cantidadSpiner;
-          this.listaDetallePedido[x].cantidadPe++;
+            this.listaDetallePedido[x].cantidadPe++;
 
           let TotalAux = 0;
 
           TotalAux = this.listaDetallePedido[x].cantidadPe * this.listaDetallePedido[x].valorUnit;
-          console.log(TotalAux)
+          
           this.listaDetallePedido[x].valorTotal = TotalAux;
 
           this.encuentraArray = true;
-          //-----this.cantidadPedido=0;
-          //this.auxcantidadPedido = 0;
+          
 
 
 
@@ -485,7 +478,7 @@ history.pushState(null, null, window.location.href);
         //si no existe el producto ingresa un nuevo elemento en el array 
         //metodo push para apilar elemnto en el array
 
-        console.log("holla añado un nuevo a la list")
+        
         this.listaDetallePedido.push(this.peDetallePedido);
 
         //for para calcular el total del carrito 
@@ -497,24 +490,11 @@ history.pushState(null, null, window.location.href);
 
         this.encuentraArray = false;
       }
-      console.log("Lista pedido==>", this.listaDetallePedido)
+      
 
 
     }
-    //se realiza la valicaión si existe el procuto en el array
-    // if (this.encuentraArray) {
-    //   // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
-    //   this.encuentraArray = false;
-    // } else {
-    //   //si no existe el producto ingresa un nuevo elemento en el array 
-    //   //metodo push para apilar elemnto en el array
-
-    //   console.log("holla añado un nuevo a la list")
-    //   this.listaDetallePedido.push(this.peDetallePedido);
-
-    //   this.encuentraArray = false;
-    // }
-    console.log("Lista pedido==>", this.listaDetallePedido)
+    
     this.peDetallePedido = {
       idDetallePe: 0,
       descripcion: "",
@@ -542,7 +522,7 @@ history.pushState(null, null, window.location.href);
 
   obtenerCantidad(cantidad: number, idProducto: number, idPuntoVenta: number) {
     this.cantidadPedido = cantidad;
-    console.log(this.cantidadPedido);
+    
 
     for (let i in this.listaCheckout) {
       if (this.listaCheckout[i].catProducto.idProductos == idProducto
@@ -575,7 +555,7 @@ history.pushState(null, null, window.location.href);
 
 
       for (var x in this.listaDetallePedido) {
-        console.log(this.listaDetallePedido[x])
+        
         const productos = new Promise(async (resolve, reject) => {
           await this.productServices.getProducto(Number(this.listaDetallePedido[x].catStock.id.idProductos)).subscribe(res => {
 
@@ -591,7 +571,7 @@ history.pushState(null, null, window.location.href);
 
         await productos.then(res => { this.auxPedidoDetalle.catProducto = res; })
         await puntoVenta.then(res => { this.auxPedidoDetalle.catPuntosVenta = res; })
-        console.log("Number0", this.listaDetallePedido[x].cantidadPe)
+        
         this.auxPedidoDetalle.cantidadPe = Number(this.listaDetallePedido[x].cantidadPe);
         this.auxPedidoDetalle.valorTotal = this.listaDetallePedido[x].valorTotal;
         this.auxPedidoDetalle.valorUnit = this.listaDetallePedido[x].valorUnit;
@@ -601,12 +581,12 @@ history.pushState(null, null, window.location.href);
           this.listaCheckout.push(this.auxPedidoDetalle);
           this.encuentraArray = false;
         } else {
-          console.log("ya esta llena")
+          
           for (let y in this.listaCheckout) {
             if (this.listaCheckout[y].catProducto.idProductos == this.auxPedidoDetalle.catProducto.idProductos
               && this.listaCheckout[y].catPuntosVenta.idPuntosVenta == this.auxPedidoDetalle.catPuntosVenta.idPuntosVenta
             ) {
-              console.log("entreeee")
+              
 
 
               this.listaCheckout[y].cantidadPe = Number(this.auxPedidoDetalle.cantidadPe);
@@ -623,12 +603,12 @@ history.pushState(null, null, window.location.href);
             //si no existe el producto ingresa un nuevo elemento en el array 
             //metodo push para apilar elemnto en el array
 
-            console.log("holla añado un nuevo a la list")
+            
             this.listaCheckout.push(this.auxPedidoDetalle);
 
             this.encuentraArrayCarrito = false;
           }
-          console.log("Lista pedido==>", this.listaCheckout)
+          
         }
         this.auxPedidoDetalle = {
           idDetallePe: 0,
@@ -666,7 +646,7 @@ history.pushState(null, null, window.location.href);
       //capturamos el id del cliente para imprimir el pdf
 
       idClientePedido = this.cabezaPedidoIngreso.venCliente.idCliente;
-      console.log("idClientePedido "+idClientePedido)
+      
       for (let i in this.listaCheckout) {
         this.cabezaPedidoIngreso.total += this.listaCheckout[i].valorTotal;
         this.cabezaPedidoIngreso.detallepedido[i] = {
@@ -684,11 +664,11 @@ history.pushState(null, null, window.location.href);
 
       }
 
-      console.log("PEDIDO realizado=>  ", this.cabezaPedidoIngreso)
+      
 
       const obtenerIdCabezaPedido = new Promise(async (resolve, reject) => {
         await this.pedidoservice.saveOrder(this.cabezaPedidoIngreso).subscribe(res => {
-          console.log(res)
+          
           resolve(res.idCabezaPe)
         }, err => console.log(err))
       })
@@ -758,7 +738,7 @@ history.pushState(null, null, window.location.href);
 
     //cargo una lista de las rutas de las imagenes 
 
-    console.log(this.precioModal)
+    
     this.images = [
       { urlFoto: this.stringUrlFoto1 },
       { urlFoto: this.stringUrlFoto2 },
@@ -774,7 +754,7 @@ history.pushState(null, null, window.location.href);
   getPuntosVentas(){
     this.puntosVentaServices.getPuntosVentas().subscribe(
       res =>{
-        console.log(res)
+        
         this.puntosVentas = res;
         this.urlSafe=this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
       },err => console.error(err)
