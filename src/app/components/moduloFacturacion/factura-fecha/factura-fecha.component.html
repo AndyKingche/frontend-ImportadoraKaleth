@@ -64,7 +64,7 @@
                 </th>
                 <th class="card__word--header">Cliente
                 </th>
-                <th class="card__word--header">Ver
+                <th class="card__word--header">Opciones
                 </th>
             </tr>
 
@@ -91,6 +91,7 @@
                 </td>
 
                 <td><span class="p-column-title">Ver</span><button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="mostrarTicket(factura.idCabezaFac)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Anular" [disabled]="factura.estado == 'AN'" tooltipPosition="top" (click)="anularFactura(factura.idCabezaFac)"></button>
                 </td>
 
 
