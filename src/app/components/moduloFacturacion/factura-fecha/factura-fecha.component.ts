@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { VenCabezaFactura } from '../../../models/VenCabezaFactura';
 import { FacturacionService } from '../../../services/facturacion.service';
+import { CatStockService } from '../../../services/cat-stock.service'
 @Component({
   selector: 'app-factura-fecha',
   templateUrl: './factura-fecha.component.html',
@@ -16,20 +17,20 @@ export class FacturaFechaComponent implements OnInit {
   totalVenta: number = 0;
   isloading = false;
   es: any;
-  
-  constructor(private facturacionservice: FacturacionService) { }
+
+  constructor(private facturacionservice: FacturacionService, private stockServices: CatStockService) { }
 
   ngOnInit() {
     this.es = {
       firstDayOfWeek: 1,
-      dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
-      dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
-      dayNamesMin: [ "D","L","M","X","J","V","S" ],
-      monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-      monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+      dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
+      dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+      dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+      monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+      monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
       today: 'Hoy',
       clear: 'Borrar'
-  }
+    }
     this.i = null;
     this.f = null;
   }
@@ -123,6 +124,99 @@ export class FacturaFechaComponent implements OnInit {
       this.isloading = false;
     },
       err => console.log(err));
+
+  }
+
+  detalleFactAnular: any;
+  factura: VenCabezaFactura = {
+    estado: "",
+    iva: 0,
+    fechaFactu: "",
+    total: 0,
+    subtotal: 0,
+    descuento: 0,
+    usUser: {
+      idUsuario: 0,
+    },
+    detallefact: [{
+      cantidadFact: 0,
+      descripcion: "",
+      valorTotal: 0,
+      valorUnit: 0,
+      catStock:
+      {
+        id: {
+          idProductos: 0,
+          idPuntosVenta: 0
+        }
+      }
+    }
+
+    ],
+    venCliente: {
+      idCliente: 0
+    }
+
+  }
+
+  async anularFactura(idfactura: number) {
+
+    this.isloading = true;
+    //consultar y guardar el detalle 
+    const facura = new Promise(async (resolve, reject) => {
+      await this.facturacionservice.facturaId(idfactura).subscribe(res => {
+        resolve(res);
+
+
+      })
+    });
+
+    this.factura = await facura.then(res => res);
+
+    this.factura.estado = 'AN';
+    //cambiar a estado anulado 
+
+    const estado = new Promise(async (resolve, reject) => {
+      await this.facturacionservice.updateFactura(idfactura, this.factura).subscribe(res => {
+        resolve(res);
+
+      })
+    });
+
+
+    ///////////////////////////////////////
+    this.detalleFactAnular = this.factura.detallefact;
+
+    for (let i = 0; i < this.detalleFactAnular.length; i++) {
+
+      let idProducto = this.detalleFactAnular[i].catStock.catProducto.idProductos;
+      let idPuntosVenta = this.detalleFactAnular[i].catStock.catPuntosVenta.idPuntosVenta;
+      let cantidadProdDetalle = this.detalleFactAnular[i].cantidadFact;
+      /// CONSULTAR EN LA TABLA STOCK LA CANTIDAD DE ACUERDO AL ID pUNTOS VENTA Y IDpRODUCTO
+
+
+      const cantidadStockAnterior = new Promise(async (resolve, reject) => {
+        await this.stockServices.findbyIdproductoIdpuntosVenta(idProducto, idPuntosVenta).subscribe(res => {
+          resolve(res);
+
+        })
+      });
+      let stock: any;
+      stock = await cantidadStockAnterior.then(res => res);
+      let cantidadConsulta = stock[0].cantidad;
+
+      //tomar cantidad del stock y sumar 
+
+
+      let cantidadIngreso = cantidadProdDetalle + cantidadConsulta;
+      //actualizar stock en la BDD 
+
+      this.stockServices.updateStockCantidadRest(cantidadIngreso, idProducto, idPuntosVenta).subscribe(res => {
+        console.log("actualizado: " + res)
+      });
+
+    }
+    this.isloading = false;
 
   }
 }

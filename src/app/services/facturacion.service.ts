@@ -36,4 +36,12 @@ export class FacturacionService {
     return this.http.get(`${this.URL}/reporteFechaLocal/${fechaDesde}/${fechaHasta}/${idPuntosVenta}`);
   }
 
+  facturaId(idfactura:number){
+    return this.http.get(`${this.URL}/${idfactura}`)
+  }
+
+  updateFactura(idfactura:number, factura: VenCabezaFactura):Observable<VenCabezaFactura>{
+    return this.http.put(`${this.URL}/${idfactura}`,factura)
+  }
+
 }
