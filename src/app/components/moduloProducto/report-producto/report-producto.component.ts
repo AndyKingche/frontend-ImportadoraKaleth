@@ -55,7 +55,7 @@ export class ReportProductoComponent implements OnInit {
   ngOnInit() {
     this.puntoventaservice.getPuntosVentas().subscribe(res => {
       this.itemsaux = res;
-      console.log(this.items)
+      //console.log(this.items)
       for (let i in this.itemsaux) {
 
         this.items[i] =
@@ -65,13 +65,13 @@ export class ReportProductoComponent implements OnInit {
         }
 
       }
-      console.log(this.items)
+      //console.log(this.items)
     })
     this.getFindInventario();
   }
 
   holi(x: any) {
-    console.log(x)
+    //console.log(x)
   }
 
   getFindInventario() {
@@ -117,7 +117,7 @@ export class ReportProductoComponent implements OnInit {
   findParametros(event: any) {
     
     this.parametros = event;
-    console.log(this.parametros);
+    //console.log(this.parametros);
     if (this.parametros.length != 0) {
       this.stockService.findStockbyParameters(this.parametros).subscribe(res => {
         this.stock = res;
@@ -185,7 +185,7 @@ export class ReportProductoComponent implements OnInit {
     this.isloading=true;
     this.stockService.reporteStockMinTotal().subscribe(
       res => {
-        console.log(res)
+        //console.log(res)
         let pdfWindow = window.open("")
         pdfWindow.document.write(
           "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +

@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     });
 
   let rol = await rolObtenido.then(res=>res);
-  console.log("este es el rol"+rol)
+  //console.log("este es el rol"+rol)
   if(rol == 1){
     return true;
   }else{

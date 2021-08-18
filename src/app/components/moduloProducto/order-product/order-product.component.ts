@@ -80,13 +80,13 @@ export class OrderProductComponent implements OnInit {
   getPedidos(){
     this.pedidoService.getOrder().subscribe(res=>{
       this.pedido = res;
-      console.log(this.pedido)
+      //console.log(this.pedido)
     })
   }
 
   verPedido(idCliente:number,idCabezaPedido:number) {
 
-    console.log(idCliente," ",idCabezaPedido)
+   // console.log(idCliente," ",idCabezaPedido)
     this.isloading = true;
     this.pedidoService.orderreport(idCliente,idCabezaPedido).subscribe(res => {
       let pdfWindow = window.open("")
@@ -136,7 +136,7 @@ export class OrderProductComponent implements OnInit {
       }
       
     }
-    console.log(this.auxiliarFacturaIngreso)
+    //console.log(this.auxiliarFacturaIngreso)
     const obtenerid = new Promise(async (resolve, reject) => {
       await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
         console.log(res)
@@ -162,24 +162,22 @@ export class OrderProductComponent implements OnInit {
             cantidadLista = this.auxiliarFacturaIngreso.detallefact[i].cantidadFact;
             restaCantidad = cantidadConsulta - cantidadLista;
 
-            console.log(cantidadConsulta)
-            console.log(cantidadLista)
-            console.log(restaCantidad)
+            // console.log(cantidadConsulta)
+            // console.log(cantidadLista)
+            // console.log(restaCantidad)
 
 
 
 
             this.stockService.updateStockCantidadRest(Number(restaCantidad), this.auxiliarFacturaIngreso.detallefact[i].catStock.id.idProductos, this.auxiliarFacturaIngreso.detallefact[i].catStock.id.idPuntosVenta)
               .subscribe(res => {
-                console.log("si actualizamos")
+                //console.log("si actualizamos")
                 resolve(res);
               })
           }, err => console.log(err))
 
       })
-      await ActualizarStockCantidad.then(res => console.log(
-        res
-      ));
+      await ActualizarStockCantidad.then(res =>res);
 
     }
 

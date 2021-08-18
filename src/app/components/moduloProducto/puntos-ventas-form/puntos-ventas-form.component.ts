@@ -53,7 +53,7 @@ export class PuntosVentasFormComponent implements OnInit {
 
 
       if (this.testingresar()) {
-        console.log(this.puntosventas);
+        //console.log(this.puntosventas);
         this.puntosventasservice.savePuntosVentas(this.puntosventas).subscribe(
           (res) => {
             (this.puntosventas.nombreLocal = " "),
@@ -109,7 +109,7 @@ export class PuntosVentasFormComponent implements OnInit {
             (error) => console.error(error)
           );
       } else {
-        console.log("si entre")
+        //console.log("si entre")
         if (this.testingresar()) {
           this.puntosventasservice
             .updatePuntosVentas(this.puntosventas.idPuntosVenta, this.puntosventas)
@@ -131,7 +131,7 @@ export class PuntosVentasFormComponent implements OnInit {
       }
 
     } catch (error) {
-      console.log(error);
+     /// console.log(error);
     }
 
   }

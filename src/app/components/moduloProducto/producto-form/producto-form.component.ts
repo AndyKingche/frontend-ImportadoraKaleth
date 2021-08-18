@@ -67,7 +67,7 @@ disenosEscogida: any = [];
       this.productoservices.getProducto(params.id).subscribe(
         res=>{
           if(res!= null){
-            console.log(res);
+            //console.log(res);
             this.productos = res;
               this.medidaservice.getTalla(this.productos.catTalla.idTallas).subscribe(
               res=>{
@@ -124,7 +124,7 @@ disenosEscogida: any = [];
       );
 
     }else{
-      console.log("no se pudo")
+      //console.log("no se pudo")
     }
   }
 
@@ -202,7 +202,7 @@ disenosEscogida: any = [];
     })
 
     this.imagenObtenidaIngresar = file.target.files[0];
-  console.log(this.imagenObtenidaIngresar)
+  //console.log(this.imagenObtenidaIngresar)
   }
 
   blobFile = async ($event: any) => new Promise((resolve, reject) => {

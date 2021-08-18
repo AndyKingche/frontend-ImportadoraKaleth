@@ -25,7 +25,7 @@ export class PuntosVentasListComponent implements OnInit {
   getPuntosVentas(){
     this.puntosventasservices.getPuntosVentas().subscribe(
       res =>{
-        console.log(res)
+        //console.log(res)
         this.puntosVentas = res;
       },err => console.error(err)
       

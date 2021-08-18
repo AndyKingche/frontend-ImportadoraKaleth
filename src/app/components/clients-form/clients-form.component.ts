@@ -33,7 +33,7 @@ export class ClientsFormComponent implements OnInit {
 
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    console.log(params);
+    //console.log(params);
 
     if (params.id) {
       this.clientesservice.getCliente(params.id).subscribe(

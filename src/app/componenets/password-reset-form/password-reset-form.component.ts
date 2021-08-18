@@ -17,7 +17,7 @@ export class PasswordResetFormComponent implements OnInit {
 
   ngOnInit() {
     let usuarioObtenido = this.activedrouter.params;
-    console.log(usuarioObtenido);
+    //console.log(usuarioObtenido);
     usuarioObtenido.subscribe(res=>{
       this.usuario = res.id;
       
@@ -26,8 +26,8 @@ export class PasswordResetFormComponent implements OnInit {
 
   updatePassword(){
     
-    console.log(this.usuario);
-    console.log(this.password);
+    // console.log(this.usuario);
+    // console.log(this.password);
     this.userService.updateResetPassword(this.password,this.usuario).subscribe(res=>{
       if(res){
          alert("Contraseña editada con exito");

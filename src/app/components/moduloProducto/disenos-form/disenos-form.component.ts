@@ -38,12 +38,12 @@ export class DisenosFormComponent implements OnInit {
   ngOnInit() {
     this.creacion = 'Crear';
     const params = this.activedrouter.snapshot.params;
-    console.log(params)
+    //console.log(params)
     if (params.id) {
       this.creacion = 'Actualizar';
       this.disenoservice.getDiseno(params.id).subscribe(
         res => {
-          console.log(res)
+          ///console.log(res)
           if (res != null) {
             this.disenos = res;
             this.imagenObtenidaMostrar = this.disenos.urlFoto;
@@ -51,7 +51,7 @@ export class DisenosFormComponent implements OnInit {
             this.imagenObtenidaMostrar2 = this.disenos.urlFoto2;
 
 
-            console.log(this.disenos.urlFoto)
+            //console.log(this.disenos.urlFoto)
             this.imagenObtenidaAnteriorUrl = this.disenos.urlFoto;
             this.imagenObtenidaAnteriorUrl1 = this.disenos.urlFoto1;
             this.imagenObtenidaAnteriorUrl2 = this.disenos.urlFoto2;
@@ -78,7 +78,7 @@ export class DisenosFormComponent implements OnInit {
     })
 
     this.imagenObtenidaIngresar = file.target.files[0];
-    console.log(this.imagenObtenidaIngresar)
+    //console.log(this.imagenObtenidaIngresar)
   }
   blobFile = async ($event: any) => new Promise((resolve, reject) => {
     try {
@@ -116,7 +116,7 @@ export class DisenosFormComponent implements OnInit {
     })
 
     this.imagenObtenidaIngresar1 = file.target.files[0];
-    console.log(this.imagenObtenidaIngresar1)
+    //console.log(this.imagenObtenidaIngresar1)
   }
 
   blobFile1 = async ($event: any) => new Promise((resolve, reject) => {
@@ -156,7 +156,7 @@ export class DisenosFormComponent implements OnInit {
     })
 
     this.imagenObtenidaIngresar2 = file.target.files[0];
-    console.log(this.imagenObtenidaIngresar2)
+    //console.log(this.imagenObtenidaIngresar2)
   }
 
   blobFile2 = async ($event: any) => new Promise((resolve, reject) => {
@@ -298,7 +298,7 @@ export class DisenosFormComponent implements OnInit {
 
       if (!this.imagenObtenidaAnteriorUrl) {
 
-        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res => console.log(res));
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res => res);
 
       } else {
 
@@ -306,14 +306,14 @@ export class DisenosFormComponent implements OnInit {
 
       if (!this.imagenObtenidaAnteriorUrl1) {
 
-        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl1).then(res => console.log(res));
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl1).then(res => res);
 
       } else {
       }
 
       if (!this.imagenObtenidaAnteriorUrl2) {
 
-        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl2).then(res => console.log(res));
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl2).then(res => res);
 
       } else {
       }

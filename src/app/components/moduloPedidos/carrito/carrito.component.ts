@@ -57,19 +57,19 @@ cantidadInput:number=0;
   @Input() dataentrante:any;
   ngOnInit() {
     this.listaCheckout = [];
-   console.log(this.dataentrante);
+   //console.log(this.dataentrante);
 
     this.listanuevaCarrito();
   }
 
   mostrar(event){
-    console.log(event)
+    //console.log(event)
   }
 
 async listanuevaCarrito(){
-  console.log(this.dataentrante)
+  //console.log(this.dataentrante)
   for (var x in this.dataentrante) {
-    console.log(this.dataentrante[x])
+    //console.log(this.dataentrante[x])
   const productos=new  Promise(async (resolve,reject)=>{
     await this.productServices.getProducto(Number(this.dataentrante[x].catStock.id.idProductos)).subscribe(res=>{
       
@@ -102,22 +102,22 @@ async listanuevaCarrito(){
   }
   }
    this.dataentrante = null;
-  console.log(this.listaCheckout);
+  //console.log(this.listaCheckout);
 
 }
 obtenerCantidad(cantidad:number,lista:any){
   this.cantidadInput=cantidad;
-  console.log(lista);
-  console.log(this.cantidadInput)
+  // console.log(lista);
+  // console.log(this.cantidadInput)
 }
 
 quitardelista(idproduct:number,idpuntoventa:number){
- console.log("idproduct",idproduct,"puntoventa ",idpuntoventa)
+ //console.log("idproduct",idproduct,"puntoventa ",idpuntoventa)
  for(let x in this.listaCheckout){
    if(Number(this.listaCheckout[x].catProducto.idProductos) === idproduct && Number(this.listaCheckout[x].catPuntosVenta.idPuntosVenta) === idpuntoventa){
-    console.log("entre",x) 
+    ///console.log("entre",x) 
     this.listaCheckout.splice(Number(x),1);
-    console.log(this.listaCheckout)
+    //console.log(this.listaCheckout)
      break;
    }
  }

@@ -235,7 +235,7 @@ export class StockFormComponent implements OnInit {
 
       this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
         (res:any)=>{
-          console.log(res)
+          //console.log(res)
           this.idPuntoVentaPrueba = res.idPuntosVenta;
           this.consultarstockhabilitado(this.idPuntoVentaPrueba);
         }
@@ -409,7 +409,7 @@ export class StockFormComponent implements OnInit {
   }
   async changedTalla(value: any) {
 
-    console.log("=====", this.tallasSelectSearch.medida)
+    //console.log("=====", this.tallasSelectSearch.medida)
 
     const IDTALLA = new Promise(async (resolve, reject) => {
 
@@ -445,7 +445,7 @@ export class StockFormComponent implements OnInit {
       }
       this.categoriaEscogida.push(categoriaAuxiliar);
 
-      console.log("ingrese categoria lista=>", this.categoriaEscogida)
+      //console.log("ingrese categoria lista=>", this.categoriaEscogida)
       this.displayCategoria = false;
     } else {
       this.notificacion.showError('Asegurese de llenar todos los campos !', 'Imposible Ingresar Nueva Talla');
@@ -466,7 +466,7 @@ export class StockFormComponent implements OnInit {
       }
       this.disenosEscogida.push(disenoAuxiliar);
 
-      console.log("ingrese Diseño lista=>", this.disenosEscogida)
+      //console.log("ingrese Diseño lista=>", this.disenosEscogida)
       this.displayDiseno = false;
     } else {
       this.notificacion.showError('Asegurese de llenar todos los campos !', 'Imposible Ingresar Nueva Talla');
@@ -488,7 +488,7 @@ export class StockFormComponent implements OnInit {
       }
       this.tallasEscogida.push(tallaAuxiliar);
 
-      console.log("ingrese talla lista=>", this.tallasEscogida)
+      //console.log("ingrese talla lista=>", this.tallasEscogida)
       this.displayTalla = false;
 
     } else {
@@ -504,14 +504,14 @@ export class StockFormComponent implements OnInit {
     const IDPRODUCTOINPUT = new Promise(async (resolve, reject) => {
       await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
         resolve(res)
-        console.log("idProductos consulta", res)
+        //console.log("idProductos consulta", res)
 
       }, err => console.log(err))
     });
 
 
     await IDPRODUCTOINPUT.then(async (res) => {
-      console.log("Entre=>1")
+      //console.log("Entre=>1")
       if (Number(res) == -1) {
         /////
         //if si escoge una categoria con el codigo existente solo ingresar ese de lo contrario crear 
@@ -524,18 +524,18 @@ export class StockFormComponent implements OnInit {
           // de lo contrario si el codigo de la categoria es 0 crear categoria 
           /////
           if (this.nombreCategoriaexiste) {
-            console.log("SI EXISTE NO SE PUEDE CREAR")
+            //console.log("SI EXISTE NO SE PUEDE CREAR")
           } else {
-            console.log("NO existe si SE PUEDE CREAR")
+            //console.log("NO existe si SE PUEDE CREAR")
             //ingreso de categorias solo se ingresa el nombre
             this.categoriasIngreso.nombreCategoria = this.nombreCategoria;
 
-            console.log("categoria", this.categoriasIngreso)
+            //console.log("categoria", this.categoriasIngreso)
             const CATEGORIAIDNUEVO = new Promise(async (resolve, reject) => {
               await this.categoriaservices.saveCategoria(this.categoriasIngreso).subscribe(
                 res => {
                   resolve(res.idCategoria);
-                  console.log("categoria ingre", res)
+                  //console.log("categoria ingre", res)
                   setTimeout(() => {
                     this.notificacion.showSuccess('La categoria se ha agregado correctamente', 'Categoria agregada');
                   }, 100)
@@ -546,12 +546,12 @@ export class StockFormComponent implements OnInit {
 
             await Promise.resolve(CATEGORIAIDNUEVO).then(res => {
               this.idCategoriaIngreso = Number(res)
-              console.log("id Categoria", this.idCategoriaIngreso)
+              //console.log("id Categoria", this.idCategoriaIngreso)
             });
 
           }
 
-          console.log("Entre=>2")
+          //console.log("Entre=>2")
 
 
 
@@ -563,13 +563,13 @@ export class StockFormComponent implements OnInit {
 
           //ingreso de diseño solo se ingresa el nombre del diseño 
           this.disenosIngreso.nombre = this.nombreDiseno;
-          console.log("diseños", this.disenosIngreso)
+          //console.log("diseños", this.disenosIngreso)
           const DISENOIDNUEVO = new Promise(async (resolve, reject) => {
             await this.diesnosservice.saveDiseno(this.disenosIngreso).subscribe(
               res => {
 
                 resolve(res.idDisenos);
-                console.log("diseno ingre", res)
+                //console.log("diseno ingre", res)
                 setTimeout(() => {
                   this.notificacion.showSuccess('El diseno se ha agregado correctamente', 'Diseno agregado');
                 }, 100)
@@ -581,7 +581,7 @@ export class StockFormComponent implements OnInit {
 
           await Promise.resolve(DISENOIDNUEVO).then(res => {
             this.idDisenoIngreso = Number(res)
-            console.log("id Diseño", this.idDisenoIngreso)
+            //console.log("id Diseño", this.idDisenoIngreso)
           });
         }
 
@@ -592,13 +592,13 @@ export class StockFormComponent implements OnInit {
         } else {
           //ingreso talla, solo se ingresa la medida
           this.tallasIngreso.medida = this.nombreTalla;
-          console.log("tallas ", this.tallasIngreso)
+          //console.log("tallas ", this.tallasIngreso)
           const TALLAIDNUEVO = new Promise(async (resolve, reject) => {
 
             await this.medidaservice.saveTalla(this.tallasIngreso).subscribe(
               res => {
                 resolve(res.idTallas);
-                console.log("talla ingre", res)
+                //console.log("talla ingre", res)
                 setTimeout(() => {
                   this.notificacion.showSuccess('La talla/medida se ha agregado correctamente', 'Medida agregada');
                 }, 200)
@@ -611,7 +611,7 @@ export class StockFormComponent implements OnInit {
 
           await Promise.resolve(TALLAIDNUEVO).then(res => {
             this.idTallaIngreso = Number(res)
-            console.log("id Talla", this.idTallaIngreso)
+            //console.log("id Talla", this.idTallaIngreso)
           });
 
         }
@@ -633,8 +633,8 @@ export class StockFormComponent implements OnInit {
 
         //lenamos el prodcuto (codigoProducto,idCategoria,idDiseño,idTalla),
 
-        console.log("cat x->")
-        console.log(" cat", this.idCategoriaIngreso, "dise", this.idDisenoIngreso, "talla", this.idTallaIngreso)
+        //console.log("cat x->")
+        //console.log(" cat", this.idCategoriaIngreso, "dise", this.idDisenoIngreso, "talla", this.idTallaIngreso)
 
 
         this.productonuevo = {
@@ -646,17 +646,17 @@ export class StockFormComponent implements OnInit {
         }
         const PRODUCTOIDNUEVO = new Promise(async (resolve, reject) => {
           await this.productServices.saveProducto(this.productonuevo).subscribe(res => {
-            console.log(res.idProductos)
+            //console.log(res.idProductos)
             resolve(res.idProductos)
           }, err => console.log(err))
         })
 
         await PRODUCTOIDNUEVO.then(res => this.idProductoIngreso = Number(res));
 
-        console.log("id producto nuevo ingresado", this.idProductoIngreso)
+        //console.log("id producto nuevo ingresado", this.idProductoIngreso)
         this.idProductoencontrado = this.idProductoIngreso;
       }
-      console.log("Entre=>3")
+      //console.log("Entre=>3")
 
     }).catch(err => console.log(err))
 
@@ -678,7 +678,7 @@ export class StockFormComponent implements OnInit {
       //Consultamos el putno de venta 
       const PROMESASPUNTOVENTA = new Promise(async (resolve, reject) => {
         await this.puntosVentaServices.getPuntosVenta(this.idPuntoVentaPrueba).subscribe(res => {
-          console.log(res)
+          //console.log(res)
           resolve(res);
         }, err => console.log(err))
       })
@@ -713,7 +713,7 @@ export class StockFormComponent implements OnInit {
             //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
            
            
-            console.log(this.stockAuxiliarLista[x].cantidad)
+            //console.log(this.stockAuxiliarLista[x].cantidad)
             //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
             this.encuentraArray = true;
           }
@@ -732,7 +732,7 @@ export class StockFormComponent implements OnInit {
 
       }
 
-      console.log(this.stockAuxiliarLista);
+      //console.log(this.stockAuxiliarLista);
       //Vaciamos el stockAuxiliar para evitar conflictos
       this.stockAuxiliar = {
         cantidad: 0,
@@ -765,7 +765,7 @@ export class StockFormComponent implements OnInit {
       };
 
 
-      console.log("se limpia")
+      //console.log("se limpia")
 
     }
 
@@ -776,7 +776,7 @@ export class StockFormComponent implements OnInit {
     this.stockAuxiliarLista.forEach(element => {
       element = element.cantidad * element.precioUnit;
       this.totalValorIngreso += element;
-      console.log(element);
+      //console.log(element);
     });
 
     this.totalIngresoVista = "" + (this.totalValorIngreso);
@@ -815,7 +815,7 @@ export class StockFormComponent implements OnInit {
               'S',
               this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
             ).subscribe(res => {
-              console.log("si se actualizo")
+              //console.log("si se actualizo")
             }, err => console.log(err))
 
 
@@ -823,8 +823,8 @@ export class StockFormComponent implements OnInit {
             this.cantidadConsulta = 0;
 
 
-            console.log(res)
-            console.log("si hay")
+            //console.log(res)
+            //console.log("si hay")
 
           } else {
 
@@ -843,7 +843,7 @@ export class StockFormComponent implements OnInit {
             //se ingresa a la BDD como un nuevo registro en la tabla Stock
 
             await this.stockService.saveStock(this.stocks).subscribe(res => {
-              console.log("si se ingreso nuevo stock")
+              //console.log("si se ingreso nuevo stock")
               //reiniciamos los valores del objeto stock para un unevo resgitro 
               this.stocks = {
                 id: {
@@ -863,7 +863,7 @@ export class StockFormComponent implements OnInit {
 
             }, err => console.log(err))
 
-            console.log("no hay")
+            //console.log("no hay")
           }
         }, err => console.log("salio error"))
     }
@@ -897,7 +897,7 @@ export class StockFormComponent implements OnInit {
   }
   ////////////////////////////////////METODO PARA OBTENER LOS DISEÑOS////////////////////////////////////////////////
   getDisenos() {
-    console.log("si entrte")
+    //console.log("si entrte")
     this.diesnosservice.getDisenos().subscribe(
       res => {
         // console.log(res)
@@ -911,7 +911,7 @@ export class StockFormComponent implements OnInit {
 
 
   eliminarstockList(id: number) {
-    console.log("el ide escogido es=>", id)
+    //console.log("el ide escogido es=>", id)
     this.stockAuxiliarLista = this.stockAuxiliarLista.filter(element => {
 
       return element.catProducto.idProductos != id;
@@ -920,11 +920,11 @@ export class StockFormComponent implements OnInit {
     this.stockAuxiliarLista.forEach(element => {
       element = element.cantidad * element.precioUnit;
       this.totalValorIngreso += element;
-      console.log(element);
+      //console.log(element);
     });
 
     this.totalIngresoVista = "" + (this.totalValorIngreso);
-    console.log(this.stockAuxiliarLista);
+    //console.log(this.stockAuxiliarLista);
   }
   ////////////////////////////////////METODO PARA BUSCAR EL PORDUCTO MIENTRAS SE TIPEA EN EN IMPUT////////////////////////////////////////////////
   ////////////////////////////////////PARA LLENAR AUTOMATICAMENTE LOS VALORES EN LOS CAMPOS////////////////////////////////////////////////
@@ -933,7 +933,7 @@ export class StockFormComponent implements OnInit {
     const IDPRODUCTO = new Promise(async (resolve, reject) => {
       await this.productServices.findproductobycodigo(this.idProductoPrueba).subscribe((res) => {
         resolve(res)
-        console.log("idProductos consulta", res)
+        //console.log("idProductos consulta", res)
 
       }, err => console.log(err))
     });
@@ -941,14 +941,14 @@ export class StockFormComponent implements OnInit {
 
     await IDPRODUCTO.then(res => {
       this.idProductoencontrado = Number(res);
-      console.log(this.idProductoencontrado)
+      //console.log(this.idProductoencontrado)
       //cosuotar producto por id para llenar lista de los select 
       ////////////////
       if (this.idProductoencontrado > 0) {
         this.productServices.getProducto(this.idProductoencontrado).subscribe(result => {
 
           let objetonuevo = Object.assign(result);
-          console.log("objeto nuevo => ", objetonuevo)
+          //console.log("objeto nuevo => ", objetonuevo)
           //talla
           this.tallasSelectSearch = objetonuevo.catTalla;
           // this.nombreCategoria = result[0].catProducto.catCategoria.nombreCategoria;
@@ -963,7 +963,7 @@ export class StockFormComponent implements OnInit {
 
         this.stockService.findbyIdproductoIdpuntosVenta(Number(res), this.idPuntoVentaPrueba).subscribe(result => {
           //////////////
-          console.log("envia =>", result, "que tipo es", typeof (result));
+          //console.log("envia =>", result, "que tipo es", typeof (result));
           if (Object.keys(result).length === 0) {
 
             this.cantidad = 0;
@@ -984,7 +984,7 @@ export class StockFormComponent implements OnInit {
           }
 
 
-          console.log(result)
+          //console.log(result)
 
 
         }, err => console.log(err))
@@ -1035,7 +1035,7 @@ export class StockFormComponent implements OnInit {
     } else {
       this.buscarStockProducto();
     }
-    console.log(encontrar)
+    //console.log(encontrar)
 
   }
 
@@ -1097,7 +1097,7 @@ export class StockFormComponent implements OnInit {
     
     this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
       this.stockConsulta = res;
-      console.log(res)
+      //console.log(res)
     },err=>console.log("error",err))
   }
   obtenerVariable(cod:any){
@@ -1106,7 +1106,7 @@ export class StockFormComponent implements OnInit {
     this.displayConsultar = false;
   }
   encontrarProductoModal(productoBuscar:any){
-    console.log(productoBuscar.length)
+    //console.log(productoBuscar.length)
     if(productoBuscar.length!=0){
       this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba,productoBuscar).subscribe(res=>{
         this.stockConsulta = res;

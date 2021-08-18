@@ -124,7 +124,7 @@ export class ParametrosFormComponent implements OnInit {
     })
 
     this.imagenObtenidaIngresar = file.target.files[0];
-    console.log(this.imagenObtenidaIngresar)
+    //console.log(this.imagenObtenidaIngresar)
   }
   blobFile = async ($event: any) => new Promise((resolve, reject) => {
     try {

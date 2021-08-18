@@ -66,7 +66,7 @@ register(email:string,password:string){
     return this.http.post(`${this.UrlLogin}authenticate`,login)
   }
   setToken(tokensito: any) {
-    console.log(tokensito)
+    //console.log(tokensito)
     this.cookies.set('token',tokensito);     
   }
   getToken() {
@@ -79,7 +79,7 @@ register(email:string,password:string){
 
   getUserLogged(){
     let token = this.getToken();
-console.log(token);
+//console.log(token);
 try {
   if(token){
 

@@ -263,11 +263,11 @@ await this.userSservice.getUserByEmail(this.user.email).subscribe(res=>{
 })
 
 let usuarioExistente = await consultarUser.then(res=>res);
-console.log(usuarioExistente);
+//console.log(usuarioExistente);
 
 if(usuarioExistente == undefined){
   firebase.auth().createUserWithEmailAndPassword(this.user.email,this.user.password).then(res=>{
-    console.log(res);
+    //console.log(res);
   })
     const register = new Promise(async (resolve,reject)=>{
     await this.userSservice.registerUserClient(this.user).subscribe(res=>{
@@ -295,7 +295,7 @@ if(usuarioExistente == undefined){
   })
 
   await clienteRegister.then(res=>res);
-  console.log(this.login);
+  //console.log(this.login);
 }
   
   const loginUserRegister = new Promise(async(resolve,reject)=>{
@@ -305,7 +305,7 @@ if(usuarioExistente == undefined){
   })
 
   this.aux = await loginUserRegister.then(res=>res);
-  console.log(this.aux.token)
+  //console.log(this.aux.token)
   this.userSservice.setToken(this.aux.token);
 
   const getuserRegister = new Promise(async (resolve,reject)=>{
@@ -315,7 +315,7 @@ if(usuarioExistente == undefined){
     },err=>console.log(err))
   })
 this.usuarioRecibido = await getuserRegister.then(res=>res); 
-console.log(this.usuarioRecibido.idUsuario)
+//console.log(this.usuarioRecibido.idUsuario)
 
  const updateUserLogin = new Promise(async (resolve,reject)=>{
   await  this.userSservice.updateUserLogged(this.aux.token,Number(this.usuarioRecibido.idUsuario)).subscribe(
@@ -326,7 +326,7 @@ console.log(this.usuarioRecibido.idUsuario)
  })
 
  let registroActualizado = await updateUserLogin.then(res=>res);
- console.log(registroActualizado);
+ //console.log(registroActualizado);
  if(registroActualizado){
    this.mensaje = "";
    this.user = {
@@ -373,7 +373,7 @@ showDisplayForgot(){
   }
 }
 OnReset(){
-  console.log(this.emailRecuperacion);
+  //console.log(this.emailRecuperacion);
   firebase.auth().sendPasswordResetEmail(this.emailRecuperacion);
   this.userSservice.getUserByEmail(this.emailRecuperacion).subscribe(res=>{
     if(res[0]){

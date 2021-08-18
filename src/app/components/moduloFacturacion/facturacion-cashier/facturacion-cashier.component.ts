@@ -177,7 +177,7 @@ export class FacturacionCashierComponent implements OnInit {
     const params = this.activedrouter.snapshot.params;
     
     this.idPuntosVenta = Number(params.id);
-    console.log("hola",this.idPuntosVenta)
+    //console.log("hola",this.idPuntosVenta)
     this.totalIngresoVista = "0";
     this.listafacturaIngreso = [{
       idCabezaFac: 0,
@@ -233,7 +233,7 @@ export class FacturacionCashierComponent implements OnInit {
     });
 
     await IDCLIENTE.then(res => {
-      console.log("el cliente existe", res)
+      //console.log("el cliente existe", res)
       this.idClienteIngreso = Number(res);
     })
 
@@ -247,7 +247,7 @@ export class FacturacionCashierComponent implements OnInit {
       this.nuevoClienteIngreso.telefono = this.telefono;
       this.nuevoClienteIngreso.email = this.email;
 
-      console.log("el nuevo clientea ingresar = > ", this.nuevoClienteIngreso);
+     // console.log("el nuevo clientea ingresar = > ", this.nuevoClienteIngreso);
       const IDCLIENTEINGREO = new Promise(async (resolve, reject) => {
         await this.clienteService.saveCliente(this.nuevoClienteIngreso).subscribe(res => {
           resolve(res.idCliente);
@@ -258,9 +258,9 @@ export class FacturacionCashierComponent implements OnInit {
         this.idClienteIngreso = Number(res);
       })
 
-      console.log("id CLiente ingresado=>  ", this.idClienteIngreso)
+      //console.log("id CLiente ingresado=>  ", this.idClienteIngreso)
     } else {
-      console.log("el cliente existe", this.idClienteIngreso)
+      //console.log("el cliente existe", this.idClienteIngreso)
     }
 
 
@@ -278,19 +278,19 @@ export class FacturacionCashierComponent implements OnInit {
       if (this.venDetalleFactura.cantidadFact > 0 && this.venDetalleFactura.cantidadFact < 12) {
         this.venDetalleFactura.valorTotal = Number(this.precioUnit * this.cantidad);
         this.venDetalleFactura.valorUnit = Number(this.precioUnit);
-        console.log("entre pprecio unit")
+        //console.log("entre pprecio unit")
       }
 
       if (this.venDetalleFactura.cantidadFact >= 12 && this.venDetalleFactura.cantidadFact < 24) {
-        console.log("entre pprecio mayor")
+        //console.log("entre pprecio mayor")
         this.venDetalleFactura.valorTotal = Number(this.precioMay * this.cantidad);
         this.venDetalleFactura.valorUnit = Number(this.precioMay);
       }
       if (this.venDetalleFactura.cantidadFact >= 24) {
-        console.log("entre pprecio distribuidor")
+        //console.log("entre pprecio distribuidor")
         this.venDetalleFactura.valorTotal = Number(this.precioDis * this.cantidad);
         this.venDetalleFactura.valorUnit = Number(this.precioDis);
-        console.log("este es el precio total:", this.venDetalleFactura.valorTotal)
+       // console.log("este es el precio total:", this.venDetalleFactura.valorTotal)
       }
 
       // this.venDetalleFactura.valorUnit = Number(this.precioUnit);
@@ -319,7 +319,6 @@ export class FacturacionCashierComponent implements OnInit {
           this.encuentraArray = false;
 
         }
-console.log("hola")
 
       } else {
 
@@ -340,14 +339,14 @@ console.log("hola")
               this.listaDetalleFactura[x].cantidadFact = Number(this.listaDetalleFactura[x].cantidadFact) + Number(this.venDetalleFactura.cantidadFact);
               if (this.listaDetalleFactura[x].cantidadFact > 0 && this.listaDetalleFactura[x].cantidadFact < 12) {
                 this.listaDetalleFactura[x].valorUnit = this.precioUnit;
-                console.log("entre pprecio unit")
+                //console.log("entre pprecio unit")
               }
               if (this.listaDetalleFactura[x].cantidadFact >= 12 && this.listaDetalleFactura[x].cantidadFact < 24) {
-                console.log("entre pprecio mayor")
+               // console.log("entre pprecio mayor")
                 this.listaDetalleFactura[x].valorUnit = this.precioMay;
 
               } if (this.listaDetalleFactura[x].cantidadFact >= 24) {
-                console.log("entre pprecio distribuidor")
+                //console.log("entre pprecio distribuidor")
                 this.listaDetalleFactura[x].valorUnit = this.precioDis;
 
               }
@@ -360,9 +359,9 @@ console.log("hola")
 
               this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
 
-              console.log("cantidad consulta=>", this.cantidadConsulta)
-              console.log("cantidad Lista=>", this.cantidadLista)
-              console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+              // console.log("cantidad consulta=>", this.cantidadConsulta)
+              // console.log("cantidad Lista=>", this.cantidadLista)
+              // console.log("cantidad Dsiponible=>", this.cantidadDisponible)
 
             }
 
@@ -395,7 +394,7 @@ console.log("hola")
 
       }
 
-      console.log(this.listaDetalleFactura);
+      //console.log(this.listaDetalleFactura);
       //objetto tipo venDetallefactura
       this.venDetalleFactura = {
         idDetalleFact: 0,
@@ -543,14 +542,14 @@ console.log("hola")
     }
 
 
-    console.log(this.auxiliarFacturaIngreso)
+    //console.log(this.auxiliarFacturaIngreso)
     const obtenerid = new Promise (async(resolve,reject)=>{await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
-      console.log(res)
+      //console.log(res)
       resolve(res.idCabezaFac)
     }, err => console.log(err))})
 
     idfacturaPDF =await obtenerid.then(res=>Number(res));
-    console.log("este es el id de la factura realizada", idfacturaPDF)
+    //console.log("este es el id de la factura realizada", idfacturaPDF)
     let restaCantidad = 0;
     let cantidadLista = 0;
     let cantidadConsulta = 0;
@@ -566,24 +565,22 @@ console.log("hola")
             cantidadLista = this.listaDetalleFactura[i].cantidadFact;
             restaCantidad = cantidadConsulta - cantidadLista;
 
-            console.log(cantidadConsulta)
-            console.log(cantidadLista)
-            console.log(restaCantidad)
+            // console.log(cantidadConsulta)
+            // console.log(cantidadLista)
+            // console.log(restaCantidad)
 
 
 
 
             this.stockService.updateStockCantidadRest(Number(restaCantidad), this.listaDetalleFactura[i].catStock.id.idProductos, this.listaDetalleFactura[i].catStock.id.idPuntosVenta)
               .subscribe(res => {
-                console.log("si actualizamos")
+                //console.log("si actualizamos")
                 resolve(res);
               })
           }, err => console.log(err))
 
       })
-      await ActualizarStockCantidad.then(res => console.log(
-        res
-      ));
+      await ActualizarStockCantidad.then(res => res);
 
     }
     
@@ -659,9 +656,9 @@ err=>console.log(err));
               this.cantidadLista = Number(this.listaDetalleFactura[i].cantidadFact);
               this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
 
-              console.log("cantidad consulta=>", this.cantidadConsulta)
-              console.log("cantidad Lista=>", this.cantidadLista)
-              console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+              // console.log("cantidad consulta=>", this.cantidadConsulta)
+              // console.log("cantidad Lista=>", this.cantidadLista)
+              // console.log("cantidad Dsiponible=>", this.cantidadDisponible)
 
               break;
 
@@ -697,7 +694,7 @@ err=>console.log(err));
   ///Metodo de eliminar un producto de la lista que se va a vender
   eliminarProductodeList(idProducto: number) {
 
-    console.log("este es el id del producto escocigido", idProducto);
+    //console.log("este es el id del producto escocigido", idProducto);
 
     this.listaDetalleFactura = this.listaDetalleFactura.filter(producto => {
       return producto.catStock.id.idProductos != idProducto;
@@ -744,13 +741,13 @@ err=>console.log(err));
   }
 
   getStockConsulta(id:number){
-    console.log(this.idPuntosVenta)
+    //console.log(this.idPuntosVenta)
     this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>
       {this.stockConsulta = res},err=> console.log(err))
   }
 
   encontrarProductoModal(productoBuscar:any){
-    console.log(productoBuscar.length)
+    //console.log(productoBuscar.length)
     if(productoBuscar.length!=0){
       this.stockService.findStockbyParametersPuntoVenta(this.idPuntosVenta,productoBuscar).subscribe(res=>{
         this.stockConsulta = res;
@@ -763,6 +760,6 @@ err=>console.log(err));
   }
 
   ingresarClienteModal(){
-    console.log(this.clientmodal)
+    //console.log(this.clientmodal)
   }
 }

@@ -194,7 +194,7 @@ export class FacturacionFormComponent implements OnInit {
     const params = this.activedrouter.snapshot.params;
     this.disabled = false;
     this.idPuntosVenta = Number(params.id);
-    console.log("hola", this.idPuntosVenta)
+    //console.log("hola", this.idPuntosVenta)
     this.totalIngresoVista = "0";
     this.listafacturaIngreso = [{
       idCabezaFac: 0,
@@ -255,7 +255,7 @@ export class FacturacionFormComponent implements OnInit {
     //let valorRadiobutton = document.getElementById("primerRadio").checked;
 
     // console.log(x);
-    console.log(this.precioSeleccionado)
+    //console.log(this.precioSeleccionado)
 
   }
 
@@ -288,7 +288,7 @@ export class FacturacionFormComponent implements OnInit {
       });
 
       await IDCLIENTE.then(res => {
-        console.log("el cliente existe", res)
+        //console.log("el cliente existe", res)
         this.idClienteIngreso = Number(res);
       })
 
@@ -302,7 +302,7 @@ export class FacturacionFormComponent implements OnInit {
         this.nuevoClienteIngreso.telefono = this.telefono;
         this.nuevoClienteIngreso.email = this.email;
 
-        console.log("el nuevo clientea ingresar = > ", this.nuevoClienteIngreso);
+        //console.log("el nuevo clientea ingresar = > ", this.nuevoClienteIngreso);
 
         const IDCLIENTEINGREO = new Promise(async (resolve, reject) => {
           await this.clienteService.saveCliente(this.nuevoClienteIngreso).subscribe(res => {
@@ -314,9 +314,9 @@ export class FacturacionFormComponent implements OnInit {
           this.idClienteIngreso = Number(res);
         })
 
-        console.log("id CLiente ingresado=>  ", this.idClienteIngreso)
+        //console.log("id CLiente ingresado=>  ", this.idClienteIngreso)
       } else {
-        console.log("el cliente existe", this.idClienteIngreso)
+        //console.log("el cliente existe", this.idClienteIngreso)
       }
 
 
@@ -331,7 +331,7 @@ export class FacturacionFormComponent implements OnInit {
         this.venDetalleFactura.descripcion = this.detalle;
         this.venDetalleFactura.valorTotal = Number(this.precioSeleccionado * this.cantidad);
         this.venDetalleFactura.valorUnit = Number(this.precioSeleccionado);
-        console.log("entre pprecio unit")
+        //console.log("entre pprecio unit")
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///Ccodigo para controlar los precios automaticamente cuando un producto es mayor a 12 y seleccionar el precio al por mayor 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -433,9 +433,9 @@ export class FacturacionFormComponent implements OnInit {
 
                 this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
 
-                console.log("cantidad consulta=>", this.cantidadConsulta)
-                console.log("cantidad Lista=>", this.cantidadLista)
-                console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+                // console.log("cantidad consulta=>", this.cantidadConsulta)
+                // console.log("cantidad Lista=>", this.cantidadLista)
+                // console.log("cantidad Dsiponible=>", this.cantidadDisponible)
 
               }
 
@@ -469,7 +469,7 @@ export class FacturacionFormComponent implements OnInit {
 
         }
 
-        console.log(this.listaDetalleFactura);
+        //console.log(this.listaDetalleFactura);
         //objetto tipo venDetallefactura
         this.venDetalleFactura = {
           idDetalleFact: 0,
@@ -639,16 +639,16 @@ export class FacturacionFormComponent implements OnInit {
       }
 
 
-      console.log(this.auxiliarFacturaIngreso)
+      //console.log(this.auxiliarFacturaIngreso)
       const obtenerid = new Promise(async (resolve, reject) => {
         await this.facturaService.saveFactura(this.auxiliarFacturaIngreso).subscribe(res => {
-          console.log(res)
+          //console.log(res)
           resolve(res.idCabezaFac)
         }, err => console.log(err))
       })
 
       idfacturaPDF = await obtenerid.then(res => Number(res));
-      console.log("este es el id de la factura realizada", idfacturaPDF)
+      //console.log("este es el id de la factura realizada", idfacturaPDF)
       let restaCantidad = 0;
       let cantidadLista = 0;
       let cantidadConsulta = 0;
@@ -664,24 +664,22 @@ export class FacturacionFormComponent implements OnInit {
               cantidadLista = this.listaDetalleFactura[i].cantidadFact;
               restaCantidad = cantidadConsulta - cantidadLista;
 
-              console.log(cantidadConsulta)
-              console.log(cantidadLista)
-              console.log(restaCantidad)
+              // console.log(cantidadConsulta)
+              // console.log(cantidadLista)
+              // console.log(restaCantidad)
 
 
 
 
               this.stockService.updateStockCantidadRest(Number(restaCantidad), this.listaDetalleFactura[i].catStock.id.idProductos, this.listaDetalleFactura[i].catStock.id.idPuntosVenta)
                 .subscribe(res => {
-                  console.log("si actualizamos")
+                  //console.log("si actualizamos")
                   resolve(res);
                 })
             }, err => console.log(err))
 
         })
-        await ActualizarStockCantidad.then(res => console.log(
-          res
-        ));
+        await ActualizarStockCantidad.then(res => res);
 
       }
 
@@ -764,9 +762,9 @@ export class FacturacionFormComponent implements OnInit {
               this.cantidadLista = Number(this.listaDetalleFactura[i].cantidadFact);
               this.cantidadDisponible = this.cantidadConsulta - this.cantidadLista;
 
-              console.log("cantidad consulta=>", this.cantidadConsulta)
-              console.log("cantidad Lista=>", this.cantidadLista)
-              console.log("cantidad Dsiponible=>", this.cantidadDisponible)
+              // console.log("cantidad consulta=>", this.cantidadConsulta)
+              // console.log("cantidad Lista=>", this.cantidadLista)
+              // console.log("cantidad Dsiponible=>", this.cantidadDisponible)
 
               break;
 
@@ -804,7 +802,7 @@ export class FacturacionFormComponent implements OnInit {
   ///Metodo de eliminar un producto de la lista que se va a vender
   eliminarProductodeList(idProducto: number) {
 
-    console.log("este es el id del producto escocigido", idProducto);
+    //console.log("este es el id del producto escocigido", idProducto);
 
     this.listaDetalleFactura = this.listaDetalleFactura.filter(producto => {
       return producto.catStock.id.idProductos != idProducto;
@@ -851,12 +849,12 @@ export class FacturacionFormComponent implements OnInit {
   }
 
   getStockConsulta(id: number) {
-    console.log(this.idPuntosVenta)
+    //console.log(this.idPuntosVenta)
     this.stockService.findStockInventarioPuntoVenta(id).subscribe(res => { this.stockConsulta = res }, err => console.log(err))
   }
 
   encontrarProductoModal(productoBuscar: any) {
-    console.log(productoBuscar.length)
+   // console.log(productoBuscar.length)
     if (productoBuscar.length != 0) {
       this.stockService.findStockbyParametersPuntoVenta(this.idPuntosVenta, productoBuscar).subscribe(res => {
         this.stockConsulta = res;
@@ -869,7 +867,7 @@ export class FacturacionFormComponent implements OnInit {
   }
 
   ingresarClienteModal() {
-    console.log(this.clientmodal)
+    //console.log(this.clientmodal)
   }
 
   favoriteSeason: string;
@@ -887,7 +885,7 @@ export class FacturacionFormComponent implements OnInit {
     this.descuentoFactura = Number(valorDescuento.toFixed(2));
     this.totalVenta = String(Number(this.subtotalFactura) - Number(valorDescuento));
 
-    console.log(this.totalVenta);
+    //console.log(this.totalVenta);
   }
 
 }

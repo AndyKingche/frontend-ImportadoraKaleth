@@ -28,7 +28,7 @@ history.pushState(null, null, window.location.href);
   ngOnInit() {
   this.getPuntosVenta();
   this.userService.getUserLogged().subscribe(res=>{
-    console.log("el usuario logeado es "+res[0].nombre);
+    //console.log("el usuario logeado es "+res[0].nombre);
     this.nombreUsuario = `${res[0].nombre}`;
     this.apellidoUsuario = `${res[0].apellido}`
   });

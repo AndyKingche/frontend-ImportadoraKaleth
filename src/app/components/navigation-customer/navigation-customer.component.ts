@@ -12,7 +12,7 @@ export class NavigationCustomerComponent implements OnInit {
 URL :string="";
   ngOnInit() {
     const params = this.activedrouter.snapshot.params;
-    console.log(params)
+   // console.log(params)
     if(params.id == 1){
       console.log("reporte Total")
       this.mostrarTotal();

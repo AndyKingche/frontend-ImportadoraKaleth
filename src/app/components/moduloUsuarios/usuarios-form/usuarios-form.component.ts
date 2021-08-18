@@ -75,13 +75,13 @@ export class UsuariosFormComponent implements OnInit {
               this.estadosEscogidos.nombre = 'Inactivo'
 
             }
-            console.log(this.estadosEscogidos)
+            //console.log(this.estadosEscogidos)
             this.estadocivilservice
               .getEstadocivil(this.user.estadocivil.idEstadocivil)
               .subscribe(
                 (resul) => {
                   this.estadocivilEscogido = resul;
-                  console.log(this.estadocivilEscogido)
+                  //console.log(this.estadocivilEscogido)
                 },
                 (err) => console.error(err)
               );
@@ -89,7 +89,7 @@ export class UsuariosFormComponent implements OnInit {
             this.generoservice.getGenero(this.user.genero.idGenero).subscribe(
               (result) => {
                 this.generoEscogido = result;
-                console.log(this.generoEscogido )
+                //console.log(this.generoEscogido )
                 
               },
               (err) => console.error(err)
@@ -124,7 +124,7 @@ export class UsuariosFormComponent implements OnInit {
    
       
       if (this.testingresar()) {
-        console.log(this.user);
+        //console.log(this.user);
         this.usuariosservice.saveUsuario(this.user).subscribe(
           (res) => {
             (this.user.apellido = " "),
@@ -221,7 +221,7 @@ export class UsuariosFormComponent implements OnInit {
         estado:false
       },
     ];
-    console.log(this.estados)
+    //console.log(this.estados)
    //this.estadosEscogidos = this.estados
   }
 
@@ -261,7 +261,7 @@ export class UsuariosFormComponent implements OnInit {
       this.user.genero.idGenero = this.generoEscogido.idGenero;
       this.user.estado = this.estadosEscogidos.estado;
       this.user.rol = this.rolesEscogidos.id;
-      console.log(this.estadosEscogidos.id);
+      //console.log(this.estadosEscogidos.id);
       return true;
     } else {
       
