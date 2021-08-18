@@ -20,28 +20,20 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<unknown>>{
     const token: string = this.cookieService.get('token');
-    console.log(token)
     
-    //let req = request;
-    // if(token){
-    //   console.log("si entre")
-    //   req = request.clone({
-    //     setHeaders:{
-    //       Authorization : `Bearer ${token}`    }
-    //   })
-     
-    // }
+    
+    
     req = req.clone({
       setHeaders:{
         Authorization: `Bearer ${token}`
       }
     })
-    console.log(req)
+    
     
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
 
-        console.log(err)
+        
         if (err.status === 401) {
           this.ruta.navigateByUrl('/login');
         }

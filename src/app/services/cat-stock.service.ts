@@ -66,7 +66,7 @@ export class CatStockService {
     //return this.http.get(`${this.ulnueva}/exist/${id}/${inicio}/${numeroFilas}`);
   }
   getCantExistents() {
-    console.log(this.URL)
+    
      return this.http.get(`${this.URL}/cant`);
     //return this.http.get(`${this.ulnueva}/cant`);
   }
