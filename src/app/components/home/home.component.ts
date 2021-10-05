@@ -248,6 +248,8 @@ history.pushState(null, null, window.location.href);
     this.userService.deleteToken();
     this.activarButton = true;
     this.activarSesion = false;
+    this.idCliente = 0;
+    this.puedeComprar = false;
     this.router.navigate(['/home'])
   }
 

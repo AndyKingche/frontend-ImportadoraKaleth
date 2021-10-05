@@ -401,50 +401,7 @@
 
 
 <div *ngIf="mostrarCarrito">
-
-
-    <!-- <div class="container-fluid" id="carritoImprimir">
-        <div class="check-out content-top">
-            <h1 style="margin-top:30px ;">Carrito Kaleth</h1>
-            <a (click)="ShowInicio()" class="main-btn">Seguir Comprando</a>
-            <table id="TablaCarrito">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Productos</th>
-                        <th>Precios</th>
-                        <th>Delery Detials</th>
-                        <th>Subtotal</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let listacarrito of listaCheckout">
-                    <tr>
-                        <td class="ring-in">
-                            <a href="single.html" class="at-in"><img src="{{listacarrito.catProducto.catDiseno.urlFoto}}" width="100px" height="120px"></a>
-                            <div class="sed">
-                                <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
-                                <p> {{listacarrito.descripcion}} </p>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </td>
-                        <td class="check"><input type="number" value="{{listacarrito.cantidadPe}}" (change)="obtenerCantidad($event.target.value, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)">
-                        </td>
-                        <td>{{listacarrito.valorUnit}}</td>
-                        <td>Envio Acordar con el administrador</td>
-                        <td>{{listacarrito.valorTotal}}</td>
-                        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="quitardelista(listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)"></button>
-                            <br>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <a href="#" class="main-btn" (click)="generarPedido()">GENERAR PEDIDO</a>
-
-            <div class="clearfix"> </div>
-        </div>
-    </div> -->
+<p-card>
     <div class="titulo__carrito">
       
         <div class="tittle__izq">
@@ -453,9 +410,8 @@
             <b>Carrito Kaleth</b>
         </div>      
       
-
 </div>
-        
+<button pButton pRipple type="button" icon="pi pi-angle-double-left" label="Seguir comprando"class="p-button-rounded p-button-danger" (click)="ShowInicio()"> </button>
 
 <p-table #dt2 [value]="listaCheckout" [responsive]="true" selectionMode="single"  dataKey="id" styleClass="p-datatable-responsive"
     [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
@@ -518,12 +474,42 @@
 
         </tr>
     </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <button pButton pRipple type="button" icon="pi pi-check-circle" label="Generar Pedido"class="p-button-rounded p-button-success"(click)="generarPedido()"></button>
+
+                </div>
+                <!-- <div class="col-md-1">
+                </div> -->
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <label id="lblTotal" for="lblTotal"></label>
+                </div>
+
+            </div>
+
+        </div>
+
+    </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
             <td colspan="4">No encontro Pedidos</td>
         </tr>
     </ng-template>
 </p-table>
+
+</p-card>
+
 
 </div>
 

@@ -1591,7 +1591,29 @@ select.in-drop, select.in-drop1 {
   width: 39%;
 }
 }
+
 @media(max-width:480px){
+  .tarjeta__imagen img {
+    
+    height: 25vh;
+  
+  }
+  .tarjeta__contenido{
+    
+    height: 27vh;
+  }
+  .tarjeta__contenido h3 {
+    font-size: 0.65em;
+  }
+  .tarjeta__contenido--boton{
+    margin-top: -0.8vh;
+  }
+  .tarjeta__contenido--boton button{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+  }
+  
 .matter-banner,.banner-mat {
   width: 100%;
   padding: 0;
@@ -1802,6 +1824,7 @@ h1.typo1 {
   width: 29%;
 }
 }
+
 @media(max-width:320px){
 .logo {
   width: 100%;	
