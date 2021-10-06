@@ -13,7 +13,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" [routerLink]="" routerLinkActive="router-link-active">
+            <a class="nav-link" (click)="gotoHome()" [routerLink]="" routerLinkActive="router-link-active">
                 <i class="pi pi-globe"></i>
                 <span>Pagina Principal</span></a>
         </li>
@@ -101,7 +101,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" routerLink="/admin/report-product"><i class="pi pi-sort-amount-up"></i>Estado de <br/>Productos</a>
                     <a class="collapse-item" routerLink="/admin/order"><i class="fa fa-boxes"></i>Pedidos</a>
-                    
+
                 </div>
             </div>
         </li>

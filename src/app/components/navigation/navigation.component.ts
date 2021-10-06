@@ -55,4 +55,8 @@ history.pushState(null, null, window.location.href);
     this.cookies.delete('token');
     this.router.navigate(['/login'])
   }
+  gotoHome(){
+    // this.router.navigate(['/home'])
+    window.open("/home", '_blank');
+  }
 }

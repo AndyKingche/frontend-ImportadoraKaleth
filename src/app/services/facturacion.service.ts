@@ -25,9 +25,15 @@ export class FacturacionService {
     // return this.http.get(`${this.API_URI}/dates/${fechainicio}/${fechafin}`);
     return this.http.get(`${this.URL}/dates/${fechainicio}/${fechafin}`);
   }
-
+  facturafechasLocales(fechainicio:string,fechafin:string,idPuntosVenta:number){
+    // return this.http.get(`${this.API_URI}/dates/${fechainicio}/${fechafin}`);
+    return this.http.get(`${this.URL}/datesLocal/${fechainicio}/${fechafin}/${idPuntosVenta}`);
+  }
   reporteFacturaFechas(fechaDesde:string,fechaHasta:string,totalVentas:string){
     return this.http.get(`${this.URL}/reporteFecha/${fechaDesde}/${fechaHasta}/${totalVentas}`)
+  }
+  reporteFacturaFechasLocal(fechaDesde:string,fechaHasta:string,totalVentas:string,idPuntosVenta:number){
+    return this.http.get(`${this.URL}/reporteFechaLocal/${fechaDesde}/${fechaHasta}/${totalVentas}/${idPuntosVenta}`)
   }
   ticket(idfactura:number){
     return this.http.get(`${this.URL}/ticket/${idfactura}`)

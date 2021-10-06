@@ -8,7 +8,7 @@
 
     <button pButton pRipple icon="pi pi-pencil" class="boton__derecho p-button-rounded p-button-success p-mr-2" [routerLink]="['/admin/parameters-edit/',this.idParametros]"></button>
 
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
 
         <div class="row" style="margin: 10px;">
             <div class="col-md-3">
@@ -154,5 +154,302 @@
 
 
 
+    </div> -->
+    <div class="container-fluid slider__kaleth">
+        <div class="col-md-6">
+
+            <div class="contenido__kaleth">
+                {{this.textoBanner}}
+                <div class="footer-logo mt-40">
+                    <ul class="footer-social mt-25">
+                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                        <li><a href="#"><i class="lni-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-6 img__sliderkaleth">
+            <div class="slider__efect">
+                <ul>
+                    <li>
+                        <img class="img__slider" src="{{this.urlFotoBanner1}}" alt="">
+                    </li>
+                    <li>
+                        <img class="img__slider" src="{{this.urlFotoBanner2}}" alt="">
+                    </li>
+                    <li>
+                        <img class="img__slider" src="{{this.urlFotoBanner3}}" alt="">
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <div class="slick__slideritem">
+                <div class="slick__slider"></div>
+                <div class="slick__slider"></div>
+                <div class="slick__slider"></div>
+            </div>
+        </div>
+
+
+
+
     </div>
+
+    <section id="product" class="team-area pt-100">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="content-top">
+                    <h1>Productos disponibles</h1>
+                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
+                    </p-paginator>
+                    <div class="content-top1" *ngFor="let stocks of stock; let i=index">
+                        <div class="col-md-3 col-md2">
+
+                            <!-- <div class="col-md1">
+                                <h3>
+                                {{stocks.catProducto.catCategoria.nombreCategoria}}
+                                {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
+                                    
+                                </h3>
+                                <a (click)="showDialogImagenes(stocks)">
+                                    <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
+                                </a>
+                                
+                                <div class=" price">
+                                    <h5>${{stocks.precioUnit}}</h5>
+        
+                                    <a [routerLink]="" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div> -->
+
+                            <div class="tarjeta">
+                                <div class="tarjeta__imagen">
+                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
+                                    {{stocks.catProducto.catDiseno.nombre}}">
+                                    <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
+                                </div>
+                                <div class="tarjeta__contenido">
+                                    <h3>
+                                        {{stocks.catProducto.catCategoria.nombreCategoria}} - {{stocks.catProducto.catDiseno.nombre}}
+
+                                    </h3>
+                                    <div class="container-fluid tarjeta__contenido--detalle">
+                                        <div class="row">
+                                            <div class="col-md-12 precio">
+
+                                                Talla: {{stocks.catProducto.catTalla.medida}}
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 precio">
+
+                                                Cant.:
+                                                <div [ngClass]="{'outofstock': stocks.cantidad <= 0 , 'instock': stocks.cantidad >= 1}">
+
+                                                    {{stocks.cantidad}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 precio">
+                                                <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
+                                                    <span class="titulo__status--stock"></span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 precio">
+                                                <i class="fas fa-tags"></i> Precio: ${{stocks.precioUnit}}
+
+                                            </div>
+                                        </div>
+                                        <div class="row tarjeta__contenido--boton">
+                                            <div class="col-md-12 ">
+                                                <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" label="Añadir al carrito" (click)="Agregar(stocks)"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="i==3||i==7||i==11">
+
+                                <div class="content-top1">
+                                    <div class="col-md-3 col-md2">
+                                        <h1></h1>
+                                    </div>
+
+
+                                    <div class="clearfix"> </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="team" class="team-area pt-100">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-title text-center pb-25 content-top">
+                        <h1>Locales Físicos</h1>
+                        <p>{{this.mensajePuntosVenta}}</p>
+                    </div>
+                    <!-- section title -->
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row justify-content-center">
+
+
+                <div class="col-lg-4 col-md-6 col-sm-8" *ngFor="let puntosVenta of puntosVentas; let i=index">
+                    <div class="single-temp text-center mt-30">
+                        <div class="team-image">
+
+                            <!-- <iframe src="{{this.urlSafe}}" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        </div>
+                        <div class="team-content mt-30">
+                            <h4 class="title mb-10" *ngIf="i==0"><a href="#">Local Principal</a></h4>
+                            <h4 class="title mb-10" *ngIf="i>0"><a href="#">Local Secundario</a></h4>
+
+
+                            <span>{{puntosVenta.nombreLocal}}</span>
+                            <span>{{puntosVenta.direccion}}</span>
+                            <span>{{puntosVenta.telefono}}</span>
+                        </div>
+                    </div>
+                    <!-- single temp -->
+                </div>
+
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== FOOTER PART START ======-->
+
+    <section id="about" class="footer-area">
+        <div class="container-fluid">
+            <div class="footer-widget pt-75 pb-120">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 col-sm-7">
+                        <div class="footer-logo mt-40">
+                            <a href="#">
+                                <img src="../../../assets/img/KALETH.png" alt="Logo" width="200px">
+                            </a>
+                            <p class="mt-10">{{this.fraseFooter}}</p>
+                            <ul class="footer-social mt-25">
+                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                                <li><a href="#"><i class="lni-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- footer logo -->
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-5">
+                        <div class="footer-link mt-50">
+                            <h5 class="f-title">{{this.tituloServicios}}</h5>
+                            <ul>
+                                <li><a href="#">{{this.servicio1}}</a></li>
+                                <li><a href="#">{{this.servicio2}}</a></li>
+                                <li><a href="#">{{this.servicio3}}</a></li>
+                                <li><a href="#">{{this.servicio4}}</a></li>
+                                <li><a href="#">{{this.servicio5}}</a></li>
+
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+
+                    <div class="col-lg-4 col-md-5 col-sm-7">
+                        <div class="footer-info mt-50">
+                            <h5 class="f-title">{{this.tituloInformacion}}</h5>
+                            <ul>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Teléfono :</span>
+                                        <div class="footer-info-content">
+                                            <p>{{this.telefono}}</p>
+                                            <p>{{this.celular}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Correo :</span>
+                                        <div class="footer-info-content">
+                                            <p>{{this.correo1}}</p>
+                                            <p>{{this.correo2}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Dirección:</span>
+                                        <div class="footer-info-content">
+                                            <p>{{this.direccion}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+                </div>
+                <!-- row -->
+            </div>
+            <!-- footer widget -->
+            <div class="footer-copyright pt-15 pb-15">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright text-center">
+                            <p></p>
+                        </div>
+                        <!-- copyright -->
+                    </div>
+                </div>
+                <!-- row -->
+            </div>
+            <!--  footer copyright -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
 </p-card>

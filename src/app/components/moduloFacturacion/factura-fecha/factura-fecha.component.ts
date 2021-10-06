@@ -3,6 +3,7 @@ import { async } from '@angular/core/testing';
 import { VenCabezaFactura } from '../../../models/VenCabezaFactura';
 import { FacturacionService } from '../../../services/facturacion.service';
 import { CatStockService } from '../../../services/cat-stock.service'
+import { PuntosVentasService } from '../../../services/puntos-ventas.service';
 @Component({
   selector: 'app-factura-fecha',
   templateUrl: './factura-fecha.component.html',
@@ -17,8 +18,10 @@ export class FacturaFechaComponent implements OnInit {
   totalVenta: number = 0;
   isloading = false;
   es: any;
-
-  constructor(private facturacionservice: FacturacionService, private stockServices: CatStockService) { }
+  itemsaux: any = [];
+  items: any = [];
+  idPuntoVentaSeleccion: number = 0;
+  constructor(private puntoventaservice: PuntosVentasService, private facturacionservice: FacturacionService, private stockServices: CatStockService) { }
 
   ngOnInit() {
     this.es = {
@@ -33,6 +36,27 @@ export class FacturaFechaComponent implements OnInit {
     }
     this.i = null;
     this.f = null;
+
+    this.puntoventaservice.getPuntosVentas().subscribe(res => {
+      this.itemsaux = res;
+      //console.log(this.items)
+      for (let i in this.itemsaux) {
+
+        this.items[i] =
+        {
+          name: this.itemsaux[i].nombreLocal,
+
+        }
+
+      }
+      //console.log(this.items)
+    })
+
+  }
+  //metodo escoger puntos de venta
+  //y consultar 
+  getFindInventarioPuntoVenta(id: number) {
+    this.idPuntoVentaSeleccion = id;
   }
 
   async getfacturaFecha() {
@@ -44,29 +68,56 @@ export class FacturaFechaComponent implements OnInit {
     let fechaFin = this.f;
     let fechaFormateadaFin = fechaFin.getFullYear() + "-" + ("0" + (fechaFin.getMonth() + 1)).slice(-2) + "-" + (fechaFin.getDate());
 
+    if (this.idPuntoVentaSeleccion != 0) {
+      //mostrar todas las facturas seleccionando un local  
 
+      const arrayFacturas = new Promise(async (resolve, reject) => {
+        await this.facturacionservice.facturafechasLocales(fechaFormateadaInicio, fechaFormateadaFin, this.idPuntoVentaSeleccion).subscribe(res => {
 
-    const arrayFacturas = new Promise(async (resolve, reject) => {
-      await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+          resolve(res);
+        }, err => console.log(err))
+      });
 
-        resolve(res);
+      await arrayFacturas.then(res => {
+        this.facturafecha = res;
+        this.isloading = false;
+      })
 
-        //this.facturafecha = res;
-        // console.log(this.facturafecha)
-      }, err => console.log(err))
-    });
+      this.totalVenta = 0;
+      for (var x in this.facturafecha) {
 
-    await arrayFacturas.then(res => {
-      this.facturafecha = res;
-      this.isloading = false;
-    })
+        this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+      }
 
-    this.totalVenta = 0;
-    for (var x in this.facturafecha) {
+    } else {
+      //mostrar todas las facturas de todos los locales disponibles
 
-      this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+      const arrayFacturas = new Promise(async (resolve, reject) => {
+        await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+
+          resolve(res);
+
+          //this.facturafecha = res;
+          // console.log(this.facturafecha)
+        }, err => console.log(err))
+      });
+
+      await arrayFacturas.then(res => {
+        this.facturafecha = res;
+        this.isloading = false;
+      })
+
+      this.totalVenta = 0;
+      for (var x in this.facturafecha) {
+
+        this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+      }
     }
+
+
   }
+
+
   async imprimirfacturaFecha() {
     this.isloading = true;
     let fechaInicio = this.i;
@@ -75,43 +126,86 @@ export class FacturaFechaComponent implements OnInit {
     let fechaFin = this.f;
     let fechaFormateadaFin = fechaFin.getFullYear() + "-" + ("0" + (fechaFin.getMonth() + 1)).slice(-2) + "-" + (fechaFin.getDate());
 
+    if (this.idPuntoVentaSeleccion != 0) {
+      //imprimir todas las facturas seleccionando un local 
+      
+      const arrayFacturas = new Promise(async (resolve, reject) => {
+        await this.facturacionservice.facturafechasLocales(fechaFormateadaInicio, fechaFormateadaFin,this.idPuntoVentaSeleccion).subscribe(res => {
 
+          resolve(res)
+          //this.facturafecha = res;
+          // console.log(this.facturafecha)
+        }, err => console.log(err))
+      });
 
+      await arrayFacturas.then(res => {
+        this.facturafecha = res;
 
-    const arrayFacturas = new Promise(async (resolve, reject) => {
-      await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+      })
 
-        resolve(res)
-        //this.facturafecha = res;
-        // console.log(this.facturafecha)
-      }, err => console.log(err))
-    });
+      this.totalVenta = 0;
+      for (var x in this.facturafecha) {
 
-    await arrayFacturas.then(res => {
-      this.facturafecha = res;
+        this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+      }
 
-    })
+      let valor = "" + (this.totalVenta).toFixed(2);
 
-    this.totalVenta = 0;
-    for (var x in this.facturafecha) {
+      //window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
+      this.facturacionservice.reporteFacturaFechasLocal(fechaFormateadaInicio, fechaFormateadaFin, valor,this.idPuntoVentaSeleccion).subscribe(res => {
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+          "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+          encodeURI(res[0]) + "'></iframe>"
+        )
+        this.isloading = false;
+      },
+        err => console.log(err))
 
-      this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+    } else {
+      const arrayFacturas = new Promise(async (resolve, reject) => {
+        await this.facturacionservice.facturafechas(fechaFormateadaInicio, fechaFormateadaFin).subscribe(res => {
+
+          resolve(res)
+          //this.facturafecha = res;
+          // console.log(this.facturafecha)
+        }, err => console.log(err))
+      });
+
+      await arrayFacturas.then(res => {
+        this.facturafecha = res;
+
+      })
+
+      this.totalVenta = 0;
+      for (var x in this.facturafecha) {
+
+        this.totalVenta = this.totalVenta + this.facturafecha[x].total;
+      }
+
+      let valor = "" + (this.totalVenta).toFixed(2);
+
+      //window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
+      this.facturacionservice.reporteFacturaFechas(fechaFormateadaInicio, fechaFormateadaFin, valor).subscribe(res => {
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(
+          "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+          encodeURI(res[0]) + "'></iframe>"
+        )
+        this.isloading = false;
+      },
+        err => console.log(err))
+
     }
 
-    let valor = "" + (this.totalVenta).toFixed(2);
 
-    //window.open(`/api/bill/reporteFecha/${fechaFormateadaInicio}/${fechaFormateadaFin}/${valor}`, "_blank");
-    this.facturacionservice.reporteFacturaFechas(fechaFormateadaInicio, fechaFormateadaFin, valor).subscribe(res => {
-      let pdfWindow = window.open("")
-      pdfWindow.document.write(
-        "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-        encodeURI(res[0]) + "'></iframe>"
-      )
-      this.isloading = false;
-    },
-      err => console.log(err))
+
+
+
+
 
   }
+
 
   mostrarTicket(idfacturaPDF: number) {
     this.isloading = true;

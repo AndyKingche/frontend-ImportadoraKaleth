@@ -32,13 +32,27 @@
                     </p-calendar>
 
                 </div>
+                <div class="col-md-1">
+                    <label id="lblLocal" class="letter" for="lblFechaHasta">Local:</label>
+                </div>
+                <div class="col-md-2">
+                    <p-dropdown [options]="itemsaux" [(ngModel)]="selectedItems1" placeholder="Seleccionar un Punto Venta" optionLabel="nombreLocal" (onChange)=" getFindInventarioPuntoVenta($event.value.idPuntosVenta)"></p-dropdown>
+
+                </div>
+
+
+
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <button (click)="getfacturaFecha()" class="boton__dere btn btn-primary">Consultar</button>
 
                     <button (click)="imprimirfacturaFecha()" class="boton__dere btn btn-primary">Imprimir</button>
 
                 </div>
+
             </div>
+
         </div>
 
 
