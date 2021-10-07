@@ -39,6 +39,16 @@ export class FacturaFechaComponent implements OnInit {
 
     this.puntoventaservice.getPuntosVentas().subscribe(res => {
       this.itemsaux = res;
+      let puntosventaaux = {
+        idPuntosVenta:0,
+
+	ciudad:' ', 
+
+direccion:' ',
+nombreLocal:'Todos los locales',
+ telefono:0
+      }
+      this.itemsaux.push(puntosventaaux);
       //console.log(this.items)
       for (let i in this.itemsaux) {
 
@@ -49,7 +59,9 @@ export class FacturaFechaComponent implements OnInit {
         }
 
       }
-      //console.log(this.items)
+    //this.items.push(puntosventaaux);
+    
+      console.log(this.items)
     })
 
   }
