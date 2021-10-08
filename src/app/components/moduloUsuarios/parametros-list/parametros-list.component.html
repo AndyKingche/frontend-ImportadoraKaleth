@@ -201,118 +201,6 @@
 
     </div>
 
-    <section id="product" class="team-area pt-100">
-        <div class="content">
-            <div class="container-fluid">
-                <div class="content-top">
-                    <h1>Productos disponibles</h1>
-                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
-                    </p-paginator>
-                    <div class="content-top1" *ngFor="let stocks of stock; let i=index">
-                        <div class="col-md-3 col-md2">
-
-                            <!-- <div class="col-md1">
-                                <h3>
-                                {{stocks.catProducto.catCategoria.nombreCategoria}}
-                                {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
-                                    
-                                </h3>
-                                <a (click)="showDialogImagenes(stocks)">
-                                    <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
-                                </a>
-                                
-                                <div class=" price">
-                                    <h5>${{stocks.precioUnit}}</h5>
-        
-                                    <a [routerLink]="" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
-                                    <div class="clearfix"> </div>
-                                </div>
-                            </div> -->
-
-                            <div class="tarjeta">
-                                <div class="tarjeta__imagen">
-                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
-                                    {{stocks.catProducto.catDiseno.nombre}}">
-                                    <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
-                                </div>
-                                <div class="tarjeta__contenido">
-                                    <h3>
-                                        {{stocks.catProducto.catCategoria.nombreCategoria}} - {{stocks.catProducto.catDiseno.nombre}}
-
-                                    </h3>
-                                    <div class="container-fluid tarjeta__contenido--detalle">
-                                        <div class="row">
-                                            <div class="col-md-12 precio">
-
-                                                Talla: {{stocks.catProducto.catTalla.medida}}
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 precio">
-
-                                                Cant.:
-                                                <div [ngClass]="{'outofstock': stocks.cantidad <= 0 , 'instock': stocks.cantidad >= 1}">
-
-                                                    {{stocks.cantidad}}
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 precio">
-                                                <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
-                                                    <span class="titulo__status--stock"></span>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 precio">
-                                                <i class="fas fa-tags"></i> Precio: ${{stocks.precioUnit}}
-
-                                            </div>
-                                        </div>
-                                        <div class="row tarjeta__contenido--boton">
-                                            <div class="col-md-12 ">
-                                                <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" label="Añadir al carrito" (click)="Agregar(stocks)"></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="i==3||i==7||i==11">
-
-                                <div class="content-top1">
-                                    <div class="col-md-3 col-md2">
-                                        <h1></h1>
-                                    </div>
-
-
-                                    <div class="clearfix"> </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-    </section>
-
 
     <section id="team" class="team-area pt-100">
         <div class="container-fluid">
@@ -329,24 +217,7 @@
             <div class="row justify-content-center">
 
 
-                <div class="col-lg-4 col-md-6 col-sm-8" *ngFor="let puntosVenta of puntosVentas; let i=index">
-                    <div class="single-temp text-center mt-30">
-                        <div class="team-image">
-
-                            <!-- <iframe src="{{this.urlSafe}}" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-                        </div>
-                        <div class="team-content mt-30">
-                            <h4 class="title mb-10" *ngIf="i==0"><a href="#">Local Principal</a></h4>
-                            <h4 class="title mb-10" *ngIf="i>0"><a href="#">Local Secundario</a></h4>
-
-
-                            <span>{{puntosVenta.nombreLocal}}</span>
-                            <span>{{puntosVenta.direccion}}</span>
-                            <span>{{puntosVenta.telefono}}</span>
-                        </div>
-                    </div>
-                    <!-- single temp -->
-                </div>
+                
 
             </div>
             <!-- row -->
