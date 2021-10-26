@@ -136,28 +136,9 @@
             <div class="container-fluid">
                 <div class="content-top">
                     <h1 >Productos disponibles</h1>
-                    <!-- <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
-                    </p-paginator> -->
+                    
                     <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                         <div class="col-md-3 col-md2">
-
-                            <!-- <div class="col-md1">
-                                <h3>
-                                {{stocks.catProducto.catCategoria.nombreCategoria}}
-                                {{stocks.catProducto.catDiseno.nombre}} - {{stocks.catProducto.catTalla.medida}}
-                                    
-                                </h3>
-                                <a (click)="showDialogImagenes(stocks)">
-                                    <img class="img-responsive" src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="" />
-                                </a>
-                                
-                                <div class=" price">
-                                    <h5>${{stocks.precioUnit}}</h5>
-        
-                                    <a [routerLink]="" class="item_add" (click)="Agregar(stocks)">Agregar Carrito</a>
-                                    <div class="clearfix"> </div>
-                                </div>
-                            </div> -->
 
                             <div class="tarjeta">
                                 <div class="tarjeta__imagen">
@@ -181,16 +162,6 @@
                                                 
                                             </div>
                                             
-                                            <!-- <div class="row">
-                                                <div class="col-md-6 precio">
-                                                
-                                                Cant.:  <div [ngClass]="{'outofstock': stocks.cantidad <= 0 , 'instock': stocks.cantidad >= 1}">
-
-                                                    {{stocks.cantidad}}
-                                                </div>
-                                                </div>
-                                                
-                                            </div> -->
                                             <div class="row">
                                                 <div class="col-md-12 precio">
                                                     <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
@@ -244,7 +215,6 @@
             </div>
         </div>
     </section>
-
 
     <section id="team" class="team-area pt-100">
         <div class="container-fluid">

@@ -121,6 +121,7 @@ import { ParametrosFormComponent } from './components/moduloUsuarios/parametros-
 import { OrderProductComponent } from './components/moduloProducto/order-product/order-product.component';
 import {ConfirmDialogModule} from 'primeng-lts/confirmdialog';
 import {ConfirmationService} from 'primeng-lts/api';
+import {CarouselModule} from 'primeng-lts/carousel';
 //
 @NgModule({
   declarations: [
@@ -165,7 +166,7 @@ import {ConfirmationService} from 'primeng-lts/api';
 
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -204,7 +205,8 @@ import {ConfirmationService} from 'primeng-lts/api';
     PasswordModule,
     InputMaskModule,
     ProgressSpinnerModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CarouselModule
  
     
   ],
