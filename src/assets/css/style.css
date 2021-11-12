@@ -29,6 +29,21 @@
 
 -----------------------------------------------------------------------------------*/
 
+@font-face {
+    font-family: 'Montserrat-bold';
+    src: url(../fonts/Montserrat-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url(../fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Light';
+    src: url(../fonts/Montserrat-Light.ttf) format('truetype');
+}
+
 
 /*===========================
     1.COMMON css 
@@ -36,7 +51,7 @@
 
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800");
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Montserrat-Light';
     font-weight: normal;
     font-style: normal;
     color: #777;
@@ -79,7 +94,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Montserrat-Light';
     font-weight: 600;
     color: #333;
     margin: 0px;
@@ -532,7 +547,7 @@ p {
 
 .header-area .navbar .navbar-nav .nav-item a {
     font-size: 16px;
-    /* font-weight: 200; */
+    font-family: 'Montserrat-Light';
     color: #ffffff;
     -webkit-transition: all 0.4s ease-out 0s;
     -moz-transition: all 0.4s ease-out 0s;

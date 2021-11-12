@@ -1,186 +1,185 @@
 <div class="preloaderConsulta" *ngIf="isloading">
-  <div class="spinConsulta">
-      <div class="cube1Consulta"></div>
-      <div class="cube2Consulta"></div>
-  </div>
+    <div class="spinConsulta">
+        <div class="cube1Consulta"></div>
+        <div class="cube2Consulta"></div>
+    </div>
 </div>
 <div class="container-fluid">
-  <div class="row"> 
-    <div class="col-md-6 imagen__izquierda">
+    <div class="row">
+        <div class="col-md-6 imagen__izquierda">
 
-    </div>
-    <div class="col-md-6 login__content">
-      <h4 class="login__container--titulo">Kaleth Store | Login</h4>
-      <div class="imagen__logo">
-        <img src="../../../assets/img/KALETH.png" alt="Logo imagen Kaleth">
-      </div>
-      <div class="login__container">
-        <div class="login__input">
-          <!-- <label for="uname"><b>Username</b></label>
+        </div>
+        <div class="col-md-6 login__content">
+            <h4 class="login__container--titulo">Kaleth Store | Login</h4>
+            <div class="imagen__logo">
+                <img src="../../../assets/img/KALETH.png" alt="Logo imagen Kaleth">
+            </div>
+            <div class="login__container">
+                <div class="login__input">
+                    <!-- <label for="uname"><b>Username</b></label>
           <input type="text" placeholder="Enter Username" [(ngModel)]="this.login.username"  name="uname" required> -->
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-            <input type="email" pInputText placeholder="Email" [(ngModel)]="this.login.username"  name="uname">         
-        </div>
-        </div>
-        <div class="login__input"> 
-          <!-- <label for="psw"><b>Password</b></label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input type="email" pInputText placeholder="Email" [(ngModel)]="this.login.username" name="uname">
+                    </div>
+                </div>
+                <div class="login__input">
+                    <!-- <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" [(ngModel)]="this.login.password" name="psw" required>   -->
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="fa fa-key"></i></span>
-            <input type="password" pInputText placeholder="Contraseña" [(ngModel)]="this.login.password" name="psw">         
-        </div>
-        </div>
-        <div class="login__buttons">
-          <button pButton type="button" icon="fas fa-check-double" class="p-button-rounded login__entrar--button" label="Entrar" (click)="logingoogle()"></button>
-        </div>
-          <!-- <button type="submit"(click)="logOut()">Login</button> -->
-        
-        
-      </div>
-    
-      <div class="login__options">
-        <div class="login__buttons">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="fa fa-key"></i></span>
+                        <input type="password" pInputText placeholder="Contraseña" [(ngModel)]="this.login.password" name="psw">
+                    </div>
+                </div>
+                <div class="login__buttons">
+                    <button pButton type="button" icon="fas fa-check-double" class="p-button-rounded login__entrar--button" label="Entrar" (click)="logingoogle()"></button>
+                </div>
+                <!-- <button type="submit"(click)="logOut()">Login</button> -->
 
-          <button pButton pRipple type="button" icon="fas fa-undo" class="p-button-rounded p-button-danger login__salir--button" label="Cancel" routerLink="/home"></button>
+
+            </div>
+
+            <div class="login__options">
+                <div class="login__buttons">
+
+                    <button pButton pRipple type="button" icon="fas fa-undo" class="p-button-rounded p-button-danger login__salir--button" label="Cancel" routerLink="/home"></button>
+                </div>
+                <a [routerLink]="" (click)="showDisplayRegister()">Registarse</a>
+                <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
+            </div>
         </div>
-        <a [routerLink]="" (click)="showDisplayRegister()">Registarse</a>
-        <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
-      </div>
     </div>
-  </div>
 </div>
 
-    
 
-    <p-dialog position="top" [(visible)]="displayRegister" [modal]="true">
-      <h5>
-          <i class="fa fa-user-tag"></i> Registrarse a KALETH STORE</h5>
-          <p-card>
-          <div class="container-fluid">
+
+<p-dialog class="diseno-formulario" position="top" [(visible)]="displayRegister" [modal]="true">
+    <h5>FORMULARIO DE REGISTRO</h5>
+    <p-card>
+        <div class="container-fluid">
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Correo
-              </div>
-              <div class="col-md-9">
-                <input type="email"  (input)="buscarCliente($event.target.value)" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
-                <small id="username2-help" class="p-invalid">{{mensaje}}</small>
-              </div>
+                <div class="col-md-3 label__modal--register">
+                    Correo
+                </div>
+                <div class="col-md-9">
+                    <input type="email" (input)="buscarCliente($event.target.value)" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
+                    <small id="username2-help" class="p-invalid">{{mensaje}}</small>
+                </div>
             </div>
             <div class="row">
-              <div class="col-md-3 label__modal--register">
-                Nombre
-              </div>
-              <div class="col-md-9 ">
-                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
+                <div class="col-md-3 label__modal--register">
+                    Nombre
+                </div>
+                <div class="col-md-9 ">
+                    <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre" name="nombre">
 
-              </div>
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Apellido
-              </div>
-              <div class="col-md-9">
-                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido" >
+                <div class="col-md-3 label__modal--register">
+                    Apellido
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido">
 
-              </div>
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Cedula
-              </div>
-              <div class="col-md-9">
-                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula"  id="cedula" name="cedula">
+                <div class="col-md-3 label__modal--register">
+                    Cedula
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula" id="cedula" name="cedula">
 
-              </div>
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Direccion
-              </div>
-              <div class="col-md-9">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
+                <div class="col-md-3 label__modal--register">
+                    Direccion
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
 
-              </div>
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Telefono
-              </div>
-              <div class="col-md-9">
-                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
+                <div class="col-md-3 label__modal--register">
+                    Telefono
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
 
 
-              </div>
+                </div>
             </div>
-            
-            <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Password
-              </div>
-              <div class="col-md-6">
-                <input  pPassword type="password" [(ngModel)]="user.password" [weakLabel]="'Malo'" [mediumLabel]="'Bueno'" [strongLabel]="'Excelente !!!!'" [promptLabel]="'Ingrese una contraseña'" [showPassword]="verPassword"/>
-              </div>
-              <div class="col-md-3">
-                <button pButton type="button" class="p-button-rounded p-button-sm" icon="far fa-eye" iconPos="left"(click)="verContrase()"></button>
 
-              </div>
+            <div class="row inputs__modal--register">
+                <div class="col-md-3 label__modal--register">
+                    Password
+                </div>
+                <div class="col-md-6">
+                    <input pPassword type="password" [(ngModel)]="user.password" [weakLabel]="'Malo'" [mediumLabel]="'Bueno'" [strongLabel]="'Excelente !!!!'" [promptLabel]="'Ingrese una contraseña'" [showPassword]="verPassword" />
+                </div>
+                <div class="col-md-3">
+                    <button pButton type="button" class="p-button-rounded p-button-sm" icon="far fa-eye" iconPos="left" (click)="verContrase()"></button>
+
+                </div>
             </div>
             <!--  -->
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Fecha de Nacimiento
-              </div>
-              <div class="col-md-9">
-      
-              <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd" ></p-inputMask>
+                <div class="col-md-3 label__modal--register">
+                    Fecha de Nacimiento
+                </div>
+                <div class="col-md-9">
 
-              </div>
+                    <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd"></p-inputMask>
+
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Estado Civil
-              </div>
-              <div class="col-md-9">
-              <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar su Estado Civil " optionLabel="nombre" [showClear]="true"></p-dropdown>
+                <div class="col-md-3 label__modal--register">
+                    Estado Civil
+                </div>
+                <div class="col-md-9">
+                    <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar su Estado Civil " optionLabel="nombre" [showClear]="true"></p-dropdown>
 
-              </div>
+                </div>
             </div>
             <div class="row inputs__modal--register">
-              <div class="col-md-3 label__modal--register">
-                Genero
-              </div>
-              <div class="col-md-9">
-              <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                <div class="col-md-3 label__modal--register">
+                    Genero
+                </div>
+                <div class="col-md-9">
+                    <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
 
-              </div>
+                </div>
             </div>
-            
+
             <div class="row inputs__modal--register">
-              <div class="col-md-12">
-                <button class="btn btn-primary" (click)="Resgistrar()">Aceptar</button>
-              </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary" (click)="Resgistrar()">Aceptar</button>
+                </div>
             </div>
-          </div>
-        </p-card>
-  </p-dialog>
+        </div>
+    </p-card>
+</p-dialog>
 
-  <p-dialog position="top" [(visible)]="displayForgot" [modal]="true">
+<p-dialog position="top" [(visible)]="displayForgot" [modal]="true">
     <h5>
         <i class="fa fa-user-tag"></i> Ingresar su email </h5>
-        <p-card>
-        <div class="container-fluid"> 
-          <div class="row inputs__modal--register">
-            <div class="col-md-3 label__modal--register">
-              Correo
+    <p-card>
+        <div class="container-fluid">
+            <div class="row inputs__modal--register">
+                <div class="col-md-3 label__modal--register">
+                    Correo
+                </div>
+                <div class="col-md-6">
+                    <input type="email" class="form-control" pInputText [(ngModel)]="emailRecuperacion" [email]="true" id="email" name="email">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" (click)="OnReset()"> Enviar </button>
+                </div>
             </div>
-            <div class="col-md-6">
-              <input type="email" class="form-control" pInputText [(ngModel)]="emailRecuperacion" [email]="true" id="email" name="email">
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-primary" (click)="OnReset()"> Enviar </button>
-            </div>
-          </div>
         </div>
-      </p-card>
+    </p-card>
 </p-dialog>

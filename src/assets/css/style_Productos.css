@@ -10,15 +10,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 @font-face {
+    font-family: 'Montserrat-ExtraBold';
+    src: url(../fonts/Montserrat-ExtraBold.ttf) format('truetype');
+}
+
+@font-face {
     font-family: 'Montserrat-Regular';
     src: url(../fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Light';
+    src: url(../fonts/Montserrat-Light.ttf) format('truetype');
 }
 
 html,
 body {
     background: #fff;
     font-size: 100%;
-    font-family: 'Montserrat-Regular';
+    font-family: 'Montserrat-Light';
 }
 
 body a {
@@ -297,7 +307,7 @@ a.item_add {
 .callbacks_tabs a:after {
     content: "\f111";
     font-size: 0;
-    font-family: 'Montserrat-bold';
+    font-family: 'Montserrat-Light';
     visibility: visible;
     display: block;
     height: 12px;
@@ -443,8 +453,8 @@ ul.callbacks_tabs.callbacks1_tabs {
 }
 
 .tarjeta__contenido--detalle .texto1 {
-    font-size: 0.8em;
-    font-family: 'DM Sans', sans-serif;
+    font-size: 15pt;
+    font-family: 'Montserrat-ExtraBold';
     font-weight: bold;
     font-weight: 100;
     color: #ffffff;
@@ -454,21 +464,13 @@ ul.callbacks_tabs.callbacks1_tabs {
 }
 
 .tarjeta__contenido--detalle .talla {
-    font-size: 0.8em;
-    font-family: 'Montserrat-Regular';
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: 'Montserrat-Light';
     font-weight: 100;
     color: #FFFF00;
     height: 2vh;
     text-transform: uppercase;
     text-align: center;
-}
-
-.tarjeta__contenido--detalle .precio2 {
-    font-family: 'Montserrat-Regular';
-    font-size: 0.8em;
-    color: #828181;
-    font-weight: 100;
 }
 
 .precio {
@@ -1892,12 +1894,6 @@ ul.nav.nav-pills {
 }
 
 @media(max-width:480px) {
-    .tarjeta__imagen img {
-        height: 25vh;
-    }
-    .tarjeta__contenido {
-        height: 27vh;
-    }
     .tarjeta__contenido h3 {
         font-size: 0.65em;
     }

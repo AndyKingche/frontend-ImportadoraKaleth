@@ -48,20 +48,20 @@ import { ParametrosService } from 'src/app/services/parametros.service';
   styleUrls: ['./home.component.css'],
   styles: [`
   .outofstock {
-      
+    font-size: 15pt;
       color: #FF5252;
       font-family: 'Montserrat-Regular';
       
   }
   
   .lowstock {
-      
+    font-size: 15pt;
       color: #FFA726;
       font-family: 'Montserrat-Regular';
   }
   
   .instock {
-      
+    font-size: 15pt;
       color: #66BB6A;
       font-family: 'Montserrat-Regular';
   }
@@ -69,34 +69,38 @@ import { ParametrosService } from 'src/app/services/parametros.service';
     font-family: 'Montserrat-Regular';
     background-color:  #FB888A;
     color: #D9080B;
+    font-size: 15pt;
     text-align: center;
 border-radius: 20px 20px 20px 20px;
   }
   .badgeoutofstock .titulo__status--stock::before{
     font-family: 'Montserrat-Regular';
     content:'Agotado';
+    font-size: 15pt;
     }
   .badgelowstock{
-    font-family: 'Montserrat-Regular';
+    font-family: 'Montserrat-Light';
     background-color:  #E9C46A;
     color: #ffffff;
     text-align: center;
-  font-weight: bold;
+    font-size: 15pt;
   border-radius: 20px 20px 20px 20px;
     }
     .badgelowstock .titulo__status--stock::before{
-      font-family: 'Montserrat-Regular';
+      font-family: 'Montserrat-Light';
       content:'Disponible';
+      font-size: 15pt;
       }
     .badgeinstock{
      
   color: #ffffff;
-  font-family: 'Montserrat-Regular';
+  font-family: 'Montserrat-Light';
   text-align: center;
+  font-size: 15pt;                      
   border-radius: 20px 20px 20px 20px;
       }
       .badgeinstock .titulo__status--stock::before{
-        font-family: 'Montserrat-Regular';
+        font-family: 'Montserrat-Light';
         content:'Disponible';
         }
   

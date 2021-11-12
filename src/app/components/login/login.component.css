@@ -1,55 +1,79 @@
-.inputs__modal--register{
-    margin-top: 10px;
-   
+@font-face {
+    font-family: 'Montserrat-bold';
+    src: url(../../../assets/fonts/Montserrat-Bold.ttf) format('truetype');
 }
-.label__modal--register{
+
+.diseno-formulario {
+    width: 100%;
+    height: 10px;
+}
+
+.diseno-formulario h5 {
+    text-align: center;
+    font-family: 'Montserrat-bold';
+    font-size: 25pt;
+}
+
+.inputs__modal--register {
+    margin-top: 10px;
+}
+
+.label__modal--register {
     margin-top: 10px;
     font-weight: bold;
 }
-.imagen__izquierda{background-color: #000;height: 100vh;}
-.login__content{
+
+.imagen__izquierda {
+    background-color: #000;
+    height: 100vh;
+}
+
+.login__content {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column; 
+    flex-direction: column;
 }
-.imagen__logo{
+
+.imagen__logo {
     width: 50%;
 }
-.login__container--titulo{
-    font-family: "DM Sans",sans-serif;
+
+.login__container--titulo {
+    font-family: "DM Sans", sans-serif;
     font-weight: bold;
     margin-top: 10%;
     align-items: center;
 }
+
 .login__container {
     width: 80%;
     margin-top: 10vh;
     margin-bottom: 10px;
 }
-.login__input{
+
+.login__input {
     margin-bottom: 10px;
     margin-left: 10px;
     width: 80%;
 }
-.login__buttons{
+
+.login__buttons {
     align-items: center;
-    
-    }
-.login__entrar--button{
-width: 81%;
-
 }
-.login__salir--button{
-    width: 100%;
-    
-    }
 
-.login__options{
+.login__entrar--button {
+    width: 81%;
+}
+
+.login__salir--button {
+    width: 100%;
+}
+
+.login__options {
     display: flex;
     align-items: center;
     flex-direction: column;
-  
 }
 
 @media only screen and (max-width: 768px) {
