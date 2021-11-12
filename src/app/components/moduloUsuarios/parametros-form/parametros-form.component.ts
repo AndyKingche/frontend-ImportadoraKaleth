@@ -5,6 +5,9 @@ import { DisenosService } from '../../../services/disenos.service';
 import { Parametros } from 'src/app/models/cat_parametros';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CatStockService } from '../../../services/cat-stock.service';
+import { PuntosVentasService } from '../../../services/puntos-ventas.service';
+import { resolve } from 'url';
 @Component({
   selector: 'app-parametros-form',
   templateUrl: './parametros-form.component.html',
@@ -25,9 +28,9 @@ export class ParametrosFormComponent implements OnInit {
   imagenObtenidaIngresar1: any;
   imagenObtenidaIngresar2: any;
 
-  constructor( private router: Router,
-    private activedrouter: ActivatedRoute,
-    private sanitizer: DomSanitizer,private disenoservice: DisenosService, private parametroServicio: ParametrosService, private notificacion: NotificacionService) { }
+  constructor(private router: Router, private stockService: CatStockService,
+    private activedrouter: ActivatedRoute, private puntoventaservice: PuntosVentasService,
+    private sanitizer: DomSanitizer, private disenoservice: DisenosService, private parametroServicio: ParametrosService, private notificacion: NotificacionService) { }
 
   isloading = false;
   parametro: Parametros = {
@@ -73,9 +76,37 @@ export class ParametrosFormComponent implements OnInit {
   urlFotoBanner3 = '';
 
   ngOnInit() {
+    this.puntoventaservice.getPuntosVentas().subscribe(res => {
+      this.itemsaux = res;
+      //console.log(this.items)
+      for (let i in this.itemsaux) {
+
+        this.items[i] =
+        {
+          name: this.itemsaux[i].nombreLocal,
+
+        }
+
+      }
+      //console.log(this.items)
+    })
     this.getParametros();
+    
   }
 
+
+  items: any = [];
+  stock: any = [];
+  itemsaux: any = [];
+  selectedItems2: any;
+  idPuntosVentaStock: number = 0;
+  getFindMinPuntoVenta(id: number) {
+    this.isloading = true;
+    this.idPuntosVentaStock = id;
+
+    this.isloading = false;
+  }
+  
   getParametros() {
     this.parametroServicio.gerParametros().subscribe(
       res => {
@@ -99,21 +130,28 @@ export class ParametrosFormComponent implements OnInit {
         this.parametro.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.parametro.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.parametro.urlFotoBanner3 = res[0].urlFotoBanner3;
+        this.parametros.idPuntosVentaStock= res[0].idPuntosVentaStock;
 
-        this.imagenObtenidaMostrar =  this.parametro.urlFotoBanner1;
-        this.imagenObtenidaMostrar1 =  this.parametro.urlFotoBanner2;
-        this.imagenObtenidaMostrar2 =  this.parametro.urlFotoBanner3;
+        this.imagenObtenidaMostrar = this.parametro.urlFotoBanner1;
+        this.imagenObtenidaMostrar1 = this.parametro.urlFotoBanner2;
+        this.imagenObtenidaMostrar2 = this.parametro.urlFotoBanner3;
 
 
-        
-        this.imagenObtenidaAnteriorUrl =  this.parametro.urlFotoBanner1;
-        this.imagenObtenidaAnteriorUrl1 =  this.parametro.urlFotoBanner2;
-        this.imagenObtenidaAnteriorUrl2 =  this.parametro.urlFotoBanner3;
 
+        this.imagenObtenidaAnteriorUrl = this.parametro.urlFotoBanner1;
+        this.imagenObtenidaAnteriorUrl1 = this.parametro.urlFotoBanner2;
+        this.imagenObtenidaAnteriorUrl2 = this.parametro.urlFotoBanner3;
+       this.idPuntosVentaStock = Number(this.parametro.idPuntosVentaStock);
+       
+       
       },
       err => console.error(err)
     );
+
+    
   }
+
+  
 
   onBasicUpload(file: any) {
 
@@ -232,104 +270,112 @@ export class ParametrosFormComponent implements OnInit {
   }
   )
   async updateParametro() {
-    
+
     // cuando en el ingreso la imagen no tiene crgado no me muetsra nada, 
     // por el contrario me toca subir una imagen
-      this.isloading=true;
-      let x = Math.floor(Math.random() * (1000 - 1)) + 1;
-      if (!this.imagenObtenidaIngresar) {
+    this.isloading = true;
+    let x = Math.floor(Math.random() * (1000 - 1)) + 1;
+    if (!this.imagenObtenidaIngresar) {
 
+
+    } else {
+      const urlNueva = new Promise(async (resolve, reject) => {
+        await this.disenoservice.uploadImage(this.imagenObtenidaIngresar, x.toString()).then(res => {
+          resolve(res);
+
+        }, err => console.log("hola pe"))
+      });
+
+      await urlNueva.then(res => this.parametro.urlFotoBanner1 = String(res));
+
+
+    }
+    //si la imagen 2 esta vacia tenemos que ingresar una nueva imagen al firebase
+    if (!this.imagenObtenidaIngresar1) {
+
+
+    } else {
+      const urlNueva1 = new Promise(async (resolve, reject) => {
+        await this.disenoservice.uploadImage(this.imagenObtenidaIngresar1, x.toString()).then(res => {
+          resolve(res);
+
+        }, err => console.log("hola pe"))
+      });
+
+      await urlNueva1.then(res => this.parametro.urlFotoBanner2 = String(res));
+
+
+    }
+    //si la imagen 3 esta vacia tenemos que ingresar una nueva imagen al firebase
+    if (!this.imagenObtenidaIngresar2) {
+
+
+    } else {
+      const urlNueva2 = new Promise(async (resolve, reject) => {
+        await this.disenoservice.uploadImage(this.imagenObtenidaIngresar2, x.toString()).then(res => {
+          resolve(res);
+
+        }, err => console.log("hola pe"))
+      });
+
+      await urlNueva2.then(res => this.parametro.urlFotoBanner3 = String(res));
+
+
+    }
+    //selecciono el punto de venta par amostrar los productos en la pagina principal.
+
+    if (this.idPuntosVentaStock === 0) {
+      this.idPuntosVentaStock = this.idPuntosVentaStock = Number(this.parametro.idPuntosVentaStock);
+    } else {
+
+      this.parametro.idPuntosVentaStock = String(this.idPuntosVentaStock);
+    }
+
+
+
+    if (this.parametro.textoBanner.length > 0) {
+
+      if (!this.imagenObtenidaAnteriorUrl) {
+
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res => console.log(res));
 
       } else {
-        const urlNueva = new Promise(async (resolve, reject) => {
-          await this.disenoservice.uploadImage(this.imagenObtenidaIngresar, x.toString()).then(res => {
-            resolve(res);
-
-          }, err => console.log("hola pe"))
-        });
-
-        await urlNueva.then(res => this.parametro.urlFotoBanner1 = String(res));
-
 
       }
-      //si la imagen 2 esta vacia tenemos que ingresar una nueva imagen al firebase
-      if (!this.imagenObtenidaIngresar1) {
 
+      if (!this.imagenObtenidaAnteriorUrl1) {
+
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl1).then(res => console.log(res));
 
       } else {
-        const urlNueva1 = new Promise(async (resolve, reject) => {
-          await this.disenoservice.uploadImage(this.imagenObtenidaIngresar1, x.toString()).then(res => {
-            resolve(res);
-
-          }, err => console.log("hola pe"))
-        });
-
-        await urlNueva1.then(res => this.parametro.urlFotoBanner2 = String(res));
-
-
       }
-      //si la imagen 3 esta vacia tenemos que ingresar una nueva imagen al firebase
-      if (!this.imagenObtenidaIngresar2) {
 
+      if (!this.imagenObtenidaAnteriorUrl2) {
+
+        this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl2).then(res => console.log(res));
 
       } else {
-        const urlNueva2 = new Promise(async (resolve, reject) => {
-          await this.disenoservice.uploadImage(this.imagenObtenidaIngresar2, x.toString()).then(res => {
-            resolve(res);
-
-          }, err => console.log("hola pe"))
-        });
-
-        await urlNueva2.then(res => this.parametro.urlFotoBanner3 = String(res));
-
-
       }
 
 
 
-      if (this.parametro.textoBanner.length > 0) {
 
-        if (!this.imagenObtenidaAnteriorUrl) {
+      this.parametroServicio.updateParametro(this.idParametros, this.parametro).subscribe(
+        res => {
+          setTimeout(() => {
+            this.notificacion.showSuccess('El Parametro se ha actualizado correctamente', 'Parametros se ha actualizado');
+            this.isloading = false;
+          }, 100)
 
-          this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl).then(res => console.log(res));
-
-        } else {
-
-        }
-
-        if (!this.imagenObtenidaAnteriorUrl1) {
-
-          this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl1).then(res => console.log(res));
-
-        } else {
-        }
-
-        if (!this.imagenObtenidaAnteriorUrl2) {
-
-          this.disenoservice.borrarImagen(this.imagenObtenidaAnteriorUrl2).then(res => console.log(res));
-
-        } else {
-        }
+          this.router.navigate(['/admin/parameters'])
+        },
+        err => console.error(err)
+      );
 
 
-
-
-        this.parametroServicio.updateParametro(this.idParametros,this.parametro).subscribe(
-          res=>{
-            setTimeout(() => {
-              this.notificacion.showSuccess('El Parametro se ha actualizado correctamente', 'Parametros se ha actualizado');
-              this.isloading=false;
-            }, 100)
-
-            this.router.navigate(['/admin/parameters'])
-          },
-          err => console.error(err)
-        );
-
-        
-      } else {
-        this.notificacion.showError('Revise si estan llenos los campos', '**Error al actuclizar Parametros')
-      }
+    } else {
+      this.notificacion.showError('Revise si estan llenos los campos', '**Error al actuclizar Parametros')
+    }
   }
 
 }

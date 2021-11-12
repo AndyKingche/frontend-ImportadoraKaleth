@@ -48,51 +48,55 @@ import { ParametrosService } from 'src/app/services/parametros.service';
   styleUrls: ['./home.component.css'],
   styles: [`
   .outofstock {
-      font-weight: 700;
+      
       color: #FF5252;
+      font-family: 'Montserrat-Regular';
       
   }
   
   .lowstock {
-      font-weight: 700;
+      
       color: #FFA726;
+      font-family: 'Montserrat-Regular';
   }
   
   .instock {
-      font-weight: 700;
+      
       color: #66BB6A;
+      font-family: 'Montserrat-Regular';
   }
   .badgeoutofstock{
+    font-family: 'Montserrat-Regular';
     background-color:  #FB888A;
     color: #D9080B;
     text-align: center;
-font-weight: bold;
 border-radius: 20px 20px 20px 20px;
   }
   .badgeoutofstock .titulo__status--stock::before{
-
+    font-family: 'Montserrat-Regular';
     content:'Agotado';
     }
   .badgelowstock{
+    font-family: 'Montserrat-Regular';
     background-color:  #E9C46A;
-    color: #E76F51;
+    color: #ffffff;
     text-align: center;
   font-weight: bold;
   border-radius: 20px 20px 20px 20px;
     }
     .badgelowstock .titulo__status--stock::before{
-
+      font-family: 'Montserrat-Regular';
       content:'Disponible';
       }
     .badgeinstock{
-      background-color:  #89C46E;
-  color: #45742F;
+     
+  color: #ffffff;
+  font-family: 'Montserrat-Regular';
   text-align: center;
-  font-weight: bold;
   border-radius: 20px 20px 20px 20px;
       }
       .badgeinstock .titulo__status--stock::before{
-
+        font-family: 'Montserrat-Regular';
         content:'Disponible';
         }
   
@@ -231,6 +235,7 @@ history.pushState(null, null, window.location.href);
   usuariologeadosesion = "";
   ngOnInit() {
     //this.getStocksExistents();
+    this.getParametros();
     this.getStocksExistentsPuntoVenta();
     this.getCantExistent();
     this.listaDetallePedido = [];
@@ -238,7 +243,7 @@ history.pushState(null, null, window.location.href);
     //this.getUserId();
     this.getuserTOKEN();
     this.getPuntosVentas();
-    this. getParametros();
+   
 
    
 
@@ -335,7 +340,8 @@ history.pushState(null, null, window.location.href);
   }
 
   getStocksExistentsPuntoVenta() {
-    this.stockService.getStockAllExistPuntoVenta(15, this.inicio, this.numeroFilas).subscribe(
+
+    this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).subscribe(
       res => {
         
         this.stock = res;
@@ -786,6 +792,8 @@ direccion = '';
 urlFotoBanner1 = '';
 urlFotoBanner2 = '';
 urlFotoBanner3 = '';
+idPuntosVentaStockMostrar=0;
+
   getParametros(){
     this.parametroServicio.gerParametros().subscribe(
       res=>{
@@ -810,6 +818,7 @@ urlFotoBanner3 = '';
         this.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.urlFotoBanner3 = res[0].urlFotoBanner3;
+        this.idPuntosVentaStockMostrar=Number( res[0].idPuntosVentaStock);
       },
       err => console.error(err)
     );

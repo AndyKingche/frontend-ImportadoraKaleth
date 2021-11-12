@@ -57,6 +57,6 @@ history.pushState(null, null, window.location.href);
   }
   gotoHome(){
     // this.router.navigate(['/home'])
-    window.open("/home", '_blank');
+    window.open("#/home", '_blank');
   }
 }
