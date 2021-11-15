@@ -4,51 +4,31 @@
         <div class="cube2Consulta"></div>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 imagen__izquierda">
-
-        </div>
-        <div class="col-md-6 login__content">
-            <h4 class="login__container--titulo">Kaleth Store | Login</h4>
-            <div class="imagen__logo">
-                <img src="../../../assets/img/KALETH.png" alt="Logo imagen Kaleth">
-            </div>
-            <div class="login__container">
-                <div class="login__input">
-                    <!-- <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" [(ngModel)]="this.login.username"  name="uname" required> -->
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                        <input type="email" pInputText placeholder="Email" [(ngModel)]="this.login.username" name="uname">
-                    </div>
-                </div>
-                <div class="login__input">
-                    <!-- <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" [(ngModel)]="this.login.password" name="psw" required>   -->
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon"><i class="fa fa-key"></i></span>
-                        <input type="password" pInputText placeholder="Contraseña" [(ngModel)]="this.login.password" name="psw">
-                    </div>
-                </div>
-                <div class="login__buttons">
-                    <button pButton type="button" icon="fas fa-check-double" class="p-button-rounded login__entrar--button" label="Entrar" (click)="logingoogle()"></button>
-                </div>
-                <!-- <button type="submit"(click)="logOut()">Login</button> -->
 
 
-            </div>
 
-            <div class="login__options">
-                <div class="login__buttons">
+<div class="login__content">
+    <h4 class="login__container--titulo">INICIO DE SESIÓN</h4>
+    <input class="controls" type="email" pInputText placeholder="Email" [(ngModel)]="this.login.username" name="uname">
 
-                    <button pButton pRipple type="button" icon="fas fa-undo" class="p-button-rounded p-button-danger login__salir--button" label="Cancel" routerLink="/home"></button>
-                </div>
-                <a [routerLink]="" (click)="showDisplayRegister()">Registarse</a>
-                <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
-            </div>
-        </div>
+    <input class="controls" type="password" pInputText placeholder="Contraseña" [(ngModel)]="this.login.password" name="psw">
+
+    <div class="alienarResgitrarse">
+
+        <a class="registrarse" [routerLink]="" (click)="showDisplayRegister()">REGISTRARSE</a>
     </div>
+    <div class="botonAlinear">
+        <button pButton type="button" class="login__buttons" label="INGRESAR" (click)="logingoogle()"></button>
+    </div>
+    <button pButton pRipple type="button" label="X" class="login__salir--button" routerLink="/home"></button>
+
+
+
+
+
+
+    <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
+
 </div>
 
 
@@ -132,7 +112,8 @@
                 </div>
                 <div class="col-md-9">
 
-                    <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd"></p-inputMask>
+                    <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd">
+                    </p-inputMask>
 
                 </div>
             </div>
@@ -166,7 +147,8 @@
 
 <p-dialog position="top" [(visible)]="displayForgot" [modal]="true">
     <h5>
-        <i class="fa fa-user-tag"></i> Ingresar su email </h5>
+        <i class="fa fa-user-tag"></i> Ingresar su email
+    </h5>
     <p-card>
         <div class="container-fluid">
             <div class="row inputs__modal--register">
