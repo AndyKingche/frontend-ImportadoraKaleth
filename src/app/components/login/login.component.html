@@ -8,7 +8,7 @@
 
 
 <div class="login__content">
-    <h4 class="login__container--titulo">INICIO DE SESIÓN</h4>
+    <h5 class="login__container--titulo">INICIO DE SESIÓN</h5>
     <input class="controls" type="email" pInputText placeholder="Email" [(ngModel)]="this.login.username" name="uname">
 
     <input class="controls" type="password" pInputText placeholder="Contraseña" [(ngModel)]="this.login.password" name="psw">
@@ -22,146 +22,63 @@
     </div>
     <button pButton pRipple type="button" label="X" class="login__salir--button" routerLink="/home"></button>
 
-
-
-
-
-
     <a [routerLink]="" (click)="showDisplayForgot()">Olvide mi contraseña</a>
 
 </div>
 
 
 
-<p-dialog class="diseno-formulario" position="top" [(visible)]="displayRegister" [modal]="true">
-    <h5>FORMULARIO DE REGISTRO</h5>
-    <p-card>
+<p-dialog position="top" [(visible)]="displayRegister" [modal]="true">
+    <div class="login__contentRegistro">
+        <h5>FORMULARIO DE REGISTRO</h5>
         <div class="container-fluid">
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Correo
-                </div>
-                <div class="col-md-9">
-                    <input type="email" (input)="buscarCliente($event.target.value)" class="form-control" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
-                    <small id="username2-help" class="p-invalid">{{mensaje}}</small>
-                </div>
+
+            <input type="email" placeholder="CORREO" (input)="buscarCliente($event.target.value)" class="controlsRegistro" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
+            <!-- <small id="username2-help" class="p-invalid">{{mensaje}}</small> -->
+            <input type="text" placeholder="NOMBRES" class="controlsRegistro" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre" name="nombre">
+            <input type="text" placeholder="APELLIDOS" class="controlsRegistro" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido">
+            <input type="text" placeholder="CÉDULA" class="controlsRegistro" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula" id="cedula" name="cedula">
+            <input type="text" placeholder="DIRECCIÓN" class="controlsRegistro" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
+            <input type="text" placeholder="TELÉFONO" class="controlsRegistro" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
+            <div class="divPass">
+                <input pPassword type="password" class="controlsRegistro" placeholder="CONTRASEÑA" [(ngModel)]="user.password" [weakLabel]="'Malo'" [mediumLabel]="'Bueno'" [strongLabel]="'Excelente !!!!'" [promptLabel]="'Ingrese una contraseña'" [showPassword]="verPassword"
+                />
+
+                <button pButton type="button" class="p-button-rounded p-button-sm botonVerPass" icon="far fa-eye" iconPos="left" (click)="verContrase()"></button>
+
             </div>
-            <div class="row">
-                <div class="col-md-3 label__modal--register">
-                    Nombre
-                </div>
-                <div class="col-md-9 ">
-                    <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre" name="nombre">
+            <p-inputMask mask="9999-99-99" [style]="{'width':'100%'}" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd / F. Nac">
+            </p-inputMask>
+            <p-dropdown [options]="estadocivil" [style]="{'width':'100%'}" [(ngModel)]="estadocivilEscogido" placeholder="Estado Civil " optionLabel="nombre" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="genero" [style]="{'width':'100%' }" [(ngModel)]="generoEscogido" placeholder="Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
+            <div>
 
+                <div class="botonAlinear">
+                    <button class="login__buttonsRegistrarse" (click)="Resgistrar()">REGISTRARSE</button>
                 </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Apellido
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido">
 
-                </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Cedula
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula" id="cedula" name="cedula">
-
-                </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Direccion
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
-
-                </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Telefono
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
-
-
-                </div>
-            </div>
-
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Password
-                </div>
-                <div class="col-md-6">
-                    <input pPassword type="password" [(ngModel)]="user.password" [weakLabel]="'Malo'" [mediumLabel]="'Bueno'" [strongLabel]="'Excelente !!!!'" [promptLabel]="'Ingrese una contraseña'" [showPassword]="verPassword" />
-                </div>
-                <div class="col-md-3">
-                    <button pButton type="button" class="p-button-rounded p-button-sm" icon="far fa-eye" iconPos="left" (click)="verContrase()"></button>
-
-                </div>
-            </div>
-            <!--  -->
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Fecha de Nacimiento
-                </div>
-                <div class="col-md-9">
-
-                    <p-inputMask mask="9999-99-99" [(ngModel)]="user.fechanacimiento" placeholder="aaaa-mm-dd">
-                    </p-inputMask>
-
-                </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Estado Civil
-                </div>
-                <div class="col-md-9">
-                    <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar su Estado Civil " optionLabel="nombre" [showClear]="true"></p-dropdown>
-
-                </div>
-            </div>
-            <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Genero
-                </div>
-                <div class="col-md-9">
-                    <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
-
-                </div>
-            </div>
-
-            <div class="row inputs__modal--register">
-                <div class="col-md-12">
-                    <button class="btn btn-primary" (click)="Resgistrar()">Aceptar</button>
-                </div>
             </div>
         </div>
-    </p-card>
+
+    </div>
 </p-dialog>
 
-<p-dialog position="top" [(visible)]="displayForgot" [modal]="true">
-    <h5>
-        <i class="fa fa-user-tag"></i> Ingresar su email
-    </h5>
-    <p-card>
+<p-dialog class="modalPass" position="top" [(visible)]="displayForgot" [modal]="true">
+    <div class="login__contentForgotPass">
+        <h5>
+            <i class="fa fa-user-tag"></i> Ingresar su email
+        </h5>
         <div class="container-fluid">
             <div class="row inputs__modal--register">
-                <div class="col-md-3 label__modal--register">
-                    Correo
-                </div>
+
                 <div class="col-md-6">
-                    <input type="email" class="form-control" pInputText [(ngModel)]="emailRecuperacion" [email]="true" id="email" name="email">
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" (click)="OnReset()"> Enviar </button>
+                    <input type="email" class="controlsPass" pInputText placeholder="Email" [(ngModel)]="emailRecuperacion" [email]="true" id="email" name="email">
+
+
+                    <button class="login__buttonsEnviar " (click)="OnReset()"> ENVIAR </button>
                 </div>
             </div>
         </div>
-    </p-card>
+
+    </div>
 </p-dialog>

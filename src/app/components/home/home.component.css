@@ -9,16 +9,20 @@
     width: 15%;
 }
 
+h1 {
+    color: #11345C;
+}
+
 .titulo {
     align-items: center;
     margin-top: 170px;
     margin-left: 170px;
-    
     font-weight: bold;
     font-size: 30px;
     line-height: 83px;
     color: #006bb1;
 }
+
 .titulo__carrito {
     justify-content: center;
     align-items: center;
@@ -28,8 +32,9 @@
     line-height: 83px;
     color: #006bb1;
 }
-.titulo__productosDisponibles{
-    font-family: "DM Sans",sans-serif;
+
+.titulo__productosDisponibles {
+    font-family: "DM Sans", sans-serif;
 }
 
 .contenido__kaleth {
@@ -200,45 +205,42 @@ body::-webkit-scrollbar {
     }
 }
 
-
-
-
 @media only screen and (max-width: 768px) {
     .img__sliderkaleth {
         display: none;
     }
 }
 
-.card__word--header{
+.card__word--header {
     font-size: smaller;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 900;
 }
-.card__word--row{
+
+.card__word--row {
     font-size: small;
     font-weight: 400;
-   
 }
-.boton__dere{
+
+.boton__dere {
     justify-content: flex-end;
-   
 }
-.tittle__izq{
+
+.tittle__izq {
     margin-top: 55px;
     justify-content: flex-start;
 }
-.header{
+
+.header {
     display: flex;
     align-items: center;
     align-items: space-;
-
 }
 
-
-.boton__dere{
+.boton__dere {
     margin-left: 1em;
 }
 
-.boton__derecho{
+.boton__derecho {
     margin-left: 10px;
 }
