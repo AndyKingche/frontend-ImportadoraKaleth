@@ -1,43 +1,63 @@
 img {
-
     display: inline-block;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
- }
+}
 
-    .card__word--header{
-        font-size: smaller;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-weight: 900;
-    }
-    .card__word--row{
-        font-size: small;
-        font-weight: 400;
-       
-    }
-    .boton__dere{
-        justify-content: flex-end;
-       
-    }
-    .tittle__izq{
-        justify-content: flex-start;
-    }
-    .header{
-        display: flex;
-        align-items: center;
-        align-items: space-;
-    
-    }
-    
-    i{
-        margin-right: 1em;
-    }
-    .boton__dere{
-        margin-left: 1em;
-    }
-    .titulo{
-        margin-bottom: 1em;
-        margin-top: 1em;
-    }
-    .boton__derecho{
-        margin-left: 10px;
-    }
+.card__word--header {
+    font-size: smaller;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 900;
+}
+
+.card__word--row {
+    font-size: small;
+    font-weight: 400;
+}
+
+.boton__dere {
+    justify-content: flex-end;
+}
+
+.tittle__izq {
+    justify-content: flex-start;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    align-items: space-;
+}
+
+i {
+    margin-right: 1em;
+}
+
+.boton__dere {
+    margin-left: 1em;
+}
+
+.titulo {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.boton__derecho {
+    margin-left: 10px;
+}
+
+
+/* Estilos Nuevos Diseños */
+
+.claseDiseño {
+    /* margin-top: 4.8vh; */
+}
+
+.botonNuevo {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+    width: 90px;
+    height: 35px;
+    /* margin-top: 4.8vh; */
+    margin-left: 4.8vh;
+    border-radius: 5px;
+}

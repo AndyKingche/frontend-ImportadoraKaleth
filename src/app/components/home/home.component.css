@@ -244,3 +244,54 @@ body::-webkit-scrollbar {
 .boton__derecho {
     margin-left: 10px;
 }
+
+
+/* Diseño de estilo para el zoom de las imagenes al seleccionar un producto  */
+
+.contentImages {
+    position: relative;
+    width: 60vw;
+    height: 100vh;
+    padding: 30px;
+    margin: auto;
+    margin-top: 4.8vh;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px #BFBFBF;
+    text-align: center;
+}
+
+.nombreDetallee {
+    margin-top: 75px;
+    color: #11345C;
+    font-family: 'Montserrat-bold';
+    font-size: 15pt;
+    text-align: center;
+}
+
+.detalleProducto {
+    margin-top: 4.8vh;
+    color: #11345C;
+    font-family: 'Montserrat-Light';
+    font-size: 10pt;
+    text-align: justify;
+}
+
+.precioModal {
+    margin-top: 4.8vh;
+    color: #99161B;
+    font-family: 'Montserrat-bold';
+    font-size: 15pt;
+}
+
+.botonCarrito {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+    width: 21.22vw;
+    height: 35px;
+    margin-top: 4.8vh;
+}
+
+.fotoGrande {
+    width: 29vw;
+    height: 64vh;
+}

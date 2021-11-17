@@ -1,7 +1,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion menuColor" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
 
@@ -37,7 +37,7 @@
                 <span>Usuarios</span>
 
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
 
                     <a class="collapse-item" routerLink="/admin/user"><i class="pi pi-users"></i>Usuarios</a>
@@ -148,7 +148,7 @@
                 <i class="fas fa-store"></i> {{puntoVenta.nombreLocal}}
             </div>
             <div class="col-md-6 menu__row--points">
-                <p-button label="Aceptar" icon="far fa-check-circle" iconPos="left" (click)="enviarPuntoVenta(puntoVenta.idPuntosVenta)"></p-button>
+                <button class="botonNuevo" icon="far fa-check-circle" iconPos="left" (click)="enviarPuntoVenta(puntoVenta.idPuntosVenta)">ACEPTAR</button>
             </div>
         </div>
     </div>

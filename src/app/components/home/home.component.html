@@ -487,69 +487,49 @@
 </div>
 
 
-<p-dialog position="left" [(visible)]="displayImagenes">
+<p-dialog position="center" [(visible)]="displayImagenes">
+    <div class="contentImages">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-7">
+                    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="7" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
+                        <ng-template pTemplate="item" let-item>
+                            <img [src]="item.urlFoto" class="fotoGrande" />
+                        </ng-template>
 
-
-                <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="7" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
-                    <ng-template pTemplate="item" let-item>
-                        <img [src]="item.urlFoto" style=" width: 400px;height: 500px; display: block;" />
-                    </ng-template>
-
-                    <ng-template pTemplate="thumbnail" let-item>
-                        <div class="p-grid p-nogutter p-justify-center">
-                            <img [src]="item.urlFoto" style=" width: 100px;
+                        <ng-template pTemplate="thumbnail" let-item>
+                            <div class="p-grid p-nogutter p-justify-center">
+                                <img [src]="item.urlFoto" style=" width: 100px;
                             height: 125px;display: block;" />
-                        </div>
-                    </ng-template>
+                            </div>
+                        </ng-template>
 
-                </p-galleria>
-            </div>
-            <div class="col-md-4">
+                    </p-galleria>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
 
+                        <h3 class="nombreDetallee">{{detalle}}</h3>
 
-                <div class="row">
-                    <div class="col-md-12">
+                        <label class="precioModal">${{precioModal}}</label>
+                    </div>
+                    <div class="row">
+                        <p class="detalleProducto">{{detalle2}}</p>
 
-                        <div class="content-top">
-                            <h1>Detalle del producto seleccionado</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <button pButton class="botonCarrito" type="button" icon="fa fa-cart-plus" iconPos="left" label="AÑADIR AL CARRITO"></button>
+
                         </div>
                     </div>
 
+
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 style="text-align: justify; ">{{detalle}}</h3>
-                        <p style="text-align: justify; ">{{detalle2}}</p>
-
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="star-on">
-                            <ul>
-                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-star"> </i></a></li>
-                            </ul>
-
-                            <div class="clearfix"> </div>
-                        </div>
-
-                        <label class="add-to item_price">Precio: ${{precioModal}}</label>
-                    </div>
-                </div>
-
-
             </div>
         </div>
+
     </div>
-
-
 </p-dialog>

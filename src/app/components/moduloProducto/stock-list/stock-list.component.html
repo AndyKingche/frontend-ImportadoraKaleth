@@ -6,7 +6,7 @@
             <i class="fa fa-list-ol p-mr-2">
             </i>
             <b>Lista de Stock</b>
-            <button pButton type="button" class="boton__dere  p-button-rounded p-button-sm" (click)="showDialogPuntoVenta()">Nuevo</button>
+            <button pButton type="button" class="botonNuevo boton__dere  p-button-rounded p-button-sm" (click)="showDialogPuntoVenta()">NUEVO</button>
         </div>
 
 
@@ -20,8 +20,8 @@
                 <div class="col-md-6 menu__row--points">
                     <i class="fas fa-store"></i> {{puntoVenta.nombreLocal}}
                 </div>
-                <div class="col-md-6 menu__row--points">
-                    <p-button label="Aceptar" icon="far fa-check-circle" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]"></p-button>
+                <div class=" col-md-6 menu__row--points ">
+                    <button label="ACEPTAR" class="botonNuevo" icon="far fa-check-circle" iconPos="left" [routerLink]="['/admin/stock-add/',puntoVenta.idPuntosVenta]">AGREGAR</button>
                 </div>
             </div>
         </div>

@@ -10871,7 +10871,7 @@ a:focus {
 
 @media (min-width: 768px) {
     .sidebar {
-        width: 9rem !important;
+        width: 10rem !important;
     }
     .sidebar .nav-item .collapse {
         position: relative;
@@ -11675,4 +11675,21 @@ body.sidebar-toggled footer.sticky-footer {
 
 .menu__row--points {
     margin-bottom: 10px;
+}
+
+
+/* Edición nuevo diseño del menu para el administrador */
+
+.menuColor {
+    background-image: linear-gradient(to left, #049696, #0F4365);
+}
+
+.botonNuevo {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+    width: 90px;
+    height: 35px;
+    margin-left: 4.8vh;
+    border-radius: 5px;
+    color: white;
 }
