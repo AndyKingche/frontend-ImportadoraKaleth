@@ -83,7 +83,7 @@
 <!--====== SLIDER PART START ======-->
 <div class="pagina__index" *ngIf="mostrarInicio">
     <div class="slider__content">
-        <div class="slider__kaleth">     
+        <div class="slider__kaleth">
             <!-- <div class="img__sliderkaleth">
                 <div class="slider__efect">
                     <ul>
@@ -107,28 +107,28 @@
                     <div class="slick__slider"></div>
                 </div>
             </div> -->
-    
+
             <input type="radio" name="slider-1" id="radio-1" checked>
-            <input type="radio" name="slider-1" id="radio-2" >
-            <input type="radio" name="slider-1" id="radio-3" >
-  
+            <input type="radio" name="slider-1" id="radio-2">
+            <input type="radio" name="slider-1" id="radio-3">
+
             <div class="card__kaleth">
-              <label class="imgcard1" for="radio-1" id="card-1" class="cardd">
+                <label class="imgcard1" for="radio-1" id="card-1" class="cardd">
                 <img src="{{this.urlFotoBanner1}}" alt="">
               </label>
-              <label class="imgcard2" for="radio-2" id="card-2" class="cardd">
+                <label class="imgcard2" for="radio-2" id="card-2" class="cardd">
                 <img src="{{this.urlFotoBanner2}}" alt="">
               </label>
-              <label class="imgcard3" for="radio-3" id="card-3" class="cardd">
+                <label class="imgcard3" for="radio-3" id="card-3" class="cardd">
                 <img src="{{this.urlFotoBanner3}}" alt="">
               </label>
             </div>
-            
-    
+
+
         </div>
-    
+
     </div>
-    
+
     <div class="kaleth__logo--contenido">
         <div class="col-md-6">
             <div class="img__contenido">
@@ -138,10 +138,10 @@
         </div>
         <div class="col-md-6">
             <div class="contenido__kaleth">
-                
-                    {{this.textoBanner}}
-                
-                
+
+                {{this.textoBanner}}
+
+
                 <!-- <div class="footer-logo mt-40">
                     <ul class="footer-social mt-25">
                         <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
@@ -157,99 +157,99 @@
     </div>
 
     <div id="product" class="">
-        
-            <div class="container">
 
-                <div class="content-top">
-                    <h1>Tienda</h1>
-                    <div class="paginatorkaleth">
-                        <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
-                        </p-paginator>
-                    </div>
-                   
-                    <div class="content-top1" *ngFor="let stocks of stock; let i=index">
-                        <div class="col-md-3 col-md2">
+        <div class="container">
 
+            <div class="content-top">
+                <h1>Tienda</h1>
+                <div class="paginatorkaleth">
+                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
+                    </p-paginator>
+                </div>
 
+                <div class="content-top1" *ngFor="let stocks of stock; let i=index">
+                    <div class="col-md-3 col-md2">
 
-                            <div class="tarjeta">
-                                <div class="tarjeta__imagen">
-                                    <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
+                        <div class="tarjeta">
+                            <div class="tarjeta__imagen">
+                                <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
                                     {{stocks.catProducto.catDiseno.nombre}}">
-                                    <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
+                                <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
+                            </div>
+                            <div class="row tarjeta__contenido--boton">
+                                <div class="col-md-12 ">
+                                    <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" (click)="Agregar(stocks)"></button>
                                 </div>
-                                <!-- <div class="row tarjeta__contenido--boton">
-                                    <div class="col-md-12 ">
-                                        <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" (click)="Agregar(stocks)"></button>
-                                    </div>
-                                </div> -->
-                                <div class="tarjeta__contenido">
-                                    <div class="tarjeta__contenido---titulo">
-                                        <h3>
-                                            {{stocks.catProducto.catCategoria.nombreCategoria}} - {{stocks.catProducto.catDiseno.nombre}}
+                            </div>
+                            <div class="tarjeta__contenido">
+                                <div class="tarjeta__contenido---titulo">
+                                    <h3>
+                                        {{stocks.catProducto.catCategoria.nombreCategoria}} - {{stocks.catProducto.catDiseno.nombre}}
 
-                                        </h3>
+                                    </h3>
 
-                                    </div>
+                                </div>
 
-                                    <div class="container-fluid tarjeta__contenido--detalle">
-                                        <div class="row">
-                                            <div class="col-md-12 talla">
+                                <div class="container-fluid tarjeta__contenido--detalle">
+                                    <div class="row">
+                                        <div class="col-md-12 talla">
 
-                                                Talla: {{stocks.catProducto.catTalla.medida}}
-
-                                            </div>
+                                            Talla: {{stocks.catProducto.catTalla.medida}}
 
                                         </div>
 
+                                    </div>
 
 
-                                        <div class="row">
-                                            <div class="col-md-12 texto1">
-                                                ${{stocks.precioUnit}}
 
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-12 texto1">
+                                            ${{stocks.precioUnit}}
+
                                         </div>
-
                                     </div>
-                                </div>
-                                <div class="tarjeta__contenido2">
-
-
-                                    <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
-                                        <span class="titulo__status--stock"></span>
-
-                                    </div>
-
 
                                 </div>
                             </div>
-                            <div *ngIf="i==3||i==7||i==11">
-
-                                <div class="content-top1">
-                                    <div class="col-md-3 col-md2">
-                                        <h1></h1>
-                                    </div>
+                            <div class="tarjeta__contenido2">
 
 
-                                    <div class="clearfix"> </div>
+                                <div [ngClass]="{'badgeoutofstock': stocks.cantidad <= 0, 'badgeinstock': stocks.cantidad >=1 }">
+                                    <span class="titulo__status--stock"></span>
 
                                 </div>
+
+
                             </div>
+                        </div>
+                        <div *ngIf="i==3||i==7||i==11">
+
+                            <div class="content-top1">
+                                <div class="col-md-3 col-md2">
+                                    <h1></h1>
+                                </div>
 
 
+                                <div class="clearfix"> </div>
+
+                            </div>
                         </div>
 
+
                     </div>
 
-                    <!-- AQUI -->
                 </div>
+
+                <!-- AQUI -->
             </div>
-        
+        </div>
+
     </div>
 
 
     <section id="team" class="team-area pt-100">
+
+
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -292,6 +292,41 @@
     <!--====== FOOTER PART START ======-->
 
     <footer id="about" class="footer-area">
+        <!-- edición parte de conocenos -->
+        <div class="contentFooter">
+
+
+
+            <h3 class="conocenos">CONÓCENOS</h3>
+            <h3 class="quienesSomos">¿Quiénes Somos?</h3>
+            <label class="quienesSomosTexto">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+            diam nonummy nibh euismod tincidunt ut laoreet dolore
+            magna aliquam erat volutpat. Ut nibh euismod tincidunt ut
+            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+            minim veniam, quis rud exerci tation ullamcorper suscipit
+            loborLorem ipsum dolor sit amet, consectetuer adipiscing elit,</label>
+            <div class="contenedor">
+                <div class="claseMision">
+                    <h3>Misión</h3>
+                    <label>Lorem ipsum dolor sit
+                amet, consectetuer adipiscing
+                elit, sed diam nonummy
+                nibh euismod</label>
+                </div>
+                <div class="claseVision">
+                    <h3>Visión</h3>
+                    <label>Lorem ipsum dolor sit
+                amet, consectetuer adipiscing
+                elit, sed diam nonummy
+                nibh euismod</label>
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- fin edición parte de conocenos -->
+
         <div class="container-fluid">
             <div class="footer-widget pt-75 pb-120">
                 <div class="row">
@@ -381,23 +416,17 @@
         </div>
         <!-- container -->
     </footer>
-    
+
     <!-- este div es el nuevo para cerrar desde el header -->
 </div>
 
 
-<div *ngIf="mostrarCarrito">
-    <p-card>
-        <div class="titulo__carrito">
+<div *ngIf="mostrarCarrito" class="contenedor">
+    <div class="contentCarritoTabla">
 
-            <div class="tittle__izq">
-                <i class="fa fa-tag p-mr-2">
-            </i>
-                <b>Carrito Kaleth</b>
-            </div>
+        <h3 class="titulo__carrito ">MI CARRITO</h3>
 
-        </div>
-        <button pButton pRipple type="button" icon="pi pi-angle-double-left" label="Seguir comprando" class="p-button-rounded p-button-danger" (click)="ShowInicio()"> </button>
+        <button pButton pRipple type="button" icon="pi pi-angle-double-left" class="p-button-rounded p-button-danger" (click)="ShowInicio()"> </button>
 
         <p-table #dt2 [value]="listaCheckout" [responsive]="true" selectionMode="single" dataKey="id" styleClass="p-datatable-responsive" [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
             <ng-template pTemplate="header">
@@ -421,7 +450,7 @@
 
             </ng-template>
             <ng-template pTemplate="body" let-listacarrito>
-                <tr [pSelectableRow]="listacarrito">
+                <tr [pSelectableRow]="listacarrito" class="estiloFila">
                     <td class="card__word--row">
                         <span class="p-column-title">Items</span>
                         <img src="{{listacarrito.catProducto.catDiseno.urlFoto}}" width="100px" height="120px">
@@ -430,22 +459,23 @@
                     <td class="card__word--row">
                         <span class="p-column-title">Producto</span>
                         <h5>{{listacarrito.catProducto.catCategoria.nombreCategoria}}</h5>
-                        <p> {{listacarrito.descripcion}} </p>
+                        <h5> {{listacarrito.descripcion}} </h5>
                     </td>
                     <td class="card__word--row">
-                        <span class="p-column-title">Precios</span> {{listacarrito.valorUnit}}
+                        <span class="p-column-title">Precios</span> $ {{listacarrito.valorUnit}}
                     </td>
                     <td class="card__word--row">
                         <span class="p-column-title">Cantidad</span>
-                        <p-inputNumber [(ngModel)]="listacarrito.cantidadPe" width="100px" (onInput)="obtenerCantidad(listacarrito.cantidadPe, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" [showButtons]="true" inputId="minmax-buttons" [min]="0"
-                            [max]="100"></p-inputNumber>
+                        <p-inputNumber [(ngModel)]="listacarrito.cantidadPe" class="spiner" width="100px" (onInput)="obtenerCantidad(listacarrito.cantidadPe, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" [showButtons]="true" inputId="minmax-buttons"
+                            [min]="0" [max]="100"></p-inputNumber>
                         <!-- <input type="number" class="p-inputtext-sm" placeholder="Small" pInputText > -->
                     </td>
                     <td class="card__word--row">
-                        <span class="p-column-title">Detalles</span> Envio Acordar con el administrador
+                        <span class="p-column-title">Detalles</span>
+                        <h5>Envio Acordar con el administrador</h5>
                     </td>
                     <td class="card__word--row">
-                        <span class="p-column-title">Subtotal</span> {{listacarrito.valorTotal}}
+                        <span class="p-column-title">Subtotal</span> $ {{listacarrito.valorTotal}}
                     </td>
 
 
@@ -457,33 +487,7 @@
 
                 </tr>
             </ng-template>
-            <ng-template pTemplate="summary">
-                <div class="container-fluid">
 
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button pButton pRipple type="button" icon="pi pi-check-circle" label="Generar Pedido" class="p-button-rounded p-button-success" (click)="generarPedido()"></button>
-
-                        </div>
-                        <!-- <div class="col-md-1">
-                </div> -->
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-2">
-                            <label id="lblTotal" for="lblTotal"></label>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="4">No encontro Pedidos</td>
@@ -491,7 +495,29 @@
             </ng-template>
         </p-table>
 
-    </p-card>
+    </div>
+
+    <div class="contentCarritoPedido">
+        <h3 class="tituloResumen">RESUMEN COMPRA</h3>
+
+        <div class="primeraColumna">
+            <h1 class="letras">Subtotal x artículos</h1>
+            <h1 class="letras">IVA</h1>
+            <h1 class="letras">Total</h1>
+
+        </div>
+        <div class="segundaColumna">
+
+            <h1 class="letras">$ {{this.valorTotalCarrito}}</h1>
+            <h1 class="letras">00,00</h1>
+            <h1 class="letras">$ {{this.valorTotalCarrito}}</h1>
+        </div>
+        <button pButton pRipple type="button" class="botonPedido" (click)="generarPedido()">GENERAR PEDIDO</button>
+    </div>
+
+
+
+
 
 
 </div>

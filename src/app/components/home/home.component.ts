@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CatStockService } from '../../services/cat-stock.service';
 import { peDetallePedido } from '../../models/peDetallePedido';
 import { peDetallePedidoAux } from 'src/app/models/peDetallePedidoAux';
-import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 //Productos
 import { Productos } from '../../models/catProducto';
 import { ProductoService } from '../../services/producto.service';
@@ -33,14 +33,14 @@ import { resolve } from 'url';
 import { UsuariosService } from '../../services/usuarios.service';
 import { ClientesService } from '../../services/clientes.service';
 declare let $: any;
-import {Usuarios} from '../../models/Usuarios';
+import { Usuarios } from '../../models/Usuarios';
 import { Clientes } from 'src/app/models/Clientes';
 import { Genero } from 'src/app/models/Genero';
 import { Estadocivil } from 'src/app/models/Estadocivil';
 import { GeneroService } from 'src/app/services/genero.service';
 import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import * as firebase from 'firebase/app';
-import { LocationStrategy } from '@angular/common'; 
+import { LocationStrategy } from '@angular/common';
 import { ParametrosService } from 'src/app/services/parametros.service';
 @Component({
   selector: 'app-home',
@@ -108,18 +108,18 @@ border-radius: 20px 20px 20px 20px;
       background-color: rgba(0,0,0,.15) !important;
   }
 `
-]
+  ]
 })
 export class HomeComponent implements OnInit {
 
   @HostBinding('class') classes = 'row';
   @Input()
   stock: any = [];
- 
+
 
   mostrarCarrito: boolean = false;
   mostrarInicio: boolean = true
-  isloading= false;
+  isloading = false;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -130,18 +130,18 @@ export class HomeComponent implements OnInit {
     private notificacion: NotificacionService,
     private pedidoservice: PedidosService,
     private userService: UsuariosService,
-    private clienteService:ClientesService,
-    private generoService:GeneroService, private civilService: EstadoCivilService, private location: LocationStrategy,
+    private clienteService: ClientesService,
+    private generoService: GeneroService, private civilService: EstadoCivilService, private location: LocationStrategy,
     private sanitizer: DomSanitizer,
-    private parametroServicio : ParametrosService) {
-      activedrouter.params.subscribe(res=>{
-        this.ngOnInit();
-      });
+    private parametroServicio: ParametrosService) {
+    activedrouter.params.subscribe(res => {
+      this.ngOnInit();
+    });
+    history.pushState(null, null, window.location.href);
+    this.location.onPopState(() => {
       history.pushState(null, null, window.location.href);
-this.location.onPopState(() => {  
-history.pushState(null, null, window.location.href);
-});
-     }
+    });
+  }
 
   //varibales 
   inicio: number = 0;
@@ -213,29 +213,29 @@ history.pushState(null, null, window.location.href);
   precioUnit: number = 0;
   cantidad: number = 1;
   //usuarios
-  usuarioLogeado:Usuarios={
-    idUsuario:0,
-    apellido:"",
-    cedula:"",
-    direccion:"",
-    email:"",
-    estado:"",
-    fechanacimiento:"",
-    nombre:"",
-    password:"",
-    telefono:"",
-    rol:0,
+  usuarioLogeado: Usuarios = {
+    idUsuario: 0,
+    apellido: "",
+    cedula: "",
+    direccion: "",
+    email: "",
+    estado: "",
+    fechanacimiento: "",
+    nombre: "",
+    password: "",
+    telefono: "",
+    rol: 0,
     estadocivil: {},
-    genero:{},
-    resetPassword:false
+    genero: {},
+    resetPassword: false
   }
   //
-  idCliente:number=0;
-  activarButton:boolean=true;
-  activarSesion:boolean=false;
-  puedeComprar:boolean=false;
-  displayRegister:boolean=false;
-  puedeRegistrarCliente:boolean=false;
+  idCliente: number = 0;
+  activarButton: boolean = true;
+  activarSesion: boolean = false;
+  puedeComprar: boolean = false;
+  displayRegister: boolean = false;
+  puedeRegistrarCliente: boolean = false;
   usuariologeadosesion = "";
   ngOnInit() {
     //this.getStocksExistents();
@@ -247,84 +247,87 @@ history.pushState(null, null, window.location.href);
     //this.getUserId();
     this.getuserTOKEN();
     this.getPuntosVentas();
-   
 
-   
+
+
 
   }
 
-  closesesion(){
+  closesesion() {
     this.userService.deleteToken();
     this.activarButton = true;
     this.activarSesion = false;
     this.idCliente = 0;
     this.puedeComprar = false;
     this.router.navigate(['/home'])
+    this.mostrarCarrito = false;
+    this.mostrarInicio= true;
+    this.valorTotalCarrito=0;
   }
 
-  async getuserTOKEN(){
-   
+  async getuserTOKEN() {
+
     let nuevoTOKEN = this.userService.getToken();
-    if(nuevoTOKEN){
+    if (nuevoTOKEN) {
       this.activarSesion = true;
-    const userLoged = new Promise(async (resolve,reject)=>{
-      await this.userService.usuarioSINo(nuevoTOKEN).subscribe(res=>{
-        resolve(res)
-      },err=>console.log(err))
-    });
-    
-    const getNewCliente = new Promise(async(resolve,reject)=>{
-      await userLoged.then(async(result)=>{
-        this.usuariologeadosesion =`${result[0].nombre} ${result[0].apellido}`
-        await this.clienteService.findClienteByEmail(result[0].email).subscribe(
-          res=>{
-            resolve(res)
-          },err=>console.log(err)
-        )
-      })
-    });
-   this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
-   if(this.idCliente){
-     this.puedeComprar = true;
-   }else{
-     this.router.navigate(['/login'])
-   }
-   this.activarButton = false;
-   
-   
+      const userLoged = new Promise(async (resolve, reject) => {
+        await this.userService.usuarioSINo(nuevoTOKEN).subscribe(res => {
+          resolve(res)
+        }, err => console.log(err))
+      });
+
+      const getNewCliente = new Promise(async (resolve, reject) => {
+        await userLoged.then(async (result) => {
+          this.usuariologeadosesion = `${result[0].nombre} ${result[0].apellido}`
+          await this.clienteService.findClienteByEmail(result[0].email).subscribe(
+            res => {
+              resolve(res)
+            }, err => console.log(err)
+          )
+        })
+      });
+      this.idCliente = await getNewCliente.then(res => res[0].idCliente);
+      if (this.idCliente) {
+        this.puedeComprar = true;
+      } else {
+        this.router.navigate(['/login'])
+      }
+      this.activarButton = false;
 
 
-      
-    }else{
-      
+
+
+
+    } else {
+
       this.puedeComprar = false;
     }
-    
+
   }
   ShowCarrito() {
-    
-    if(this.puedeComprar){
+
+    if (this.puedeComprar) {
       this.mostrarCarrito = true;
       this.mostrarInicio = false;
       this.listanuevaCarrito();
-    }else{
+    } else {
       this.router.navigate(['/login']);
     }
-    
-    
+
+
   }
-  
+
   ShowInicio() {
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
     this.router.navigateByUrl("#productos")
   }
   enviarLista() {
-    
+
     //this.nuevaListaDetallePedidio.emit(this.listaDetallePedido);
   }
   paginate(event) {
-    
+
 
     if (event.page == 0) {
       this.inicio = Number(event.page) * 12;
@@ -338,7 +341,7 @@ history.pushState(null, null, window.location.href);
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
-    
+
     //this.getStocksExistents();
     this.getStocksExistentsPuntoVenta();
   }
@@ -347,7 +350,7 @@ history.pushState(null, null, window.location.href);
 
     this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).subscribe(
       res => {
-        
+
         this.stock = res;
       }, err => console.error(err)
 
@@ -357,7 +360,7 @@ history.pushState(null, null, window.location.href);
   getStocksExistents() {
     this.stockService.getAllStockExistents(this.inicio, this.numeroFilas).subscribe(
       res => {
-        
+
         this.stock = res;
       }, err => console.error(err)
 
@@ -370,7 +373,7 @@ history.pushState(null, null, window.location.href);
   getCantExistent() {
     this.stockService.getCantExistents().subscribe(
       res => {
-        
+
         this.cantidadExistente = Number(res);
         this.cantidadExistente = Math.ceil((this.cantidadExistente) / 12);
       }, err => console.error(err)
@@ -381,24 +384,24 @@ history.pushState(null, null, window.location.href);
 
 
   quitardelista(idproduct: number, idpuntoventa: number) {
-    
+
     for (let x in this.listaCheckout) {
       if (Number(this.listaCheckout[x].catProducto.idProductos) === idproduct && Number(this.listaCheckout[x].catPuntosVenta.idPuntosVenta) === idpuntoventa) {
-        
+
         this.listaCheckout.splice(Number(x), 1);
 
-        
+
         break;
       }
     }
 
     for (let x in this.listaDetallePedido) {
-      
+
       if (Number(this.listaDetallePedido[x].catStock.id.idProductos) === idproduct && Number(this.listaDetallePedido[x].catStock.id.idPuntosVenta) === idpuntoventa) {
-        
+
         this.listaDetallePedido.splice(Number(x), 1);
 
-        
+
         break;
       }
     }
@@ -412,129 +415,129 @@ history.pushState(null, null, window.location.href);
 
   }
 
-  async getUserId(){
-    
-    const userLoged = new Promise(async (resolve,reject)=>{
-      await this.userService.getUserLogged().subscribe(async (res)=>{
-      resolve(res)
+  async getUserId() {
+
+    const userLoged = new Promise(async (resolve, reject) => {
+      await this.userService.getUserLogged().subscribe(async (res) => {
+        resolve(res)
       })
     });
-   
-    const getNewCliente = new Promise(async(resolve,reject)=>{
-      await userLoged.then(async(result)=>{
+
+    const getNewCliente = new Promise(async (resolve, reject) => {
+      await userLoged.then(async (result) => {
         await this.clienteService.findClienteByEmail(result[0].email).subscribe(
-          res=>{
+          res => {
             resolve(res)
-          },err=>console.log(err)
+          }, err => console.log(err)
         )
       })
     });
-   this.idCliente = await getNewCliente.then(res=>res[0].idCliente);
-   this.activarButton = false;
-   
+    this.idCliente = await getNewCliente.then(res => res[0].idCliente);
+    this.activarButton = false;
+
   }
 
   //agregar productos a carrito 
   async Agregar(objeto: any) {
 
     //await this.getUserId();
-   if(this.puedeComprar){
-    
-    this.peDetallePedido.cantidadPe = 1;
-    this.peDetallePedido.descripcion = objeto.catProducto.catCategoria.nombreCategoria + " " + objeto.catProducto.catDiseno.nombre + "-" + objeto.catProducto.catTalla.medida;
-    this.peDetallePedido.valorUnit = objeto.precioUnit;
-    this.peDetallePedido.valorTotal = Number(objeto.precioUnit * this.peDetallePedido.cantidadPe);
-    this.peDetallePedido.catStock.id.idProductos = objeto.catProducto.idProductos;
-    this.peDetallePedido.catStock.id.idPuntosVenta = objeto.catPuntosVenta.idPuntosVenta;
+    if (this.puedeComprar) {
+
+      this.peDetallePedido.cantidadPe = 1;
+      this.peDetallePedido.descripcion = objeto.catProducto.catCategoria.nombreCategoria + " " + objeto.catProducto.catDiseno.nombre + "-" + objeto.catProducto.catTalla.medida;
+      this.peDetallePedido.valorUnit = objeto.precioUnit;
+      this.peDetallePedido.valorTotal = Number(objeto.precioUnit * this.peDetallePedido.cantidadPe);
+      this.peDetallePedido.catStock.id.idProductos = objeto.catProducto.idProductos;
+      this.peDetallePedido.catStock.id.idPuntosVenta = objeto.catPuntosVenta.idPuntosVenta;
 
 
-    if (this.listaDetallePedido.length == 0) {
+      if (this.listaDetallePedido.length == 0) {
 
-      this.listaDetallePedido.push(this.peDetallePedido);
-      this.valorTotalCarrito = this.listaDetallePedido[0].valorTotal;
-      //this.cantidadPedido = 0;
-      //this.auxcantidadPedido = 0;
+        this.listaDetallePedido.push(this.peDetallePedido);
+        this.valorTotalCarrito = this.listaDetallePedido[0].valorTotal;
+        //this.cantidadPedido = 0;
+        //this.auxcantidadPedido = 0;
 
-      this.encuentraArray = false;
-    } else {
-      this.valorTotalCarrito = 0;
-      for (var x in this.listaDetallePedido) {
-        //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
-        if (this.listaDetallePedido[x].catStock.id.idProductos == this.peDetallePedido.catStock.id.idProductos
-          && this.listaDetallePedido[x].catStock.id.idPuntosVenta == this.peDetallePedido.catStock.id.idPuntosVenta
-        ) {
+        this.encuentraArray = false;
+      } else {
+        this.valorTotalCarrito = 0;
+        for (var x in this.listaDetallePedido) {
+          //realizamos la validación para verificar si existe el prodcuto dentro de la lista Stock
+          if (this.listaDetallePedido[x].catStock.id.idProductos == this.peDetallePedido.catStock.id.idProductos
+            && this.listaDetallePedido[x].catStock.id.idPuntosVenta == this.peDetallePedido.catStock.id.idPuntosVenta
+          ) {
 
             this.listaDetallePedido[x].cantidadPe++;
 
-          let TotalAux = 0;
+            let TotalAux = 0;
 
-          TotalAux = this.listaDetallePedido[x].cantidadPe * this.listaDetallePedido[x].valorUnit;
-          
-          this.listaDetallePedido[x].valorTotal = TotalAux;
+            TotalAux = this.listaDetallePedido[x].cantidadPe * this.listaDetallePedido[x].valorUnit;
 
-          this.encuentraArray = true;
-          
+            this.listaDetallePedido[x].valorTotal = TotalAux;
 
+            this.encuentraArray = true;
 
 
-        }
-
-        this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
-      }
-      if (this.encuentraArray) {
-        // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
-        this.encuentraArray = false;
 
 
-      } else {
-        //si no existe el producto ingresa un nuevo elemento en el array 
-        //metodo push para apilar elemnto en el array
-
-        
-        this.listaDetallePedido.push(this.peDetallePedido);
-
-        //for para calcular el total del carrito 
-        this.valorTotalCarrito = 0;
-        for (var x in this.listaDetallePedido) {
+          }
 
           this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
         }
+        if (this.encuentraArray) {
+          // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
+          this.encuentraArray = false;
 
-        this.encuentraArray = false;
-      }
-      
+
+        } else {
+          //si no existe el producto ingresa un nuevo elemento en el array 
+          //metodo push para apilar elemnto en el array
 
 
-    }
-    
-    this.peDetallePedido = {
-      idDetallePe: 0,
-      descripcion: "",
-      valorTotal: 0,
-      valorUnit: 0,
-      cantidadPe: 0,
-      catStock: {
-        id: {
-          idPuntosVenta: 0,
-          idProductos: 0
+          this.listaDetallePedido.push(this.peDetallePedido);
+
+          //for para calcular el total del carrito 
+          this.valorTotalCarrito = 0;
+          for (var x in this.listaDetallePedido) {
+
+            this.valorTotalCarrito = this.valorTotalCarrito + this.listaDetallePedido[x].valorTotal;
+          }
+
+          this.encuentraArray = false;
         }
+
+
+
       }
 
+      this.peDetallePedido = {
+        idDetallePe: 0,
+        descripcion: "",
+        valorTotal: 0,
+        valorUnit: 0,
+        cantidadPe: 0,
+        catStock: {
+          id: {
+            idPuntosVenta: 0,
+            idProductos: 0
+          }
+        }
+
+      }
+      //this.idCliente=0;
+      //this.auxcantidadPedido = 0;
+      //this.cantidadPedido = 0;
+    } else {
+      this.router.navigateByUrl('login')
     }
-    //this.idCliente=0;
-    //this.auxcantidadPedido = 0;
-    //this.cantidadPedido = 0;
-  }else{
-    this.router.navigateByUrl('login')
-  }
-//hasta aqui
+    //hasta aqui
 
   }
 
 
   obtenerCantidad(cantidad: number, idProducto: number, idPuntoVenta: number) {
     this.cantidadPedido = cantidad;
-    
+
 
     for (let i in this.listaCheckout) {
       if (this.listaCheckout[i].catProducto.idProductos == idProducto
@@ -567,7 +570,7 @@ history.pushState(null, null, window.location.href);
 
 
       for (var x in this.listaDetallePedido) {
-        
+
         const productos = new Promise(async (resolve, reject) => {
           await this.productServices.getProducto(Number(this.listaDetallePedido[x].catStock.id.idProductos)).subscribe(res => {
 
@@ -583,7 +586,7 @@ history.pushState(null, null, window.location.href);
 
         await productos.then(res => { this.auxPedidoDetalle.catProducto = res; })
         await puntoVenta.then(res => { this.auxPedidoDetalle.catPuntosVenta = res; })
-        
+
         this.auxPedidoDetalle.cantidadPe = Number(this.listaDetallePedido[x].cantidadPe);
         this.auxPedidoDetalle.valorTotal = this.listaDetallePedido[x].valorTotal;
         this.auxPedidoDetalle.valorUnit = this.listaDetallePedido[x].valorUnit;
@@ -593,12 +596,12 @@ history.pushState(null, null, window.location.href);
           this.listaCheckout.push(this.auxPedidoDetalle);
           this.encuentraArray = false;
         } else {
-          
+
           for (let y in this.listaCheckout) {
             if (this.listaCheckout[y].catProducto.idProductos == this.auxPedidoDetalle.catProducto.idProductos
               && this.listaCheckout[y].catPuntosVenta.idPuntosVenta == this.auxPedidoDetalle.catPuntosVenta.idPuntosVenta
             ) {
-              
+
 
 
               this.listaCheckout[y].cantidadPe = Number(this.auxPedidoDetalle.cantidadPe);
@@ -615,12 +618,12 @@ history.pushState(null, null, window.location.href);
             //si no existe el producto ingresa un nuevo elemento en el array 
             //metodo push para apilar elemnto en el array
 
-            
+
             this.listaCheckout.push(this.auxPedidoDetalle);
 
             this.encuentraArrayCarrito = false;
           }
-          
+
         }
         this.auxPedidoDetalle = {
           idDetallePe: 0,
@@ -642,15 +645,15 @@ history.pushState(null, null, window.location.href);
 
 
   async generarPedido() {
-    if (this.listaCheckout.length=== 0) {
+    if (this.listaCheckout.length === 0) {
       alert("no tiene pedidos para realizar")
 
     } else {
       let idfacturaPedidoPDF = 0;
       let idClientePedido = 0;
-      this.isloading=true;
+      this.isloading = true;
       let fecha = new Date()
-      let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + ("0" +(fecha.getDate() + 1)).slice(-2);
+      let fechaFormateada = fecha.getFullYear() + "-" + ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" + ("0" + (fecha.getDate() + 1)).slice(-2);
       this.cabezaPedidoIngreso.estado = "A",
         //this.cabezaPedidoIngreso.total=0;
         this.cabezaPedidoIngreso.fechaPe = fechaFormateada;
@@ -658,7 +661,7 @@ history.pushState(null, null, window.location.href);
       //capturamos el id del cliente para imprimir el pdf
 
       idClientePedido = this.cabezaPedidoIngreso.venCliente.idCliente;
-      
+
       for (let i in this.listaCheckout) {
         this.cabezaPedidoIngreso.total += this.listaCheckout[i].valorTotal;
         this.cabezaPedidoIngreso.detallepedido[i] = {
@@ -676,11 +679,11 @@ history.pushState(null, null, window.location.href);
 
       }
 
-      
+
 
       const obtenerIdCabezaPedido = new Promise(async (resolve, reject) => {
         await this.pedidoservice.saveOrder(this.cabezaPedidoIngreso).subscribe(res => {
-          
+
           resolve(res.idCabezaPe)
         }, err => console.log(err))
       })
@@ -690,10 +693,10 @@ history.pushState(null, null, window.location.href);
 
       setTimeout(() => {
         this.notificacion.showInfo('Su Pedido se realizo con exito', "PEDIDO REALIZADO");
-        this.listaDetallePedido =  [];
-        this.listaCheckout =  [];
+        this.listaDetallePedido = [];
+        this.listaCheckout = [];
       }, 200);
-   
+
 
       this.valorTotalCarrito = 0;
 
@@ -705,7 +708,7 @@ history.pushState(null, null, window.location.href);
           "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
           encodeURI(res[0]) + "'></iframe>"
         )
-        this.isloading=false;
+        this.isloading = false;
         this.router.navigateByUrl("#productos");
         this.mostrarInicio = true;
         this.mostrarCarrito = false;
@@ -750,7 +753,7 @@ history.pushState(null, null, window.location.href);
 
     //cargo una lista de las rutas de las imagenes 
 
-    
+
     this.images = [
       { urlFoto: this.stringUrlFoto1 },
       { urlFoto: this.stringUrlFoto2 },
@@ -760,47 +763,47 @@ history.pushState(null, null, window.location.href);
 
   }
   //Obtener los puntos de vemnta para mostrar en el hom de los locales fisicos existentes
-  puntosVentas : any=[];
+  puntosVentas: any = [];
   urlSafe: SafeResourceUrl;
 
-  getPuntosVentas(){
+  getPuntosVentas() {
     this.puntosVentaServices.getPuntosVentas().subscribe(
-      res =>{
-        
+      res => {
+
         this.puntosVentas = res;
-        this.urlSafe=this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
-      },err => console.error(err)
-      
+        this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
+      }, err => console.error(err)
+
     );
   }
 
 
-//obtener los datos de parametros para las vistas
-parametros : any = [];
-idParametro = 0;
-textoBanner = '';
-mensajePuntosVenta = '';
-fraseFooter = '';
-tituloServicios = '';
-servicio1 = '';
-servicio2 = '';
-servicio3 = '';
-servicio4 = '';
-servicio5 = '';
-tituloInformacion = '';
-telefono = '';
-celular = '';
-correo1 = '';
-correo2 = '';
-direccion = '';
-urlFotoBanner1 = '';
-urlFotoBanner2 = '';
-urlFotoBanner3 = '';
-idPuntosVentaStockMostrar=0;
+  //obtener los datos de parametros para las vistas
+  parametros: any = [];
+  idParametro = 0;
+  textoBanner = '';
+  mensajePuntosVenta = '';
+  fraseFooter = '';
+  tituloServicios = '';
+  servicio1 = '';
+  servicio2 = '';
+  servicio3 = '';
+  servicio4 = '';
+  servicio5 = '';
+  tituloInformacion = '';
+  telefono = '';
+  celular = '';
+  correo1 = '';
+  correo2 = '';
+  direccion = '';
+  urlFotoBanner1 = '';
+  urlFotoBanner2 = '';
+  urlFotoBanner3 = '';
+  idPuntosVentaStockMostrar = 0;
 
-  getParametros(){
+  getParametros() {
     this.parametroServicio.gerParametros().subscribe(
-      res=>{
+      res => {
         this.parametros = res;
         this.parametros = res;
         this.idParametro = res[0].idParametro;
@@ -822,7 +825,7 @@ idPuntosVentaStockMostrar=0;
         this.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.urlFotoBanner3 = res[0].urlFotoBanner3;
-        this.idPuntosVentaStockMostrar=Number( res[0].idPuntosVentaStock);
+        this.idPuntosVentaStockMostrar = Number(res[0].idPuntosVentaStock);
       },
       err => console.error(err)
     );

@@ -383,6 +383,16 @@ ul.callbacks_tabs.callbacks1_tabs {
     cursor: pointer;
 }
 
+
+/* Edición posición del boton cuando pasa el cursor */
+
+.tarjeta:hover .tarjeta__contenido--boton {
+    position: absolute;
+    top: 0px;
+    right: -35px;
+    font-size: 18px;
+}
+
 .tarjeta:hover div a {
     display: block;
     position: relative;
@@ -433,7 +443,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 .tarjeta__contenido--boton {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 40px;
     font-size: 18px;
 }
 
@@ -446,6 +456,12 @@ ul.callbacks_tabs.callbacks1_tabs {
 @media only screen and (max-width: 995px) {
     .tarjeta__contenido--boton button .p-button-label {
         display: none;
+    }
+    .tarjeta__contenido--boton {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        font-size: 18px;
     }
 }
 
