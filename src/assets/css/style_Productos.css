@@ -368,6 +368,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 .tarjeta {
     display: flex;
     flex-direction: column;
+    width: 200px;
     /* border-bottom:5px solid #A49E9E; */
 }
 
