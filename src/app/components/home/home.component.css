@@ -29,9 +29,10 @@ h1 {
 }
 
 .pagina__index {
-    margin-top: 100px;
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .titulo {
@@ -49,13 +50,78 @@ h1 {
     height: 50%;
     display: grid;
     place-items: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    background-color: #d6d6d6;
+    z-index: 0;
 }
+.tarjeta__contenido--icon{
+position: absolute;
+display: flex;
+margin-top: 10px;
+margin-left: 145px;
+}
+.tarjeta__contenido--icon2{
+    position: absolute;
+display: flex;
+margin-top: 10px;
+margin-left: 145px;
+}
+.tarjeta__contenido--icon2 a{
+    display: flex;
+    color: #99161B;
+    opacity: 0.5;
+    z-index: 1;
+    font-size: 20px;
+    text-decoration: line-through;
+}
+.modal__kaleth{
+    width: 100%;
+    min-height: 100%;
+    margin-top: auto;
+    background: rgba(0, 0, 0.5, 0.5);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.modal__kaleth--content{
+    background: rgb(255, 255, 255);
+    width: 910px;
+    height: 520px;
+    margin-top: auto;
+    border-radius: 10px 10px 10px 10px;
+}
+.boton__cerrar--modal{
+    display: flex;
+    justify-content: flex-end;
+}
+.boton__cerrar--modal a:hover{
+    cursor: pointer;
+}
+.hidden{
+    display: none;
+}
+.visible{
+    display: grid;
+}
+.tarjeta__contenido--icon a{
+    display: flex;
+    color: #99161B;
+    opacity: 1.5;
+    z-index: 1;
+    font-size: 20px;
+    }
 
+
+.slider__kaleth input {
+    visibility: hidden;
+}
 .slider__kaleth {
     width: 730px;
     height: 350px;
     transform-style: preserve-3d;
+    z-index: 1;
 }
 
 .card__kaleth {
@@ -67,6 +133,57 @@ h1 {
 .card__kaleth img {
     width: 730px;
     height: 350px;
+    animation:imagen__inicio ;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    
+}
+@keyframes imagen__inicio{
+    0%{
+        transform: translateY(-15%);
+        opacity: 0;
+    }
+    10%{
+        transform: translateY(-11%);
+        opacity: 0.1;
+    }
+    20%{
+        transform: translateY(-9%);
+        opacity: 0.2;
+    }
+    30%{
+        transform: translateY(-7%);
+        opacity: 0.3;
+    }
+    40%{
+        transform: translateY(-6%);
+        opacity: 0.4;
+    }
+    50%{
+        transform: translateY(-5%);
+        opacity: 0.5;
+    }
+    60%{
+        transform: translateY(-4%);
+        opacity: 0.6;
+    }
+    70%{
+        transform: translateY(-3%);
+        opacity: 0.7;
+    }
+    80%{
+        transform: translateY(-2%);
+        opacity: 0.8;
+    }
+   
+    90%{
+        transform: translateY(-1%);
+        opacity: 0.9;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .cardd {
@@ -344,7 +461,7 @@ h1 {
 }
 
 .kaleth__logo--contenido {
-    top: 100px;
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
 }
@@ -376,6 +493,7 @@ h1 {
 
 .contenido__kaleth p {
     font-size: 10px;
+    text-align: justify;
 }
 
 @keyframes img__contenido {

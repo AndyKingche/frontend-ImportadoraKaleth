@@ -49,7 +49,7 @@
                         </ul>
 
 
-                        <div class="cart box_1">
+                        <!-- <div class="cart box_1">
                             <a (click)="ShowCarrito()">
                                 <h3>
                                     <div class="total">
@@ -60,8 +60,20 @@
                             </a>
                             <p>Ver Productos</p>
 
-                        </div>
+                        </div> -->
+                        <div class="cart box_1">
+                            <a (click)="ShowCarrito()">
+                                <h3>
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <div class="total">
+                                         $ {{this.valorTotalCarrito}}
+                                    </div>
+                                   
+                                </h3>
+                            </a>
+                            <p>Ver Productos</p>
 
+                        </div>
                         <div class="clearfix"> </div>
 
 
@@ -84,33 +96,11 @@
 <div class="pagina__index" *ngIf="mostrarInicio">
     <div class="slider__content">
         <div class="slider__kaleth">
-            <!-- <div class="img__sliderkaleth">
-                <div class="slider__efect">
-                    <ul>
-                        <li>
-                            <img class="img__slider" src="{{this.urlFotoBanner1}}" alt="">
-                        </li>
-                        <li>
-                            <img class="img__slider" src="{{this.urlFotoBanner2}}" alt="">
-                        </li>
-                        <li>
-                            <img class="img__slider" src="{{this.urlFotoBanner3}}" alt="">
-                        </li>
-                    </ul>
-                </div>
-    
-    
-    
-                <div class="slick__slideritem">
-                    <div class="slick__slider"></div>
-                    <div class="slick__slider"></div>
-                    <div class="slick__slider"></div>
-                </div>
-            </div> -->
-
-            <input type="radio" name="slider-1" id="radio-1" checked>
-            <input type="radio" name="slider-1" id="radio-2">
-            <input type="radio" name="slider-1" id="radio-3">
+            
+                <input type="radio" name="slider-1" id="radio-1" checked>
+                <input type="radio" name="slider-1" id="radio-2">
+                <input type="radio" name="slider-1" id="radio-3">
+            
 
             <div class="card__kaleth">
                 <label class="imgcard1" for="radio-1" id="card-1" class="cardd">
@@ -157,16 +147,32 @@
     </div>
 
     <div id="product" class="">
-
+       
         <div class="container">
+            <div class="modal__kaleth hidden">
+                <div class="modal__kaleth--content">
+                    <div class="col-md-6">
+                        hola
+                    </div>
+                    <div class="col-md-6">
+                        <div class="boton__cerrar--modal">
+                            <a (click)="cerrarmodal()"><i class="far fa-window-close"></i></a>
 
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            
             <div class="content-top">
                 <h1>Tienda</h1>
                 <div class="paginatorkaleth">
                     <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
                     </p-paginator>
                 </div>
-
+               
                 <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                     <div class="col-md-3 col-md2">
 
@@ -174,13 +180,31 @@
                             <div class="tarjeta__imagen">
                                 <img src="{{stocks.catProducto.catDiseno.urlFoto}}" alt="{{stocks.catProducto.catCategoria.nombreCategoria}} - 
                                     {{stocks.catProducto.catDiseno.nombre}}">
-                                <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a>
+                                <!-- <a (click)="showDialogImagenes(stocks)" [routerLink]="" routerLinkActive="router-link-active"><i class="far fa-eye"></i></a> -->
+                                <a (click)="modal()"><i class="far fa-eye"></i></a>
+                            
                             </div>
-                            <div class="row tarjeta__contenido--boton">
+                            <!-- <div class="row tarjeta__contenido--boton">
                                 <div class="col-md-12 ">
                                     <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" (click)="Agregar(stocks)"></button>
                                 </div>
+                            </div> -->
+                            <div class="row tarjeta__contenido--icon" *ngIf="stocks.cantidad >0">
+                                
+                                    <!-- <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" (click)="Agregar(stocks)"></button> -->
+                                   <a type="submit" (click)="Agregar(stocks)"   >
+                                       <i class="fas fa-cart-arrow-down"></i>
+                                   </a> 
+
                             </div>
+                            <div class="row tarjeta__contenido--icon2" *ngIf="stocks.cantidad <= 0">
+                                
+                                <!-- <button pButton class="boton--center p-button-rounded p-button-danger p-button-sm" [disabled]="stocks.cantidad <=0" type="button" icon="fa fa-cart-plus" iconPos="left" (click)="Agregar(stocks)"></button> -->
+                               <a type="submit" >
+                                   <i class="fas fa-cart-arrow-down"></i>
+                               </a> 
+
+                        </div>
                             <div class="tarjeta__contenido">
                                 <div class="tarjeta__contenido---titulo">
                                     <h3>
@@ -418,6 +442,7 @@
     </footer>
 
     <!-- este div es el nuevo para cerrar desde el header -->
+    
 </div>
 
 
@@ -569,3 +594,4 @@
 
     </div>
 </p-dialog>
+

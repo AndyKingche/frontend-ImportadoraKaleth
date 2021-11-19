@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit {
     //this.getUserId();
     this.getuserTOKEN();
     this.getPuntosVentas();
-
+     
 
 
 
@@ -830,6 +830,23 @@ export class HomeComponent implements OnInit {
       err => console.error(err)
     );
   }
+
+  modal(){
+    let elem: HTMLInputElement;
+const modalsito = document.querySelector('.modal__kaleth');
+
+modalsito.className = 'modal__kaleth';
+
+}
+
+cerrarmodal(){
+  let elem: HTMLInputElement;
+const modalsito = document.querySelector('.modal__kaleth');
+
+modalsito.className = 'modal__kaleth hidden';
+
+}
+
 }
 
 
