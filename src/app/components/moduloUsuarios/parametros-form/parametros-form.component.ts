@@ -53,6 +53,10 @@ export class ParametrosFormComponent implements OnInit {
     urlFotoBanner1: '',
     urlFotoBanner2: '',
     urlFotoBanner3: '',
+    idPuntosVentaStock: '',
+    conocenos: '',
+    mision: '',
+    vision: '',
   }
 
   idParametros = 0;
@@ -74,6 +78,11 @@ export class ParametrosFormComponent implements OnInit {
   urlFotoBanner1 = '';
   urlFotoBanner2 = '';
   urlFotoBanner3 = '';
+  
+    //  idPuntosVentaStock= '';
+    conocenos= '';
+    mision= '';
+    vision= '';
 
   ngOnInit() {
     this.puntoventaservice.getPuntosVentas().subscribe(res => {
@@ -130,7 +139,10 @@ export class ParametrosFormComponent implements OnInit {
         this.parametro.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.parametro.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.parametro.urlFotoBanner3 = res[0].urlFotoBanner3;
-        this.parametros.idPuntosVentaStock= res[0].idPuntosVentaStock;
+        this.parametro.idPuntosVentaStock= res[0].idPuntosVentaStock;
+        this.parametro.conocenos= res[0].conocenos;
+        this.parametro.mision= res[0].mision;
+        this.parametro.vision= res[0].vision;
 
         this.imagenObtenidaMostrar = this.parametro.urlFotoBanner1;
         this.imagenObtenidaMostrar1 = this.parametro.urlFotoBanner2;
@@ -143,6 +155,8 @@ export class ParametrosFormComponent implements OnInit {
         this.imagenObtenidaAnteriorUrl2 = this.parametro.urlFotoBanner3;
        this.idPuntosVentaStock = Number(this.parametro.idPuntosVentaStock);
        
+
+       console.log(this.parametros)
        
       },
       err => console.error(err)

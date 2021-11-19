@@ -1,16 +1,28 @@
-.filainput{
-   margin-top: 10px;
-   margin-bottom: 30px;
-   position: relative;
-   display: flex;
+.filainput {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
 }
-.filainput__inputs--posci{
-padding-top:18px;
+
+.filainput__inputs--posci {
+    padding-top: 18px;
 }
-.letter{
-  
-   display: flex;
-   justify-content: flex-start;
-   align-items: flex-start;
-   margin-top: 28px;
+
+.letter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 28px;
+}
+
+.botonAceptar {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+    width: 90px;
+    height: 35px;
+    margin-top: 4.8vh;
+    margin-left: 4.8vh;
+    border-radius: 5px;
+    color: white;
 }

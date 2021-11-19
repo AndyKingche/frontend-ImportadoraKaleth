@@ -155,51 +155,49 @@
 
 
     </div> -->
-    <div class="container-fluid slider__kaleth">
-        <div class="col-md-6">
+    <div class="slider__content">
+        <div class="slider__kaleth">
 
-            <div class="contenido__kaleth">
-                {{this.textoBanner}}
-                <div class="footer-logo mt-40">
-                    <ul class="footer-social mt-25">
-                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                        <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                    </ul>
-                </div>
+            <input type="radio" name="slider-1" id="radio-1" checked>
+            <input type="radio" name="slider-1" id="radio-2">
+            <input type="radio" name="slider-1" id="radio-3">
+
+
+            <div class="card__kaleth">
+                <label class="imgcard1" for="radio-1" id="card-1" class="cardd">
+                    <img src="{{this.urlFotoBanner1}}" alt="">
+                </label>
+                <label class="imgcard2" for="radio-2" id="card-2" class="cardd">
+                    <img src="{{this.urlFotoBanner2}}" alt="">
+                </label>
+                <label class="imgcard3" for="radio-3" id="card-3" class="cardd">
+                    <img src="{{this.urlFotoBanner3}}" alt="">
+                </label>
             </div>
 
 
         </div>
-        <div class="col-md-6 img__sliderkaleth">
-            <div class="slider__efect">
-                <ul>
-                    <li>
-                        <img class="img__slider" src="{{this.urlFotoBanner1}}" alt="">
-                    </li>
-                    <li>
-                        <img class="img__slider" src="{{this.urlFotoBanner2}}" alt="">
-                    </li>
-                    <li>
-                        <img class="img__slider" src="{{this.urlFotoBanner3}}" alt="">
-                    </li>
-                </ul>
-            </div>
-
-
-
-            <div class="slick__slideritem">
-                <div class="slick__slider"></div>
-                <div class="slick__slider"></div>
-                <div class="slick__slider"></div>
-            </div>
-        </div>
-
-
-
 
     </div>
+    <div class="kaleth__logo--contenido">
+        <div class="col-md-6">
+            <div class="img__contenido">
+
+                <img src="../../../assets/img/KALETH.png" class="img__contenido--contenido" alt="logo kaleth">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="contenido__kaleth">
+
+                {{this.textoBanner}}
+
+            </div>
+
+
+        </div>
+    </div>
+
+
 
 
     <section id="team" class="team-area pt-100">
@@ -217,15 +215,38 @@
             <div class="row justify-content-center">
 
 
-                
+
 
             </div>
             <!-- row -->
         </div>
         <!-- container -->
     </section>
+    <!-- Edición contenido conocenos -->
+    <div class="contentFooter">
 
+
+
+        <h3 class="conocenos">CONÓCENOS</h3>
+        <h3 class="quienesSomos">¿Quiénes Somos?</h3>
+        <label class="quienesSomosTexto">{{this.conocenos}}</label>
+        <div class="contenedor">
+            <div class="claseMision">
+                <h3>Misión</h3>
+                <label>{{this.mision}}</label>
+            </div>
+            <div class="claseVision">
+                <h3>Visión</h3>
+                <label class="claseVisionlabel">{{this.vision}}</label>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- fin edición parte de conocenos -->
     <!--====== FOOTER PART START ======-->
+    <!-- fOOTER -->
 
     <section id="about" class="footer-area">
         <div class="container-fluid">

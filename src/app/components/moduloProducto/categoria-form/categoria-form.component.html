@@ -1,23 +1,25 @@
 <p-card header="{{creacion}} Categoria">
-<div class="container-fluid">
-  <div class="row"> 
-        <div class="col-md-6">
-          <input type="text" class="form-control" [(ngModel)]="categorias.nombreCategoria" id="nombre" name="nombre" placeholder="Nombre de la Categoria">
-          
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" [(ngModel)]="categorias.descripcion" id="descripcion" name="descripcion" placeholder="Desripcion">
+    <button pButton pRipple type="button" icon="pi pi-angle-double-left" class="p-button-rounded p-button-danger" routerLink="/admin/category"></button>
 
-        </div>
-    </div>
-    <div class="row boton__menu">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" [(ngModel)]="categorias.nombreCategoria" id="nombre" name="nombre" placeholder="Nombre de la Categoria">
 
-        <div class="form-group">
-            <button  class="btn btn-primary" (click)="edit ? updateCategoria() : saveCategoria()">Aceptar</button>
-            <button type="button" class="btn btn-info dere" routerLink="/admin/category">Regresar</button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" [(ngModel)]="categorias.descripcion" id="descripcion" name="descripcion" placeholder="Desripcion">
+
+            </div>
         </div>
+        <div class="row boton__menu">
+
+            <div class="form-group">
+                <button class="botonAceptar" (click)="edit ? updateCategoria() : saveCategoria()">ACEPTAR</button>
+
+            </div>
+        </div>
+
+
     </div>
-     
-    
-</div>
 </p-card>

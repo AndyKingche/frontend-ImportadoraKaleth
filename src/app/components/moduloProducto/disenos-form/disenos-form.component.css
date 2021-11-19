@@ -1,7 +1,18 @@
-input{
+input {
     width: 300px;
 }
 
-.boton__dere{
+.boton__dere {
     margin-left: 1em;
+}
+
+.botonAceptar {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+    width: 90px;
+    height: 35px;
+    margin-top: 3.8vh;
+    margin-left: 4.8vh;
+    border-radius: 5px;
+    color: white;
 }

@@ -24,24 +24,24 @@
 
                 <div class="row__div">
                     Listar todos los productos
-                    <button class="btn btn-primary boton__dere" (click)="getFindInventario()"><i
-                            class="fas fa-search"></i>Consultar</button>
-                    <button class="btn btn-primary boton__dere" (click)="imprimirInventarioTo()"><i
-                            class="fas fa-print"></i>Imprimir</button>
+                    <button class="botonConsultar" (click)="getFindInventario()"><i
+                            class="fas fa-search"></i>CONSULTAR</button>
+                    <button class="botonImprimir" (click)="imprimirInventarioTo()"><i
+                            class="fas fa-print"></i>IMPRIMIR</button>
 
 
 
-                    <button class="btn btn-primary boton__dere" (click)="imprimircodigoBarra()"><i
+                    <button class="botonCodigoBarras" (click)="imprimircodigoBarra()"><i
                             class="fas fa-print"></i>Codigos de barra</button>
                 </div>
             </div>
 
             <div class="col-md-6 division__rowder">
                 <div class="row__div">
-                    Listar todos los productos x punto venta
+                    Punto de Venta:
                     <p-dropdown [options]="itemsaux" [(ngModel)]="selectedItems1" placeholder="Seleccionar un Punto Venta" optionLabel="nombreLocal" (onChange)=" getFindInventarioPuntoVenta($event.value.idPuntosVenta)"></p-dropdown>
-                    <button class="btn btn-primary boton__dere" (click)="imprimirInventarioToPuntoVenta()"><i
-                            class="fas fa-print"></i>Imprimir</button>
+                    <button class="botonImprimir" (click)="imprimirInventarioToPuntoVenta()"><i
+                            class="fas fa-print"></i>IMPRIMIR</button>
 
                 </div>
             </div>
@@ -50,20 +50,20 @@
             <div class="titulo"> Inventario Mínimo: Listar todos los productos que estan por terminarse </div>
             <div class="col-md-6 division__rowizq">
                 <div class="row__div">
-                    Listar todos los productos <button class="btn btn-primary boton__dere" (click)="getFindMin()"><i
-                            class="fas fa-search"></i>Consultar</button>
-                    <button class="btn btn-primary boton__dere" (click)="imprimirInventarioMin()"><i
-                            class="fas fa-print"></i>Imprimir</button>
+                    Listar todos los productos <button class="botonConsultar" (click)="getFindMin()"><i
+                            class="fas fa-search"></i>CONSULTAR</button>
+                    <button class="botonImprimir" (click)="imprimirInventarioMin()"><i
+                            class="fas fa-print"></i>IMPRIMIR</button>
 
                 </div>
 
             </div>
             <div class="col-md-6 division__rowder">
                 <div class="row__div">
-                    Listar todos los productos x punto venta:
+                    Punto de Venta:
                     <p-dropdown [options]="itemsaux" [(ngModel)]="selectedItems2" placeholder="Seleccionar un Punto Venta" optionLabel="nombreLocal" (onChange)=" getFindMinPuntoVenta($event.value.idPuntosVenta)"></p-dropdown>
-                    <button class="btn btn-primary boton__dere" (click)="imprimirInventarioMinPuntoVenta()"><i
-                            class="fas fa-print"></i>Imprimir</button>
+                    <button class="botonImprimir" (click)="imprimirInventarioMinPuntoVenta()"><i
+                            class="fas fa-print"></i>IMPRIMIR</button>
 
                 </div>
 
@@ -147,7 +147,7 @@
 
                 </td>
                 <td class="card__word--row">
-                    <span class="p-column-title">Cant</span> 
+                    <span class="p-column-title">Cant</span>
                     <div [ngClass]="{'outofstock': stocks.cantidad <= stocks.stockMin, 'instock': (stocks.cantidad > stocks.stockMin && stocks.cantidad <= stocks.stockMax ),'lowstock': stocks.cantidad >= stocks.stockMax}">
 
                         {{stocks.cantidad}}

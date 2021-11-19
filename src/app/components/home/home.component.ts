@@ -67,11 +67,9 @@ import { ParametrosService } from 'src/app/services/parametros.service';
   }
   .badgeoutofstock{
     font-family: 'Montserrat-Regular';
-    background-color:  #FB888A;
-    color: #D9080B;
+    color: #ffffff;
     font-size: 15pt;
     text-align: center;
-border-radius: 20px 20px 20px 20px;
   }
   .badgeoutofstock .titulo__status--stock::before{
     font-family: 'Montserrat-Regular';
@@ -80,11 +78,9 @@ border-radius: 20px 20px 20px 20px;
     }
   .badgelowstock{
     font-family: 'Montserrat-Light';
-    background-color:  #E9C46A;
     color: #ffffff;
     text-align: center;
     font-size: 15pt;
-  border-radius: 20px 20px 20px 20px;
     }
     .badgelowstock .titulo__status--stock::before{
       font-family: 'Montserrat-Light';
@@ -799,6 +795,9 @@ export class HomeComponent implements OnInit {
   urlFotoBanner1 = '';
   urlFotoBanner2 = '';
   urlFotoBanner3 = '';
+  conocenos = '';
+  mision = '';
+  vision = '';
   idPuntosVentaStockMostrar = 0;
 
   getParametros() {
@@ -825,6 +824,9 @@ export class HomeComponent implements OnInit {
         this.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.urlFotoBanner3 = res[0].urlFotoBanner3;
+        this.conocenos = res[0].conocenos;
+        this.mision = res[0].mision;
+        this.vision = res[0].vision;
         this.idPuntosVentaStockMostrar = Number(res[0].idPuntosVentaStock);
       },
       err => console.error(err)

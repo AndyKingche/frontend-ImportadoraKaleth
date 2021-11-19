@@ -50,9 +50,13 @@ h3,
 h4,
 h5,
 h6,
-label,
 p {
     margin: 0;
+}
+
+label {
+    font-family: 'Montserrat-Light';
+    color: #11345C;
 }
 
 
@@ -255,7 +259,6 @@ a.item_add {
     color: #99161B;
     /* font-size: 0.77em; */
     font-style: normal;
-   
 }
 
 .total {
@@ -1515,7 +1518,7 @@ ul.nav.nav-pills {
         margin: 0 0 0.3em;
     }
     .content-top {
-        padding: 3em 0;
+        padding: 5em 0;
     }
     .top-footer1 input[type="submit"] {
         width: 33%;
@@ -1676,7 +1679,7 @@ ul.nav.nav-pills {
         margin: 0 0 1em;
     }
     .content-top {
-        padding: 3em 0 1em;
+        padding: 5em 0 1em;
     }
     .top-footer1 {
         margin: 2em 0 0;
@@ -1959,7 +1962,7 @@ ul.nav.nav-pills {
         width: 22%;
     }
     .content-top {
-        padding: 2em 0 1em;
+        padding: 5em 0 1em;
     }
     .price h5 {
         font-size: 1em;
@@ -2195,7 +2198,7 @@ ul.nav.nav-pills {
         margin: 0 0 0.7em;
     }
     .content-top {
-        padding: 1.5em 0 0.5em;
+        padding: 5em 0 0.5em;
     }
     .col-md2 {
         padding: 0 5px;

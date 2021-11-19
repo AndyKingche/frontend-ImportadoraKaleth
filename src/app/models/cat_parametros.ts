@@ -19,5 +19,8 @@ export interface Parametros{
     urlFotoBanner2?:string;
     urlFotoBanner3?:string;
     idPuntosVentaStock?:string;
+    conocenos?:string;
+    mision?:string;
+    vision?:string;
     
 }

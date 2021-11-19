@@ -1,105 +1,114 @@
 <p-card header="{{creacion}} Usuario">
-<div class="container-fluid">
-	<div class="row filainput">
-		<div class="col-md-6">
-      <label for="Nombre" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre"  name="nombre">
-                <label for="float-input">Nombre:</label>
-              </span>
-		</div>
-		<div class="col-md-6">
-      <label for="Apellido" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido" >
-                <label for="float-input">Apellido:</label>
-              </span>
-		</div>
-	</div>
-	<div class="row filainput">
-		<div class="col-md-6 filainput__inputs--posci">
-     
-      <label for="Cedula" class="col-sm-2 col-form-label"> </label>
-      <span class="p-float-label">
-        <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula"  id="cedula" name="cedula">
-        <!-- <input type="text" pInputText pKeyFilter="num" placeholder="Numbers"> -->
-        <label for="float-input">Cedula:</label>
-      </span>
-    
-		</div>
-		<div class="col-md-6">
-      <div class="p-field p-col-12 letter">
-        <label for="navigators">
+    <button pButton pRipple type="button" icon="pi pi-angle-double-left" class="p-button-rounded p-button-danger" routerLink="/admin/user"></button>
+    <div class="container-fluid">
+        <div class="row filainput">
+            <div class="col-md-6">
+                <label for="Nombre" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre"
+                  id="nombre" name="nombre">
+               <label for="float-input">Nombre:</label>
+            </span>
+            </div>
+            <div class="col-md-6">
+                <label for="Apellido" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" [pKeyFilter]="regexpresion" pInputText
+                  [(ngModel)]="user.apellido" id="apellido" name="apellido">
+               <label for="float-input">Apellido:</label>
+            </span>
+            </div>
+        </div>
+        <div class="row filainput">
+            <div class="col-md-6 filainput__inputs--posci">
 
-           Fecha de nacimiento:
-        </label>
-         <p-calendar [locale]="es" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaObtenida" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators"></p-calendar>
-      </div>
-      
-		</div>
-	</div>
-	<div class="row filainput">
-		<div class="col-md-6">
-      <label for="Direccion" class="col-sm-2 col-form-label"> </label>
-      <span class="p-float-label">
-        <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
-        <label for="float-input">Direccion:</label>
-      </span>
-		</div>
-		<div class="col-md-6">
-      <label for="Telefono" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control"  pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.telefono" id='telefono' name="telefono">
-                <label for="float-input">Telefono:</label>
-              </span>
-		</div>
-	</div>
-	<div class="row filainput">
-		<div class="col-md-6">
-      <label for="Email" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="email" class="form-control" pInputText [(ngModel)]="user.email" id="email" name="email">
-                <label for="float-input">Email:</label>
-              </span>
-		</div>
-		<div class="col-md-6">
-      <label for="Password" class="col-sm-2 col-form-label"> </label>
-              <span class="p-float-label">
-                <input type="text" class="form-control" pInputText [(ngModel)]="user.password" id='password' name="password">
-                <label for="float-input">Password:</label>
-              
-              </span>
-		</div>
-	</div>
-	<div class="row filainput">
-		<div class="col-md-6">
-      <label for="navigators">Esatdo Civil: </label>
-      <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar un Estado Civil" optionLabel="nombre" [showClear]="true"></p-dropdown>
-		</div>
-		<div class="col-md-6">
-      <label for="navigators">Genero: </label>
-      <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar un Estado Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
-		</div>
-	</div>
-	<div class="row filainput">
-		<div class="col-md-6">
-      <label for="Estado">Estado: </label>
-      <p-dropdown [options]="estados" [(ngModel)]="estadosEscogidos" placeholder="Seleccionar un Estado" optionLabel="nombre" [showClear]="true"></p-dropdown>
-      
-		</div>
-      <div class="col-md-6">
-         <label for="Rol">Rol: </label>
-      <p-dropdown [options]="roles" [(ngModel)]="rolesEscogidos" placeholder="Seleccionar un Rol" optionLabel="nombre" [showClear]="true"></p-dropdown>
-      
-      </div>
-	</div>
-  <div class="row filainput">
-		<div class="col-md-6">
-      <button  class="btn btn-primary" (click)="edit ? updateUsuario() : saveUsuario()">Aceptar</button>
-      	</div>
-		<div class="col-md-6">
-      <button type="button" class="btn btn-info" routerLink="/admin/user">Regresar</button>          
-		</div>
-	</div>
-</div>
+                <label for="Cedula" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText
+                  [(ngModel)]="user.cedula" id="cedula" name="cedula">
+               <!-- <input type="text" pInputText pKeyFilter="num" placeholder="Numbers"> -->
+               <label for="float-input">Cedula:</label>
+            </span>
+
+            </div>
+            <div class="col-md-6">
+                <div class="p-field p-col-12 letter">
+                    <label for="navigators">
+
+                  Fecha de nacimiento:
+               </label>
+                    <p-calendar [locale]="es" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaObtenida" [monthNavigator]="true" [yearNavigator]="true" yearRange="1940:2030" inputId="navigators">
+                    </p-calendar>
+                </div>
+
+            </div>
+        </div>
+        <div class="row filainput">
+            <div class="col-md-6">
+                <label for="Direccion" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" pInputText [(ngModel)]="user.direccion" id="direccion"
+                  name="direccion">
+               <label for="float-input">Direccion:</label>
+            </span>
+            </div>
+            <div class="col-md-6">
+                <label for="Telefono" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" pKeyFilter="num" maxlength=10 pInputText
+                  [(ngModel)]="user.telefono" id='telefono' name="telefono">
+               <label for="float-input">Telefono:</label>
+            </span>
+            </div>
+        </div>
+        <div class="row filainput">
+            <div class="col-md-6">
+                <label for="Email" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="email" class="form-control" pInputText [(ngModel)]="user.email" id="email" name="email">
+               <label for="float-input">Email:</label>
+            </span>
+            </div>
+            <div class="col-md-6">
+                <label for="Password" class="col-sm-2 col-form-label"> </label>
+                <span class="p-float-label">
+               <input type="text" class="form-control" pInputText [(ngModel)]="user.password" id='password'
+                  name="password">
+               <label for="float-input">Password:</label>
+
+            </span>
+            </div>
+        </div>
+        <div class="row filainput">
+            <div class="col-md-6">
+                <label for="navigators">Esatdo Civil: </label>
+                <p-dropdown [options]="estadocivil" [(ngModel)]="estadocivilEscogido" placeholder="Seleccionar un Estado Civil" optionLabel="nombre" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="col-md-6">
+                <label for="navigators">Genero: </label>
+                <p-dropdown [options]="genero" [(ngModel)]="generoEscogido" placeholder="Seleccionar un Estado Genero" optionLabel="nombre" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="row filainput">
+            <div class="col-md-6">
+                <label for="Estado">Estado: </label>
+                <p-dropdown [options]="estados" [(ngModel)]="estadosEscogidos" placeholder="Seleccionar un Estado" optionLabel="nombre" [showClear]="true"></p-dropdown>
+
+            </div>
+            <div class="col-md-6">
+                <label for="Rol">Rol: </label>
+                <p-dropdown [options]="roles" [(ngModel)]="rolesEscogidos" placeholder="Seleccionar un Rol" optionLabel="nombre" [showClear]="true"></p-dropdown>
+
+            </div>
+        </div>
+        <div class="row ">
+
+            <button class="botonAceptar" (click)="edit ? updateUsuario() : saveUsuario()">Aceptar</button>
+
+        </div>
+
+
+
+
+    </div>
 </p-card>

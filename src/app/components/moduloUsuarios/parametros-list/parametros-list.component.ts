@@ -31,6 +31,10 @@ export class ParametrosListComponent implements OnInit {
   urlFotoBanner2 = '';
   urlFotoBanner3 = '';
 
+  conocenos='';
+  mision='';
+  vision='';
+
 
   ngOnInit() {
     this.getParametros();
@@ -61,6 +65,9 @@ export class ParametrosListComponent implements OnInit {
         this.urlFotoBanner1 = res[0].urlFotoBanner1;
         this.urlFotoBanner2 = res[0].urlFotoBanner2;
         this.urlFotoBanner3 = res[0].urlFotoBanner3;
+        this.conocenos = res[0].conocenos;
+        this.mision = res[0].mision;
+        this.vision = res[0].vision;
         this.isloading=false;
       },
       err => console.error(err)
