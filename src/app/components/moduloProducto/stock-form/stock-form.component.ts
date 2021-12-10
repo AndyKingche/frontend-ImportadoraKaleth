@@ -25,6 +25,7 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
 import { NotificacionService } from '../../../services/notificacion.service';
 import { resolve } from 'url';
+import { async } from '@angular/core/testing';
 
 
 declare let $: any;
@@ -150,7 +151,7 @@ export class StockFormComponent implements OnInit {
   };
   stockAuxiliarLista: any[];
   //stock
-  stockConsulta:any=[];
+  stockConsulta: any = [];
   selectedStock: cat_stock;
   stocks: cat_stock = {
     id: {
@@ -199,8 +200,8 @@ export class StockFormComponent implements OnInit {
   nombreCategoriaexiste: boolean = false;
   medidaexiste: boolean = false;
   nombredisenoexiste: boolean = false;
-  displayConsultar:boolean=false;
-  selectedDetalles:any;
+  displayConsultar: boolean = false;
+  selectedDetalles: any;
   constructor(private stockService: CatStockService,
     private productServices: ProductoService,
     private puntosVentaServices: PuntosVentasService,
@@ -234,7 +235,7 @@ export class StockFormComponent implements OnInit {
     if (params.id) {
 
       this.puntosVentaServices.getPuntosVenta(params.id).subscribe(
-        (res:any)=>{
+        (res: any) => {
           //console.log(res)
           this.idPuntoVentaPrueba = res.idPuntosVenta;
           this.consultarstockhabilitado(this.idPuntoVentaPrueba);
@@ -291,7 +292,7 @@ export class StockFormComponent implements OnInit {
       // )
     }
     this.getTallas();
-    
+
     this.getCategorias();
     // $('#categorias').select2(
     //   {
@@ -302,8 +303,8 @@ export class StockFormComponent implements OnInit {
     // );
 
     this.getDisenos();
-   
-  
+
+
   }
 
   //variables ingreso stock
@@ -703,16 +704,16 @@ export class StockFormComponent implements OnInit {
           ) {
             // sumatoria de la cantidad de un elemento encontrado
             this.stockAuxiliarLista[x].cantidad = Number(this.stockAuxiliarLista[x].cantidad) + Number(this.stockAuxiliar.cantidad);
-            this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
-            this.stockAuxiliarLista[x].precioMayor=this.stockAuxiliar.precioMayor;
-            this.stockAuxiliarLista[x].precioDistribuidor=this.stockAuxiliar.precioDistribuidor;
-            this.stockAuxiliarLista[x].stockMax=this.stockAuxiliar.stockMax;
-            this.stockAuxiliarLista[x].stockMin=this.stockAuxiliar.stockMin;
-           
-            
+            this.stockAuxiliarLista[x].precioUnit = this.stockAuxiliar.precioUnit;
+            this.stockAuxiliarLista[x].precioMayor = this.stockAuxiliar.precioMayor;
+            this.stockAuxiliarLista[x].precioDistribuidor = this.stockAuxiliar.precioDistribuidor;
+            this.stockAuxiliarLista[x].stockMax = this.stockAuxiliar.stockMax;
+            this.stockAuxiliarLista[x].stockMin = this.stockAuxiliar.stockMin;
+
+
             //this.stockAuxiliarLista[x].precioUnit=this.stockAuxiliar.precioUnit;
-           
-           
+
+
             //console.log(this.stockAuxiliarLista[x].cantidad)
             //cambiamos la varibnale encuentraArray a tr5u al momento que se encuentra el porducto en el stocklista
             this.encuentraArray = true;
@@ -788,84 +789,98 @@ export class StockFormComponent implements OnInit {
     for (let i = 0; i < this.stockAuxiliarLista.length; i++) {
       //se reaqliza una consulta en donde verificamos si existe el el porduco por id punto venta en el stock 
       //nos devuelve el valor la cantidad que tiene en stock del registro 
-      await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
-        this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
-          //si la cantidad es mayor o igual a cero quiere decir que el elemento si existe 
-          if (res >= 0) {
-            //creamos una variable y guardamos el resultado de la busqueda("cantidad")
-            this.cantidadConsulta = Number(res);
-            //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
-            this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
-            //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
-            // await this.stockService.updateStockCantidad(this.cantidadConsulta,
-            //   this.stockAuxiliarLista[i].catProducto.idProductos,
-            //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
-            //     console.log("si se actualizo")
-            //   }, err => console.log(err))
 
-            //cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
-            await this.stockService.updateStocks(
-              this.cantidadConsulta,
-              this.stockAuxiliarLista[i].precioUnit,
-              this.stockAuxiliarLista[i].precioMayor,
-              this.stockAuxiliarLista[i].precioDistribuidor,
-              this.stockAuxiliarLista[i].stockMax,
-              this.stockAuxiliarLista[i].catProducto.idProductos,
-              this.stockAuxiliarLista[i].stockMin,
-              'S',
-              this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
-            ).subscribe(res => {
-              //console.log("si se actualizo")
-            }, err => console.log(err))
+      let cantidadPromesa = 0;
+      const CANTIDADPROM = new Promise(async (resolve, reject) => {
+        await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
+          this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).toPromise().then(res => {
+            resolve(res)
+          })
+      })
+      await CANTIDADPROM.then(res => cantidadPromesa = Number(res));
 
+      if (cantidadPromesa >= 0) {
 
-            //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
-            this.cantidadConsulta = 0;
+        //creamos una variable y guardamos el resultado de la busqueda("cantidad")
+        this.cantidadConsulta = Number(cantidadPromesa);
+        //realizamos la suma de la cantidad que existe con la cantidad que se va ingresar
+        this.cantidadConsulta = this.cantidadConsulta + Number(this.stockAuxiliarLista[i].cantidad);
+        //ingresamos el resultado de la suma para actualizar la cantidad en la BDD en la tabla Stock
+        // await this.stockService.updateStockCantidad(this.cantidadConsulta,
+        //   this.stockAuxiliarLista[i].catProducto.idProductos,
+        //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(res => {
+        //     console.log("si se actualizo")
+        //   }, err => console.log(err))
 
-
-            //console.log(res)
-            //console.log("si hay")
-
-          } else {
-
-            //ingresamos los datos de la posición de la lista en un objeto tipo stock para porceder a ingresar a la BDD
-
-            this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
-            this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
-            this.stocks.cantidad = this.stockAuxiliarLista[i].cantidad;
-            this.stocks.stockMin = this.stockAuxiliarLista[i].stockMin;
-            this.stocks.stockMax = this.stockAuxiliarLista[i].stockMax;
-            this.stocks.precioMayor = this.stockAuxiliarLista[i].precioMayor;
-            this.stocks.precioUnit = this.stockAuxiliarLista[i].precioUnit;
-            this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
-            this.stocks.existe = 'S';
-
-            //se ingresa a la BDD como un nuevo registro en la tabla Stock
-
-            await this.stockService.saveStock(this.stocks).subscribe(res => {
-              //console.log("si se ingreso nuevo stock")
-              //reiniciamos los valores del objeto stock para un unevo resgitro 
-              this.stocks = {
-                id: {
-                  idProductos: 0,
-                  //cambiar este punto de venta automatico depues
-                  idPuntosVenta: 0,
-                },
-                stockMax: 0,
-                stockMin: 0,
-                precioDistribuidor: 0,
-                precioMayor: 0,
-                precioUnit: 0,
-                existe: '',
-
-              }
+        //cantidad:number,precioUnit:number,precioMayor:number,precioDist:number,stockMax:number, id_producto: number, stockMin:number,id_puntosventa: number
+        await this.stockService.updateStocks(
+          this.cantidadConsulta,
+          this.stockAuxiliarLista[i].precioUnit,
+          this.stockAuxiliarLista[i].precioMayor,
+          this.stockAuxiliarLista[i].precioDistribuidor,
+          this.stockAuxiliarLista[i].stockMax,
+          this.stockAuxiliarLista[i].catProducto.idProductos,
+          this.stockAuxiliarLista[i].stockMin,
+          'S',
+          this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta
+        ).subscribe(res => {
+          //console.log("si se actualizo")
+        }, err => console.log(err))
 
 
-            }, err => console.log(err))
+        //reiniciamos el valor a cero de la cantidadConsulta para un nuevo proceso
+        this.cantidadConsulta = 0;
 
-            //console.log("no hay")
+
+        this.notificacion.showSuccess('Producto ingresado al stock ', '');
+      } else {
+
+        //ingresamos los datos de la posición de la lista en un objeto tipo stock para porceder a ingresar a la BDD
+
+        this.stocks.id.idProductos = this.stockAuxiliarLista[i].catProducto.idProductos;
+        this.stocks.id.idPuntosVenta = this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta;
+        this.stocks.cantidad = this.stockAuxiliarLista[i].cantidad;
+        this.stocks.stockMin = this.stockAuxiliarLista[i].stockMin;
+        this.stocks.stockMax = this.stockAuxiliarLista[i].stockMax;
+        this.stocks.precioMayor = this.stockAuxiliarLista[i].precioMayor;
+        this.stocks.precioUnit = this.stockAuxiliarLista[i].precioUnit;
+        this.stocks.precioDistribuidor = this.stockAuxiliarLista[i].precioDistribuidor;
+        this.stocks.existe = 'S';
+
+        //se ingresa a la BDD como un nuevo registro en la tabla Stock
+
+        await this.stockService.saveStock(this.stocks).subscribe(res => {
+          //console.log("si se ingreso nuevo stock")
+          //reiniciamos los valores del objeto stock para un unevo resgitro 
+          this.stocks = {
+            id: {
+              idProductos: 0,
+              //cambiar este punto de venta automatico depues
+              idPuntosVenta: 0,
+            },
+            stockMax: 0,
+            stockMin: 0,
+            precioDistribuidor: 0,
+            precioMayor: 0,
+            precioUnit: 0,
+            existe: '',
+
           }
-        }, err => console.log("salio error"))
+
+          this.notificacion.showSuccess('Producto ingresado al stock ', '');
+          this.router.navigate(['/admin/stock']);
+
+        }, err => console.log(err))
+
+
+
+      }
+      // await this.stockService.getEncontrarStock(this.stockAuxiliarLista[i].catProducto.idProductos,
+      //   this.stockAuxiliarLista[i].catPuntosVenta.idPuntosVenta).subscribe(async (res) => {
+      //     //si la cantidad es mayor o igual a cero quiere decir que el elemento si existe 
+
+      //   }, err => console.log("salio error"))
+
     }
 
     this.router.navigate(['/admin/stock']);
@@ -1086,35 +1101,35 @@ export class StockFormComponent implements OnInit {
     return obtenerletras.trim();
   }
 
-  regresar(){
+  regresar() {
     this.router.navigate(['/admin/stock']);
   }
-  showConsultar(){
+  showConsultar() {
     this.displayConsultar = true;
   }
 
-  consultarstockhabilitado(id:number){
-    
-    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res=>{
+  consultarstockhabilitado(id: number) {
+
+    this.stockService.findStockInventarioPuntoVenta(id).subscribe(res => {
       this.stockConsulta = res;
       //console.log(res)
-    },err=>console.log("error",err))
+    }, err => console.log("error", err))
   }
-  obtenerVariable(cod:any){
+  obtenerVariable(cod: any) {
     this.idProductoPrueba = cod;
     this.buscarStockProducto();
     this.displayConsultar = false;
   }
-  encontrarProductoModal(productoBuscar:any){
+  encontrarProductoModal(productoBuscar: any) {
     //console.log(productoBuscar.length)
-    if(productoBuscar.length!=0){
-      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba,productoBuscar).subscribe(res=>{
+    if (productoBuscar.length != 0) {
+      this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba, productoBuscar).subscribe(res => {
         this.stockConsulta = res;
-      },err=>console.log(err));
+      }, err => console.log(err));
     }
-    else{
+    else {
       this.consultarstockhabilitado(this.idPuntoVentaPrueba);
     }
-  
+
   }
 }

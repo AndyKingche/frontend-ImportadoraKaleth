@@ -25,6 +25,7 @@ export class DisenosListComponent implements OnInit {
     this.disenoservice.getDisenos().subscribe(
       res => {
         this.disenos = res
+        console.log(this.disenos);
       },
       err => console.error(err)
     );

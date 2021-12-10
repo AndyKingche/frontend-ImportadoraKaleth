@@ -391,7 +391,8 @@ this.usuarioRecibido = await getuserRegister.then(res=>res);
    this.isloading = false;
   this.ruta.navigate(['/home'])
  }else{
-   alert("Problemas al registrar su Usuario");
+   
+   this.notificacion.showError('Error al registrar un usuario', '**ERROR');
    this.isloading = false;
  }
   

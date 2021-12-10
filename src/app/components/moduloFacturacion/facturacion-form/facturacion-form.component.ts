@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {NotificacionService} from '../../../services/notificacion.service'
 
 //stockAuxiliar
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
@@ -179,6 +180,7 @@ export class FacturacionFormComponent implements OnInit {
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
+    private notificacion: NotificacionService,
     private router: Router,
     private activedrouter: ActivatedRoute,
     private userService:UsuariosService) {
@@ -270,7 +272,8 @@ export class FacturacionFormComponent implements OnInit {
       this.email.length == 0 ||
       this.direccion.length == 0
     ) {
-      alert('Ingrese datos del cliente');
+      
+      this.notificacion.showError('Ingrese datos del cliente', '**ERROR');
     } else {
       this.disabled = true;
 
@@ -322,7 +325,8 @@ export class FacturacionFormComponent implements OnInit {
 
       if (this.cantidadDisponible < this.cantidad) {
 
-        alert("no hay cantidad suficiente para vender");
+        
+        this.notificacion.showError('No hay cantidad suficiente para vender', '**ERROR');
 
       } else {
         ///INGRESAR DATOS SI EXISTE EL CLIENTE
@@ -363,7 +367,8 @@ export class FacturacionFormComponent implements OnInit {
         if (this.listaDetalleFactura.length === 0) {
 
           if (this.venDetalleFactura.cantidadFact <= 0) {
-            alert("Ingrese cantidad mayor a 0");
+            
+            this.notificacion.showError('Ingrese cantidad mayor a 0', '**ERROR');
 
           } else {
             //añadimos el primer elemento a la lista
@@ -387,7 +392,8 @@ export class FacturacionFormComponent implements OnInit {
         } else {
 
           if (this.venDetalleFactura.cantidadFact <= 0) {
-            alert("Ingrese cantidad mayor a 0")
+            
+            this.notificacion.showError('Ingrese cantidad mayor a 0', '**ERROR');
           } else {
             this.cantidadLista = 0;
             this.cantidadDisponible = 0;
@@ -583,7 +589,8 @@ export class FacturacionFormComponent implements OnInit {
     this.auxiliarFacturaIngreso.usUser.idUsuario = this.usuarioId;//Usuario logeaado 
     this.auxiliarFacturaIngreso.venCliente.idCliente = this.idClienteIngreso;
     if (this.listaDetalleFactura.length === 0) {
-      alert("no hay datos");
+      
+      this.notificacion.showError('No existe datos para realizar la venta', '**ERROR');
       // this.isloading=true;
     } else {
 

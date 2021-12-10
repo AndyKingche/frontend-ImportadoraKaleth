@@ -17,7 +17,7 @@ import { MedidaService } from '../../services/medida.service';
 //Disenos
 import { Disenos } from '../../models/catDiseno';
 import { DisenosService } from '../../services/disenos.service';
-// categoria 
+// categoria
 import { Categorias } from '../../models/catCategoria';
 import { CategoriaService } from '../../services/categoria.service';
 //stockAuxiliar
@@ -51,15 +51,15 @@ import { ParametrosService } from 'src/app/services/parametros.service';
     font-size: 15pt;
       color: #FF5252;
       font-family: 'Montserrat-Regular';
-      
+
   }
-  
+
   .lowstock {
     font-size: 15pt;
       color: #FFA726;
       font-family: 'Montserrat-Regular';
   }
-  
+
   .instock {
     font-size: 15pt;
       color: #66BB6A;
@@ -88,18 +88,18 @@ import { ParametrosService } from 'src/app/services/parametros.service';
       font-size: 15pt;
       }
     .badgeinstock{
-     
+
   color: #ffffff;
   font-family: 'Montserrat-Light';
   text-align: center;
-  font-size: 15pt;                      
+  font-size: 15pt;
   border-radius: 20px 20px 20px 20px;
       }
       .badgeinstock .titulo__status--stock::before{
         font-family: 'Montserrat-Light';
         content:'Disponible';
         }
-  
+
   :host ::ng-deep .row-accessories {
       background-color: rgba(0,0,0,.15) !important;
   }
@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  //varibales 
+  //varibales
   inicio: number = 0;
   numeroFilas: number = 12;
   cantidadExistente: number = 0;
@@ -233,17 +233,17 @@ export class HomeComponent implements OnInit {
   displayRegister: boolean = false;
   puedeRegistrarCliente: boolean = false;
   usuariologeadosesion = "";
-  ngOnInit() {
+  async ngOnInit() {
     //this.getStocksExistents();
     this.getParametros();
-    this.getStocksExistentsPuntoVenta();
+    await this.getStocksExistentsPuntoVenta();
     this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
     //this.getUserId();
     this.getuserTOKEN();
     this.getPuntosVentas();
-     
+
 
 
 
@@ -257,8 +257,8 @@ export class HomeComponent implements OnInit {
     this.puedeComprar = false;
     this.router.navigate(['/home'])
     this.mostrarCarrito = false;
-    this.mostrarInicio= true;
-    this.valorTotalCarrito=0;
+    this.mostrarInicio = true;
+    this.valorTotalCarrito = 0;
   }
 
   async getuserTOKEN() {
@@ -342,15 +342,25 @@ export class HomeComponent implements OnInit {
     this.getStocksExistentsPuntoVenta();
   }
 
-  getStocksExistentsPuntoVenta() {
+  async getStocksExistentsPuntoVenta() {
+    
+    const productosExistentes = new Promise(async (resolve, reject) => {
+      await this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).toPromise().then(res => {
+        resolve(res);
+        
+      }, err => console.error(err))
 
-    this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).subscribe(
-      res => {
+    });
 
-        this.stock = res;
-      }, err => console.error(err)
+    await productosExistentes.then(res => this.stock = res);
+    
+    // this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).subscribe(
+    //   res => {
 
-    );
+    //     this.stock = res;
+    //   }, err => console.error(err)
+
+    // );
   }
 
   getStocksExistents() {
@@ -402,7 +412,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    //for para calcular el total del carrito 
+    //for para calcular el total del carrito
     this.valorTotalCarrito = 0;
     for (var x in this.listaDetallePedido) {
 
@@ -433,7 +443,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  //agregar productos a carrito 
+  //agregar productos a carrito
   async Agregar(objeto: any) {
 
     //await this.getUserId();
@@ -486,13 +496,13 @@ export class HomeComponent implements OnInit {
 
 
         } else {
-          //si no existe el producto ingresa un nuevo elemento en el array 
+          //si no existe el producto ingresa un nuevo elemento en el array
           //metodo push para apilar elemnto en el array
 
 
           this.listaDetallePedido.push(this.peDetallePedido);
 
-          //for para calcular el total del carrito 
+          //for para calcular el total del carrito
           this.valorTotalCarrito = 0;
           for (var x in this.listaDetallePedido) {
 
@@ -552,7 +562,7 @@ export class HomeComponent implements OnInit {
     }
 
 
-    //for para calcular el total del carrito 
+    //for para calcular el total del carrito
     this.valorTotalCarrito = 0;
     for (var x in this.listaDetallePedido) {
 
@@ -611,7 +621,7 @@ export class HomeComponent implements OnInit {
             // reiniciar valores para la nueva busqueda del elemento en el array para el siguiente proceso
             this.encuentraArrayCarrito = false;
           } else {
-            //si no existe el producto ingresa un nuevo elemento en el array 
+            //si no existe el producto ingresa un nuevo elemento en el array
             //metodo push para apilar elemnto en el array
 
 
@@ -642,7 +652,9 @@ export class HomeComponent implements OnInit {
 
   async generarPedido() {
     if (this.listaCheckout.length === 0) {
-      alert("no tiene pedidos para realizar")
+
+      this.notificacion.showWarning('No tiene pedidos para realizar', 'Warning');
+
 
     } else {
       let idfacturaPedidoPDF = 0;
@@ -696,7 +708,7 @@ export class HomeComponent implements OnInit {
 
       this.valorTotalCarrito = 0;
 
-      //generar pdf proforma del pedido realizado 
+      //generar pdf proforma del pedido realizado
       // window.open(`/api/order/report/${idClientePedido}/${idfacturaPedidoPDF}`, "_blank");
       this.pedidoservice.orderreport(idClientePedido, idfacturaPedidoPDF).subscribe(res => {
         let pdfWindow = window.open("")
@@ -733,7 +745,7 @@ export class HomeComponent implements OnInit {
       numVisible: 1
     }
   ];
-  // mostrar imagenes completas 
+  // mostrar imagenes completas
   showDialogImagenes(stocks: any) {
     this.images = [];
 
@@ -747,7 +759,7 @@ export class HomeComponent implements OnInit {
 
     this.precioModal = stocks.precioUnit;
 
-    //cargo una lista de las rutas de las imagenes 
+    //cargo una lista de las rutas de las imagenes
 
 
     this.images = [
@@ -833,21 +845,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  modal(){
+  modal() {
     let elem: HTMLInputElement;
-const modalsito = document.querySelector('.modal__kaleth');
+    const modalsito = document.querySelector('.modal__kaleth');
 
-modalsito.className = 'modal__kaleth';
+    modalsito.className = 'modal__kaleth';
 
-}
+  }
 
-cerrarmodal(){
-  let elem: HTMLInputElement;
-const modalsito = document.querySelector('.modal__kaleth');
+  cerrarmodal() {
+    let elem: HTMLInputElement;
+    const modalsito = document.querySelector('.modal__kaleth');
 
-modalsito.className = 'modal__kaleth hidden';
+    modalsito.className = 'modal__kaleth hidden';
 
-}
+  }
 
 }
 

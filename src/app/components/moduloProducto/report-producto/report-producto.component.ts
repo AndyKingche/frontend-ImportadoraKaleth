@@ -6,6 +6,7 @@ import { PuntosVentas } from '../../../models/catPuntosVenta';
 import { PuntosVentasService } from '../../../services/puntos-ventas.service';
 import { environment } from '../../../../environments/environment.prod';
 import { ActivatedRoute, Router } from '@angular/router';
+import {NotificacionService} from '../../../services/notificacion.service';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class ReportProductoComponent implements OnInit {
   isloading = false;
   pdf: string = "data:application/pdf;base64,";
   constructor(private stockService: CatStockService, private puntoventaservice: PuntosVentasService,
+    private notificacion: NotificacionService,
     private activedrouter: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -176,7 +178,8 @@ export class ReportProductoComponent implements OnInit {
       //window.open(`api/stock/report/${this.idInventarioTotal}`,"_blank");
 
     } else {
-      alert('Debes esocger un Punto de Venta')
+      
+      this.notificacion.showError('Seleccione un punto de venta', '**ERROR');
     }
 
   }
@@ -215,7 +218,8 @@ export class ReportProductoComponent implements OnInit {
         },
         err => console.log(err));
     } else {
-      alert('Debes escoger un Punto de Venta')
+      
+      this.notificacion.showError('Seleccione un punto de venta', '**ERROR');
     }
   }
 

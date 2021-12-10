@@ -14,7 +14,7 @@ URL :string="";
     const params = this.activedrouter.snapshot.params;
    // console.log(params)
     if(params.id == 1){
-      console.log("reporte Total")
+      
       this.mostrarTotal();
     }
   }

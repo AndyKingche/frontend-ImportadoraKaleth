@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {NotificacionService} from '../../../services/notificacion.service'
 //stockAuxiliar
 import { cat_stockAuxiliar } from '../../../models/cat_stockAuxiliar';
 import { CatStockService } from '../../../services/cat-stock.service';
@@ -165,6 +166,7 @@ export class FacturacionCashierComponent implements OnInit {
   constructor(private stockService: CatStockService,
     private clienteService: ClientesService,
     private facturaService: FacturacionService,
+    private notificacion: NotificacionService,
     private router: Router,
     private activedrouter: ActivatedRoute) {
       activedrouter.params.subscribe(val => {
@@ -266,7 +268,8 @@ export class FacturacionCashierComponent implements OnInit {
 
     if (this.cantidadDisponible < this.cantidad) {
 
-      alert("no hay cantidad suficiente para vender");
+      
+      this.notificacion.showError('No hay cantidad suficiente para vender', '**ERROR');
 
     } else {
       ///INGRESAR DATOS SI EXISTE EL CLIENTE
@@ -302,7 +305,8 @@ export class FacturacionCashierComponent implements OnInit {
       if (this.listaDetalleFactura.length === 0) {
 
         if (this.venDetalleFactura.cantidadFact <= 0) {
-          alert("Ingrese cantidad mayor a 0");
+          this.notificacion.showError('Ingrese cantidad mayor a 0', '**ERROR');
+          
 
         } else {
           //añadimos el primer elemento a la lista
@@ -323,7 +327,8 @@ export class FacturacionCashierComponent implements OnInit {
       } else {
 
         if (this.venDetalleFactura.cantidadFact <= 0) {
-          alert("Ingrese cantidad mayor a 0")
+          
+          this.notificacion.showError('Ingrese cantidad mayor a 0', '**ERROR');
         } else {
           this.cantidadLista = 0;
           this.cantidadDisponible = 0;
