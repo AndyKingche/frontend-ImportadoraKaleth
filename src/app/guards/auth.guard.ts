@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       try {
         await this.authservice.getUserLogged().subscribe(
           res=>{
-            console.log(res)
+            // console.log(res)
             if(res){
               resolve(res[0].rol)
             }

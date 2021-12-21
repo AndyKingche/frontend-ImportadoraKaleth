@@ -931,7 +931,7 @@ Object.keys(this.tallaFiltroEscogido).length==0
   // mostrar imagenes completas
   showDialogImagenes(stocks: any) {
     this.stockAuxModal = stocks;
-    console.log(this.stockAuxModal);
+    // console.log(this.stockAuxModal);
     this.images = [];
 
     // this.stringUrlFoto1 = stocks.catProducto.catDiseno.urlFoto;

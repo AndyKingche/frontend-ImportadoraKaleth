@@ -233,7 +233,7 @@ export class FacturacionFormComponent implements OnInit {
     this.listaDetalleFactura = [];
     this.getStockConsulta(this.idPuntosVenta);
     this.userService.getUserLogged().subscribe(res=>{
-      console.log("el usuario logeado es "+res[0].idUsuario);
+      // console.log("el usuario logeado es "+res[0].idUsuario);
       this.usuarioId = res[0].idUsuario;
     })
   }

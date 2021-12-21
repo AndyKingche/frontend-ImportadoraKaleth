@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StockListComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   stock: any = [];
-  selectedstock : cat_stock;
+  selectedstock: cat_stock;
   puntoVenta: any = [];
   displayPuntoVenta: boolean = false;
   constructor(private stockService: CatStockService,
@@ -38,28 +38,28 @@ export class StockListComponent implements OnInit {
 
     // );
     this.stockService.findStockInventario().subscribe(
-      res=>{
-this.stock = res;
+      res => {
+        this.stock = res;
       }
-    ,err=>console.log(err));
+      , err => console.log(err));
   }
 
-  getPuntosVenta(){
+  getPuntosVenta() {
     this.puntoventaservice.getPuntosVentas()
-    .subscribe(res=>{
-      this.puntoVenta = res;
-    });
+      .subscribe(res => {
+        this.puntoVenta = res;
+      });
   }
 
-  showDialogPuntoVenta(){
+  showDialogPuntoVenta() {
     this.displayPuntoVenta = true
   }
 
-  dardebaja(idproducto:number,idpuntoventa:number){
-    this.stockService.updateStocks(0,0,0,0,0,idproducto,0,'N',idpuntoventa).subscribe(res=>{
-      
+  dardebaja(idproducto: number, idpuntoventa: number) {
+    this.stockService.updateStocks(0, 0, 0, 0, 0, idproducto, 0, 'N', idpuntoventa).subscribe(res => {
+
       this.getStocks();
-    },err=>console.log(err))
+    }, err => console.log(err))
 
   }
 }
