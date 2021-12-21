@@ -20,16 +20,17 @@ export class StockListComponent implements OnInit {
   constructor(private stockService: CatStockService,
     private puntoventaservice: PuntosVentasService,
     private notificacion: NotificacionService, private route: ActivatedRoute) {
-    route.params.subscribe(val => {
+    route.params.subscribe(res => {
       this.ngOnInit();
     })
+    
   }
 
-  ngOnInit() {
-    this.getStocks();
-    this.getPuntosVenta();
+  async ngOnInit() {
+    await this.getStocks();
+    await this.getPuntosVenta();
   }
-  getStocks() {
+  async getStocks() {
     // this.stockService.getStocks().subscribe(
     //   res => {
     //     console.log(res)
@@ -37,18 +38,34 @@ export class StockListComponent implements OnInit {
     //   }, err => console.error(err)
 
     // );
-    this.stockService.findStockInventario().subscribe(
-      res => {
-        this.stock = res;
-      }
-      , err => console.log(err));
+    const stock = new Promise(async (resolve,reject)=>{
+      await this.stockService.findStockInventario().subscribe(
+        res => {
+          resolve(res);
+          
+        }
+        , err => console.log(err));
+    });
+
+  await stock.then(res => {this.stock = res;}).catch(e=>console.log(e));
+
+  console.log(this.stock);
+    
   }
 
-  getPuntosVenta() {
-    this.puntoventaservice.getPuntosVentas()
+  async getPuntosVenta() {
+    const puntoV = new Promise(async (resolve,reject)=>{
+      await this.puntoventaservice.getPuntosVentas()
       .subscribe(res => {
-        this.puntoVenta = res;
+        resolve(res);
+        
       });
+    });
+
+    await puntoV.then(res=>{
+      this.puntoVenta = res;
+    }).catch(e=>console.log(e));
+    
   }
 
   showDialogPuntoVenta() {

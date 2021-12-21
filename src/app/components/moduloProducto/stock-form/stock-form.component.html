@@ -7,7 +7,7 @@
                 <label id="lblcodigo" class="letter" for="codigo">Código</label>
             </div>
             <div class="col-md-5">
-                <input type="text" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
+                <input type="text" pKeyFilter="int" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" class="form-control" [(ngModel)]="this.idProductoPrueba" id="codigo" (input)="OnInitVacio($event.target.value)" (keyup.enter)="buscarStockProducto()" name="codigo" placeholder="Codigo">
 
             </div>
 
@@ -16,7 +16,7 @@
 
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
+                <input type="number" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
 
             </div>
             <div class="col-md-1">
@@ -24,8 +24,8 @@
 
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.precioUnit" id="PrecioUnit" name="2" placeholder="P. U" value="100">
-
+                <input type="number"step ="0.01" class="form-control" [(ngModel)]="this.precioUnit" id="PrecioUnit" name="2" placeholder="P. U" value="100">
+                
             </div>
         </div>
         <div class="row">
@@ -59,14 +59,14 @@
 
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.stockMin" id="stockMin" name="stockMin" placeholder="Min" value="100">
+                <input type="number" class="form-control" [(ngModel)]="this.stockMin" id="stockMin" name="stockMin" placeholder="Min" value="100">
 
             </div>
             <div class="col-md-1">
                 <label id="lblPrecioMay" class="letter" for="PrecioMay">P. May</label>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.precioMay" id="PrecioMay" name="PrecioMay" placeholder="P. May" value="100">
+                <input type="number"step ="0.01" class="form-control" [(ngModel)]="this.precioMay" id="PrecioMay" name="PrecioMay" placeholder="P. May" value="100">
 
             </div>
         </div>
@@ -103,14 +103,14 @@
 
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.stockMax" id="stockMax" name="stockMax" placeholder="Max" value="100">
+                <input type="number" class="form-control" [(ngModel)]="this.stockMax" id="stockMax" name="stockMax" placeholder="Max" value="100">
 
             </div>
             <div class="col-md-1">
                 <label id="lblPrecioDis" class="letter" for="PrecioDis">P. Dis</label>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" [(ngModel)]="this.precioDis" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
+                <input type="number"step ="0.01" class="form-control" [(ngModel)]="this.precioDis" id="PrecioDis" name="PrecioDis" placeholder="P. Dis" value="100">
 
             </div>
         </div>

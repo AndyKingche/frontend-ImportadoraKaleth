@@ -63,7 +63,7 @@
                 <label id="lblCodidoPro" class="letter" for="codigo">Código</label>
             </div>
             <div class="col-md-1">
-                <input style="min-width:85px;" type="text" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" (input)="encontrarProducto($event.target.value)" class="form-control" [(ngModel)]="this.codigoProducto" id="codigo" (keyup.enter)="buscarStockProducto()" name="codigo"
+                <input style="min-width:85px;" type="text" pKeyFilter="int" pTooltip="CODIGO DEL PRODUCTO" tooltipPosition="top" (input)="encontrarProducto($event.target.value)" class="form-control" [(ngModel)]="this.codigoProducto" id="codigo" (keyup.enter)="buscarStockProducto()" name="codigo"
                     placeholder="Codigo">
 
             </div>
@@ -77,7 +77,7 @@
                 <label id="lblCantidad" class="letter" for="cantidad">Cant</label>
             </div>
             <div class="col-md-1">
-                <input type="text" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
+                <input type="text" pKeyFilter="int" class="form-control" [(ngModel)]="this.cantidad" id="cantidad" name="cantidad" placeholder="Cantidad" value="100">
 
             </div>
             <!-- <div class="col-md-1">
