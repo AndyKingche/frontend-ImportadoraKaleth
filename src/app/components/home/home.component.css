@@ -1401,6 +1401,9 @@ body::-webkit-scrollbar {
     opacity: 1;
     top: 0;
 }
-
+.login__buttons {
+    background-image: linear-gradient(#049696, #0F4365);
+    font-family: 'Montserrat-bold';
+}
 
 /* finedición modal */

@@ -116,4 +116,8 @@ export class CatStockService {
     
     return this.http.get(`${this.URL}/codigoBarra`)
    }
+
+   stockfilter(categoria:string,diseno:string,medida:string){
+     return this.http.get(`${this.URL}/filter/${categoria}/${diseno}/${medida}`)
+   }
 }

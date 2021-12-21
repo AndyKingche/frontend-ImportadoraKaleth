@@ -40,7 +40,9 @@
                                 <a data-scroll-nav="0" href="#about">Acerca de Nosotros</a>
                             </li>
                             <li class="nav-item" *ngIf="activarButton">
-                                <a [routerLink]="['/login']" routerLinkActive="router-link-active">Entrar|Registarse</a>
+                                <a [routerLink]="" routerLinkActive="router-link-active" (click)="linkLogin()">Entrar|Registarse</a>
+                                <!-- <a [routerLink]="['/login']" routerLinkActive="router-link-active">Entrar|Registarse</a> -->
+
                             </li>
                             <li class="nav-item" *ngIf="activarSesion">
                                 <a pTooltip="{{usuariologeadosesion}}" [routerLink]="" routerLinkActive="router-link-active" (click)="closesesion()">
@@ -175,10 +177,40 @@
 
             <div class="content-top">
                 <h1>TIENDA</h1>
-                <div class="paginatorkaleth">
-                    <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
-                    </p-paginator>
+                <div class="container-fluid">
+                    <div class="row">
+                        <a ><i class="fab fa-searchengin"></i><label for="navigators">Búsqueda</label></a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="navigators">Categoria: </label>
+                            <p-dropdown [options]="categoriaFiltro" (ngModelChange)="isEnableCategoria($event)"  [(ngModel)]="categoriaFiltroEscogido" placeholder="Seleccionar..." optionLabel="nombreCategoria" [showClear]="true"></p-dropdown>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="navigators">Diseño: </label>
+                            <p-dropdown [options]="disenoFiltro" (ngModelChange)="isEnableDiseno($event)"  [(ngModel)]="disenoFiltroEscogido" placeholder="Seleccionar..." optionLabel="nombre" [showClear]="true"></p-dropdown>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="navigators">Medida: </label>
+                            <p-dropdown [options]="tallaFiltro" (ngModelChange)="isEnableMedida($event)"  [(ngModel)]="tallaFiltroEscogido" placeholder="Seleccionar..." optionLabel="medida" [showClear]="true"></p-dropdown>
+                        </div>  
+                        
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-md-6">
+                            <button pButton type="button" class="login__buttons" (click)="encontrarProductoFiltrar()">Filtrar</button>
+                        </div>  -->
+                        <div class="col-md-6">
+                            <button pButton type="button" class="login__buttons" (click)="mostrarTodosProductos()">Volver a mostrar todos</button>
+                        </div> 
+                    </div>
+
+                    <div class="paginatorkaleth">
+                        <p-paginator [first]="1" [rows]="1" [totalRecords]="cantidadExistente" (onPageChange)="paginate($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false">
+                        </p-paginator>
+                    </div>
                 </div>
+                
 
                 <div class="content-top1" *ngFor="let stocks of stock; let i=index">
                     <div class="col-md-3 col-md2">
@@ -489,7 +521,7 @@
                         <span class="p-column-title">Cantidad</span>
                         <p-inputNumber [(ngModel)]="listacarrito.cantidadPe" class="spiner" width="100px" (onInput)="obtenerCantidad(listacarrito.cantidadPe, listacarrito.catProducto.idProductos, listacarrito.catPuntosVenta.idPuntosVenta)" [showButtons]="true" inputId="minmax-buttons"
                             [min]="0" [max]="100"></p-inputNumber>
-                        <!-- <input type="number" class="p-inputtext-sm" placeholder="Small" pInputText > -->
+                        
                     </td>
                     <td class="card__word--row">
                         <span class="p-column-title">Detalles</span>
@@ -544,7 +576,7 @@
 </div>
 
 
-<p-dialog position="center" [(visible)]="displayImagenes">
+<!-- <p-dialog position="center" [(visible)]="displayImagenes">
     <div class="contentImages">
         <div class="container-fluid">
             <div class="row">
@@ -578,8 +610,6 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <!-- <button pButton class="botonCarrito" type="button" icon="fa fa-cart-plus" iconPos="left" label="AÑADIR AL CARRITO"></button> -->
-
                         </div>
                     </div>
 
@@ -589,4 +619,65 @@
         </div>
 
     </div>
-</p-dialog>
+</p-dialog> -->
+
+<p-sidebar [(visible)]="displayImagenes" [fullScreen]="true" [baseZIndex]="10000">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+
+                <!-- <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="7" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="item.urlFoto" class="fotoGrande" />
+                    </ng-template>
+
+                    <ng-template pTemplate="thumbnail" let-item>
+                        <div class="p-grid p-nogutter p-justify-center">
+                            <img [src]="item.urlFoto" style=" width: 100px;
+                        height: 125px;display: block;" />
+                        </div>
+                    </ng-template>
+
+                </p-galleria> -->
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="{{this.imagenObtenidaMostrar}}" alt="" height="450">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{{this.stockAuxModal.catProducto.catDiseno.urlFoto}}" (click)="cambiarImagen(this.stockAuxModal.catProducto.catDiseno.urlFoto)" alt="" height="100">
+                    </div>
+                    <div class="col-md-2">
+                        <img src="{{this.stockAuxModal.catProducto.catDiseno.urlFoto1}}" (click)="cambiarImagen(this.stockAuxModal.catProducto.catDiseno.urlFoto1)" alt="" height="100">
+
+                    </div>
+                    <div class="col-md-3">
+                <img src="{{this.stockAuxModal.catProducto.catDiseno.urlFoto2}}" (click)="cambiarImagen(this.stockAuxModal.catProducto.catDiseno.urlFoto2)" alt="" height="100">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+
+                    <h3 class="nombreDetallee">{{detalle}}</h3>
+
+                    <label class="precioModal">${{precioModal}}</label>
+                </div>
+                <div class="row">
+                    <p class="detalleProducto">{{detalle2}}</p>
+
+                </div>
+                
+                <div class="row">
+                 
+
+                        <button pButton pRipple type="button" class="login__buttons p-button-rounded" icon="fas fa-cart-plus" label="Añadir al Carrito" (click)="Agregar(this.stockAuxModal)" *ngIf="this.stockAuxModal.cantidad >0" ></button>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>    
+</p-sidebar>

@@ -42,6 +42,7 @@ import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import * as firebase from 'firebase/app';
 import { LocationStrategy } from '@angular/common';
 import { ParametrosService } from 'src/app/services/parametros.service';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -111,7 +112,37 @@ export class HomeComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   @Input()
   stock: any = [];
-
+  stockAuxModal:cat_stockAuxiliar={
+    cantidad: 0,
+    catProducto: {
+      idProductos:0,
+      catCategoria:{ idCategoria:0,
+        descripcion:'',
+        nombreCategoria:''},
+      catDiseno:{idDisenos:0,
+        nombre:'',
+        urlFoto:'',
+        urlFoto1:'',
+        urlFoto2:''},
+      catTalla:{idTallas:0,
+        medida:'',
+        descripcion:'',
+        tipo:''},
+      //codProducto?:number,
+      codProducto:''},
+    catPuntosVenta: {idPuntosVenta:0,
+      nombreLocal:'',
+      direccion:'',
+      ciudad:'',
+      telefono:0,
+      urlMapa:''},
+    existe: '',
+    precioDistribuidor: 0,
+    precioMayor: 0,
+    precioUnit: 0,
+    stockMax: 0,
+    stockMin: 0
+  };
 
   mostrarCarrito: boolean = false;
   mostrarInicio: boolean = true
@@ -145,7 +176,7 @@ export class HomeComponent implements OnInit {
   cantidadExistente: number = 0;
   listaDetallePedido: peDetallePedido[];
   valorTotalCarrito: number = 0;
-
+  cantidadNuevaAux: number = 0;
 
   //variables modale mostrar productos conm mas imagenes
   displayImagenes: boolean = false;
@@ -232,21 +263,38 @@ export class HomeComponent implements OnInit {
   puedeComprar: boolean = false;
   displayRegister: boolean = false;
   puedeRegistrarCliente: boolean = false;
+  categoriaFiltro: Categorias;
+  categoriaFiltroEscogido: any = [];
+  disenoFiltro: Disenos;
+  disenoFiltroEscogido: any = [];
+  tallaFiltro: Tallas;
+  tallaFiltroEscogido: any = [];
   usuariologeadosesion = "";
+
+  //variables para el filtro más  dinamico
+  nombredisenoFilro = null;
+  nombrecategoriaFltro = null;
+  medidaFiltro = null;
+  //
+  imagenObtenidaMostrar = null;
   async ngOnInit() {
     //this.getStocksExistents();
-    this.getParametros();
+    await this.getParametros();
     await this.getStocksExistentsPuntoVenta();
-    this.getCantExistent();
+    await this.getCantExistent();
     this.listaDetallePedido = [];
     this.listaCheckout = [];
     //this.getUserId();
-    this.getuserTOKEN();
-    this.getPuntosVentas();
+    await this.getuserTOKEN();
+    await this.getPuntosVentas();
+     await this.getCategoria();
+     await this.getDisenno();
+    await this.getTallas();
 
 
-
-
+  }
+  linkLogin(){
+    this.router.navigate(['/login'])
   }
 
   closesesion() {
@@ -259,6 +307,118 @@ export class HomeComponent implements OnInit {
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
     this.valorTotalCarrito = 0;
+  }
+//Filtrar
+  async getCategoria(){
+    const  category= new Promise(async (resolve,reject)=>{
+      await  this.categoriaservices.getCategorias().subscribe(res=>{
+        resolve(res);
+        
+      })
+    });
+
+    await category.then(res=>{
+      this.categoriaFiltro =res;
+    }).catch(e=>console.log(e));
+    
+  
+  }
+  async getDisenno(){
+    const dis = new Promise(async (resolve,reject)=>{
+      await this.diesnosservice.getDisenos().subscribe(res=>{
+        resolve(res)
+        
+      })
+    });
+
+    await  dis.then(res=>{
+      this.disenoFiltro =  res;
+    }).catch(e=>console.log(e));
+   
+    
+  }
+  async getTallas(){
+    const sizeTalla= new Promise(async (resolve,reject)=>{
+      await this.medidaservice.getTallas().subscribe(res=>{
+        resolve(res);
+      })
+    })
+    await sizeTalla.then(res=>{
+      this.tallaFiltro =  res;
+    }).catch(e=>console.log(e));
+   
+  }
+
+  cambiarImagen(imagen:any){
+    this.imagenObtenidaMostrar = imagen;
+  }
+  async mostrarTodosProductos(){
+    await this.getStocksExistentsPuntoVenta();
+    this.disenoFiltroEscogido = null;
+    this.categoriaFiltroEscogido = null;
+    this.tallaFiltroEscogido = null;
+    this.nombrecategoriaFltro=null;
+      this.nombredisenoFilro=null;
+      this.medidaFiltro=null;
+  }
+ async encontrarProductoFiltrar() {
+  let nombrediseno = '';
+  let nombrecategoria = '';
+  let medida = '';
+if(Object.keys(this.disenoFiltroEscogido).length==0 &&
+Object.keys(this.categoriaFiltroEscogido).length==0 &&
+Object.keys(this.tallaFiltroEscogido).length==0
+){
+  this.notificacion.showInfo('Escoga por lo menos una opción', '**Filtrar')
+}else{
+  if(this.disenoFiltroEscogido.nombre!=null){
+    nombrediseno = this.disenoFiltroEscogido.nombre;
+  }else{
+    nombrediseno = "vacio";
+  }
+  if(this.categoriaFiltroEscogido.nombreCategoria!=null){
+    nombrecategoria = this.categoriaFiltroEscogido.nombreCategoria;
+  }else{
+    nombrecategoria = "vacio";
+  }if(this.tallaFiltroEscogido.medida!=null){
+    medida = this.tallaFiltroEscogido.medida;
+  }else{
+    medida = "vacio";
+  }
+  
+
+    const productosExistentes = new Promise(async (resolve, reject) => {
+      await this.stockService.stockfilter(nombrecategoria,nombrediseno, medida)
+      .subscribe(res=>{
+        resolve(res);
+      }, err => console.error(err))
+
+    });
+
+    await productosExistentes.then(res => this.stock = res);
+    
+    nombrediseno = '';
+    nombrecategoria = '';
+    medida = ''; 
+
+}
+   
+
+    
+    
+     
+    
+    
+    //console.log(productoBuscar.length)
+    // if (productoBuscar.length != 0) {
+    //   // this.stockService.findStockbyParametersPuntoVenta(this.idPuntoVentaPrueba, productoBuscar).subscribe(res => {
+    //   //   //this.stockConsulta = res;
+    //   // }, err => console.log(err));
+    // }
+    // else {
+    //   //this.consultarstockhabilitado(this.idPuntoVentaPrueba);
+    // }
+
   }
 
   async getuserTOKEN() {
@@ -282,7 +442,7 @@ export class HomeComponent implements OnInit {
           )
         })
       });
-      this.idCliente = await getNewCliente.then(res => res[0].idCliente);
+      await getNewCliente.then(res =>{ this.idCliente = res[0].idCliente}).catch(e=>console.log(e));
       if (this.idCliente) {
         this.puedeComprar = true;
       } else {
@@ -316,13 +476,13 @@ export class HomeComponent implements OnInit {
   ShowInicio() {
     this.mostrarCarrito = false;
     this.mostrarInicio = true;
-    this.router.navigateByUrl("#productos")
+    this.router.navigateByUrl("productos")
   }
   enviarLista() {
 
     //this.nuevaListaDetallePedidio.emit(this.listaDetallePedido);
   }
-  paginate(event) {
+  async paginate(event) {
 
 
     if (event.page == 0) {
@@ -339,7 +499,7 @@ export class HomeComponent implements OnInit {
     //event.pageCount = Total number of pages
 
     //this.getStocksExistents();
-    this.getStocksExistentsPuntoVenta();
+    await this.getStocksExistentsPuntoVenta();
   }
 
   async getStocksExistentsPuntoVenta() {
@@ -352,7 +512,7 @@ export class HomeComponent implements OnInit {
 
     });
 
-    await productosExistentes.then(res => this.stock = res);
+    await productosExistentes.then(res => {this.stock = res}).catch(e=>console.log(e));
     
     // this.stockService.getStockAllExistPuntoVenta(this.idPuntosVentaStockMostrar, this.inicio, this.numeroFilas).subscribe(
     //   res => {
@@ -361,30 +521,48 @@ export class HomeComponent implements OnInit {
     //   }, err => console.error(err)
 
     // );
+
+   
   }
 
-  getStocksExistents() {
-    this.stockService.getAllStockExistents(this.inicio, this.numeroFilas).subscribe(
-      res => {
-
-        this.stock = res;
-      }, err => console.error(err)
-
-    );
+  async getStocksExistents() {
+    const existentes = new Promise(async (resolve,reject)=>{
+      await  this.stockService.getAllStockExistents(this.inicio, this.numeroFilas).subscribe(
+        res => {
+  
+          resolve(res);
+          
+        }, err => console.error(err)
+  
+      );
+    });
+    
+    await existentes.then(res=>{
+      this.stock = res;
+    }).catch(e=>console.log(e));
+   
   }
 
   imprimirProductos() {
 
   }
-  getCantExistent() {
-    this.stockService.getCantExistents().subscribe(
-      res => {
+  async getCantExistent() {
+    const cantidadExiste = new Promise(async (resolve,reject)=>{
+      await this.stockService.getCantExistents().subscribe(
+        res => {
+  
+          resolve(res)
 
-        this.cantidadExistente = Number(res);
-        this.cantidadExistente = Math.ceil((this.cantidadExistente) / 12);
-      }, err => console.error(err)
+        }, err => console.error(err)
+  
+      );
+    });
 
-    );
+    await cantidadExiste.then(res=>{
+      this.cantidadExistente = Number(res);
+      this.cantidadExistente = Math.ceil((this.cantidadExistente) / 12);
+    }).catch(e=>console.log(e));
+    
   }
 
 
@@ -438,7 +616,7 @@ export class HomeComponent implements OnInit {
         )
       })
     });
-    this.idCliente = await getNewCliente.then(res => res[0].idCliente);
+    await getNewCliente.then(res => this.idCliente =  res[0].idCliente).catch(e=>console.log(e));
     this.activarButton = false;
 
   }
@@ -450,6 +628,8 @@ export class HomeComponent implements OnInit {
     if (this.puedeComprar) {
 
       this.peDetallePedido.cantidadPe = 1;
+      
+
       this.peDetallePedido.descripcion = objeto.catProducto.catCategoria.nombreCategoria + " " + objeto.catProducto.catDiseno.nombre + "-" + objeto.catProducto.catTalla.medida;
       this.peDetallePedido.valorUnit = objeto.precioUnit;
       this.peDetallePedido.valorTotal = Number(objeto.precioUnit * this.peDetallePedido.cantidadPe);
@@ -473,8 +653,10 @@ export class HomeComponent implements OnInit {
             && this.listaDetallePedido[x].catStock.id.idPuntosVenta == this.peDetallePedido.catStock.id.idPuntosVenta
           ) {
 
+            
             this.listaDetallePedido[x].cantidadPe++;
-
+            this.notificacion.showInfo(this.peDetallePedido.descripcion+'\nCantidad: '+this.listaDetallePedido[x].cantidadPe,'Se Agrego al Carrito')
+            
             let TotalAux = 0;
 
             TotalAux = this.listaDetallePedido[x].cantidadPe * this.listaDetallePedido[x].valorUnit;
@@ -533,6 +715,7 @@ export class HomeComponent implements OnInit {
       //this.idCliente=0;
       //this.auxcantidadPedido = 0;
       //this.cantidadPedido = 0;
+      
     } else {
       this.router.navigateByUrl('login')
     }
@@ -747,11 +930,14 @@ export class HomeComponent implements OnInit {
   ];
   // mostrar imagenes completas
   showDialogImagenes(stocks: any) {
+    this.stockAuxModal = stocks;
+    console.log(this.stockAuxModal);
     this.images = [];
 
-    this.stringUrlFoto1 = stocks.catProducto.catDiseno.urlFoto;
-    this.stringUrlFoto2 = stocks.catProducto.catDiseno.urlFoto1;
-    this.stringUrlFoto3 = stocks.catProducto.catDiseno.urlFoto2;
+    // this.stringUrlFoto1 = stocks.catProducto.catDiseno.urlFoto;
+    this.imagenObtenidaMostrar = this.stockAuxModal.catProducto.catDiseno.urlFoto;
+    // this.stringUrlFoto2 = stocks.catProducto.catDiseno.urlFoto1;
+    // this.stringUrlFoto3 = stocks.catProducto.catDiseno.urlFoto2;
 
 
     this.detalle = stocks.catProducto.catCategoria.nombreCategoria + " " + stocks.catProducto.catDiseno.nombre + " Talla: " + stocks.catProducto.catTalla.medida;
@@ -774,15 +960,23 @@ export class HomeComponent implements OnInit {
   puntosVentas: any = [];
   urlSafe: SafeResourceUrl;
 
-  getPuntosVentas() {
-    this.puntosVentaServices.getPuntosVentas().subscribe(
-      res => {
+  async getPuntosVentas() {
+    const puntoV = new Promise(async (resolve,reject)=>{
+    await  this.puntosVentaServices.getPuntosVentas().subscribe(
+  res => {
+    resolve(res);
+   
+  }, err => console.error(err)
 
-        this.puntosVentas = res;
-        this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
-      }, err => console.error(err)
+);
+    });
 
-    );
+    await puntoV.then(res=>{
+      this.puntosVentas = res;
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(res[0].urlMapa);
+    }).catch(e=>console.log(e));
+    
+   
   }
 
 
@@ -812,53 +1006,220 @@ export class HomeComponent implements OnInit {
   vision = '';
   idPuntosVentaStockMostrar = 0;
 
-  getParametros() {
-    this.parametroServicio.gerParametros().subscribe(
-      res => {
-        this.parametros = res;
-        this.parametros = res;
-        this.idParametro = res[0].idParametro;
-        this.textoBanner = res[0].textoBanner;
-        this.mensajePuntosVenta = res[0].mensajePuntosVenta;
-        this.fraseFooter = res[0].fraseFooter;
-        this.tituloServicios = res[0].tituloServicios;
-        this.servicio1 = res[0].servicio1;
-        this.servicio2 = res[0].servicio2;
-        this.servicio3 = res[0].servicio3;
-        this.servicio4 = res[0].servicio4;
-        this.servicio5 = res[0].servicio5;
-        this.tituloInformacion = res[0].tituloInformacion;
-        this.telefono = res[0].telefono;
-        this.celular = res[0].celular;
-        this.correo1 = res[0].correo1;
-        this.correo2 = res[0].correo2;
-        this.direccion = res[0].direccion;
-        this.urlFotoBanner1 = res[0].urlFotoBanner1;
-        this.urlFotoBanner2 = res[0].urlFotoBanner2;
-        this.urlFotoBanner3 = res[0].urlFotoBanner3;
-        this.conocenos = res[0].conocenos;
-        this.mision = res[0].mision;
-        this.vision = res[0].vision;
-        this.idPuntosVentaStockMostrar = Number(res[0].idPuntosVentaStock);
-      },
-      err => console.error(err)
-    );
+  async getParametros() {
+    const parametros = new Promise (async (resolve,reject)=>{
+      await this.parametroServicio.gerParametros().subscribe(
+        res => {
+          resolve(res)
+        },
+        err => console.error(err)
+      );
+    });
+     await parametros.then(res=>{
+       
+      this.parametros = res;
+      this.parametros = res;
+      this.idParametro = res[0].idParametro;
+      this.textoBanner = res[0].textoBanner;
+      this.mensajePuntosVenta = res[0].mensajePuntosVenta;
+      this.fraseFooter = res[0].fraseFooter;
+      this.tituloServicios = res[0].tituloServicios;
+      this.servicio1 = res[0].servicio1;
+      this.servicio2 = res[0].servicio2;
+      this.servicio3 = res[0].servicio3;
+      this.servicio4 = res[0].servicio4;
+      this.servicio5 = res[0].servicio5;
+      this.tituloInformacion = res[0].tituloInformacion;
+      this.telefono = res[0].telefono;
+      this.celular = res[0].celular;
+      this.correo1 = res[0].correo1;
+      this.correo2 = res[0].correo2;
+      this.direccion = res[0].direccion;
+      this.urlFotoBanner1 = res[0].urlFotoBanner1;
+      this.urlFotoBanner2 = res[0].urlFotoBanner2;
+      this.urlFotoBanner3 = res[0].urlFotoBanner3;
+      this.conocenos = res[0].conocenos;
+      this.mision = res[0].mision;
+      this.vision = res[0].vision;
+      this.idPuntosVentaStockMostrar = Number(res[0].idPuntosVentaStock);
+     }).catch(e=>console.log(e));
+    
   }
 
-  modal() {
-    let elem: HTMLInputElement;
-    const modalsito = document.querySelector('.modal__kaleth');
+  async isEnableCategoria(cat:any){
+    if(cat==null){
+      this.nombrecategoriaFltro = null;
+      if(this.nombrecategoriaFltro==null && this.nombredisenoFilro==null && this.medidaFiltro == null ){
+        await this.mostrarTodosProductos();
 
-    modalsito.className = 'modal__kaleth';
+      }else{
+        if(this.medidaFiltro==null){
+          this.medidaFiltro = 'vacio';
+         
+        }
+        if(this.nombredisenoFilro ==null){
+          this.nombredisenoFilro = 'vacio';
+        }
+        const productosExistentes = new Promise(async (resolve, reject) => {
+          await this.stockService.stockfilter( 'vacio',this.nombredisenoFilro, this.medidaFiltro)
+          .subscribe(res=>{
+            resolve(res);
+          }, err => console.error(err))
+    
+        });
+    
+        await productosExistentes.then(res => this.stock = res);
+
+        if(this.medidaFiltro== 'vacio'){
+          this.medidaFiltro = null;
+         
+        }
+        if(this.nombredisenoFilro == 'vacio'){
+          this.nombredisenoFilro = null;
+        }
+        
+      }
+    }else{
+      this.nombrecategoriaFltro = cat.nombreCategoria;
+      
+      if(this.nombredisenoFilro==null){
+        this.nombredisenoFilro = 'vacio';
+      }
+      if(this.medidaFiltro==null){
+        this.medidaFiltro = 'vacio';
+      }
+      const productosExistentes = new Promise(async (resolve, reject) => {
+        await this.stockService.stockfilter(cat.nombreCategoria,this.nombredisenoFilro, this.medidaFiltro)
+        .subscribe(res=>{
+          resolve(res);
+        }, err => console.error(err))
+  
+      });
+  
+      await productosExistentes.then(res => this.stock = res);
+     
+      if(this.nombredisenoFilro== 'vacio'){
+        this.nombredisenoFilro = null;
+      }
+      if(this.medidaFiltro== 'vacio'){
+        this.medidaFiltro = null;
+      }
+    }
+  }
+
+
+  async isEnableDiseno(dis:any){
+    if(dis==null){
+      this.nombredisenoFilro = null;
+      if(this.nombrecategoriaFltro==null && this.nombredisenoFilro==null && this.medidaFiltro == null ){
+        await this.mostrarTodosProductos();
+
+      }else{
+        if(this.nombrecategoriaFltro==null){
+          this.nombrecategoriaFltro = 'vacio';
+        }
+        if(this.medidaFiltro ==null){
+          this.medidaFiltro = 'vacio';
+        }
+        const productosExistentes = new Promise(async (resolve, reject) => {
+          await this.stockService.stockfilter( this.nombrecategoriaFltro,'vacio', this.medidaFiltro)
+          .subscribe(res=>{
+            resolve(res);
+          }, err => console.error(err))
+    
+        });
+    
+        await productosExistentes.then(res => this.stock = res);
+        if(this.nombrecategoriaFltro== 'vacio'){
+          this.nombrecategoriaFltro = null;
+        }
+        if(this.medidaFiltro == 'vacio'){
+          this.medidaFiltro = null;
+        }      
+      }
+
+    }else{
+      this.nombredisenoFilro = dis.nombre;
+      if(this.nombrecategoriaFltro==null){
+        this.nombrecategoriaFltro = 'vacio';
+      }
+      if(this.medidaFiltro==null){
+        this.medidaFiltro = 'vacio';
+      }
+      const productosExistentes = new Promise(async (resolve, reject) => {
+        await this.stockService.stockfilter(this.nombrecategoriaFltro,dis.nombre, this.medidaFiltro)
+        .subscribe(res=>{
+          resolve(res);
+        }, err => console.error(err))
+  
+      });
+  
+      await productosExistentes.then(res => this.stock = res);
+
+      if(this.nombrecategoriaFltro== 'vacio'){
+        this.nombrecategoriaFltro = null;
+      }
+      if(this.medidaFiltro == 'vacio'){
+        this.medidaFiltro = null;
+      }
+    }
 
   }
 
-  cerrarmodal() {
-    let elem: HTMLInputElement;
-    const modalsito = document.querySelector('.modal__kaleth');
+  async isEnableMedida(med:any){
+    if(med==null){
+      this.medidaFiltro = null;
+      if(this.nombrecategoriaFltro==null && this.nombredisenoFilro==null && this.medidaFiltro == null ){
+        await this.mostrarTodosProductos();
 
-    modalsito.className = 'modal__kaleth hidden';
-
+      }else{
+        if(this.nombrecategoriaFltro==null){
+          this.nombrecategoriaFltro = 'vacio';
+        }
+        if(this.nombredisenoFilro ==null){
+          this.nombredisenoFilro = 'vacio';
+        }
+        const productosExistentes = new Promise(async (resolve, reject) => {
+          await this.stockService.stockfilter( this.nombrecategoriaFltro,this.nombredisenoFilro, 'vacio')
+          .subscribe(res=>{
+            resolve(res);
+          }, err => console.error(err))
+    
+        });
+    
+        await productosExistentes.then(res => this.stock = res);
+        if(this.nombrecategoriaFltro== 'vacio'){
+          this.nombrecategoriaFltro = null;
+        }
+        if(this.nombredisenoFilro == 'vacio'){
+          this.nombredisenoFilro = null;
+        }
+      }
+    }else{
+      this.medidaFiltro = med.medida;
+      if(this.nombrecategoriaFltro==null){
+        this.nombrecategoriaFltro = 'vacio';
+      }
+      if(this.nombredisenoFilro ==null){
+        this.nombredisenoFilro = 'vacio';
+      }
+      const productosExistentes = new Promise(async (resolve, reject) => {
+        await this.stockService.stockfilter( this.nombrecategoriaFltro,this.nombredisenoFilro, med.medida)
+        .subscribe(res=>{
+          resolve(res);
+        }, err => console.error(err))
+  
+      });
+  
+      await productosExistentes.then(res => this.stock = res);
+      if(this.nombrecategoriaFltro== 'vacio'){
+        this.nombrecategoriaFltro = null;
+      }
+      if(this.nombredisenoFilro == 'vacio'){
+        this.nombredisenoFilro = null;
+      }
+      
+    }
   }
 
 }

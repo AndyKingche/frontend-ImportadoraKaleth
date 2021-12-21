@@ -16,17 +16,24 @@ export class AuthGuard implements CanActivate {
     // : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
      {
     const rolObtenido = new Promise(async(resolve, reject) => {
-      await this.authservice.getUserLogged().subscribe(
-        res=>{
-          if(res){
-            resolve(res[0].rol)
+      try {
+        await this.authservice.getUserLogged().subscribe(
+          res=>{
+            console.log(res)
+            if(res){
+              resolve(res[0].rol)
+            }
+            else{
+            this.ruta.navigate(['/login']);
+            this.cookieService.delete('token');
+            }
           }
-          else{
-          this.ruta.navigate(['/login']);
-          this.cookieService.delete('token');
-          }
-        }
-      )
+        )  
+      } catch (error) {
+        this.ruta.navigate(['/login']);
+        this.cookieService.delete('token');
+      }
+      
       
     });
 
@@ -38,6 +45,7 @@ export class AuthGuard implements CanActivate {
     this.ruta.navigate(['/login']);
     this.cookieService.delete('token');
   }
+
     
     // return this.authservice.getUserLogged()
     // .pipe(map(

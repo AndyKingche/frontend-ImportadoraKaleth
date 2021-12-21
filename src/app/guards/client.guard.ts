@@ -10,21 +10,54 @@ import { CookieService } from "ngx-cookie-service";
 export class ClientGuard implements CanActivate {
   constructor(private authservice:UsuariosService, private ruta:Router,private cookieService:CookieService){}
 
-  canActivate(
+  async canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authservice.getUserLogged().pipe(map(
-      res=>{
-        if(res[0].rol==3){
-          return true;
-
-        }else{
+    state: RouterStateSnapshot): Promise<boolean>{
+    //Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    
+      const rolObtenido = new Promise(async(resolve, reject) => {
+        try {
+          await this.authservice.getUserLogged().subscribe(
+            res=>{
+              console.log(res)
+              if(res){
+                resolve(res[0].rol)
+              }
+              else{
+              this.ruta.navigate(['/login']);
+              this.cookieService.delete('token');
+              }
+            }
+          )  
+        } catch (error) {
           this.ruta.navigate(['/login']);
           this.cookieService.delete('token');
         }
+        
+        
+      });
+  
+    let rol = await rolObtenido.then(res=>res);
+    //console.log("este es el rol"+rol)
+    if(rol == 3){
+      return true;
+    }else{
+      this.ruta.navigate(['/login']);
+      this.cookieService.delete('token');
+    }
+  
+    // return this.authservice.getUserLogged().pipe(map(
+    //   res=>{
+    //     if(res[0].rol==3){
+    //       return true;
+
+    //     }else{
+    //       this.ruta.navigate(['/login']);
+    //       this.cookieService.delete('token');
+    //     }
       
-      }
-    ));
+    //   }
+    // ));
   }
   
 }

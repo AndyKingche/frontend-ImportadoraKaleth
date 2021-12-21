@@ -17,7 +17,7 @@ import { Estadocivil } from 'src/app/models/Estadocivil';
 import { NotificacionService } from "../../services/notificacion.service";
 import { Clientes } from '../../models/Clientes';
 import { ClientesService } from '../../services/clientes.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 declare let $:any;
 @Component({
@@ -97,6 +97,7 @@ mensaje:string="";
 emailRecuperacion:string="";
 puedeRegistrarCliente:boolean=false;
 isloading:boolean=false;
+disabled:boolean=false;
  // autentificacion: AngularFireAuth;
   constructor(private auth: AngularFireAuth, private ruta : Router, private userSservice:UsuariosService, private cookieService:CookieService,
     private generoService:GeneroService, private civilService: EstadoCivilService, private notificacion:NotificacionService,
@@ -106,11 +107,8 @@ isloading:boolean=false;
   
   regexpresion: RegExp= /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
 
-  ngOnInit() {
-    this.getGenero();
-    this.getEstadoCivil();
-   // $('<input/ >').attr({"type":"password"}).appendTo('container-fluid');
-   this.verUsuarioLogeado()
+  async ngOnInit() {
+    
   }
 
   async verUsuarioLogeado(){
@@ -158,8 +156,55 @@ isloading:boolean=false;
         this.user.telefono = res[0].telefono;
       }else{
         this.puedeRegistrarCliente = true;
+        this.disabled =true;
       }
     })
+  }
+  CancelarRegistro(){
+    this.user.email='';
+    this.user.nombre = '';
+    this.user.apellido = '';
+    this.user.cedula = '';
+    this.user.direccion = '';
+    this.user.telefono = '';
+    this.displayRegister = false;
+    this.disabled = false;
+  }
+  async buscarCli(){
+    //console.log(event)
+    let nuevoUsuario;
+    if(this.user.email.length>5){
+      const UserRegister = new Promise(async (resolve,reject)=>{
+        await  this.userSservice.getUserByEmail(this.user.email).subscribe(res=>{
+          resolve(res);
+        })
+       });
+  
+       await  UserRegister.then(res=>nuevoUsuario = res);
+       
+      if(Object.keys(nuevoUsuario).length==0){
+          this.clienteService.findClienteByEmail(this.user.email).subscribe(res=>{
+        if(res!=0){
+          this.puedeRegistrarCliente = false;
+          this.user.nombre = res[0].nombreCli;
+          this.user.apellido = res[0].apellidoCli;
+          this.user.cedula = res[0].cedulaCli;
+          this.user.direccion = res[0].direccionCli;
+          this.user.telefono = res[0].telefono;
+          this.disabled =true;
+        }else{
+          this.puedeRegistrarCliente = true;
+          this.disabled =true;
+        }
+      })
+      }else{
+        this.notificacion.showError('El email ya se encuentra registrado','**Email ya existe')
+      }
+    }else{
+      this.notificacion.showError('El campo esta vacio o el email no esta correcto','**Email')
+
+    }
+    
   }
 
 async logingoogle(){
@@ -243,10 +288,18 @@ try {
     this.displayRegister = true;
 }
 
-getGenero(){
-  this.generoService.getGeneros().subscribe(res=>{
+async getGenero(){
+  const genero= new Promise(async (resolve,reject)=>{
+    await this.generoService.getGeneros().subscribe(res=>{
+      resolve(res);
+    },err=>console.log(err))
+  });
+
+  await genero.then(res=>{
     this.genero = res;
-  },err=>console.log(err))
+
+  });
+  
 }
 getEstadoCivil(){
   this.civilService.getEstadociviles().subscribe(res=>{

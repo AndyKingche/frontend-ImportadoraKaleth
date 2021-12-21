@@ -79,7 +79,7 @@ register(email:string,password:string){
 
   getUserLogged(){
     let token = this.getToken();
-//console.log(token);
+    //console.log(token);
 try {
   if(token){
 

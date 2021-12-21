@@ -29,13 +29,20 @@
 
 
 <p-dialog position="top" [(visible)]="displayRegister" [modal]="true">
-    <div class="login__contentRegistro">
+    <!-- <div class="login__contentRegistro"> -->
         <h5>FORMULARIO DE REGISTRO</h5>
         <div class="container-fluid">
+<div class="col-md-6">
+    <!-- <input type="email" placeholder="CORREO" (input)="buscarCliente($event.target.value)" class="controlsRegistro" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email"> -->
+    <input type="email" placeholder="CORREO" class="controlsRegistro" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
 
-            <input type="email" placeholder="CORREO" (input)="buscarCliente($event.target.value)" class="controlsRegistro" pInputText [(ngModel)]="user.email" [email]="true" id="email" name="email">
+</div>
+<div class="col-md-6">
+    <button class="login__buttonsRegistrarse" (click)="buscarCli()">Examinar</button>
+</div>
             <!-- <small id="username2-help" class="p-invalid">{{mensaje}}</small> -->
-            <input type="text" placeholder="NOMBRES" class="controlsRegistro" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre" name="nombre">
+            <div class="container-fluid" *ngIf="disabled">
+                <input type="text" placeholder="NOMBRES" class="controlsRegistro" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.nombre" id="nombre" name="nombre">
             <input type="text" placeholder="APELLIDOS" class="controlsRegistro" [pKeyFilter]="regexpresion" pInputText [(ngModel)]="user.apellido" id="apellido" name="apellido">
             <input type="text" placeholder="CÉDULA" class="controlsRegistro" pKeyFilter="num" maxlength=10 pInputText [(ngModel)]="user.cedula" id="cedula" name="cedula">
             <input type="text" placeholder="DIRECCIÓN" class="controlsRegistro" pInputText [(ngModel)]="user.direccion" id="direccion" name="direccion">
@@ -55,12 +62,17 @@
 
                 <div class="botonAlinear">
                     <button class="login__buttonsRegistrarse" (click)="Resgistrar()">REGISTRARSE</button>
+                    
+
                 </div>
 
             </div>
+            </div>
+            <button class="login__buttonsRegistrarse" (click)="CancelarRegistro()">Cancelar</button>
         </div>
+        <!-- aqui termina elprimer div -->
 
-    </div>
+    <!-- </div> -->
 </p-dialog>
 
 <p-dialog class="modalPass" position="top" [(visible)]="displayForgot" [modal]="true">
